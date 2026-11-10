@@ -11,5 +11,6 @@ ffmpeg "${q[@]}" -f lavfi -i "aevalsrc='0.5*sin(2*PI*170*t)*gt(sin(2*PI*0.6*t),-
 ffmpeg "${q[@]}" -f lavfi -i "anoisesrc=d=0.6:c=white:a=0.3" -af "afade=t=in:d=0.4,afade=t=out:st=0.4:d=0.2,highpass=f=800" "$d/whoosh.wav"
 ffmpeg "${q[@]}" -f lavfi -i "color=c=0x1E6E6E:s=1200x360" -vf "drawtext=fontfile=assets/fonts/BarlowCondensed-Bold.ttf:text='MARCA':fontsize=220:fontcolor=white:x=(w-tw)/2:y=(h-th)/2" -frames:v 1 "$d/logo_placa.png"
 ffmpeg "${q[@]}" -f lavfi -i "color=c=white@0.0:s=400x120,format=rgba" -vf "drawtext=fontfile=assets/fonts/BarlowCondensed-Bold.ttf:text='MARCA':fontsize=100:fontcolor=white:x=(w-tw)/2:y=(h-th)/2" -frames:v 1 "$d/logo_bug.png"
+python3 tools/motion.py plantilla cierre -p '{"logo":"examples/media/logo_placa.png","frase":"Soluciones en aluminio desde 1979","web":"www.marca.com.ar","logo_ancho":620,"dur":4}' -o "$d/cierre.mov" >/dev/null
 printf '1\n00:00:00,300 --> 00:00:02,800\nHace más de 45 años diseñamos\ny fabricamos soluciones en aluminio.\n\n2\n00:00:03,100 --> 00:00:06,200\nCalidad, compromiso y tecnología\nen cada proyecto.\n' > "$d/locucion.srt"
 echo "Media de prueba en $d"

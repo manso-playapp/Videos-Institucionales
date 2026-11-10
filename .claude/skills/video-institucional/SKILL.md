@@ -21,8 +21,12 @@ cierre con logo, con color consistente, ritmo musical y audio masterizado. **Le�
 | Armar el video desde la línea de tiempo JSON | `python3 tools/render_edl.py <edl.json> [--draft]` (ver `docs/edl-schema.md`) |
 | QC del master (specs, loudness, negros, congelados, silencios) | `python3 tools/qc.py <master> [--perfil web|broadcast|evento]` |
 | Paquete de entrega (master, ProRes, web, poster, contacto) | `tools/exportar.sh <master> entregas/<Cliente>_Institucional_<año>` |
+| Motion graphics (dato, zócalo, título, cierre, Lottie de After Effects, luz) | `python3 tools/motion.py plantilla …` o `overlays` en la EDL |
+| 214 transiciones de GPU con curva de aceleración | `"transition_in": {"type": "gl:<Nombre>", "ease": …}` · `python3 tools/motion.py lista` |
+| Looks de color (LUTs del estudio) | `assets/luts/*.cube` · `python3 tools/luts.py muestra <clip>` para comparar |
 
-Si falta algo (rclone, faster-whisper): `bash setup.sh`.
+**Catálogo de efectos y cuándo usar cada uno: `docs/efectos.md`** (muestrarios visuales en
+`docs/transiciones.jpg` y `docs/looks.jpg`). Si falta algo (rclone, faster-whisper): `bash setup.sh`.
 
 ## Flujo de trabajo
 
@@ -71,8 +75,15 @@ Escribí `proyectos/<cliente>/edl.json` (partí de `examples/edl-ejemplo.json`) 
 - Textos con los estilos del estándar (`subtitulo`, `dato`, `zocalo_*`, `titulo`). Tipografías
   del cliente en `assets/fonts/` si las hay.
 - VO + música con ducking + ambiente/SFX; la música termina con el video.
-- Animaciones complejas (logo animado, infografía, collage LED, mapas): skill `hyperframes`,
-  y el render resultante entra como un plano más en la EDL.
+- Look: elegí un LUT de `assets/luts/` mirando `python3 tools/luts.py muestra` sobre un plano
+  representativo del proyecto; ajustá después con `contrast`/`saturation`/`temperature`.
+- Motion: datos duros → plantilla `dato`; entrevistados → `zocalo`; apertura/capítulo → `titulo`;
+  final → `cierre` (o la animación de logo del cliente en Lottie); calidez de apertura → `luz`.
+- Transiciones de GPU solo como puntuación (3 a 6 por minuto, en cambios de bloque y sobre un golpe
+  musical); el resto, corte directo. Ver la tabla de recomendadas en `docs/efectos.md`.
+- Variedad de producto o de procesos → plano `split` de 2 o 3 paneles.
+- Animaciones a medida: plantilla nueva en `tools/motion/templates/` (HTML + GSAP) o skill
+  `hyperframes`; el render entra como un plano más.
 
 ### 7. Master, QC y entrega
 1. `python3 tools/render_edl.py proyectos/<cliente>/edl.json`

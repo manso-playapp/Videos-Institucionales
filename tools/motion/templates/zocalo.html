@@ -1,0 +1,44 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!--
+  ZÓCALO — nombre + cargo con barra que se dibuja y máscara de revelado.
+  params: {"nombre":"María Gómez","cargo":"Gerente de Calidad","x":190,"y":860,
+           "acento":"#2BB3A3","color":"#fff","fondo":false,"dur":5}
+  "fondo": true agrega una placa translúcida detrás (para planos muy claros).
+-->
+<style>
+  html,body{margin:0;overflow:hidden;background:transparent}
+  #z{position:absolute;display:flex;align-items:stretch;gap:calc(18px*var(--k))}
+  #bar{width:calc(6px*var(--k));background:var(--a);transform-origin:center top}
+  #txt{display:flex;flex-direction:column;justify-content:center;padding:calc(6px*var(--k)) 0}
+  #txt.f{background:rgba(10,14,18,.55);padding:calc(14px*var(--k)) calc(26px*var(--k));backdrop-filter:blur(8px)}
+  .m{overflow:hidden}
+  #n{font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;font-size:calc(58px*var(--k));
+     letter-spacing:.02em;line-height:1;color:var(--c);text-shadow:0 2px 14px rgba(0,0,0,.35)}
+  #r{font-family:Inter;font-weight:300;font-size:calc(31px*var(--k));line-height:1.25;color:var(--c);opacity:.93;
+     margin-top:calc(6px*var(--k));text-shadow:0 2px 10px rgba(0,0,0,.4)}
+  .m span{display:inline-block}
+</style></head>
+<body><div id="z"><div id="bar"></div><div id="txt"><div class="m"><span id="n"></span></div><div class="m"><span id="r"></span></div></div></div>
+<script src="_base.js"></script>
+<script>
+defineMotion(async (tl, p, env, k) => {
+  const z = document.getElementById('z');
+  document.documentElement.style.setProperty('--c', p.color || '#fff');
+  document.documentElement.style.setProperty('--a', p.acento || '#2BB3A3');
+  document.getElementById('n').textContent = p.nombre || '';
+  document.getElementById('r').textContent = p.cargo || '';
+  if (p.fondo) document.getElementById('txt').classList.add('f');
+  z.style.left = (p.x ?? 190) * k + 'px';
+  z.style.top = ((p.y ?? 860) * k) + 'px';
+  const dur = +(p.dur || 5);
+  tl.from('#bar', { scaleY: 0, duration: .55, ease: 'casa' }, 0)
+    .from('#txt.f', { clipPath: 'inset(0 100% 0 0)', duration: .7, ease: 'casaInOut' }, .1)
+    .from('#n', { yPercent: 105, duration: .6, ease: 'casa' }, .2)
+    .from('#r', { yPercent: 110, duration: .6, ease: 'casa' }, .32)
+    .to('#n', { yPercent: -105, duration: .4, ease: 'power2.in' }, dur - .6)
+    .to('#r', { yPercent: -110, duration: .4, ease: 'power2.in' }, dur - .55)
+    .to(['#bar', '#txt'], { opacity: 0, duration: .3 }, dur - .35);
+  return dur;
+});
+</script></body></html>

@@ -1,7 +1,7 @@
 # EDL — la línea de tiempo en JSON
 
 `tools/render_edl.py` arma el video a partir de un archivo `edl.json`. Las rutas relativas se
-resuelven desde la carpeta del JSON. Ejemplo completo: [`examples/edl-ejemplo.json`](../examples/edl-ejemplo.json).
+buscan primero junto al JSON y después desde la raíz del repo. Ejemplo completo: [`examples/edl-ejemplo.json`](../examples/edl-ejemplo.json).
 
 ```bash
 python3 tools/render_edl.py proyectos/<cliente>/edl.json --draft   # preview 540p rápido
@@ -24,7 +24,7 @@ loudness en dos pasadas.
 
   // Grade global, aplicado a cada plano (las imágenes/placas lo omiten salvo "global_grade": true)
   "grade": {
-    "lut": "assets/luts/look.cube",  // opcional, .cube
+    "lut": "assets/luts/estudio_industrial.cube",  // ver docs/efectos.md §4
     "contrast": 1.05, "saturation": 1.05, "gamma": 1.0, "brightness": 0.0,
     "temperature": -0.2,             // -1 frío … +1 cálido
     "sharpen": 0.3, "vignette": true, "grain": 4
@@ -42,9 +42,16 @@ loudness en dos pasadas.
       "global_grade": true,
       "audio": true, "audio_gain_db": -14,   // usar sonido directo del plano (ambiente / testimonio)
       "transition_in": {"type": "dissolve", "dur": 0.5}
-      // tipos: cut (default) | dissolve | fadeblack | fadewhite | wipeleft | slideleft |
-      //        smoothleft | circleopen | zoomin | hblur ...
+      // nativas: cut (default) | dissolve | fadeblack | fadewhite | wipeleft | slideleft |
+      //          smoothleft | circleopen | zoomin | hblur ...   (+ "ease" → versión GPU con curva)
+      // GPU:     {"type": "gl:DirectionalWarp", "dur": 0.8, "ease": "cubic-in-out", "uniforms": {...}}
+      //          214 transiciones, ver docs/efectos.md y docs/transiciones.jpg
     },
+    // Split screen (2–4 paneles)
+    {"split": [{"src": "media/a.mp4", "in": 3}, {"src": "media/b.mp4", "in": 8}], "dur": 2.5,
+     "gap": 14, "layout": "h", "stagger": 0.12},
+    // Placa/animación de cierre renderizada con tools/motion.py (sin grade global)
+    {"src": "motion/cierre.mov", "global_grade": false},
     {"src": "assets/placa_logo.png", "dur": 3, "fit": "contain", "bg": "white",
      "transition_in": {"type": "fadewhite", "dur": 0.6}}
   ],
@@ -59,6 +66,14 @@ loudness en dos pasadas.
 
   // Subtítulos de la locución (SRT de tools/transcribir.py, revisado)
   "subtitles": {"src": "audio/locucion.srt", "offset": 1.0, "style": "subtitulo"},
+
+  // Motion graphics y efectos superpuestos (docs/efectos.md)
+  "overlays": [
+    {"template": "dato", "params": {"valor": "240.000", "prefijo": "+", "etiqueta": "kg mensuales"}, "start": 12, "dur": 3},
+    {"template": "luz", "params": {"semilla": 3}, "start": 0.2, "dur": 2.5, "opacity": 0.7},
+    {"template": "lottie", "params": {"src": "proyectos/acme/motion/logo.json"}, "start": 58},
+    {"src": "assets/overlays/polvo.mov", "start": 0, "blend": "screen", "opacity": 0.4}
+  ],
 
   "logo_bug": {"src": "assets/logo_blanco.png", "width": 160, "margin": 60, "opacity": 0.85,
                "start": 5, "end": 120},
@@ -83,5 +98,6 @@ loudness en dos pasadas.
   timeline final: renderizá en draft y ajustá mirando la hoja de contacto.
 - **Cortar al beat**: medí los beats de la música (`aubio`/a oído) y hacé que las duraciones
   `out - in` sumen hasta cada beat.
-- Para animaciones complejas (logo animado, infografías, collage tipo pantalla LED, mapas)
-  generá el clip con **HyperFrames** (skill `hyperframes`) y metelo como un plano más.
+- Motion graphics, transiciones de GPU, looks y texturas: **`docs/efectos.md`**.
+- Animaciones a medida (infografías complejas, mapas, collage LED): plantilla nueva en
+  `tools/motion/templates/` (HTML + GSAP), o After Effects exportado como Lottie.

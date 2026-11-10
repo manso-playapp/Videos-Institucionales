@@ -1,27 +1,168 @@
 {
   "output": "render/ejemplo_master.mp4",
-  "canvas": {"width": 1920, "height": 1080, "fps": 25},
-  "grade": {"contrast": 1.04, "saturation": 1.06, "temperature": -0.2, "vignette": true},
-  "fade": {"in": 0.8, "out": 0.0},
-  "clips": [
-    {"src": "media/aereo_4k_50p.mp4", "in": 0.0, "out": 3.0, "speed": 0.75, "move": {"type": "push_in", "amount": 0.05}, "audio": true, "audio_gain_db": -18},
-    {"src": "media/planta_1080_25p.mp4", "in": 1.0, "out": 3.4, "move": {"type": "pan_right", "amount": 0.06}},
-    {"src": "media/detalle_1080_25p.mp4", "in": 0.0, "out": 2.0},
-    {"src": "media/aereo_4k_50p.mp4", "in": 4.0, "out": 6.0, "transition_in": {"type": "dissolve", "dur": 0.5}},
-    {"src": "media/logo_placa.png", "dur": 3.0, "fit": "contain", "bg": "0x1E6E6E", "transition_in": {"type": "fadeblack", "dur": 0.8}}
-  ],
-  "texts": [
-    {"text": "+240.000 kg mensuales", "start": 4.2, "end": 6.8, "style": "dato"},
-    {"text": "María Gómez", "start": 7.2, "end": 10.0, "style": "zocalo_nombre"},
-    {"text": "Gerente de Calidad", "start": 7.2, "end": 10.0, "style": "zocalo_cargo"}
-  ],
-  "subtitles": {"src": "media/locucion.srt", "offset": 0.8},
-  "logo_bug": {"src": "media/logo_bug.png", "width": 150, "margin": 56, "opacity": 0.8, "start": 1.0, "end": 9.5},
-  "audio": {
-    "vo": {"src": "media/locucion.wav", "start": 0.8},
-    "music": {"src": "media/musica.wav", "gain_db": -9, "fade_out": 2.0},
-    "duck_music_under_vo": true,
-    "sfx": [{"src": "media/whoosh.wav", "at": 9.4, "gain_db": -14}]
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 25
   },
-  "loudness": {"I": -14, "TP": -1, "LRA": 11}
+  "grade": {
+    "lut": "assets/luts/estudio_industrial.cube",
+    "contrast": 1.02,
+    "vignette": true,
+    "grain": 3
+  },
+  "fade": {
+    "in": 0.8,
+    "out": 0.0
+  },
+  "clips": [
+    {
+      "src": "media/aereo_4k_50p.mp4",
+      "in": 0.0,
+      "out": 3.0,
+      "speed": 0.75,
+      "move": {
+        "type": "push_in",
+        "amount": 0.05
+      },
+      "audio": true,
+      "audio_gain_db": -18
+    },
+    {
+      "src": "media/planta_1080_25p.mp4",
+      "in": 1.0,
+      "out": 3.4,
+      "move": {
+        "type": "pan_right",
+        "amount": 0.06
+      },
+      "transition_in": {
+        "type": "gl:DirectionalWarp",
+        "dur": 0.8,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/detalle_1080_25p.mp4",
+      "in": 0.0,
+      "out": 2.0,
+      "transition_in": {
+        "type": "slideleft",
+        "dur": 0.6,
+        "ease": "quint-in-out"
+      }
+    },
+    {
+      "split": [
+        {
+          "src": "media/aereo_4k_50p.mp4",
+          "in": 4.0
+        },
+        {
+          "src": "media/planta_1080_25p.mp4",
+          "in": 2.0,
+          "move": {
+            "type": "push_in",
+            "amount": 0.08
+          }
+        },
+        {
+          "src": "media/detalle_1080_25p.mp4",
+          "in": 1.0
+        }
+      ],
+      "dur": 2.4,
+      "gap": 14,
+      "transition_in": {
+        "type": "dissolve",
+        "dur": 0.4
+      }
+    },
+    {
+      "src": "media/cierre.mov",
+      "transition_in": {
+        "type": "gl:CrossZoom",
+        "dur": 0.8,
+        "ease": "cubic-in-out"
+      },
+      "global_grade": false
+    }
+  ],
+  "texts": [],
+  "subtitles": {
+    "src": "media/locucion.srt",
+    "offset": 0.8
+  },
+  "logo_bug": {
+    "src": "media/logo_bug.png",
+    "width": 150,
+    "margin": 56,
+    "opacity": 0.8,
+    "start": 1.0,
+    "end": 8.0
+  },
+  "audio": {
+    "vo": {
+      "src": "media/locucion.wav",
+      "start": 0.8
+    },
+    "music": {
+      "src": "media/musica.wav",
+      "gain_db": -9,
+      "fade_out": 2.0
+    },
+    "duck_music_under_vo": true,
+    "sfx": [
+      {
+        "src": "media/whoosh.wav",
+        "at": 9.4,
+        "gain_db": -14
+      }
+    ]
+  },
+  "loudness": {
+    "I": -14,
+    "TP": -1,
+    "LRA": 11
+  },
+  "overlays": [
+    {
+      "template": "luz",
+      "params": {
+        "semilla": 3
+      },
+      "start": 0.2,
+      "dur": 2.5,
+      "opacity": 0.7
+    },
+    {
+      "template": "dato",
+      "params": {
+        "valor": "240.000",
+        "prefijo": "+",
+        "etiqueta": "kg mensuales de perfiles"
+      },
+      "start": 3.4,
+      "dur": 2.4
+    },
+    {
+      "template": "zocalo",
+      "params": {
+        "nombre": "María Gómez",
+        "cargo": "Gerente de Calidad"
+      },
+      "start": 5.9,
+      "dur": 2.2
+    },
+    {
+      "template": "lottie",
+      "params": {
+        "src": "examples/lottie-prueba.json",
+        "escala": 0.35,
+        "x": 0.82,
+        "y": 0.2
+      },
+      "start": 0.8
+    }
+  ]
 }

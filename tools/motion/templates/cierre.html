@@ -1,0 +1,47 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!--
+  CIERRE — placa final con logo y frase de marca (Schneider / CINTER). Cuadro completo.
+  params: {"logo":"proyectos/acme/assets/logo.png" (ruta desde la raíz del repo o absoluta),
+           "frase":"Sinónimo de innovación y confianza","web":"www.acme.com.ar",
+           "fondo":"#ffffff","color":"#1E1E1E","acento":"#2BB3A3","logo_ancho":560,"dur":5,
+           "estilo":"limpio"|"luz"}
+  "luz": barrido de brillo sobre el logo. Si alpha, la placa es transparente (logo sobre el último plano).
+-->
+<style>
+  html,body{margin:0;overflow:hidden}
+  #c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  #lw{position:relative;overflow:hidden}
+  #logo{display:block}
+  #sheen{position:absolute;inset:-20%;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);
+         mix-blend-mode:screen;transform:translateX(-120%)}
+  #line{height:calc(3px*var(--k));width:calc(120px*var(--k));background:var(--a);margin:calc(40px*var(--k)) 0 calc(28px*var(--k))}
+  #f{font-family:Inter;font-weight:400;font-size:calc(38px*var(--k));color:var(--c);letter-spacing:.01em}
+  #w{font-family:Inter;font-weight:300;font-size:calc(26px*var(--k));color:var(--c);opacity:.75;margin-top:calc(14px*var(--k));letter-spacing:.06em}
+</style></head>
+<body><div id="c"><div id="lw"><img id="logo"><div id="sheen"></div></div><div id="line"></div><div id="f"></div><div id="w"></div></div>
+<script src="_base.js"></script>
+<script>
+defineMotion(async (tl, p, env, k) => {
+  if (!env.alpha) document.body.style.background = p.fondo || '#fff';
+  document.documentElement.style.setProperty('--c', p.color || '#1E1E1E');
+  document.documentElement.style.setProperty('--a', p.acento || '#2BB3A3');
+  const img = document.getElementById('logo');
+  if (p.logo) {
+    img.src = p.logo.startsWith('/') ? 'file://' + p.logo : REPO + p.logo;
+    await img.decode().catch(() => console.error('No cargó el logo ' + p.logo));
+  }
+  img.style.width = (p.logo_ancho || 560) * k + 'px';
+  document.getElementById('f').textContent = p.frase || '';
+  document.getElementById('w').textContent = p.web || '';
+  if (!p.frase) document.getElementById('line').style.display = 'none';
+  const dur = +(p.dur || 5);
+  tl.from('#lw', { opacity: 0, scale: .94, filter: 'blur(10px)', duration: 1.1, ease: 'casa' }, .1)
+    .from('#line', { scaleX: 0, duration: .8, ease: 'casa' }, .7)
+    .from('#f', { opacity: 0, y: 16 * k, duration: .8, ease: 'casa' }, .85)
+    .from('#w', { opacity: 0, duration: .8, ease: 'casa' }, 1.15);
+  if ((p.estilo || 'luz') === 'luz') tl.to('#sheen', { x: '120%', duration: 1.3, ease: 'casaInOut' }, 1.2);
+  else document.getElementById('sheen').style.display = 'none';
+  return dur;
+});
+</script></body></html>

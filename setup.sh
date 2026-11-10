@@ -14,6 +14,10 @@ ok "$(rclone version | head -1)"
 python3 -c "import faster_whisper" 2>/dev/null || pip install -q faster-whisper 2>&1 | grep -v WARNING || true
 python3 -c "import faster_whisper" && ok "faster-whisper (transcripción local)" || warn "faster-whisper no disponible"
 python3 -c "import numpy" && ok "numpy"
+if command -v node >/dev/null && node -e "require('playwright')" 2>/dev/null; then
+  node -e "require('playwright').chromium.launch().then(b=>b.newPage().then(p=>p.evaluate(()=>!!document.createElement('canvas').getContext('webgl'))).then(r=>{console.log(r?'webgl':'sin-webgl');return b.close()}))" 2>/dev/null | grep -q '^webgl' \
+    && ok "Chromium + WebGL (motion y transiciones GPU)" || warn "Chromium sin WebGL: las transiciones gl: no van a funcionar"
+else warn "falta Node/Playwright: motion graphics y transiciones gl: no disponibles (npm i -g playwright && npx playwright install chromium)"; fi
 
 echo "Fuentes:"
 ls assets/fonts/Inter-*.ttf >/dev/null && ok "Inter (assets/fonts)"

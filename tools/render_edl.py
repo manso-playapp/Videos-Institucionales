@@ -16,6 +16,7 @@ Rutas relativas dentro de la EDL se resuelven contra la carpeta de la EDL.
 from __future__ import annotations
 
 import argparse
+
 import hashlib
 import json
 import os
@@ -28,6 +29,7 @@ import tempfile
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / "tools"))
 FONTS = REPO / "assets" / "fonts"
 
 # ---------------------------------------------------------------------------
@@ -77,6 +79,22 @@ XFADE_TYPES = {
     "smoothright": "smoothright", "circleopen": "circleopen", "zoomin": "zoomin",
     "hblur": "hblur", "dissolve_grain": "dissolve",
 }
+
+
+# Equivalentes GL de las transiciones nativas: si se pide "ease", se usa la versión de GPU
+# (las curvas en expresiones de FFmpeg son ~5x más lentas que renderizar en GPU).
+GL_EQUIV = {  # tipo nativo → (shader GL, uniforms)
+    "dissolve": ("Fade", {}), "fade": ("Fade", {}),
+    "fadeblack": ("FadeColor", {"color": [0, 0, 0, 1]}), "fadewhite": ("FadeColor", {"color": [1, 1, 1, 1]}),
+    "wipeleft": ("DirectionalWipe", {"direction": [-1, 0], "smoothness": 0.08}),
+    "wiperight": ("DirectionalWipe", {"direction": [1, 0], "smoothness": 0.08}),
+    "slideleft": ("Directional", {"direction": [-1, 0]}), "slideright": ("Directional", {"direction": [1, 0]}),
+    "zoomin": ("SimpleZoom", {}), "circleopen": ("CircleOpen", {}), "hblur": ("TangentMotionBlur", {}),
+}
+
+
+def clips_dur(clip: dict) -> float:
+    return float(clip["_dur"])
 
 
 def die(msg: str) -> None:
@@ -163,7 +181,8 @@ class Builder:
     def path(self, p: str) -> str:
         q = Path(p)
         if not q.is_absolute():
-            q = self.base / q
+            # primero relativo a la EDL; si no existe, relativo a la raíz del repo (assets/…)
+            q = self.base / p if (self.base / p).exists() or not (REPO / p).exists() else REPO / p
         if not q.exists():
             die(f"No existe el archivo: {q}")
         return str(q)
@@ -176,6 +195,8 @@ class Builder:
     def conform(self, i: int, clip: dict) -> tuple[str, float, bool]:
         """Etapa 1: normaliza un plano (recorte, velocidad, encuadre, movimiento,
         grade por plano, fps) a un intermedio cacheado. Devuelve (ruta, dur, tiene_audio)."""
+        if clip.get("split"):
+            return self.conform_split(i, clip)
         src = self.path(clip["src"])
         is_image = Path(src).suffix.lower() in {".png", ".jpg", ".jpeg", ".tif", ".tiff", ".webp"}
         speed = float(clip.get("speed", 1.0))
@@ -266,12 +287,68 @@ class Builder:
             print(f"  · plano {i+1:>2}: cache {Path(src).name} [{dur:.2f}s]")
         return str(out), dur, bool(af)
 
+    def conform_split(self, i: int, clip: dict) -> tuple[str, float, bool]:
+        """Split screen: 2–4 paneles lado a lado (o en grilla 2x2), con separación y entrada
+        escalonada. clip = {"split": [{"src","in","move"?}, ...], "dur": 3, "layout": "h"|"grid",
+        "gap": 12, "bg": "black", "stagger": 0.12}"""
+        panels = clip["split"]
+        n = len(panels)
+        dur = float(clip.get("dur", 3.0))
+        gap = int(round(float(clip.get("gap", 12)) * self.k)) // 2 * 2
+        layout = clip.get("layout", "grid" if n == 4 else "h")
+        W, H = self.W, self.H
+        if layout == "grid":
+            cols, rows = 2, (n + 1) // 2
+        else:
+            cols, rows = n, 1
+        pw = (W - gap * (cols - 1)) // cols // 2 * 2
+        ph = (H - gap * (rows - 1)) // rows // 2 * 2
+        sub_paths = []
+        for j, pnl in enumerate(panels):
+            sub = {**pnl, "dur": dur}
+            sub.setdefault("in", 0.0)
+            sub.pop("out", None)
+            sb = Builder.__new__(Builder)
+            sb.__dict__.update(self.__dict__)
+            sb.W, sb.H = pw, ph
+            sp, _, _ = sb.conform(i * 100 + j, sub)
+            sub_paths.append(sp)
+        bg = clip.get("bg", "black")
+        stg = float(clip.get("stagger", 0.12))
+        key = json.dumps([sub_paths, layout, gap, bg, stg, W, H, dur, self.draft])
+        out = self.cache / f"split_{hashlib.sha1(key.encode()).hexdigest()[:16]}.mov"
+        if not out.exists():
+            inp, f = [], [f"color=c={bg}:s={W}x{H}:r={self.fps}:d={dur:.3f}[base0]"]
+            for j, sp in enumerate(sub_paths):
+                inp += ["-i", sp]
+                cx, cy = (j % cols) * (pw + gap), (j // cols) * (ph + gap)
+                d0 = j * stg
+                # entrada escalonada: cada panel aparece con fundido corto desde su retardo
+                f.append(f"[{j}:v]setpts=PTS-STARTPTS+{d0:.3f}/TB,format=yuva420p,"
+                         f"fade=t=in:st={d0:.3f}:d=0.35:alpha=1[p{j}]")
+                f.append(f"[base{j}][p{j}]overlay={cx}:{cy}:eof_action=pass[base{j+1}]")
+            last = f"base{len(sub_paths)}"
+            f.append(f"[{last}]trim=0:{dur:.3f},format={'yuv420p' if self.draft else 'yuv422p10le'}[o]")
+            cmd = ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", *inp, "-filter_complex", ";".join(f),
+                   "-map", "[o]", "-t", f"{dur:.3f}"]
+            cmd += (["-c:v", "libx264", "-preset", "ultrafast", "-crf", "16"] if self.draft
+                    else ["-c:v", "prores_ks", "-profile:v", "3", "-vendor", "apl0"])
+            tmp_out = out.with_suffix(".part.mov")
+            r = subprocess.run(cmd + [str(tmp_out)], capture_output=True, text=True)
+            if r.returncode != 0:
+                die(f"Split del plano {i}: {r.stderr[-1500:]}")
+            tmp_out.rename(out)
+        print(f"  · plano {i+1:>2}: split {n} paneles [{dur:.2f}s]")
+        return str(out), dur, False
+
     def clip_chain(self, i: int, clip: dict) -> tuple[str, float]:
         path, dur, aud = self.conform(i, clip)
+        clip["_dur"] = dur
         idx = self.add_input(["-i", path])
         self.filters.append(f"[{idx}:v]setpts=PTS-STARTPTS,format=yuv420p,settb=AVTB[v{i}]")
         clip["_idx"] = idx
         clip["_has_audio"] = aud
+        clip["_path"] = path
         return f"v{i}", dur
 
     def grade_filters(self, g: dict) -> list[str]:
@@ -315,6 +392,29 @@ class Builder:
                 self.filters.append(f"[{cur}][{label}]concat=n=2:v=1:a=0[{out}]")
                 self.timeline.append((total, dur))
                 total += dur
+            elif ttype.startswith("gl:") or (tr.get("ease") and ttype in GL_EQUIV):
+                # Transición de GPU (gl-transitions) renderizada en Chromium y empalmada:
+                # A[0:offset] + T + B[td:]  — misma superposición que un xfade.
+                import motion  # tools/motion.py
+                if ttype.startswith("gl:"):
+                    shader, uni = ttype[3:], {}
+                else:
+                    shader, uni = GL_EQUIV[ttype]
+                uni = {**uni, **tr.get("uniforms", {})}
+                td = min(float(tr.get("dur", 0.8)), dur * 0.9, clips_dur(clips[i-1]) * 0.9)
+                prev = clips[i - 1]
+                tpath = motion.render_transition(
+                    prev["_path"], clip["_path"], shader, td, tr.get("ease", "cubic-in-out"),
+                    uni, self.W, self.H, self.fps, a_end=clips_dur(prev), b_start=0.0)
+                ti = self.add_input(["-i", str(tpath)])
+                offset = total - td
+                self.filters.append(f"[{cur}]trim=0:{offset:.3f},setpts=PTS-STARTPTS[pa{i}]")
+                self.filters.append(f"[{ti}:v]setpts=PTS-STARTPTS,format=yuv420p,settb=AVTB[tr{i}]")
+                self.filters.append(f"[{label}]trim=start={td:.3f},setpts=PTS-STARTPTS[nb{i}]")
+                self.filters.append(f"[pa{i}][tr{i}][nb{i}]concat=n=3:v=1:a=0[{out}]")
+                self.timeline.append((offset, dur))
+                total = offset + dur
+                print(f"  · transición GL {shader} ({td:.2f}s, {tr.get('ease', 'cubic-in-out')}) antes del plano {i+1}")
             else:
                 td = float(tr.get("dur", 0.5))
                 td = min(td, dur * 0.9, total * 0.9)
@@ -464,9 +564,51 @@ class Builder:
             f"atrim=0:{total:.3f},apad=whole_dur={total:.3f}[amix]")
         return "[amix]"
 
+    # ------------------------------------------------------------------ overlays
+    def overlays(self, vlabel: str, total: float) -> str:
+        """Superposiciones: plantillas de motion (dato, zocalo, titulo, cierre, lottie, luz) o
+        archivos .mov con alfa. blend "normal" (alfa) o "screen" (luces, destellos, polvo)."""
+        items = self.edl.get("overlays", [])
+        if not items:
+            return vlabel
+        import motion
+        for n, ov in enumerate(items):
+            start = float(ov.get("start", 0.0))
+            blend = ov.get("blend", "screen" if ov.get("template") == "luz" else "normal")
+            if ov.get("template"):
+                params = dict(ov.get("params", {}))
+                if "dur" in ov:
+                    params.setdefault("dur", ov["dur"])
+                src = motion.render_template(ov["template"], params, self.W, self.H, self.fps,
+                                             alpha=(blend == "normal" and not ov.get("full_frame")),
+                                             draft=self.draft)
+                print(f"  · overlay {ov['template']} @ {start:.2f}s")
+            else:
+                src = self.path(ov["src"])
+            oi = self.add_input(["-i", str(src)])
+            op = float(ov.get("opacity", 1.0))
+            if blend == "screen":
+                self.filters.append(
+                    f"[{oi}:v]scale={self.W}:{self.H},fps={self.fps},format=gbrp,setpts=PTS-STARTPTS,"
+                    f"tpad=start_duration={start:.3f}:stop_mode=add:stop_duration={total:.3f}:color=black,"
+                    f"trim=0:{total:.3f}[ovs{n}]")
+                self.filters.append(f"[{vlabel}]format=gbrp[bg{n}]")
+                self.filters.append(f"[bg{n}][ovs{n}]blend=all_mode=screen:all_opacity={op}:shortest=1,"
+                                    f"format=yuv420p,settb=AVTB[ov{n}]")
+            else:
+                alpha = f",colorchannelmixer=aa={op}" if op < 1 else ""
+                self.filters.append(
+                    f"[{oi}:v]scale={self.W}:{self.H},fps={self.fps},format=yuva420p{alpha},"
+                    f"setpts=PTS-STARTPTS+{start:.3f}/TB[ovs{n}]")
+                self.filters.append(f"[{vlabel}][ovs{n}]overlay=eof_action=pass:format=auto,"
+                                    f"format=yuv420p[ov{n}]")
+            vlabel = f"ov{n}"
+        return vlabel
+
     # ------------------------------------------------------------------ build
     def build(self, out: str) -> list[str]:
         vlabel, total = self.assemble()
+        vlabel = self.overlays(vlabel, total)
         post = []
         fade = self.edl.get("fade", {})
         if fade.get("in", 0):

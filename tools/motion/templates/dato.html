@@ -1,0 +1,59 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!--
+  DATO — cifra que cuenta + etiqueta, con barra de acento. Estilo CINTER / Alsafex.
+  params: {
+    "valor": "240.000",        número final (con separador de miles '.'); "prefijo": "+", "sufijo": " m²"
+    "etiqueta": "kg mensuales de perfiles",
+    "contar": true,            anima el conteo desde 0
+    "align": "left"|"center", "x": 190, "y": 700  (px a 1080p; y = línea base de la cifra)
+    "color": "#ffffff", "acento": "#2BB3A3", "dur": 4
+  }
+-->
+<style>
+  html,body{margin:0;overflow:hidden;background:transparent}
+  #g{position:absolute;font-family:'Barlow Condensed';color:var(--c);text-transform:uppercase}
+  #num{font-weight:700;font-size:calc(150px*var(--k));line-height:.9;letter-spacing:-.01em;white-space:nowrap;
+       text-shadow:0 calc(3px*var(--k)) calc(18px*var(--k)) rgba(0,0,0,.35)}
+  #bar{height:calc(6px*var(--k));background:var(--a);transform-origin:left center;margin:calc(14px*var(--k)) 0 calc(12px*var(--k))}
+  #lbl{font-weight:500;font-size:calc(46px*var(--k));letter-spacing:.04em;overflow:hidden;white-space:nowrap;
+       text-shadow:0 calc(2px*var(--k)) calc(12px*var(--k)) rgba(0,0,0,.4)}
+  #lbl span{display:inline-block}
+</style></head>
+<body><div id="g"><div id="num"></div><div id="bar"></div><div id="lbl"><span></span></div></div>
+<script src="_base.js"></script>
+<script>
+defineMotion(async (tl, p, env, k) => {
+  const g = document.getElementById('g'), num = document.getElementById('num');
+  const bar = document.getElementById('bar'), lbl = document.querySelector('#lbl span');
+  const dur = +(p.dur || 4), pre = p.prefijo || '', suf = p.sufijo || '';
+  document.documentElement.style.setProperty('--c', p.color || '#fff');
+  document.documentElement.style.setProperty('--a', p.acento || '#2BB3A3');
+  lbl.textContent = p.etiqueta || '';
+  const final = String(p.valor ?? '0');
+  const target = parseFloat(final.replace(/\./g, '').replace(',', '.')) || 0;
+  const dec = (final.split(',')[1] || '').length;
+  const fmt = v => v.toLocaleString('es-AR', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+  num.textContent = pre + final + suf;
+  // posición
+  const x = (p.x ?? 190) * k, y = (p.y ?? 700) * k;
+  if ((p.align || 'left') === 'center') { g.style.left = '0'; g.style.width = env.width + 'px'; g.style.textAlign = 'center'; bar.style.transformOrigin = 'center'; bar.style.width = '30%'; bar.style.marginLeft = 'auto'; bar.style.marginRight = 'auto'; }
+  else { g.style.left = x + 'px'; }
+  g.style.top = (y - num.offsetHeight) + 'px';
+  if (p.align !== 'center') bar.style.width = Math.max(num.offsetWidth * 0.35, 80 * k) + 'px';
+
+  const counter = { v: 0 };
+  const inT = 0.9, outT = 0.45;
+  tl.set(num, { opacity: 1 })
+    .from(num, { y: 40 * k, opacity: 0, duration: 0.6, ease: 'casa' }, 0)
+    .from(bar, { scaleX: 0, duration: 0.7, ease: 'casa' }, 0.15)
+    .from(lbl, { yPercent: 110, duration: 0.6, ease: 'casa' }, 0.3);
+  if (p.contar !== false && target > 0) {
+    tl.to(counter, { v: target, duration: Math.min(1.6, dur * 0.45), ease: 'power3.out',
+      onUpdate: () => { num.textContent = pre + fmt(counter.v) + suf; } }, 0);
+    tl.call(() => { num.textContent = pre + final + suf; }, null, Math.min(1.6, dur * 0.45));
+  }
+  tl.to([num, bar, lbl], { opacity: 0, y: -12 * k, duration: outT, ease: 'power2.in', stagger: 0.05 }, dur - outT - 0.1);
+  return dur;
+});
+</script></body></html>

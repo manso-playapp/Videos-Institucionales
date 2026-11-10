@@ -1,0 +1,92 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!--
+  TRANSICIÓN GL — corre cualquier shader de assets/transitions/gl/ (gl-transitions, 215 efectos)
+  entre dos secuencias de cuadros. La invoca tools/motion.py transicion; no se usa a mano.
+  params: {"shader":"DirectionalWarp","from":"/tmp/x/a_%04d.jpg","to":"/tmp/x/b_%04d.jpg","n":25,
+           "uniforms":{"smoothness":0.2},"ease":"cubic-in-out"}
+-->
+<style>html,body{margin:0;overflow:hidden;background:#000}canvas{position:absolute;inset:0}</style></head>
+<body><canvas id="c"></canvas>
+<script src="_base.js"></script>
+<script>
+const EASE = {
+  'linear': t => t,
+  'sine-in-out': t => -(Math.cos(Math.PI * t) - 1) / 2,
+  'quad-in-out': t => t < .5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2,
+  'cubic-in-out': t => t < .5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2,
+  'quart-in-out': t => t < .5 ? 8 * t ** 4 : 1 - (-2 * t + 2) ** 4 / 2,
+  'quint-in-out': t => t < .5 ? 16 * t ** 5 : 1 - (-2 * t + 2) ** 5 / 2,
+  'expo-in-out': t => t === 0 ? 0 : t === 1 ? 1 : t < .5 ? 2 ** (20 * t - 10) / 2 : (2 - 2 ** (-20 * t + 10)) / 2,
+  'cubic-out': t => 1 - (1 - t) ** 3, 'quint-out': t => 1 - (1 - t) ** 5, 'cubic-in': t => t ** 3,
+};
+function parseVal(type, s) {
+  s = s.trim();
+  if (type === 'bool') return s === 'true';
+  const inner = s.includes('(') ? s.slice(s.indexOf('(') + 1, s.lastIndexOf(')')) : s;  // "vec2(-1.0, 1.0)"
+  let nums = (inner.match(/-?\d*\.?\d+(e-?\d+)?/g) || []).map(Number);
+  const len = { vec2: 2, vec3: 3, vec4: 4, ivec2: 2 }[type];
+  if (len && nums.length === 1) nums = Array(len).fill(nums[0]);                     // "vec3(0.0)"
+  return type === 'float' || type === 'int' ? nums[0] : nums;
+}
+window.MOTION = {
+  async setup(p, env) {
+    setupStage(env);
+    const c = document.getElementById('c'); c.width = env.width; c.height = env.height;
+    const gl = c.getContext('webgl', { preserveDrawingBuffer: true, premultipliedAlpha: false });
+    this.gl = gl; this.p = p; this.fps = env.fps; this.n = p.n;
+    const src = await readText(REPO + 'assets/transitions/gl/' + p.shader + '.glsl');
+    // uniforms declarados con su valor por defecto: "uniform float x; // = 0.5"
+    this.decl = [];
+    for (const m of src.matchAll(/uniform\s+(\w+)\s+(\w+)\s*;\s*\/\/\s*=\s*([^\n]+)/g)) this.decl.push({ type: m[1], name: m[2], def: m[3] });
+    const fs = `precision highp float;
+uniform sampler2D from, to; uniform float progress, ratio; varying vec2 _uv;
+vec4 getFromColor(vec2 uv){ return texture2D(from, uv); }
+vec4 getToColor(vec2 uv){ return texture2D(to, uv); }
+${src}
+void main(){ gl_FragColor = transition(_uv); }`;
+    const vs = `attribute vec2 pos; varying vec2 _uv; void main(){ _uv = pos*0.5+0.5; gl_Position = vec4(pos,0.,1.); }`;
+    const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o);
+      if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) throw new Error(p.shader + ': ' + gl.getShaderInfoLog(o)); return o; };
+    const prog = gl.createProgram();
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(prog); gl.useProgram(prog); this.prog = prog;
+    const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'pos'); gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    this.tex = [0, 1].map(i => { const t = gl.createTexture(); gl.activeTexture(gl.TEXTURE0 + i); gl.bindTexture(gl.TEXTURE_2D, t);
+      for (const [k, v] of [[gl.TEXTURE_MIN_FILTER, gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR],
+        [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]]) gl.texParameteri(gl.TEXTURE_2D, k, v);
+      return t; });
+    gl.uniform1i(gl.getUniformLocation(prog, 'from'), 0);
+    gl.uniform1i(gl.getUniformLocation(prog, 'to'), 1);
+    gl.uniform1f(gl.getUniformLocation(prog, 'ratio'), env.width / env.height);
+    const user = p.uniforms || {};
+    for (const d of this.decl) {
+      const l = gl.getUniformLocation(prog, d.name); if (!l) continue;
+      const v = user[d.name] ?? parseVal(d.type, d.def);
+      const f = { float: 'uniform1f', int: 'uniform1i', bool: 'uniform1i', vec2: 'uniform2fv', vec3: 'uniform3fv', vec4: 'uniform4fv', ivec2: 'uniform2iv' }[d.type];
+      if (!f) continue;
+      if (d.type === 'bool') gl.uniform1i(l, v ? 1 : 0); else if (d.type.startsWith('vec') || d.type.startsWith('ivec')) gl[f](l, v); else gl[f](l, v);
+    }
+    this.ease = EASE[p.ease || 'cubic-in-out'] || EASE['cubic-in-out'];
+    return this.n / env.fps;
+  },
+  async seek(t) {
+    const gl = this.gl, i = Math.min(this.n - 1, Math.round(t * this.fps));
+    const pad = s => String(i + 1).padStart(4, '0');
+    const load = async (pat, unit) => {
+      const img = new Image(); img.src = 'file://' + pat.replace('%04d', pad()); await img.decode();
+      gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, this.tex[unit]);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+    };
+    await Promise.all([load(this.p.from, 0), load(this.p.to, 1)]);
+    const prog = this.n > 1 ? i / (this.n - 1) : 1;
+    gl.uniform1f(gl.getUniformLocation(this.prog, 'progress'), this.ease(prog));
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    gl.finish();
+  }
+};
+</script></body></html>

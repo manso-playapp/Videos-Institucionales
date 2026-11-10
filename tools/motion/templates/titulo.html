@@ -1,0 +1,45 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!--
+  TÍTULO — texto cinético, revelado por palabras/letras con máscara (SplitText). Para aperturas,
+  capítulos o claims ("Hay un elemento en común").
+  params: {"texto":"Calidad que se construye","sub":"Desde 1979","modo":"palabras"|"letras"|"lineas",
+           "align":"center"|"left","x":190,"y":540,"size":96,"fuente":"Inter"|"Barlow Condensed",
+           "peso":600,"mayus":false,"color":"#fff","dur":4}
+-->
+<style>
+  html,body{margin:0;overflow:hidden;background:transparent}
+  #t{position:absolute;color:var(--c);text-shadow:0 3px 22px rgba(0,0,0,.35)}
+  #h{margin:0;line-height:1.05;letter-spacing:-.01em}
+  #s{font-family:Inter;font-weight:300;opacity:.9;margin-top:.5em;letter-spacing:.08em;text-transform:uppercase}
+  .line{overflow:hidden;padding-bottom:.08em}
+</style></head>
+<body><div id="t"><h1 id="h"></h1><div id="s"></div></div>
+<script src="_base.js"></script>
+<script>
+defineMotion(async (tl, p, env, k) => {
+  const t = document.getElementById('t'), h = document.getElementById('h'), s = document.getElementById('s');
+  document.documentElement.style.setProperty('--c', p.color || '#fff');
+  h.textContent = p.texto || '';
+  s.textContent = p.sub || '';
+  h.style.fontFamily = `'${p.fuente || 'Inter'}'`;
+  h.style.fontWeight = p.peso || 600;
+  h.style.fontSize = (p.size || 96) * k + 'px';
+  s.style.fontSize = (p.size || 96) * 0.3 * k + 'px';
+  if (p.mayus) h.style.textTransform = 'uppercase';
+  const center = (p.align || 'center') === 'center';
+  t.style.width = center ? env.width + 'px' : (env.width - (p.x ?? 190) * k * 2) + 'px';
+  t.style.textAlign = center ? 'center' : 'left';
+  t.style.left = center ? '0' : (p.x ?? 190) * k + 'px';
+  t.style.top = ((p.y ?? 540) * k - t.offsetHeight / 2) + 'px';
+  const modo = p.modo || 'palabras';
+  const split = new SplitText(h, { type: 'lines,words,chars', linesClass: 'line' });
+  const items = modo === 'letras' ? split.chars : modo === 'lineas' ? split.lines : split.words;
+  const dur = +(p.dur || 4);
+  tl.from(items, { yPercent: 110, opacity: 0, duration: .8, ease: 'casa',
+                   stagger: modo === 'letras' ? .025 : .08 }, 0)
+    .from(s, { opacity: 0, y: 14 * k, duration: .7, ease: 'casa' }, .45)
+    .to(t, { opacity: 0, filter: 'blur(6px)', duration: .5, ease: 'power2.in' }, dur - .55);
+  return dur;
+});
+</script></body></html>

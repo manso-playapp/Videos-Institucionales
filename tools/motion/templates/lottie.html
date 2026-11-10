@@ -1,0 +1,43 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!--
+  LOTTIE — reproduce una animación exportada de After Effects (Bodymovin) o de LottieFiles.
+  params: {"src":"proyectos/acme/motion/logo.json","fit":"contain"|"cover","escala":1.0,
+           "x":0.5,"y":0.5 (centro, fracción del lienzo),"desde":0,"hasta":null (cuadros de AE),
+           "velocidad":1.0,"textos":{"capa_texto":"Nuevo texto"},"dur":null (default: la del archivo)}
+-->
+<style>html,body{margin:0;overflow:hidden;background:transparent}#a{position:absolute}</style></head>
+<body><div id="a"></div>
+<script src="_base.js"></script>
+<script>
+window.MOTION = {
+  async setup(p, env) {
+    await loadScript('assets/js/lottie.min.js');
+    await loadFonts(p.fonts || []);
+    setupStage(env);
+    const url = p.src.startsWith('/') ? 'file://' + p.src : REPO + p.src;
+    const data = JSON.parse(await readText(url));
+    // reemplazo de textos por nombre de capa
+    if (p.textos) (function walk(layers) {
+      for (const l of layers || []) {
+        if (l.ty === 5 && p.textos[l.nm] != null) l.t.d.k.forEach(kf => kf.s.t = p.textos[l.nm]);
+        if (l.refId) { const a = (data.assets || []).find(x => x.id === l.refId); if (a) walk(a.layers); }
+      }
+    })(data.layers);
+    const box = document.getElementById('a');
+    const ar = data.w / data.h, car = env.width / env.height, s = p.escala || 1;
+    let w, h;
+    if ((p.fit || 'contain') === 'cover' ? ar < car : ar > car) { w = env.width * s; h = w / ar; } else { h = env.height * s; w = h * ar; }
+    Object.assign(box.style, { width: w + 'px', height: h + 'px',
+      left: (env.width * (p.x ?? .5) - w / 2) + 'px', top: (env.height * (p.y ?? .5) - h / 2) + 'px' });
+    this.anim = lottie.loadAnimation({ container: box, renderer: 'svg', loop: false, autoplay: false, animationData: data });
+    await new Promise(r => this.anim.addEventListener('DOMLoaded', r));
+    this.fr = data.fr; this.ip = p.desde ?? data.ip; this.op = p.hasta ?? data.op; this.vel = p.velocidad || 1;
+    return p.dur || (this.op - this.ip) / this.fr / this.vel;
+  },
+  async seek(t) {
+    const f = Math.min(this.ip + t * this.fr * this.vel, this.op - 0.001);
+    this.anim.goToAndStop(f, true);
+  }
+};
+</script></body></html>

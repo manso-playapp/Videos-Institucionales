@@ -41,6 +41,9 @@ La skill `video-institucional` guía el resto.
 | `tools/qc.py` | QC de entrega: specs, LUFS y true peak, negros, congelados y silencios |
 | `tools/exportar.sh` | Master, ProRes 422 HQ, versión web, poster y hoja de contacto |
 | `tools/drive.sh` | Google Drive vía rclone (ls / pull / push / link) |
+| `tools/motion.py` + `tools/motion/` | Motion graphics (HTML + GSAP + Lottie) y 214 transiciones de GPU renderizadas cuadro por cuadro con Chromium |
+| `tools/luts.py` + `assets/luts/` | Looks de color del estudio (.cube) y muestrario comparativo |
+| `docs/efectos.md` | Catálogo de transiciones, plantillas, looks y texturas, con recomendaciones de uso |
 | `.claude/skills/` | `video-institucional` (propia) + `firsttake`, `business-motion-film`, `hyperframes` ([créditos](THIRD_PARTY.md)) |
 
-Requisitos: ffmpeg ≥ 6.1, Python ≥ 3.10, rclone, y `RCLONE_DRIVE_TOKEN` en el entorno para usar Drive.
+Requisitos: ffmpeg ≥ 6.1, Python ≥ 3.10, Node ≥ 18 con Playwright/Chromium (motion y transiciones), rclone, y `RCLONE_DRIVE_TOKEN` en el entorno para usar Drive.
