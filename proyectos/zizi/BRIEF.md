@@ -37,5 +37,15 @@ ZIZI es la gente: construye relaciones que perduren y una cultura de trabajo.
 - Carpeta de entregas: **PENDIENTE**
 - Referencias: Alsafex / Schneider / CINTER (docs/estandar.md)
 
+## Personas y cliente final (dato dado por el estudio)
+- Hombre de casco amarillo y camisa ZIZI: **dueño de ZIZI** (nombre a confirmar para el zócalo).
+- Hombre de camisa azul: **dueño de la marca Goipat**, para quien se construye el galpón (nombre a confirmar).
+
+## Decisiones del estudio (16-11)
+- **No usar el audio de las tomas** (solo imagen). La voz es la locución A.
+- **Dos entregas del mismo video**: 16:9 y **vertical 9:16** reacomodando las tomas.
+- Música de fondo tranquila (Artlist; track y licencia pendientes). Ducking bajo la voz.
+- Las tomas tienen que acompañar el guion. Transiciones de GPU como en Schneider (empuje, franjas, split), usadas como puntuación.
+
 ## Prohibido
-- **PENDIENTE**
+- **PENDIENTE** (el audio original de las tomas no se usa)

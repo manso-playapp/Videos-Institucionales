@@ -223,6 +223,10 @@ class Builder:
              f"fps={self.fps}"]
         fit = clip.get("fit", "cover")
         move = clip.get("move")
+        # "focus": {"x": 0..1, "y": 0..1} punto del cuadro fuente que se conserva al recortar (0.5 = centro)
+        foc = clip.get("focus") or {}
+        fx = min(max(float(foc.get("x", 0.5)), 0.0), 1.0)
+        fy = min(max(float(foc.get("y", 0.5)), 0.0), 1.0)
         if fit == "contain":
             bg = clip.get("bg", "black")
             f.append(f"scale={W}:{H}:force_original_aspect_ratio=decrease:flags=lanczos")
@@ -234,7 +238,7 @@ class Builder:
             kind = move.get("type", "push_in")
             n = max(int(round(dur * float(self.fps))), 1)
             f.append(f"scale={W*2}:{H*2}:force_original_aspect_ratio=increase:flags=lanczos")
-            f.append(f"crop={W*2}:{H*2}")
+            f.append(f"crop={W*2}:{H*2}:(iw-ow)*{fx}:(ih-oh)*{fy}")
             ease = f"(0.5-0.5*cos(PI*on/{n}))" if move.get("ease", True) else f"(on/{n})"
             if kind == "push_in":
                 z = f"1+{amt}*{ease}"
@@ -251,7 +255,7 @@ class Builder:
             f.append(f"zoompan=z='{z}':x='{x}':y='{y}':d=1:s={W}x{H}:fps={self.fps}")
         else:
             f.append(f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos")
-            f.append(f"crop={W}:{H}")
+            f.append(f"crop={W}:{H}:(iw-ow)*{fx}:(ih-oh)*{fy}")
         if clip.get("grade"):
             f.extend(self.grade_filters(clip["grade"]))
         # Grade global por plano; las placas/imágenes lo omiten salvo que se pida.
@@ -299,6 +303,8 @@ class Builder:
         W, H = self.W, self.H
         if layout == "grid":
             cols, rows = 2, (n + 1) // 2
+        elif layout == "v":
+            cols, rows = 1, n
         else:
             cols, rows = n, 1
         pw = (W - gap * (cols - 1)) // cols // 2 * 2
