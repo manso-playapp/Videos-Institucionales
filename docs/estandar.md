@@ -43,6 +43,12 @@ siente lento comparado con estas piezas.
   misma escala y ángulo seguidos. Macro de producto con poca profundidad de campo = "premium".
 - **Movimiento**: casi todo plano tiene movimiento (gimbal, slider, drone). Si el material es
   fijo, agregar push-in sutil (3–8 %) con `move` en la EDL. Nada de zooms digitales bruscos.
+- **Frame rate = el del material.** Medido en el proyecto ZIZI (drone 29,97p): convertir a 25p descarta
+  cuadros de forma despareja y multiplica el temblor por ~7 en una toma estabilizada (jitter 0,09 → 0,65 px,
+  aceleración 0,08 → 1,23). A fps nativo queda idéntico a la fuente. Si el material es 29,97/30, el proyecto
+  va a 29,97; 25p solo si el material es 25/50. Medilo con `proyectos/<cliente>/tools_local/jitter.py`.
+- **Sin push-in sintético sobre tomas de drone o gimbal**: ya se mueven; el `zoompan` agrega jitter
+  (0,09 → 0,17 px). Usarlo solo en planos fijos y con fuente 4K.
 - **Cámara lenta**: solo desde material de 50/60p (o más) conformado a 25p. Nunca ralentizar
   material de 25p por debajo de 0,8× (se ve a saltos).
 - **Color**: look limpio y frío-neutro en industria (azules/verdes petróleo en sombras, blancos

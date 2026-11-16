@@ -3,28 +3,23 @@
   "canvas": {
     "width": 1080,
     "height": 1920,
-    "fps": 25
+    "fps": 29.97
   },
   "grade": {
     "contrast": 1.04,
     "saturation": 1.04,
-    "temperature": 0.05,
-    "grain": 2
+    "temperature": 0.04
   },
   "fade": {
-    "in": 0.8,
-    "out": 1.2,
+    "in": 0.7,
+    "out": 1.0,
     "color": "black"
   },
   "clips": [
     {
       "src": "media/tomas/DJI_20261019122312_0547_D.MP4",
       "in": 1.0,
-      "dur": 4.5,
-      "move": {
-        "type": "push_in",
-        "amount": 0.05
-      },
+      "dur": 3.8,
       "focus": {
         "x": 0.45,
         "y": 0.5
@@ -33,24 +28,16 @@
     {
       "src": "media/tomas/DJI_20261019122245_0544_D.MP4",
       "in": 0.3,
-      "dur": 3.5,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 2.9,
       "focus": {
-        "x": 0.35,
+        "x": 0.45,
         "y": 0.5
       }
     },
     {
       "src": "media/tomas/DJI_20261019122410_0548_D.MP4",
       "in": 1.5,
-      "dur": 4.0,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 3.5,
       "focus": {
         "x": 0.4,
         "y": 0.5
@@ -59,11 +46,7 @@
     {
       "src": "media/tomas/DJI_20261019122218_0542_D.MP4",
       "in": 0.5,
-      "dur": 4.4,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 2.175,
       "focus": {
         "x": 0.3,
         "y": 0.5
@@ -72,35 +55,21 @@
     {
       "src": "media/tomas/DJI_20261019121534_0539_D.MP4",
       "in": 2.0,
-      "dur": 3.9,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 3.175,
       "focus": {
-        "x": 0.45,
+        "x": 0.4,
         "y": 0.5
       },
       "transition_in": {
-        "type": "gl:Directional",
-        "dur": 0.8,
-        "ease": "cubic-in-out",
-        "uniforms": {
-          "direction": [
-            1,
-            0
-          ]
-        }
+        "type": "gl:WhipPan",
+        "dur": 0.35,
+        "ease": "cubic-in-out"
       }
     },
     {
       "src": "media/tomas/DJI_20261019121633_0540_D.MP4",
       "in": 1.0,
-      "dur": 3.0,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 2.6,
       "focus": {
         "x": 0.4,
         "y": 0.5
@@ -109,112 +78,92 @@
     {
       "src": "media/tomas/DJI_20261019121707_0541_D.MP4",
       "in": 2.0,
-      "dur": 3.5,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 3.0,
       "focus": {
         "x": 0.45,
         "y": 0.5
       }
     },
     {
-      "src": "media/tomas/DJI_20261019123435_0564_D.MP4",
-      "in": 0.0,
-      "dur": 5.45,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "src": "media/tomas/27-10/DJI_20261027094147_0617_D.MP4",
+      "in": 8.0,
+      "dur": 2.925,
       "focus": {
-        "x": 0.4,
+        "x": 0.45,
         "y": 0.5
       }
     },
     {
       "src": "media/tomas/IMG_2244.MOV",
-      "in": 0.0,
-      "dur": 3.95,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "in": 0.1,
+      "dur": 3.025,
       "focus": {
-        "x": 0.55,
+        "x": 0.62,
         "y": 0.5
       },
       "transition_in": {
-        "type": "gl:DefocusBlur",
-        "dur": 0.9,
+        "type": "gl:BloomDissolve",
+        "dur": 0.45,
         "ease": "cubic-in-out"
       }
     },
     {
       "src": "media/tomas/IMG_2246.MOV",
-      "in": 1.0,
-      "dur": 3.5,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
-      "focus": {
-        "x": 0.5,
-        "y": 0.5
-      }
+      "in": 4.0,
+      "dur": 3.6,
+      "fit": "contain",
+      "bg": "blur"
     },
     {
       "src": "media/tomas/IMG_2255.MP4",
-      "in": 0.0,
-      "dur": 2.8,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "in": 0.1,
+      "dur": 2.4,
       "focus": {
         "x": 0.5,
         "y": 0.5
       }
     },
     {
-      "src": "media/tomas/IMG_2243.MP4",
-      "in": 0.0,
-      "dur": 3.1,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "src": "media/tomas/IMG_2247.MOV",
+      "in": 9.6,
+      "dur": 1.825,
       "focus": {
-        "x": 0.5,
+        "x": 0.55,
         "y": 0.5
       }
     },
     {
-      "src": "media/tomas/DJI_20261019122918_0555_D.MP4",
-      "in": 0.0,
-      "dur": 3.4,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "src": "media/tomas/IMG_2252.MOV",
+      "in": 2.7,
+      "dur": 1.95,
       "focus": {
-        "x": 0.5,
+        "x": 0.6,
         "y": 0.5
       },
       "transition_in": {
-        "type": "gl:CrossZoom",
-        "dur": 0.8,
+        "type": "gl:DefocusBlur",
+        "dur": 0.45,
         "ease": "cubic-in-out"
       }
     },
     {
       "src": "media/tomas/DJI_20261019123146_0558_D.MP4",
-      "in": 4.0,
-      "dur": 3.5,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
+      "in": 6.0,
+      "dur": 2.225,
+      "focus": {
+        "x": 0.5,
+        "y": 0.5
       },
+      "transition_in": {
+        "type": "gl:WhipTilt",
+        "dur": 0.45,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019122918_0555_D.MP4",
+      "in": 0.0,
+      "dur": 2.05,
       "focus": {
         "x": 0.5,
         "y": 0.5
@@ -222,25 +171,22 @@
     },
     {
       "src": "media/tomas/30-10/DJI_20261030121438_0676_D.MP4",
-      "in": 2.0,
-      "dur": 3.0,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "in": 1.5,
+      "dur": 2.25,
       "focus": {
         "x": 0.5,
         "y": 0.5
+      },
+      "transition_in": {
+        "type": "gl:LightWipe",
+        "dur": 0.5,
+        "ease": "cubic-in-out"
       }
     },
     {
       "src": "media/tomas/30-10/DJI_20261030121501_0677_D.MP4",
       "in": 6.0,
-      "dur": 3.95,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 1.975,
       "focus": {
         "x": 0.5,
         "y": 0.5
@@ -249,100 +195,100 @@
     {
       "src": "media/tomas/30-10/DJI_20261030120932_0666_D.MP4",
       "in": 0.0,
-      "dur": 4.35,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 3.175,
       "focus": {
         "x": 0.45,
         "y": 0.5
       },
       "transition_in": {
-        "type": "gl:Comb",
-        "dur": 0.9,
+        "type": "gl:WhipPan",
+        "dur": 0.35,
         "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/27-10/DJI_20261027094918_0628_D.MP4",
+      "in": 1.0,
+      "dur": 2.6,
+      "focus": {
+        "x": 0.45,
+        "y": 0.5
+      },
+      "transition_in": {
+        "type": "gl:Overexposure",
+        "dur": 0.4,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/27-10/DJI_20261027094944_0629_D.MP4",
+      "in": 1.5,
+      "dur": 2.7,
+      "focus": {
+        "x": 0.4,
+        "y": 0.5
       }
     },
     {
       "src": "media/tomas/6-11/DJI_20250428061747_0708_D.MP4",
       "in": 2.0,
-      "dur": 3.9,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 1.7,
       "focus": {
         "x": 0.45,
-        "y": 0.5
-      },
-      "transition_in": {
-        "type": "gl:Directional",
-        "dur": 0.8,
-        "ease": "cubic-in-out",
-        "uniforms": {
-          "direction": [
-            -1,
-            0
-          ]
-        }
-      }
-    },
-    {
-      "src": "media/tomas/27-10/IMG_3389.MP4",
-      "in": 0.0,
-      "dur": 3.0,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
-      "focus": {
-        "x": 0.55,
-        "y": 0.5
-      }
-    },
-    {
-      "src": "media/tomas/30-10/DJI_20261030121654_0678_D.MP4",
-      "in": 0.0,
-      "dur": 3.0,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
-      "focus": {
-        "x": 0.45,
-        "y": 0.5
-      }
-    },
-    {
-      "src": "media/tomas/IMG_2251.MOV",
-      "in": 0.0,
-      "dur": 2.95,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
-      "focus": {
-        "x": 0.5,
         "y": 0.5
       }
     },
     {
       "src": "media/tomas/6-11/DJI_20250428061822_0709_D.MP4",
       "in": 3.0,
-      "dur": 4.95,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 2.075,
+      "focus": {
+        "x": 0.45,
+        "y": 0.5
+      }
+    },
+    {
+      "src": "media/tomas/30-10/DJI_20261030121654_0678_D.MP4",
+      "in": 0.0,
+      "dur": 2.675,
       "focus": {
         "x": 0.45,
         "y": 0.5
       },
       "transition_in": {
-        "type": "gl:BandWipe",
-        "dur": 0.9,
+        "type": "gl:WhipPan",
+        "dur": 0.35,
         "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2251.MOV",
+      "in": 0.0,
+      "dur": 2.15,
+      "fit": "contain",
+      "bg": "blur"
+    },
+    {
+      "src": "media/tomas/27-10/IMG_3389.MP4",
+      "in": 0.2,
+      "dur": 2.35,
+      "focus": {
+        "x": 0.55,
+        "y": 0.5
+      },
+      "transition_in": {
+        "type": "gl:DefocusBlur",
+        "dur": 0.5,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/27-10/DJI_20261027094147_0617_D.MP4",
+      "in": 14.0,
+      "dur": 3.6,
+      "focus": {
+        "x": 0.45,
+        "y": 0.5
       }
     },
     {
@@ -360,98 +306,76 @@
           "in": 1.0
         }
       ],
-      "dur": 3.5,
+      "dur": 3.6,
       "gap": 10,
       "layout": "v",
-      "stagger": 0.15
+      "stagger": 0.12,
+      "transition_in": {
+        "type": "gl:BloomDissolve",
+        "dur": 0.4,
+        "ease": "cubic-in-out"
+      }
     },
     {
       "src": "media/tomas/6-11/DJI_20250428061513_0705_D.MP4",
       "in": 2.0,
-      "dur": 4.95,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 1.225,
       "focus": {
         "x": 0.45,
         "y": 0.5
       }
     },
     {
-      "src": "media/tomas/IMG_2248.MP4",
-      "in": 0.5,
-      "dur": 3.45,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
-      "focus": {
-        "x": 0.5,
-        "y": 0.5
-      },
+      "src": "media/tomas/IMG_2253.MOV",
+      "in": 3.2,
+      "dur": 3.925,
+      "fit": "contain",
+      "bg": "blur",
       "transition_in": {
-        "type": "gl:DefocusBlur",
-        "dur": 0.9,
+        "type": "gl:Overexposure",
+        "dur": 0.45,
         "ease": "cubic-in-out"
       }
     },
     {
-      "src": "media/tomas/IMG_2253.MOV",
-      "in": 1.6,
-      "dur": 5.0,
+      "src": "media/tomas/IMG_2256.MP4",
+      "in": 0.1,
+      "dur": 2.525,
       "focus": {
         "x": 0.5,
         "y": 0.5
-      },
-      "fit": "contain",
-      "bg": "blur"
+      }
     },
     {
-      "src": "media/tomas/IMG_2249.MP4",
-      "in": 5.0,
-      "dur": 2.9,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
-      "focus": {
-        "x": 0.5,
-        "y": 0.5
+      "src": "media/tomas/IMG_2257.MP4",
+      "in": 0.2,
+      "dur": 4.3,
+      "fit": "contain",
+      "bg": "blur",
+      "transition_in": {
+        "type": "gl:DefocusBlur",
+        "dur": 0.45,
+        "ease": "cubic-in-out"
       }
     },
     {
       "src": "media/tomas/6-11/DJI_20250428061712_0707_D.MP4",
       "in": 0.0,
-      "dur": 4.4,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 3.375,
       "focus": {
         "x": 0.5,
         "y": 0.5
       },
       "transition_in": {
-        "type": "gl:Directional",
-        "dur": 0.8,
-        "ease": "cubic-in-out",
-        "uniforms": {
-          "direction": [
-            1,
-            0
-          ]
-        }
+        "type": "gl:WhipPan",
+        "dur": 0.35,
+        "ease": "cubic-in-out"
       }
     },
     {
       "src": "media/tomas/14-11/DJI_20250508094550_0728_D.MP4",
       "in": 5.0,
-      "dur": 3.0,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 2.95,
       "focus": {
         "x": 0.55,
         "y": 0.5
@@ -460,75 +384,58 @@
     {
       "src": "media/tomas/14-11/DJI_20250508094220_0721_D.MP4",
       "in": 0.0,
-      "dur": 5.0,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 3.45,
       "focus": {
         "x": 0.4,
         "y": 0.5
+      },
+      "transition_in": {
+        "type": "gl:BloomDissolve",
+        "dur": 0.5,
+        "ease": "cubic-in-out"
       }
     },
     {
-      "src": "media/tomas/14-11/DJI_20250508094327_0724_D.MP4",
-      "in": 3.0,
-      "dur": 3.5,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
-      "focus": {
-        "x": 0.5,
-        "y": 0.5
+      "src": "media/tomas/IMG_2257.MP4",
+      "in": 5.6,
+      "dur": 2.3,
+      "fit": "contain",
+      "bg": "blur",
+      "transition_in": {
+        "type": "gl:Overexposure",
+        "dur": 0.4,
+        "ease": "cubic-in-out"
       }
     },
     {
       "src": "media/tomas/14-11/DJI_20250508094739_0732_D.MP4",
       "in": 8.0,
-      "dur": 3.95,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
+      "dur": 3.6,
       "focus": {
         "x": 0.45,
         "y": 0.5
-      }
-    },
-    {
-      "src": "media/tomas/IMG_2257.MP4",
-      "in": 1.0,
-      "dur": 5.45,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
-      "focus": {
-        "x": 0.5,
-        "y": 0.5
       },
       "transition_in": {
-        "type": "gl:DefocusBlur",
-        "dur": 0.9,
+        "type": "gl:WhipTilt",
+        "dur": 0.4,
         "ease": "cubic-in-out"
       }
     },
     {
       "src": "media/logo/placa_web.png",
-      "dur": 4.0,
+      "dur": 4.1,
       "fit": "contain",
       "bg": "black",
       "transition_in": {
         "type": "gl:CrossZoom",
-        "dur": 1.0,
+        "dur": 0.6,
         "ease": "cubic-in-out"
       }
     }
   ],
   "texts": [],
   "subtitles": {
-    "src": "locucion_A.srt",
+    "src": "locucion_limpia.srt",
     "offset": 0.0,
     "style": "subtitulo",
     "size": 22,
@@ -545,13 +452,13 @@
         "y": 330,
         "align": "center"
       },
-      "start": 44.8,
-      "dur": 3.6
+      "start": 35.7,
+      "dur": 3.4
     }
   ],
   "audio": {
     "vo": {
-      "src": "media/audio/locucion_A.wav",
+      "src": "media/audio/locucion_limpia.wav",
       "start": 0.0,
       "gain_db": 0
     }
