@@ -400,14 +400,12 @@
       "src": "media/tomas/IMG_2253.MOV",
       "in": 1.6,
       "dur": 5.0,
-      "move": {
-        "type": "push_in",
-        "amount": 0.04
-      },
       "focus": {
         "x": 0.5,
         "y": 0.5
-      }
+      },
+      "fit": "contain",
+      "bg": "blur"
     },
     {
       "src": "media/tomas/IMG_2249.MP4",
@@ -532,7 +530,9 @@
   "subtitles": {
     "src": "locucion_A.srt",
     "offset": 0.0,
-    "style": "subtitulo"
+    "style": "subtitulo",
+    "size": 22,
+    "y": 880
   },
   "overlays": [
     {

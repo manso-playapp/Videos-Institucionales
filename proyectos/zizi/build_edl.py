@@ -48,7 +48,7 @@ S = [
  dict(n=77,  i=2.0, d=4.5, f=0.45),
  # --- F · "Y cuando estrechamos una mano…" (1:24–1:34)
  dict(n=140, i=0.5, d=3.0, tr=T("DefocusBlur", 0.9), f=0.50),
- dict(n=145, i=1.6, d=5.0, f=0.50),
+ dict(n=145, i=1.6, d=5.0, f=0.50, blur=True),
  dict(n=141, i=5.0, d=2.5, f=0.50),
  # --- G · "Construir no es levantar estructuras, es construir relaciones" + galpón terminado (1:34–1:58)
  dict(n=79,  i=0.0, d=4.0, tr=T("Directional", 0.8, direction=[1, 0]), f=0.50),
@@ -79,6 +79,9 @@ def clip_spec(s, vertical, extra_head, extra_tail, canvas_w):
         c["move"] = {"type": mv or "push_in", "amount": 0.04 if not mv else 0.05}
         if vertical:
             c["focus"] = {"x": s.get("f", 0.5), "y": 0.5}
+            if s.get("blur"):   # encuadre completo con fondo desenfocado (apretón de manos)
+                c["fit"], c["bg"] = "contain", "blur"
+                c.pop("move", None)
     if s.get("tr"):
         c["transition_in"] = s["tr"]
     return c
@@ -99,7 +102,8 @@ def build(vertical):
         "fade": {"in": 0.8, "out": 1.2, "color": "black"},
         "clips": clips,
         "texts": [],
-        "subtitles": {"src": "locucion_A.srt", "offset": 0.0, "style": "subtitulo"},
+        "subtitles": {"src": "locucion_A.srt", "offset": 0.0, "style": "subtitulo",
+                      **({"size": 22, "y": 880} if vertical else {})},
         "overlays": [
             {"template": "dato",
              "params": {"valor": "46", "prefijo": "+", "etiqueta": "años de experiencia",

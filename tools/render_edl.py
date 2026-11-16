@@ -229,8 +229,14 @@ class Builder:
         fy = min(max(float(foc.get("y", 0.5)), 0.0), 1.0)
         if fit == "contain":
             bg = clip.get("bg", "black")
-            f.append(f"scale={W}:{H}:force_original_aspect_ratio=decrease:flags=lanczos")
-            f.append(f"pad={W}:{H}:(ow-iw)/2:(oh-ih)/2:color={bg}")
+            if bg == "blur":
+                f.append(f"split[bgs][fgs];[bgs]scale={W}:{H}:force_original_aspect_ratio=increase,"
+                         f"crop={W}:{H},boxblur=32:3,eq=brightness=-0.12[bgb];"
+                         f"[fgs]scale={W}:{H}:force_original_aspect_ratio=decrease:flags=lanczos[fgb];"
+                         f"[bgb][fgb]overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2")
+            else:
+                f.append(f"scale={W}:{H}:force_original_aspect_ratio=decrease:flags=lanczos")
+                f.append(f"pad={W}:{H}:(ow-iw)/2:(oh-ih)/2:color={bg}")
         elif move:
             # Movimiento de cámara sintético (push-in / pull-out / paneo), con
             # sobremuestreo x2 para evitar el "temblor" típico de zoompan.
@@ -447,6 +453,10 @@ class Builder:
                 it["start"] += offset
                 it["end"] += offset
                 it["style"] = style
+                if not isinstance(sub, str):
+                    for kk in ("size", "y", "x", "color"):
+                        if kk in sub:
+                            it[kk] = sub[kk]
                 items.append(it)
         out = []
         for n, t in enumerate(items):
