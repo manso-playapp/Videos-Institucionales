@@ -22,7 +22,7 @@ ZIZI es la gente: construye relaciones que perduren y una cultura de trabajo.
 - Dos tomas de locución en Drive (WhatsApp Audio, 1:37 y 2:00). Transcriptas con Whisper (SRT/JSON en media/).
   - Toma 1 (2:00, pausas largas y respiración): más cercana al guion; error de ASR "hora" por "obra".
   - Toma 2 (1:37, más ágil): ASR dudoso en "vacío", "nos eligen", "ninguna obra se hace en soledad".
-  - **Decisión pendiente**: cuál se usa. Son audios de WhatsApp (AAC comprimido): conviene regrabar en estudio o mejorar con limpieza.
+  - **Decisión: se usa la toma 1 (2:00)**: mejor dicción (menos errores de ASR) y pausas largas en las [Pausa] del guion. Toma 2 queda de respaldo. Revisable si el cliente prefiere otra. Los audios son de WhatsApp (AAC): limpiar/mejorar o regrabar si hay tiempo.
 
 ## Música
 - **PENDIENTE** (track + licencia).
