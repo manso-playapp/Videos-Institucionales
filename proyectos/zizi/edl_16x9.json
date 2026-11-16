@@ -19,13 +19,13 @@
   "clips": [
     {
       "src": "media/tomas/DJI_20261019123435_0564_D.MP4",
-      "in": 7.05,
-      "dur": 3.75
+      "in": 6.95,
+      "dur": 3.85
     },
     {
       "src": "media/tomas/DJI_20261019122259_0545_D.MP4",
       "in": 0.5,
-      "dur": 2.95,
+      "dur": 3.05,
       "transition_in": {
         "type": "gl:DefocusBlur",
         "dur": 0.5,
@@ -35,12 +35,12 @@
     {
       "src": "media/tomas/DJI_20261019122312_0547_D.MP4",
       "in": 1.0,
-      "dur": 4.39
+      "dur": 4.99
     },
     {
       "src": "media/tomas/DJI_20261019122245_0544_D.MP4",
       "in": 0.3,
-      "dur": 4.69,
+      "dur": 4.39,
       "transition_in": {
         "type": "gl:WhipPan",
         "dur": 0.38,
@@ -50,17 +50,17 @@
     {
       "src": "media/tomas/DJI_20261019121534_0539_D.MP4",
       "in": 2.0,
-      "dur": 2.8
+      "dur": 3.2
     },
     {
       "src": "media/tomas/DJI_20261019121707_0541_D.MP4",
       "in": 2.0,
-      "dur": 3.05
+      "dur": 3.95
     },
     {
       "src": "media/tomas/IMG_2244.MOV",
       "in": 0.1,
-      "dur": 4.75,
+      "dur": 4.85,
       "transition_in": {
         "type": "gl:BloomDissolve",
         "dur": 0.5,
@@ -70,12 +70,12 @@
     {
       "src": "media/tomas/IMG_2255.MP4",
       "in": 0.1,
-      "dur": 2.69
+      "dur": 2.79
     },
     {
       "src": "media/tomas/IMG_2246.MOV",
       "in": 4.0,
-      "dur": 3.6,
+      "dur": 4.1,
       "transition_in": {
         "type": "gl:WhipPan",
         "dur": 0.38,
@@ -85,7 +85,7 @@
     {
       "src": "media/tomas/IMG_2252.MOV",
       "in": 2.7,
-      "dur": 3.41,
+      "dur": 3.61,
       "transition_in": {
         "type": "gl:Overexposure",
         "dur": 0.42,
@@ -95,12 +95,12 @@
     {
       "src": "media/tomas/DJI_20261019122918_0555_D.MP4",
       "in": 0.0,
-      "dur": 2.825
+      "dur": 2.525
     },
     {
       "src": "media/tomas/DJI_20261019123146_0558_D.MP4",
       "in": 6.0,
-      "dur": 2.475,
+      "dur": 2.575,
       "transition_in": {
         "type": "gl:WhipTilt",
         "dur": 0.45,
@@ -110,7 +110,7 @@
     {
       "src": "media/tomas/30-10/DJI_20261030121438_0676_D.MP4",
       "in": 1.5,
-      "dur": 3.0,
+      "dur": 4.1,
       "transition_in": {
         "type": "gl:LightWipe",
         "dur": 0.5,
@@ -120,7 +120,7 @@
     {
       "src": "media/tomas/27-10/DJI_20261027094918_0628_D.MP4",
       "in": 1.0,
-      "dur": 3.25,
+      "dur": 3.85,
       "transition_in": {
         "type": "gl:DefocusBlur",
         "dur": 0.5,
@@ -130,12 +130,12 @@
     {
       "src": "media/tomas/27-10/DJI_20261027094944_0629_D.MP4",
       "in": 1.5,
-      "dur": 3.19
+      "dur": 3.39
     },
     {
-      "src": "media/tomas/6-11/DJI_20250428061747_0708_D.MP4",
-      "in": 2.0,
-      "dur": 2.79,
+      "src": "media/tomas/30-10/DJI_20261030121654_0678_D.MP4",
+      "in": 0.0,
+      "dur": 2.39,
       "transition_in": {
         "type": "gl:WhipPan",
         "dur": 0.38,
@@ -143,14 +143,14 @@
       }
     },
     {
-      "src": "media/tomas/30-10/DJI_20261030121654_0678_D.MP4",
+      "src": "media/tomas/IMG_2243.MP4",
       "in": 0.0,
-      "dur": 2.85
+      "dur": 3.05
     },
     {
       "src": "media/tomas/6-11/DJI_20250428061822_0709_D.MP4",
       "in": 3.0,
-      "dur": 3.25,
+      "dur": 3.45,
       "transition_in": {
         "type": "gl:BloomDissolve",
         "dur": 0.5,
@@ -168,19 +168,24 @@
           "in": 2.0
         },
         {
-          "src": "media/tomas/6-11/DJI_20250428061822_0709_D.MP4",
-          "in": 12.0
+          "src": "media/tomas/6-11/DJI_20250428061747_0708_D.MP4",
+          "in": 2.0
         }
       ],
-      "dur": 3.01,
+      "dur": 3.0,
       "gap": 10,
       "layout": "h",
       "stagger": 0.12
     },
     {
+      "src": "media/tomas/14-11/DJI_20250508094650_0730_D.MP4",
+      "in": 3.0,
+      "dur": 2.61
+    },
+    {
       "src": "media/tomas/IMG_2253.MOV",
-      "in": 2.9,
-      "dur": 4.21,
+      "in": 2.6,
+      "dur": 4.51,
       "transition_in": {
         "type": "gl:Overexposure",
         "dur": 0.42,
@@ -188,19 +193,14 @@
       }
     },
     {
-      "src": "media/tomas/IMG_2257.MP4",
-      "in": 0.5,
-      "dur": 3.5
-    },
-    {
-      "src": "media/tomas/IMG_2248.MP4",
-      "in": 0.5,
-      "dur": 3.09
+      "src": "media/tomas/IMG_2250.MP4",
+      "in": 3.6,
+      "dur": 4.79
     },
     {
       "src": "media/tomas/6-11/DJI_20250428061712_0707_D.MP4",
       "in": 0.0,
-      "dur": 3.79,
+      "dur": 3.89,
       "transition_in": {
         "type": "gl:WhipPan",
         "dur": 0.38,
@@ -215,7 +215,7 @@
     {
       "src": "media/tomas/14-11/DJI_20250508094220_0721_D.MP4",
       "in": 0.0,
-      "dur": 2.96,
+      "dur": 3.06,
       "transition_in": {
         "type": "gl:BloomDissolve",
         "dur": 0.5,
@@ -224,8 +224,8 @@
     },
     {
       "src": "media/tomas/IMG_2257.MP4",
-      "in": 4.3,
-      "dur": 3.635,
+      "in": 0.2,
+      "dur": 3.435,
       "transition_in": {
         "type": "gl:Overexposure",
         "dur": 0.42,
@@ -235,7 +235,7 @@
     {
       "src": "media/tomas/14-11/DJI_20250508094739_0732_D.MP4",
       "in": 8.0,
-      "dur": 3.725,
+      "dur": 3.975,
       "transition_in": {
         "type": "gl:WhipTilt",
         "dur": 0.45,
@@ -243,23 +243,8 @@
       }
     },
     {
-      "src": "media/tomas/14-11/DJI_20250508094327_0724_D.MP4",
-      "in": 3.0,
-      "dur": 3.45
-    },
-    {
-      "src": "media/tomas/14-11/DJI_20250508094650_0730_D.MP4",
-      "in": 3.0,
-      "dur": 4.2,
-      "transition_in": {
-        "type": "gl:LightWipe",
-        "dur": 0.5,
-        "ease": "cubic-in-out"
-      }
-    },
-    {
       "src": "media/logo/placa_web.png",
-      "dur": 7.55,
+      "dur": 6.15,
       "fit": "contain",
       "bg": "black",
       "transition_in": {
@@ -272,18 +257,44 @@
   "texts": [],
   "overlays": [
     {
-      "template": "titulo",
+      "template": "claim",
       "params": {
-        "texto": "Cada proyecto tiene un comienzo",
-        "modo": "palabras",
-        "size": 84,
-        "y": 540,
-        "peso": 600,
-        "dur": 3.6,
-        "color": "#ffffff"
+        "kicker": "Cada proyecto",
+        "items": [
+          {
+            "texto": "Tiene un comienzo",
+            "t": 0
+          }
+        ],
+        "dur": 4.2,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 900,
+        "size": 112
       },
-      "start": 1.5,
-      "dur": 3.6
+      "start": 1.4,
+      "dur": 4.2
+    },
+    {
+      "template": "claim",
+      "params": {
+        "kicker": "Antes de hablar de estructuras",
+        "items": [
+          {
+            "texto": "Hablamos de proyectos",
+            "t": 0
+          }
+        ],
+        "dur": 3.8,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 900,
+        "size": 104
+      },
+      "start": 25.0,
+      "dur": 3.8
     },
     {
       "template": "dato",
@@ -293,102 +304,158 @@
         "etiqueta": "años de experiencia",
         "acento": "#FDB913",
         "y": 330,
-        "x": 190
+        "x": 150
       },
-      "start": 31.4,
-      "dur": 3.6
-    },
-    {
-      "template": "titulo",
-      "params": {
-        "texto": "Responsabilidad",
-        "modo": "letras",
-        "size": 78,
-        "y": 880,
-        "peso": 600,
-        "dur": 1.7,
-        "color": "#ffffff",
-        "fuente": "Barlow Condensed",
-        "mayus": true,
-        "align": "left",
-        "x": 190
-      },
-      "start": 63.0,
-      "dur": 1.7
-    },
-    {
-      "template": "titulo",
-      "params": {
-        "texto": "Cercanía",
-        "modo": "letras",
-        "size": 78,
-        "y": 880,
-        "peso": 600,
-        "dur": 1.4,
-        "color": "#ffffff",
-        "fuente": "Barlow Condensed",
-        "mayus": true,
-        "align": "left",
-        "x": 190
-      },
-      "start": 64.7,
-      "dur": 1.4
-    },
-    {
-      "template": "titulo",
-      "params": {
-        "texto": "Compromiso",
-        "modo": "letras",
-        "size": 78,
-        "y": 880,
-        "peso": 600,
-        "dur": 1.9,
-        "color": "#ffffff",
-        "fuente": "Barlow Condensed",
-        "mayus": true,
-        "align": "left",
-        "x": 190
-      },
-      "start": 65.9,
-      "dur": 1.9
-    },
-    {
-      "template": "titulo",
-      "params": {
-        "texto": "ZIZI es la gente.",
-        "modo": "palabras",
-        "size": 92,
-        "y": 880,
-        "peso": 600,
-        "dur": 3.0,
-        "color": "#ffffff"
-      },
-      "start": 77.6,
+      "start": 34.9,
       "dur": 3.0
+    },
+    {
+      "template": "claim",
+      "params": {
+        "kicker": "Experiencia que respalda",
+        "items": [
+          {
+            "texto": "Conocimiento",
+            "t": 0
+          },
+          {
+            "texto": "Tecnología",
+            "t": 1.05
+          }
+        ],
+        "dur": 3.0,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 900,
+        "size": 128
+      },
+      "start": 37.25,
+      "dur": 3.0
+    },
+    {
+      "template": "claim",
+      "params": {
+        "kicker": "Ninguna obra se hace en soledad",
+        "items": [
+          {
+            "texto": "Gente",
+            "t": 0
+          },
+          {
+            "texto": "Compromiso",
+            "t": 1.1
+          },
+          {
+            "texto": "Confianza",
+            "t": 3.2
+          }
+        ],
+        "dur": 5.3,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 900,
+        "size": 128
+      },
+      "start": 50.6,
+      "dur": 5.3
+    },
+    {
+      "template": "claim",
+      "params": {
+        "kicker": "Nuestra manera de trabajar",
+        "items": [
+          {
+            "texto": "Responsabilidad",
+            "t": 0
+          },
+          {
+            "texto": "Cercanía",
+            "t": 1.7
+          },
+          {
+            "texto": "Compromiso",
+            "t": 3.55
+          }
+        ],
+        "dur": 5.0,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 900,
+        "size": 128
+      },
+      "start": 69.3,
+      "dur": 5.0
+    },
+    {
+      "template": "claim",
+      "params": {
+        "kicker": "Construir",
+        "items": [
+          {
+            "texto": "Relaciones que perduren",
+            "t": 0
+          }
+        ],
+        "dur": 3.0,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 900,
+        "size": 104
+      },
+      "start": 78.4,
+      "dur": 3.0
+    },
+    {
+      "template": "claim",
+      "params": {
+        "kicker": "",
+        "items": [
+          {
+            "texto": "ZIZI es la gente",
+            "t": 0
+          },
+          {
+            "texto": "Cultura de trabajo",
+            "t": 1.95
+          }
+        ],
+        "dur": 4.1,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 900,
+        "size": 116
+      },
+      "start": 83.5,
+      "dur": 4.1
     },
     {
       "template": "luz",
       "params": {
         "semilla": 4
       },
-      "start": 74.6,
-      "dur": 2.8,
-      "opacity": 0.55
+      "start": 80.3,
+      "dur": 2.6,
+      "opacity": 0.5
     }
   ],
   "audio": {
     "vo": {
-      "src": "media/audio/vo_el.wav",
+      "src": "media/audio/vo_a2.wav",
       "start": 0.0,
       "gain_db": 0
     },
     "music": {
-      "src": "media/music/forsaken.wav",
+      "src": "media/music/bt_summer.wav",
       "in": 0,
-      "gain_db": -7,
-      "fade_in": 1.2,
-      "fade_out": 2.4,
-      "end": 98.2
+      "gain_db": -9,
+      "fade_in": 1.5,
+      "fade_out": 1.8,
+      "end": 95.4
     },
     "duck_music_under_vo": true,
     "duck": {
@@ -400,38 +467,33 @@
     "sfx": [
       {
         "src": "media/sfx/whoosh_reverb.wav",
-        "at": 3.2,
+        "at": 3.3,
         "gain_db": -15
       },
       {
         "src": "media/sfx/whoosh_airy.wav",
-        "at": 10.16,
+        "at": 10.96,
         "gain_db": -13
       },
       {
         "src": "media/sfx/whoosh_reverb.wav",
-        "at": 20.2,
+        "at": 22.0,
         "gain_db": -15
       },
       {
         "src": "media/sfx/whoosh_airy.wav",
-        "at": 27.26,
+        "at": 29.26,
         "gain_db": -13
       },
       {
         "src": "media/sfx/whoosh_reverb.wav",
-        "at": 30.44,
+        "at": 32.94,
         "gain_db": -15
       },
       {
         "src": "media/sfx/whoosh_airy.wav",
-        "at": 36.23,
+        "at": 38.62,
         "gain_db": -13
-      },
-      {
-        "src": "media/sfx/whoosh_reverb.wav",
-        "at": 38.2,
-        "gain_db": -15
       },
       {
         "src": "media/sfx/whoosh_reverb.wav",
@@ -439,48 +501,48 @@
         "gain_db": -15
       },
       {
-        "src": "media/sfx/whoosh_airy.wav",
-        "at": 46.76,
-        "gain_db": -13
-      },
-      {
         "src": "media/sfx/whoosh_reverb.wav",
-        "at": 51.9,
-        "gain_db": -15
-      },
-      {
-        "src": "media/sfx/whoosh_reverb.wav",
-        "at": 57.74,
+        "at": 44.3,
         "gain_db": -15
       },
       {
         "src": "media/sfx/whoosh_airy.wav",
-        "at": 68.16,
+        "at": 51.16,
         "gain_db": -13
       },
       {
         "src": "media/sfx/whoosh_reverb.wav",
-        "at": 74.7,
+        "at": 56.1,
         "gain_db": -15
       },
       {
         "src": "media/sfx/whoosh_reverb.wav",
-        "at": 77.24,
+        "at": 64.74,
         "gain_db": -15
       },
       {
         "src": "media/sfx/whoosh_airy.wav",
-        "at": 80.43,
+        "at": 73.66,
         "gain_db": -13
       },
       {
         "src": "media/sfx/whoosh_reverb.wav",
-        "at": 87.1,
+        "at": 80.3,
         "gain_db": -15
       },
       {
         "src": "media/sfx/whoosh_reverb.wav",
-        "at": 90.6,
+        "at": 82.94,
+        "gain_db": -15
+      },
+      {
+        "src": "media/sfx/whoosh_airy.wav",
+        "at": 85.93,
+        "gain_db": -13
+      },
+      {
+        "src": "media/sfx/whoosh_reverb.wav",
+        "at": 89.2,
         "gain_db": -15
       }
     ]

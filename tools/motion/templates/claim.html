@@ -1,0 +1,95 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!--
+  CLAIM — palabra o frase clave de marca, en el mismo sistema gráfico que DATO: línea superior
+  (kicker) + barra de acento que se dibuja + palabra grande condensada revelada con máscara.
+  Varias palabras se REEMPLAZAN en el mismo lugar, sincronizadas con la locución (no quedan sueltas).
+  params: {
+    "kicker": "Nuestra manera de trabajar",
+    "items": [{"texto": "Responsabilidad", "t": 0.0}, {"texto": "Cercanía", "t": 1.4}],   t = segundos desde el inicio
+    "sub": "texto chico opcional debajo de la palabra",
+    "align": "left"|"center", "x": 150, "y": 860 (px a 1080p; y = línea base de la palabra),
+    "size": 128, "acento": "#FDB913", "color": "#ffffff", "scrim": true, "dur": 4
+  }
+-->
+<style>
+  html,body{margin:0;overflow:hidden;background:transparent}
+  #scrim{position:absolute;inset:0;opacity:0}
+  #g{position:absolute;font-family:'Barlow Condensed';color:var(--c);text-transform:uppercase}
+  #kick{font-family:Inter;font-weight:600;font-size:calc(30px*var(--k));letter-spacing:.22em;overflow:hidden;
+        white-space:nowrap;opacity:.95;text-shadow:0 calc(2px*var(--k)) calc(10px*var(--k)) rgba(0,0,0,.45)}
+  #kick span{display:inline-block}
+  #bar{height:calc(6px*var(--k));width:calc(150px*var(--k));background:var(--a);transform-origin:left center;
+       margin:calc(14px*var(--k)) 0 calc(10px*var(--k))}
+  #stage{position:relative;overflow:hidden;line-height:.92;padding-bottom:.06em}
+  .w{display:block;font-weight:700;letter-spacing:.005em;white-space:nowrap;
+     text-shadow:0 calc(3px*var(--k)) calc(20px*var(--k)) rgba(0,0,0,.4)}
+  .w + .w{position:absolute;left:0;top:0;width:100%}
+  .ch{display:inline-block}
+  #sub{font-family:Inter;font-weight:300;font-size:calc(30px*var(--k));letter-spacing:.04em;text-transform:none;
+       margin-top:calc(12px*var(--k));overflow:hidden;white-space:nowrap;text-shadow:0 calc(2px*var(--k)) calc(10px*var(--k)) rgba(0,0,0,.5)}
+  #sub span{display:inline-block}
+</style></head>
+<body><div id="scrim"></div>
+<div id="g"><div id="kick"><span></span></div><div id="bar"></div><div id="stage"></div><div id="sub"><span></span></div></div>
+<script src="_base.js"></script>
+<script>
+defineMotion(async (tl, p, env, k) => {
+  const g = document.getElementById('g'), stage = document.getElementById('stage');
+  const bar = document.getElementById('bar'), kick = document.querySelector('#kick span');
+  const sub = document.querySelector('#sub span'), scrim = document.getElementById('scrim');
+  const dur = +(p.dur || 4), center = (p.align || 'left') === 'center';
+  document.documentElement.style.setProperty('--c', p.color || '#fff');
+  document.documentElement.style.setProperty('--a', p.acento || '#FDB913');
+  kick.textContent = p.kicker || '';
+  if (p.ks) document.getElementById('kick').style.fontSize = (p.ks * k) + 'px';
+  sub.textContent = p.sub || '';
+  if (!p.kicker) document.getElementById('kick').style.display = 'none';
+  if (!p.sub) document.getElementById('sub').style.display = 'none';
+  const items = (p.items && p.items.length) ? p.items : [{ texto: p.texto || '', t: 0 }];
+  const size = (p.size || 128) * k;
+  const words = items.map(it => {
+    const el = document.createElement('span'); el.className = 'w'; el.style.fontSize = size + 'px';
+    el.innerHTML = [...String(it.texto)].map(c => `<span class="ch">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
+    stage.appendChild(el); return el;
+  });
+  // ancho de escena = palabra más larga, para que no salten las demás
+  stage.style.width = Math.max(...words.map(w => w.offsetWidth)) + 'px';
+  stage.style.height = Math.max(...words.map(w => w.offsetHeight)) + 'px';
+  // scrim: degradé que oscurece solo la zona del texto
+  scrim.style.background = center
+    ? 'linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,.30) 30%, rgba(0,0,0,0) 48%)'
+    : 'linear-gradient(to right, rgba(0,0,0,.66) 0%, rgba(0,0,0,.36) 36%, rgba(0,0,0,0) 62%)';
+  if (p.scrim === false) scrim.style.display = 'none';
+  // posición
+  const y = (p.y ?? 860) * k;
+  if (center) {
+    g.style.left = '0'; g.style.width = env.width + 'px'; g.style.textAlign = 'center';
+    bar.style.margin = `${14 * k}px auto ${10 * k}px`; bar.style.transformOrigin = 'center';
+    stage.style.margin = '0 auto';
+    words.forEach(w => { w.style.textAlign = 'center'; });
+  } else {
+    g.style.left = (p.x ?? 150) * k + 'px';
+  }
+  g.style.top = (y - g.offsetHeight + (p.sub ? document.getElementById('sub').offsetHeight + 12 * k : 0)) + 'px';
+
+  const chars = w => w.querySelectorAll('.ch');
+  words.forEach((w, i) => { if (i) tl.set(chars(w), { yPercent: 115 }, 0); });
+  tl.to(scrim, { opacity: 1, duration: 0.6, ease: 'power2.out' }, 0)
+    .from(bar, { scaleX: 0, duration: 0.7, ease: 'casa' }, 0.05)
+    .from(kick, { yPercent: 120, duration: 0.6, ease: 'casa' }, 0.12)
+    .from(chars(words[0]), { yPercent: 115, duration: 0.7, ease: 'casa', stagger: 0.022 }, 0.18);
+  if (p.sub) tl.from(sub, { yPercent: 120, duration: 0.6, ease: 'casa' }, 0.45);
+  for (let i = 1; i < words.length; i++) {
+    const t = Math.max(+items[i].t, 0.6);
+    tl.to(chars(words[i - 1]), { yPercent: -115, duration: 0.42, ease: 'power3.in', stagger: 0.012 }, t - 0.32)
+      .to(chars(words[i]), { yPercent: 0, duration: 0.62, ease: 'casa', stagger: 0.02 }, t - 0.05)
+      .fromTo(bar, { scaleX: 0.55 }, { scaleX: 1, duration: 0.5, ease: 'casa' }, t - 0.05);
+  }
+  const outT = 0.5;
+  tl.to([kick, chars(words[words.length - 1]), bar, sub].flat ? [kick, ...chars(words[words.length - 1]), bar, sub] : [],
+        { yPercent: -60, opacity: 0, duration: outT, ease: 'power2.in', stagger: 0.008 }, dur - outT - 0.1)
+    .to(scrim, { opacity: 0, duration: 0.5, ease: 'power2.in' }, dur - 0.55);
+  return dur;
+});
+</script></body></html>
