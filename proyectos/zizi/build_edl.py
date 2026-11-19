@@ -61,6 +61,22 @@ S = [
  dict(t=89.8, plate=True, tr=XZOOM()),
 ]
 END = 95.2
+
+# Edición hecha por el estudio en el artefacto (doc selecciones/horizontal → edicion_horizontal.json): si existe, manda sobre S.
+# Ahí "in" es el punto de la fuente que se ve en el corte t (sin contar el solape de la transición).
+EDIC = AQUI / "edicion_horizontal.json"
+TR_DUR = {"WhipPan": 0.38, "WhipTilt": 0.45, "BloomDissolve": 0.5, "Overexposure": 0.42, "DefocusBlur": 0.5, "LightWipe": 0.5, "CrossZoom": 0.7}
+if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):
+    _meta = {s["n"]: {k: s[k] for k in ("f", "blur") if k in s} for s in S if "n" in s}
+    S2 = []
+    for e in json.load(open(EDIC))["slots"]:
+        s = {"t": e["t"], "exacto": True}
+        if e["tipo"] == "placa": s["plate"] = True
+        elif e["tipo"] == "split": s["split"], s["si"] = e["tomas"], e["ins"]
+        else: s.update(n=e["n"], i=e["in"], **_meta.get(e["n"], {}))
+        if e.get("tr") and e["tr"] != "Corte": s["tr"] = T(e["tr"], TR_DUR.get(e["tr"], 0.5))
+        S2.append(s)
+    S = S2
 NIV = json.load(open(AQUI / "niveles.json"))
 def niveles(n):
     g = dict(NIV.get(str(n), {}).get("grade", {}))
@@ -81,10 +97,12 @@ def build(vertical):
             c = {"src": "media/logo/placa_web.png", "dur": round(d, 3), "fit": "contain", "bg": "black"}
         elif "split" in s:
             c = {"split": [{"src": INV[n]["file"].replace("proyectos/zizi/", ""), "in": i, **({"grade": niveles(n)} if niveles(n) else {})}
-                           for n, i in zip(s["split"], s["si"])], "dur": round(d, 3), "gap": 10,
+                           for n, i in zip(s["split"], [round(max(0.0, x - head), 3) if s.get("exacto") else x for x in s["si"]])], "dur": round(d, 3), "gap": 10,
                  "layout": "v" if vertical else "h", "stagger": 0.12}
         else:
-            inv = INV[s["n"]]; need = s["i"] + d
+            inv = INV[s["n"]]
+            if s.get("exacto"): s = {**s, "i": round(max(0.0, s["i"] - head), 3)}   # el cuadro elegido cae justo en el corte
+            need = s["i"] + d
             if need > inv["duracion"] + 0.02:
                 ERR.append(f"n{s['n']}: pide {need:.2f}s (in {s['i']} + {d:.2f}) y el clip dura {inv['duracion']:.2f}s")
             c = {"src": inv["file"].replace("proyectos/zizi/", ""), "in": s["i"], "dur": round(d, 3)}

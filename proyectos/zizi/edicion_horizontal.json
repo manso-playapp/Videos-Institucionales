@@ -1,0 +1,282 @@
+{
+ "base": "Borrador 5",
+ "editado": "2026-11-19T20:05:45.155Z",
+ "notas": "",
+ "pieza": "horizontal",
+ "slots": [
+  {
+   "in": 1.78,
+   "n": 118,
+   "nota": "",
+   "t": 0,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 2.33,
+   "n": 99,
+   "nota": "",
+   "t": 5.3,
+   "tipo": "toma",
+   "tr": "DefocusBlur"
+  },
+  {
+   "in": 1,
+   "n": 101,
+   "nota": "",
+   "t": 6.6,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 0.3,
+   "n": 98,
+   "nota": "",
+   "t": 11.5,
+   "tipo": "toma",
+   "tr": "WhipPan"
+  },
+  {
+   "in": 2,
+   "n": 93,
+   "nota": "",
+   "t": 15.4,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 2,
+   "n": 95,
+   "nota": "",
+   "t": 16.9,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 8,
+   "n": 18,
+   "nota": "",
+   "t": 19.4,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 0,
+   "n": 136,
+   "nota": "",
+   "t": 22.2,
+   "tipo": "toma",
+   "tr": "BloomDissolve"
+  },
+  {
+   "in": 0.2,
+   "n": 137,
+   "nota": "",
+   "t": 26.2,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 0.1,
+   "n": 147,
+   "nota": "",
+   "t": 27.8,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 4,
+   "n": 138,
+   "nota": "",
+   "t": 29.1,
+   "tipo": "toma",
+   "tr": "WhipPan"
+  },
+  {
+   "in": 9.6,
+   "n": 139,
+   "nota": "",
+   "t": 31.3,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 2.7,
+   "n": 144,
+   "nota": "",
+   "t": 33.5,
+   "tipo": "toma",
+   "tr": "Overexposure"
+  },
+  {
+   "in": 0,
+   "n": 109,
+   "nota": "",
+   "t": 37.3,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 6,
+   "n": 112,
+   "nota": "",
+   "t": 38.3,
+   "tipo": "toma",
+   "tr": "WhipTilt"
+  },
+  {
+   "in": 1.5,
+   "n": 66,
+   "nota": "",
+   "t": 40.8,
+   "tipo": "toma",
+   "tr": "LightWipe"
+  },
+  {
+   "in": 1,
+   "n": 27,
+   "nota": "",
+   "t": 44.4,
+   "tipo": "toma",
+   "tr": "DefocusBlur"
+  },
+  {
+   "in": 1.5,
+   "n": 28,
+   "nota": "",
+   "t": 48,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 0,
+   "n": 68,
+   "nota": "",
+   "t": 51.4,
+   "tipo": "toma",
+   "tr": "WhipPan"
+  },
+  {
+   "in": 0,
+   "n": 135,
+   "nota": "",
+   "t": 53.5,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 3,
+   "n": 81,
+   "nota": "",
+   "t": 56.3,
+   "tipo": "toma",
+   "tr": "BloomDissolve"
+  },
+  {
+   "in": 0,
+   "ins": [
+    6,
+    2,
+    2
+   ],
+   "n": null,
+   "nota": "",
+   "t": 59,
+   "tipo": "split",
+   "tomas": [
+    104,
+    77,
+    80
+   ],
+   "tr": "Corte"
+  },
+  {
+   "in": 3,
+   "n": 10,
+   "nota": "",
+   "t": 60.9,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 2.6,
+   "n": 145,
+   "nota": "",
+   "t": 62.6,
+   "tipo": "toma",
+   "tr": "Overexposure"
+  },
+  {
+   "in": 3.3,
+   "n": 142,
+   "nota": "",
+   "t": 66.9,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 3,
+   "n": 4,
+   "nota": "",
+   "t": 71.8,
+   "tipo": "toma",
+   "tr": "WhipPan"
+  },
+  {
+   "in": 0.2,
+   "n": 149,
+   "nota": "",
+   "t": 75.6,
+   "tipo": "toma",
+   "tr": "BloomDissolve"
+  },
+  {
+   "in": 5,
+   "n": 8,
+   "nota": "",
+   "t": 78.6,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 0.2,
+   "n": 44,
+   "nota": "",
+   "t": 81.3,
+   "tipo": "toma",
+   "tr": "Overexposure"
+  },
+  {
+   "in": 0.6,
+   "n": 43,
+   "nota": "",
+   "t": 82.9,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 1,
+   "n": 82,
+   "nota": "",
+   "t": 84.3,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 0,
+   "n": 1,
+   "nota": "",
+   "t": 87.2,
+   "tipo": "toma",
+   "tr": "BloomDissolve"
+  },
+  {
+   "in": 0,
+   "n": null,
+   "nota": "",
+   "t": 89.8,
+   "tipo": "placa",
+   "tr": "CrossZoom"
+  }
+ ]
+}
