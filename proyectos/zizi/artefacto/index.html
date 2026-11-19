@@ -105,8 +105,9 @@ input[type=range]{accent-color:var(--accent)}
 .edit-top video{aspect-ratio:16/9}
 .frase{font-size:15px;line-height:1.4;margin:0}
 .meta{font-size:12px;color:var(--muted);margin-top:6px}
-.slip{position:relative;height:40px;border-radius:6px;background:var(--raised);border:1px solid var(--line);touch-action:none;cursor:ew-resize;overflow:hidden}
+.slip{position:relative;height:48px;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;border-radius:6px;background:var(--raised);border:1px solid var(--line);touch-action:none;cursor:ew-resize;overflow:hidden}
 .slip .win{position:absolute;top:0;bottom:0;background:var(--accent-soft);border:2px solid var(--accent);border-radius:5px;cursor:grab;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden}
+.slip .win.on{cursor:grabbing;background:var(--accent);color:#16130a}
 .slip .cur{position:absolute;top:0;bottom:0;width:2px;background:var(--fg);pointer-events:none}
 .trans{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px}
 .tr{border:1px solid var(--line);background:var(--raised);border-radius:8px;padding:5px;text-align:left;display:flex;flex-direction:column;gap:4px}
@@ -120,7 +121,10 @@ input[type=range]{accent-color:var(--accent)}
 .take img{width:100%;height:100%;object-fit:cover;display:block}
 .take video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0;pointer-events:none}
 .take span{position:absolute;font-size:10px;background:rgba(0,0,0,.72);color:#fff;border-radius:3px;padding:0 4px}
-.take .d{right:3px;top:3px}.take .u{left:3px;top:3px;background:#FDB913;color:#16130a;font-weight:600}
+.take .d{right:3px;top:3px}.take .u{left:0;right:0;bottom:0;border-radius:0;padding:2px 4px;text-align:center;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#FDB913;color:#16130a;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.take.usada img{opacity:.6}.take.usada{border-color:#FDB913;border-style:dashed}
+.take .u.esta{background:#16130a;color:#FDB913}
+.usoRow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:13px}
 .take .short{left:3px;bottom:3px}
 .take[aria-pressed="true"]{border-color:var(--accent)}
 .take:disabled img{opacity:.4}
@@ -265,7 +269,7 @@ const MIN = 0.5, LOCAL = "zizi-corte-horizontal-v2";
 
 /* Modelo: la edición es la lista completa de tomas. Cada una: {t (cuándo entra), tipo, n (toma), in (desde qué segundo del material), tr, nota}.
    La duración de cada toma es hasta el corte siguiente; el total (la locución) no cambia nunca. */
-let BASE = null, LIB = {}, S = { slots: [], notas: "" }, sel = 0, pick = false, grupo = null;
+let BASE = null, LIB = {}, S = { slots: [], notas: "" }, sel = 0, pick = false, grupo = null, soloLibres = false;
 let ref = null, saveT = null, hist = [];
 const END = () => BASE.dur;
 const tOf = k => k >= S.slots.length ? END() : S.slots[k].t;
@@ -354,7 +358,7 @@ const Live = (() => {
       act.pause(); act.style.visibility = oth.style.visibility = "hidden";
       if (s.tipo === "split") [...tri.children].forEach((v, i) => { setSrc(v, srcOf(s.tomas[i])); sync(v, s.ins[i] + rel, playing); });
     }
-    if (playing && k !== sel && !TL.busy()) { sel = k; pick = false; TL.render(); renderBoard(); renderEditor(); renderCtl(); }
+    if (playing && k !== sel && !TL.busy() && !slipDrag) { sel = k; pick = false; TL.render(); renderBoard(); renderEditor(); renderCtl(); }
   }
   const loop = () => { draw(); raf = vo.paused ? null : requestAnimationFrame(loop); };
   vo.addEventListener("play", () => { btn.textContent = "Pausar"; $("#main").pause(); if (!raf) loop(); });
@@ -438,7 +442,9 @@ const TL = (() => {
 })();
 
 /* ---- barra de deslizar: todo el material de la toma elegida; el recuadro amarillo es el tramo que entra ---- */
+let slipDrag = false;
 function renderSlip() {
+  if (slipDrag) return;                       // no reconstruir la barra mientras se la está arrastrando
   const box = $("#slipBox"), k = sel, s = S.slots[k]; box.textContent = "";
   if (s.tipo !== "toma") return;
   const dur = durOf(k), D = LIB[s.n].dur, max = Math.max(0, r2(D - dur));
@@ -449,13 +455,16 @@ function renderSlip() {
       "Usa del segundo " + n1(s.in) + " al " + n1(s.in + dur) + " de los " + n1(D) + " que dura el material."; };
   pinta(); bar.appendChild(win);
   let dg = null;
-  bar.addEventListener("pointerdown", e => { if (max <= 0) return; const r = bar.getBoundingClientRect(); Live.pause();
+  bar.addEventListener("pointerdown", e => { if (max <= 0 || dg) return; e.preventDefault(); const r = bar.getBoundingClientRect(); Live.pause(); slipDrag = true;
     const t0 = clamp(Live.time(), s.t + 0.02, tOf(k + 1) - 0.05);
-    dg = { x: e.clientX, in0: s.in, w: r.width, antes: JSON.stringify(S.slots), tc: t0 }; bar.setPointerCapture(e.pointerId);
+    dg = { x: e.clientX, in0: s.in, w: r.width, antes: JSON.stringify(S.slots), tc: t0, id: e.pointerId }; win.classList.add("on");
+    window.addEventListener("pointermove", mueve); window.addEventListener("pointerup", suelta); window.addEventListener("pointercancel", suelta);
     if (e.target !== win) { deslizar(k, (e.clientX - r.left) / r.width * D - dur / 2, false); dg.in0 = s.in; pinta(); Live.seek(dg.tc); } });
-  bar.addEventListener("pointermove", e => { if (!dg) return; if (deslizar(k, dg.in0 + (e.clientX - dg.x) / dg.w * D, false)) { pinta(); Live.seek(dg.tc); } });
-  const suelta = () => { if (!dg) return; const g = dg; dg = null; if (JSON.stringify(S.slots) !== g.antes) { hist.push(g.antes); commit(); Live.seek(g.tc); } };
-  bar.addEventListener("pointerup", suelta); bar.addEventListener("pointercancel", suelta); bar.addEventListener("lostpointercapture", suelta);
+  const mueve = e => { if (!dg || e.pointerId !== dg.id) return; if (deslizar(k, dg.in0 + (e.clientX - dg.x) / dg.w * D, false)) { pinta(); Live.seek(dg.tc); } };
+  const suelta = e => { if (!dg || (e && e.pointerId !== dg.id)) return; const g = dg; dg = null; slipDrag = false; win.classList.remove("on");
+    window.removeEventListener("pointermove", mueve); window.removeEventListener("pointerup", suelta); window.removeEventListener("pointercancel", suelta);
+    if (JSON.stringify(S.slots) !== g.antes) { hist.push(g.antes); commit(); Live.seek(g.tc); } };
+  bar.addEventListener("dragstart", e => e.preventDefault());
   box.append(bar, out);
 }
 
@@ -553,15 +562,22 @@ function renderPicker(k, s, dur) {
   const pills = el("div", "pills");
   grupos.forEach(g => { const b = el("button", null, g); b.type = "button"; b.setAttribute("aria-pressed", g === grupo ? "true" : "false");
     b.addEventListener("click", () => { grupo = g; renderEditor(); }); pills.appendChild(b); });
+  const usadas = {}; S.slots.forEach((x, i) => { (x.tipo === "toma" ? [x.n] : x.tomas || []).forEach(n => { (usadas[n] = usadas[n] || []).push(i + 1); }); });
+  [...pills.children].forEach(b => { const c = Object.entries(LIB).filter(([n, l]) => l.grupo === b.textContent && usadas[n]).length; if (c) b.textContent += " · " + c + (c === 1 ? " usada" : " usadas"); });
   w.appendChild(pills);
-  const usadas = {}; S.slots.forEach((x, i) => { if (x.tipo === "toma") usadas[x.n] = i + 1; });
+  const enGrupo = Object.entries(LIB).filter(([, l]) => l.grupo === grupo), nUs = enGrupo.filter(([n]) => usadas[n]).length;
+  const row = el("div", "usoRow"); row.appendChild(el("span", null, "De este día: " + nUs + " ya usadas en el video, " + (enGrupo.length - nUs) + " libres."));
+  const chk = el("label"); const ci = el("input"); ci.type = "checkbox"; ci.checked = soloLibres; ci.addEventListener("change", () => { soloLibres = ci.checked; renderEditor(); });
+  chk.append(ci, " Mostrar solo las libres"); row.appendChild(chk); w.appendChild(row);
   const grid = el("div", "takes");
-  Object.entries(LIB).filter(([, l]) => l.grupo === grupo).forEach(([n, l]) => {
-    n = +n; const corta = l.dur < dur - 0.02;
+  enGrupo.forEach(([n, l]) => {
+    n = +n; const corta = l.dur < dur - 0.02, us = usadas[n], esta = n === s.n;
+    if (soloLibres && us && !esta) return;
     const b = el("button", "take"); b.type = "button"; b.disabled = corta; b.setAttribute("aria-pressed", n === s.n ? "true" : "false"); b.title = l.archivo;
     const i = el("img"); i.src = "posters/" + id3(n) + ".jpg"; i.alt = l.archivo; i.loading = "lazy"; b.appendChild(i);
     b.appendChild(el("span", "d", n1(l.dur) + " s"));
-    if (usadas[n]) b.appendChild(el("span", "u", "en toma " + usadas[n]));
+    if (us) { const otras = us.filter(x => x !== k + 1); b.classList.add("usada");
+      b.appendChild(el("span", "u" + (esta && !otras.length ? " esta" : ""), esta && !otras.length ? "La de ahora" : "Usada · toma " + (esta ? otras : us).join(", ") + (esta ? " (y acá)" : ""))); }
     if (corta) b.appendChild(el("span", "short", "muy corta"));
     b.addEventListener("click", () => { snap(); s.n = n; s.in = 0; commit(); Live.seek(s.t + 0.02); });
     b.addEventListener("pointerenter", e => { if (e.pointerType !== "mouse" || corta || b.querySelector("video")) return;
@@ -572,7 +588,7 @@ function renderPicker(k, s, dur) {
     grid.appendChild(b);
   });
   w.appendChild(grid);
-  w.appendChild(el("p", "hint", "Pasá el mouse por una miniatura para recorrerla. «Muy corta»: tiene menos material que la duración actual de la toma; acortá la toma y vas a poder elegirla."));
+  w.appendChild(el("p", "hint", "Las de borde punteado y cartel amarillo ya están en el video (dice en qué toma). Pasá el mouse por una miniatura para recorrerla. «Muy corta»: tiene menos material que la duración actual de la toma; acortá la toma y vas a poder elegirla."));
   return w;
 }
 
