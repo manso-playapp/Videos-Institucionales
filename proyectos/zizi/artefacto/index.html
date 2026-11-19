@@ -50,8 +50,8 @@ video{display:block;width:100%;background:#000;border-radius:6px}
 #lvTri video{position:static;width:100%;height:100%}
 #lvPlate{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#000;color:#FDB913;font:700 72px/1 var(--display);letter-spacing:.02em}
 .tlscroll{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;border-radius:6px;background:var(--bg);border:1px solid var(--line)}
-.tlinner{position:relative;height:118px;user-select:none;-webkit-user-select:none}
-.tlruler{position:absolute;left:0;right:0;top:0;height:18px;cursor:pointer;font-size:10px;color:var(--muted)}
+.tlinner{position:relative;height:118px;margin:0 14px;user-select:none;-webkit-user-select:none}
+.tlruler{position:absolute;left:0;right:0;top:0;height:18px;touch-action:none;cursor:pointer;font-size:10px;color:var(--muted)}
 .tlruler span{position:absolute;top:0;height:18px;border-left:1px solid var(--line);padding-left:3px}
 .tltrack{position:absolute;left:0;right:0;top:20px;height:58px}
 .tlb{position:absolute;top:0;height:58px;border-radius:5px;border:2px solid transparent;background:#000 center/cover;overflow:hidden;cursor:grab;touch-action:none;
@@ -67,7 +67,10 @@ video{display:block;width:100%;background:#000;border-radius:6px}
 .tlwords{position:absolute;left:0;right:0;top:84px;height:30px;font-size:10px;color:var(--muted);overflow:hidden}
 .tlwords span{position:absolute;top:0;white-space:nowrap;overflow:hidden;border-left:1px solid var(--line);padding-left:2px;line-height:14px}
 .tlwords span:nth-child(even){top:15px}
-.tlhead{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--accent);pointer-events:none;z-index:4}
+.tlhead{position:absolute;top:0;height:20px;width:22px;margin-left:-11px;z-index:6;cursor:ew-resize;touch-action:none}
+.tlhead i{position:absolute;left:10px;top:0;height:118px;width:2px;background:var(--accent);pointer-events:none}
+.tlhead::after{content:"";position:absolute;left:2px;top:0;width:18px;height:18px;border-radius:4px 4px 9px 9px;background:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,.5)}
+.tlhead.drag i{width:3px;left:9.5px}
 .transport{display:flex;align-items:center;gap:10px;margin-top:10px}
 .transport input{flex:1;min-width:0}
 .transport span{font-size:12px;color:var(--muted);white-space:nowrap}
@@ -186,7 +189,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
           <div class="tlwords" id="tlWords"></div>
           <div class="tlhead" id="tlHead"></div>
         </div></div>
-        <p class="hint" style="margin:8px 0 0">Arrastrá una toma hacia los lados para deslizar qué tramo se ve. Arrastrá la marca entre dos tomas para mover el corte (y su transición). Tocá o arrastrá sobre la regla de tiempos para recorrer el corte. Abajo está la locución, palabra por palabra.</p>
+        <p class="hint" style="margin:8px 0 0">Arrastrá una toma hacia los lados para deslizar qué tramo se ve. Arrastrá la marca entre dos tomas para mover el corte (y su transición). Agarrá el cabezal amarillo (o arrastrá sobre la regla de tiempos) para recorrer el corte: el visor va mostrando cada punto. Abajo está la locución, palabra por palabra.</p>
       </section>
 
       <section class="card" id="editor" aria-label="Toma seleccionada"></section>
@@ -528,9 +531,15 @@ const TL = (() => {
   ruler.addEventListener("pointerdown", e => { scrub = true; ruler.setPointerCapture(e.pointerId); Live.modo("live"); ir(e); });
   ruler.addEventListener("pointermove", e => { if (scrub) ir(e); });
   ruler.addEventListener("pointerup", () => scrub = false); ruler.addEventListener("pointercancel", () => scrub = false);
+  // el cabezal se agarra y se arrastra: el visor va mostrando lo que hay en cada punto
+  let hd = false; headEl.appendChild(document.createElement("i"));
+  headEl.addEventListener("pointerdown", e => { e.stopPropagation(); hd = true; headEl.setPointerCapture(e.pointerId); headEl.classList.add("drag"); $("#vo").pause(); Live.modo("live"); });
+  headEl.addEventListener("pointermove", e => { if (hd) ir(e); });
+  const sueltaHd = () => { hd = false; headEl.classList.remove("drag"); };
+  headEl.addEventListener("pointerup", sueltaHd); headEl.addEventListener("pointercancel", sueltaHd);
   zoom.addEventListener("input", () => { pps = +zoom.value; render(); });
   return { render, head(t) { headEl.style.left = (t * pps) + "px";
-      const x = t * pps, a = scroll.scrollLeft, w = scroll.clientWidth; if (!drag && (x < a + 20 || x > a + w - 40)) scroll.scrollLeft = Math.max(0, x - w * 0.3); } };
+      const x = t * pps, a = scroll.scrollLeft, w = scroll.clientWidth; if (!drag && !hd && !scrub && (x < a + 20 || x > a + w - 40)) scroll.scrollLeft = Math.max(0, x - w * 0.3); } };
 })();
 
 // el visor marca la toma que está sonando
