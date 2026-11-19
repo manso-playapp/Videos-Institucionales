@@ -84,7 +84,7 @@ if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):
     # una transición necesita material extra de las dos tomas (se solapan): si a una toma no le sobra, la transición se acorta
     for k, s in enumerate(S):
         if "n" not in s: continue
-        libre = INV[s["n"]]["duracion"] - ((S[k + 1]["t"] if k + 1 < len(S) else END) - s["t"]) - 0.04
+        libre = (INV[s["n"]]["duracion"] / float(s.get("v", 1))) - ((S[k + 1]["t"] if k + 1 < len(S) else END) - s["t"]) - 0.04
         for j in (k, k + 1):
             if 0 < j < len(S) and S[j].get("tr"):
                 S[j]["tr"] = dict(S[j]["tr"], dur=round(max(0.0, min(S[j]["tr"]["dur"], libre)), 2))
@@ -125,12 +125,14 @@ def build(vertical):
                  "layout": "v" if vertical else "h", "stagger": 0.12}
         else:
             inv = INV[s["n"]]
-            if s.get("exacto"): s = {**s, "i": round(max(0.0, s["i"] - head), 3)}   # el cuadro elegido cae justo en el corte
-            if s.get("exacto"): s = dict(s, i=round(max(0.0, min(s["i"], inv["duracion"] - d - 0.02)), 3))        # si no alcanza la cola, arranca un poco antes
-            need = s["i"] + d
+            vv = float(s.get("v", 1))             # velocidad de la toma (editor): 2 = el doble de rápido; consume el doble de material
+            if s.get("exacto"): s = {**s, "i": round(max(0.0, s["i"] - head * vv), 3)}   # el cuadro elegido cae justo en el corte
+            if s.get("exacto"): s = dict(s, i=round(max(0.0, min(s["i"], inv["duracion"] - d * vv - 0.02)), 3))        # si no alcanza la cola, arranca un poco antes
+            need = s["i"] + d * vv
             if need > inv["duracion"] + 0.02:
                 ERR.append(f"n{s['n']}: pide {need:.2f}s (in {s['i']} + {d:.2f}) y el clip dura {inv['duracion']:.2f}s")
             c = {"src": inv["file"].replace("proyectos/zizi/", ""), "in": s["i"], "dur": round(d, 3)}
+            if vv != 1: c["speed"] = vv
             if niveles(s["n"]): c["grade"] = niveles(s["n"])
             if vertical:
                 if s.get("blur"): c["fit"], c["bg"] = "contain", "blur"
