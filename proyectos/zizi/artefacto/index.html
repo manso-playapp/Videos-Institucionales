@@ -2,22 +2,22 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
 <style>
-/* Mesa de montaje: visor y ajustes de la toma a la izquierda (fijos), guion en tomas a la derecha. */
+/* Mesa de montaje: visor + línea de tiempo con controles + ajustes de la toma a la izquierda; guion en tomas a la derecha. */
 :root{
   color-scheme:dark;
   --bg:#111213; --surface:#191b1d; --raised:#222528; --line:#2f3337; --fg:#ecebe7; --muted:#9a9c9a;
-  --accent:#FDB913; --on-accent:#16130a; --accent-soft:#3a3113; --ok:#7cc79a; --warn:#f0a35e;
+  --accent:#FDB913; --on-accent:#16130a; --accent-soft:#3a3113; --danger:#f08a73;
   --display:"Barlow Condensed","Arial Narrow",sans-serif; --ui:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
   color-scheme:light;
   --bg:#f4f3ef; --surface:#ffffff; --raised:#ecebe5; --line:#d6d4cb; --fg:#1b1a17; --muted:#66655f;
-  --accent:#d99a00; --on-accent:#1b1500; --accent-soft:#fbeec4; --ok:#22794a; --warn:#a85a12;
+  --accent:#d99a00; --on-accent:#1b1500; --accent-soft:#fbeec4; --danger:#b8402a;
 }}
 :root[data-theme="light"]{
   color-scheme:light;
   --bg:#f4f3ef; --surface:#ffffff; --raised:#ecebe5; --line:#d6d4cb; --fg:#1b1a17; --muted:#66655f;
-  --accent:#d99a00; --on-accent:#1b1500; --accent-soft:#fbeec4; --ok:#22794a; --warn:#a85a12;
+  --accent:#d99a00; --on-accent:#1b1500; --accent-soft:#fbeec4; --danger:#b8402a;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -25,9 +25,9 @@ body{background:var(--bg);color:var(--fg);font:400 14px/1.45 var(--ui);font-vari
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 40px}
 button,select,textarea,input{font:inherit;color:inherit}
 button{cursor:pointer}
+button:disabled{opacity:.38;cursor:default}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .app{max-width:1560px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
-
 header{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
 .brand{font:700 26px/1 var(--display);text-transform:uppercase;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
 .brand i{width:26px;height:6px;background:var(--accent);display:block}
@@ -36,67 +36,78 @@ header{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
 .spacer{flex:1}
 .state{font-size:12px;color:var(--muted)}
 .notice{background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;padding:8px 12px;font-size:13px}
-
 .grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:16px;align-items:start}
 @media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}}
-.left{position:sticky;top:calc(10px + env(safe-area-inset-top,0px));display:flex;flex-direction:column;gap:12px;min-width:0;
-  max-height:calc(100vh - 20px);overflow-y:auto;scrollbar-width:thin}
-@media (max-width:860px){.left{position:static;max-height:none;overflow:visible}}
+.left{display:flex;flex-direction:column;gap:12px;min-width:0}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0}
 video{display:block;width:100%;background:#000;border-radius:6px}
-.stage{position:relative;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden;width:min(100%,calc(56vh * 16 / 9));margin-inline:auto}
-.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0}
-#lvTri{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:#000}
-#lvTri video{position:static;width:100%;height:100%}
-#lvPlate{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#000;color:#FDB913;font:700 72px/1 var(--display);letter-spacing:.02em}
-.tlscroll{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;border-radius:6px;background:var(--bg);border:1px solid var(--line)}
-.tlinner{position:relative;height:118px;margin:0 14px;user-select:none;-webkit-user-select:none}
-.tlruler{position:absolute;left:0;right:0;top:0;height:18px;touch-action:none;cursor:pointer;font-size:10px;color:var(--muted)}
-.tlruler span{position:absolute;top:0;height:18px;border-left:1px solid var(--line);padding-left:3px}
-.tltrack{position:absolute;left:0;right:0;top:20px;height:58px}
-.tlb{position:absolute;top:0;height:58px;border-radius:5px;border:2px solid transparent;background:#000 center/cover;overflow:hidden;cursor:grab;touch-action:none;
-  outline:1px solid rgba(255,255,255,.14);outline-offset:-1px}
-.tlb.sel{border-color:var(--accent)}
-.tlb.drag{cursor:grabbing;border-color:var(--accent)}
-.tlb b{position:absolute;left:4px;top:2px;font:600 11px/1.3 var(--ui);color:#fff;text-shadow:0 1px 3px #000;pointer-events:none}
-.tlb.ch::after{content:"";position:absolute;right:4px;top:4px;width:8px;height:8px;border-radius:50%;background:#FDB913;pointer-events:none}
-.tlcut{position:absolute;top:-3px;width:16px;height:64px;margin-left:-8px;cursor:ew-resize;touch-action:none;z-index:3;display:flex;align-items:center;justify-content:center}
-.tlcut i{width:4px;height:100%;border-radius:2px;background:var(--fg);opacity:.55;display:block}
-.tlcut.fx i{background:var(--accent);opacity:1;width:6px}
-.tlcut:hover i,.tlcut.drag i{opacity:1;background:var(--accent)}
-.tlwords{position:absolute;left:0;right:0;top:84px;height:30px;font-size:10px;color:var(--muted);overflow:hidden}
-.tlwords span{position:absolute;top:0;white-space:nowrap;overflow:hidden;border-left:1px solid var(--line);padding-left:2px;line-height:14px}
-.tlwords span:nth-child(even){top:15px}
-.tlhead{position:absolute;top:0;height:20px;width:22px;margin-left:-11px;z-index:6;cursor:ew-resize;touch-action:none}
-.tlhead i{position:absolute;left:10px;top:0;height:118px;width:2px;background:var(--accent);pointer-events:none}
-.tlhead::after{content:"";position:absolute;left:2px;top:0;width:18px;height:18px;border-radius:4px 4px 9px 9px;background:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,.5)}
-.tlhead.drag i{width:3px;left:9.5px}
-.transport{display:flex;align-items:center;gap:10px;margin-top:10px}
-.transport input{flex:1;min-width:0}
-.transport span{font-size:12px;color:var(--muted);white-space:nowrap}
-.viewer > video{aspect-ratio:16/9;width:min(100%,calc(56vh * 16 / 9));margin-inline:auto}
 h2{font:600 19px/1.1 var(--display);text-transform:uppercase;letter-spacing:.04em;margin:0 0 8px;text-wrap:balance}
 .lbl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
 .hint{font-size:12px;color:var(--muted)}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .btn{border:1px solid var(--line);background:var(--raised);border-radius:7px;padding:6px 11px;font-weight:500;font-size:13px}
-.btn:hover{border-color:var(--muted)}
+.btn:hover:not(:disabled){border-color:var(--muted)}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
-select,textarea{background:var(--raised);border:1px solid var(--line);border-radius:7px;padding:6px 9px;min-width:0}
-textarea{width:100%;resize:vertical;min-height:56px}
-input[type=range]{width:100%;accent-color:var(--accent)}
-.slip{position:relative;height:40px;border-radius:6px;background:var(--raised);border:1px solid var(--line);touch-action:none;cursor:ew-resize;overflow:hidden}
-.slip .win{position:absolute;top:0;bottom:0;background:var(--accent-soft);border:2px solid var(--accent);border-radius:5px;cursor:grab;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;white-space:nowrap}
-.slip .win.drag{cursor:grabbing}
-.slip .cur{position:absolute;top:0;bottom:0;width:2px;background:var(--fg);pointer-events:none}
-.take video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0;pointer-events:none}
+.btn.danger{color:var(--danger)}
+textarea{background:var(--raised);border:1px solid var(--line);border-radius:7px;padding:6px 9px;width:100%;resize:vertical;min-height:56px}
+input[type=range]{accent-color:var(--accent)}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pills button{border:1px solid var(--line);background:var(--raised);border-radius:999px;padding:3px 10px;font-size:12px}
+.pills button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 
+/* visor */
+.stage{position:relative;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden;width:min(100%,calc(52vh * 16 / 9));margin-inline:auto}
+.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0}
+#lvTri{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:#000}
+#lvTri video{position:static;width:100%;height:100%}
+#lvPlate{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#000;color:#FDB913;font:700 72px/1 var(--display)}
+#finalBox video{aspect-ratio:16/9;width:min(100%,calc(52vh * 16 / 9));margin-inline:auto}
+.transport{display:flex;align-items:center;gap:10px;margin-top:10px}
+.transport input{flex:1;min-width:0}
+.transport span{font-size:12px;color:var(--muted);white-space:nowrap}
+
+/* línea de tiempo */
+.tlscroll{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;border-radius:6px;background:var(--bg);border:1px solid var(--line)}
+.tlinner{position:relative;height:124px;margin:0 16px;user-select:none;-webkit-user-select:none}
+.tlruler{position:absolute;left:0;right:0;top:0;height:20px;cursor:pointer;font-size:10px;color:var(--muted);touch-action:none}
+.tlruler span{position:absolute;top:0;height:20px;border-left:1px solid var(--line);padding-left:3px}
+.tltrack{position:absolute;left:0;right:0;top:24px;height:62px}
+.tlb{position:absolute;top:0;height:62px;border-radius:5px;border:2px solid transparent;background:#000 center/cover;cursor:grab;touch-action:none;
+  outline:1px solid rgba(255,255,255,.16);outline-offset:-1px}
+.tlb.sel{border-color:var(--accent);z-index:2}
+.tlb.drag{cursor:grabbing}
+.tlb b{position:absolute;left:5px;top:2px;font:600 11px/1.3 var(--ui);color:#fff;text-shadow:0 1px 3px #000;pointer-events:none;white-space:nowrap}
+.tlb em{position:absolute;left:3px;bottom:3px;font:600 9px/1.4 var(--ui);font-style:normal;background:#FDB913;color:#16130a;border-radius:3px;padding:0 4px;pointer-events:none;white-space:nowrap;max-width:calc(100% - 6px);overflow:hidden}
+.hnd{position:absolute;top:-2px;bottom:-2px;width:16px;background:var(--accent);cursor:ew-resize;touch-action:none;z-index:3;display:flex;align-items:center;justify-content:center}
+.hnd::after{content:"";width:3px;height:44%;border-radius:2px;background:var(--on-accent)}
+.hnd.l{left:-9px;border-radius:6px 0 0 6px}
+.hnd.r{right:-9px;border-radius:0 6px 6px 0}
+.tlwords{position:absolute;left:0;right:0;top:92px;height:30px;font-size:10px;color:var(--muted);overflow:hidden;pointer-events:none}
+.tlwords span{position:absolute;top:0;white-space:nowrap;overflow:hidden;border-left:1px solid var(--line);padding-left:2px;line-height:14px}
+.tlwords span:nth-child(even){top:15px}
+.tlhead{position:absolute;top:0;height:22px;width:22px;margin-left:-11px;z-index:6;cursor:ew-resize;touch-action:none}
+.tlhead i{position:absolute;left:10px;top:0;height:124px;width:2px;background:var(--fg);pointer-events:none}
+.tlhead::after{content:"";position:absolute;left:2px;top:0;width:18px;height:18px;border-radius:4px 4px 9px 9px;background:var(--fg);box-shadow:0 1px 4px rgba(0,0,0,.5)}
+
+/* controles */
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:10px;margin-top:12px}
+.grp{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--raised);min-width:0}
+.grp h3{font:600 11px/1.2 var(--ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.grp .row{gap:5px}
+.grp .val{font:600 20px/1 var(--display);min-width:64px;text-align:center}
+.step{border:1px solid var(--line);background:var(--surface);border-radius:6px;min-width:42px;padding:6px 5px;white-space:nowrap;font-weight:600;font-size:13px}
+.step:hover:not(:disabled){border-color:var(--accent)}
+.grp p{margin:6px 0 0;font-size:11px;color:var(--muted);line-height:1.35}
+
+/* ajustes de la toma */
 .edit-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:start}
 @media (max-width:480px){.edit-top{grid-template-columns:minmax(0,1fr)}}
 .edit-top video{aspect-ratio:16/9}
 .frase{font-size:15px;line-height:1.4;margin:0}
 .meta{font-size:12px;color:var(--muted);margin-top:6px}
-
+.slip{position:relative;height:40px;border-radius:6px;background:var(--raised);border:1px solid var(--line);touch-action:none;cursor:ew-resize;overflow:hidden}
+.slip .win{position:absolute;top:0;bottom:0;background:var(--accent-soft);border:2px solid var(--accent);border-radius:5px;cursor:grab;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden}
+.slip .cur{position:absolute;top:0;bottom:0;width:2px;background:var(--fg);pointer-events:none}
 .trans{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px}
 .tr{border:1px solid var(--line);background:var(--raised);border-radius:8px;padding:5px;text-align:left;display:flex;flex-direction:column;gap:4px}
 .tr video,.tr .none{aspect-ratio:16/9;border-radius:4px;width:100%}
@@ -104,20 +115,17 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .tr b{font-size:12px;font-weight:600}
 .tr small{font-size:11px;color:var(--muted);line-height:1.25}
 .tr[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
-
-.picker{display:flex;flex-direction:column;gap:8px}
-.pills{display:flex;flex-wrap:wrap;gap:6px}
-.pills button{border:1px solid var(--line);background:var(--raised);border-radius:999px;padding:3px 10px;font-size:12px}
-.pills button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .takes{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:6px;max-height:330px;overflow-y:auto;scrollbar-width:thin;padding:2px}
 .take{position:relative;border:2px solid transparent;border-radius:6px;padding:0;background:#000;overflow:hidden;aspect-ratio:16/9}
 .take img{width:100%;height:100%;object-fit:cover;display:block}
+.take video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0;pointer-events:none}
 .take span{position:absolute;font-size:10px;background:rgba(0,0,0,.72);color:#fff;border-radius:3px;padding:0 4px}
 .take .d{right:3px;top:3px}.take .u{left:3px;top:3px;background:#FDB913;color:#16130a;font-weight:600}
 .take .short{left:3px;bottom:3px}
 .take[aria-pressed="true"]{border-color:var(--accent)}
-.take.corta img{opacity:.45}
+.take:disabled img{opacity:.4}
 
+/* guion en tomas */
 .board{display:flex;flex-direction:column;gap:8px;min-width:0}
 .slot{display:grid;grid-template-columns:132px minmax(0,1fr);gap:12px;align-items:start;text-align:left;width:100%;
   background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px}
@@ -130,12 +138,9 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .slot .tc{font:600 15px/1 var(--display);letter-spacing:.04em;color:var(--muted)}
 .slot .fr{margin:3px 0 6px;font-size:14px}
 .slot .fr:empty::before{content:"(sin locución: respira con música)";color:var(--muted);font-style:italic}
-.slot .tags{display:flex;flex-wrap:wrap;gap:5px}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
 .tag{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 6px;color:var(--muted)}
-.tag.ch{border-color:var(--accent);color:var(--fg);background:var(--accent-soft)}
-.join{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);padding-left:6px}
-.join::before{content:"";width:2px;height:14px;background:var(--line)}
-.join.fx{color:var(--fg)}.join.fx::before{background:var(--accent)}
+.tag.fx{border-color:var(--accent);color:var(--fg);background:var(--accent-soft)}
 .foot{display:flex;flex-direction:column;gap:8px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -152,10 +157,10 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 
   <div class="grid">
     <div class="left">
-      <section class="card viewer" aria-label="Corte completo">
+      <section class="card" aria-label="Visor">
         <div class="pills" id="modo" role="group" aria-label="Qué ver en el visor" style="margin-bottom:10px">
-          <button type="button" data-m="live" aria-pressed="true">Con tus cambios · vista rápida</button>
-          <button type="button" data-m="final" aria-pressed="false">Corte terminado · borrador 5</button>
+          <button type="button" data-m="live" aria-pressed="true">Tu edición · vista rápida</button>
+          <button type="button" data-m="final" aria-pressed="false">Último render · borrador 5</button>
         </div>
         <div id="liveBox">
           <div class="stage">
@@ -170,30 +175,60 @@ input[type=range]{width:100%;accent-color:var(--accent)}
             <span id="lvTime">0:00,0</span>
           </div>
           <audio id="vo" src="vo.mp3" preload="auto"></audio>
-          <p class="hint" style="margin:8px 0 0">Vista rápida: arma el corte al instante con las tomas y los tramos que elijas, con la locución. Va en baja calidad y sin transiciones, textos ni color; para eso está «Corte terminado», que es el último render.</p>
         </div>
         <div id="finalBox" hidden>
           <video id="main" src="corte.mp4" controls playsinline preload="metadata"></video>
-          <p class="hint" style="margin:8px 0 0">Último render (borrador 5). No refleja lo que cambies acá hasta que Claude arme el corte nuevo.</p>
+          <p class="hint" style="margin:8px 0 0">Último render, con transiciones, textos y color. No refleja tu edición hasta que Claude arme el corte nuevo.</p>
         </div>
       </section>
 
-      <section class="card tlcard" aria-label="Línea de tiempo">
+      <section class="card" aria-label="Línea de tiempo y controles">
         <div class="row" style="justify-content:space-between;margin-bottom:6px">
           <h2 style="margin:0">Línea de tiempo</h2>
-          <label class="hint row" style="gap:6px">Zoom <input type="range" id="tlZoom" min="8" max="70" value="36" style="width:110px" aria-label="Zoom de la línea de tiempo"></label>
+          <div class="row">
+            <button class="btn" id="undoBtn" type="button" disabled>Deshacer</button>
+            <label class="hint row" style="gap:6px">Zoom <input type="range" id="tlZoom" min="8" max="80" value="36" style="width:110px" aria-label="Zoom de la línea de tiempo"></label>
+          </div>
         </div>
         <div class="tlscroll" id="tlScroll"><div class="tlinner" id="tlInner">
           <div class="tlruler" id="tlRuler"></div>
           <div class="tltrack" id="tlTrack"></div>
           <div class="tlwords" id="tlWords"></div>
-          <div class="tlhead" id="tlHead"></div>
+          <div class="tlhead" id="tlHead"><i></i></div>
         </div></div>
-        <p class="hint" style="margin:8px 0 0">Arrastrá una toma hacia los lados para deslizar qué tramo se ve. Arrastrá la marca entre dos tomas para mover el corte (y su transición). Agarrá el cabezal amarillo (o arrastrá sobre la regla de tiempos) para recorrer el corte: el visor va mostrando cada punto. Abajo está la locución, palabra por palabra.</p>
+
+        <div class="ctl" id="ctl">
+          <div class="grp">
+            <h3>Duración de la toma <span id="cNum"></span></h3>
+            <div class="row"><button class="step" data-a="dur" data-d="-0.5" type="button">−0,5</button><button class="step" data-a="dur" data-d="-0.1" type="button">−0,1</button>
+              <span class="val" id="cDur">–</span>
+              <button class="step" data-a="dur" data-d="0.1" type="button">+0,1</button><button class="step" data-a="dur" data-d="0.5" type="button">+0,5</button></div>
+            <p>Mueve el final de la toma; la siguiente se acorta o alarga lo mismo, así no se corre la locución.</p>
+          </div>
+          <div class="grp">
+            <h3>Dónde empieza</h3>
+            <div class="row"><button class="step" data-a="ini" data-d="-0.5" type="button">◀ 0,5</button><button class="step" data-a="ini" data-d="-0.1" type="button">◀ 0,1</button>
+              <span class="val" id="cIni">–</span>
+              <button class="step" data-a="ini" data-d="0.1" type="button">0,1 ▶</button><button class="step" data-a="ini" data-d="0.5" type="button">0,5 ▶</button></div>
+            <p>Mueve el corte de entrada (antes o después); la toma anterior compensa.</p>
+          </div>
+          <div class="grp">
+            <h3>Deslizar: qué tramo se ve</h3>
+            <div class="row"><button class="step" data-a="slip" data-d="-1" type="button">◀◀ 1</button><button class="step" data-a="slip" data-d="-0.2" type="button">◀ 0,2</button>
+              <span class="val" id="cIn">–</span>
+              <button class="step" data-a="slip" data-d="0.2" type="button">0,2 ▶</button><button class="step" data-a="slip" data-d="1" type="button">1 ▶▶</button></div>
+            <p>Cambia desde qué segundo del material arranca, sin tocar la duración.</p>
+          </div>
+          <div class="grp">
+            <h3>Tomas</h3>
+            <div class="row"><button class="btn" id="splitBtn" type="button">Dividir en el cabezal</button><button class="btn danger" id="delBtn" type="button">Eliminar toma</button></div>
+            <p>Dividir parte la toma en dos donde está el cabezal: después cambiás una de las mitades por otra toma. Eliminar hace que la anterior ocupe su lugar.</p>
+          </div>
+        </div>
+        <p class="hint" style="margin:10px 0 0">También con el mouse: tocá una toma para elegirla; arrastrá sus <b>bordes amarillos</b> para cambiar la duración; arrastrá la toma para deslizar el tramo; arrastrá el <b>cabezal</b> o la regla para recorrer. Abajo va la locución palabra por palabra.</p>
       </section>
 
       <section class="card" id="editor" aria-label="Toma seleccionada"></section>
-
     </div>
 
     <div class="board" id="board" aria-label="Tomas del corte, en orden"></div>
@@ -201,169 +236,295 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 
   <section class="card foot">
     <h2>Notas generales para el próximo corte</h2>
-    <textarea id="notas" placeholder="Ritmo, locución, textos, lo que quieras cambiar en general…"></textarea>
-    <p class="hint" style="margin:0">Todo se guarda solo. Cuando termines, decile a Claude en el chat que ya elegiste y arma el corte nuevo con estas decisiones.</p>
+    <textarea id="notas" placeholder="Ritmo, locución, textos, música, lo que quieras cambiar en general…"></textarea>
+    <div class="row"><button class="btn danger" id="resetBtn" type="button">Volver todo al borrador 5</button><span class="hint">Todo se guarda solo. Cuando termines, avisale a Claude en el chat y arma el corte nuevo con tu edición.</span></div>
   </section>
 </div>
 
 <script>
 const TRANS = [
-  ["Corte", "Corte directo", "Sin efecto"],
-  ["Fade", "Disolvencia", "Una imagen se funde en la otra"],
-  ["DefocusBlur", "Desenfoque", "Pasa por fuera de foco"],
-  ["BloomDissolve", "Resplandor", "Las luces se abren y funden"],
-  ["Overexposure", "Destello blanco", "Pasa por blanco sobreexpuesto"],
-  ["LightWipe", "Barrido de luz", "Un brillo cruza el cuadro"],
-  ["LensFlare", "Destello de lente", "Luz que barre con flare"],
-  ["WhipPan", "Barrido rápido", "Paneo veloz con estela"],
-  ["WhipTilt", "Barrido vertical", "Giro veloz hacia arriba"],
-  ["CrossZoom", "Zoom cruzado", "Entra y sale con zoom"],
-  ["Directional", "Empuje", "Una toma empuja a la otra"],
-  ["DirectionalWarp", "Barrido diagonal", "Borde deformado en diagonal"],
-  ["FilmBurn", "Quemado de película", "Fugas de luz cálidas"],
-  ["Comb", "Franjas", "Tiras que se cruzan"]
+  ["Corte", "Corte directo", "Sin efecto"], ["Fade", "Disolvencia", "Una imagen se funde en la otra"],
+  ["DefocusBlur", "Desenfoque", "Pasa por fuera de foco"], ["BloomDissolve", "Resplandor", "Las luces se abren y funden"],
+  ["Overexposure", "Destello blanco", "Pasa por blanco sobreexpuesto"], ["LightWipe", "Barrido de luz", "Un brillo cruza el cuadro"],
+  ["LensFlare", "Destello de lente", "Luz que barre con flare"], ["WhipPan", "Barrido rápido", "Paneo veloz con estela"],
+  ["WhipTilt", "Barrido vertical", "Giro veloz hacia arriba"], ["CrossZoom", "Zoom cruzado", "Entra y sale con zoom"],
+  ["Directional", "Empuje", "Una toma empuja a la otra"], ["DirectionalWarp", "Barrido diagonal", "Borde deformado en diagonal"],
+  ["FilmBurn", "Quemado de película", "Fugas de luz cálidas"], ["Comb", "Franjas", "Tiras que se cruzan"]
 ];
 const TRN = Object.fromEntries(TRANS.map(t => [t[0], t[1]]));
 const $ = s => document.querySelector(s);
 const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
-const fmt = t => { const m = Math.floor(t / 60), s = t - m * 60; return m + ":" + (s < 10 ? "0" : "") + s.toFixed(1).replace(".", ","); };
+const n1 = v => v.toFixed(1).replace(".", ",");
+const fmt = t => { const m = Math.floor(t / 60), s = t - m * 60; return m + ":" + (s < 10 ? "0" : "") + n1(s); };
 const id3 = n => "t" + String(n).padStart(3, "0");
+const r2 = v => Math.round(v * 100) / 100;
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const MIN = 0.5, LOCAL = "zizi-corte-horizontal-v2";
 
-let BASE = null, LIB = {}, sel = 0, pick = false, grupo = null;
-let S = { cambios: {}, musica: "", notas: "" };   // lo que elige la persona; el corte base no se toca
-let db = null, ref = null, saveT = null, loaded = false;
-const LOCAL = "zizi-corte-horizontal";
-
-const MIN = 0.6;                                  // duración mínima de una toma en el corte
-const Tk = k => k >= BASE.slots.length ? BASE.dur : (S.cambios[k]?.t ?? BASE.slots[k].t);   // corte efectivo
+/* Modelo: la edición es la lista completa de tomas. Cada una: {t (cuándo entra), tipo, n (toma), in (desde qué segundo del material), tr, nota}.
+   La duración de cada toma es hasta el corte siguiente; el total (la locución) no cambia nunca. */
+let BASE = null, LIB = {}, S = { slots: [], notas: "" }, sel = 0, pick = false, grupo = null;
+let ref = null, saveT = null, hist = [];
+const END = () => BASE.dur;
+const tOf = k => k >= S.slots.length ? END() : S.slots[k].t;
+const durOf = k => r2(tOf(k + 1) - tOf(k));
+const matDur = s => s.tipo === "toma" ? LIB[s.n].dur : 1e9;                   // cuánto material hay
 const fraseDe = (a, b) => (BASE.palabras || []).filter(w => w.t >= a - 0.15 && w.t < b - 0.15).map(w => w.w).join(" ");
-const slot = k => {                              // toma efectiva = base + cambios
-  const b = BASE.slots[k], c = S.cambios[k] || {}, t = Tk(k), dur = +(Tk(k + 1) - t).toFixed(2);
-  return { ...b, t, dur, frase: BASE.palabras ? fraseDe(t, t + dur) : b.frase,
-           n: c.n ?? b.n, in: c.in ?? b.in, tr: c.tr ?? b.tr, nota: c.nota || "", cambiada: c.n != null && c.n !== b.n,
-           movida: c.in != null && c.in !== b.in && (c.n == null || c.n === b.n), trc: c.tr != null && c.tr !== b.tr,
-           cortada: Math.abs(t - b.t) > 0.01 || Math.abs(dur - b.dur) > 0.01 };
-};
-function setCambio(k, patch) {
-  const b = BASE.slots[k], c = { ...(S.cambios[k] || {}), ...patch };
-  if (c.n === b.n) delete c.n;
-  if (c.in === b.in && c.n == null) delete c.in;
-  if (c.tr === b.tr) delete c.tr;
-  if (c.t != null && Math.abs(c.t - b.t) < 0.01) delete c.t;
-  if (!c.nota) delete c.nota;
-  if (Object.keys(c).length) S.cambios[k] = c; else delete S.cambios[k];
-  changed();
+const baseSlots = () => BASE.slots.map(b => ({ t: b.t, tipo: b.tipo, n: b.n ?? null, in: b.in ?? 0, tr: b.tr, nota: "", ...(b.tomas ? { tomas: b.tomas, ins: b.ins } : {}) }));
+const editado = () => JSON.stringify(S.slots) !== JSON.stringify(baseSlots());
+
+function commit() {                          // después de cada cambio: guardar y redibujar todo
+  $("#undoBtn").disabled = !hist.length;
+  const c = $("#chgChip"), ed = editado(); c.textContent = ed ? "Editado" : "Sin cambios"; c.classList.toggle("on", ed);
+  $("#saveState").textContent = "Guardando…";
+  try { localStorage.setItem(LOCAL, JSON.stringify({ ...S, base: BASE.version })); } catch (e) {}
+  clearTimeout(saveT); saveT = setTimeout(save, 500);
+  TL.render(); renderBoard(); renderEditor(); renderCtl(); Live.draw();
 }
-function changed() {
-  renderHeader(); $("#saveState").textContent = "Guardando…";
-  try { localStorage.setItem(LOCAL, JSON.stringify(S)); } catch (e) {}
-  clearTimeout(saveT); saveT = setTimeout(save, 600);
-}
+const snap = () => { hist.push(JSON.stringify(S.slots)); if (hist.length > 60) hist.shift(); };
 async function save() {
   if (!ref) { $("#saveState").textContent = "Guardado solo en este navegador"; return; }
-  try { await ref.set({ ...S, pieza: "horizontal", base: BASE.version, editado: new Date().toISOString() }); $("#saveState").textContent = "Guardado"; }
+  try { await ref.set({ slots: S.slots, notas: S.notas, pieza: "horizontal", base: BASE.version, editado: new Date().toISOString() }); $("#saveState").textContent = "Guardado"; }
   catch (e) { $("#saveState").textContent = "No se pudo guardar (" + (e.code || "error") + ")"; }
 }
-function renderHeader() {
-  const n = Object.keys(S.cambios).length, c = $("#chgChip");
-  c.textContent = n ? n + (n === 1 ? " toma con cambios" : " tomas con cambios") : "Sin cambios";
-  c.classList.toggle("on", !!n);
+
+/* ---- operaciones de edición ---- */
+function limitesCorte(k) {                   // entre qué tiempos puede moverse el corte de entrada de la toma k
+  const p = S.slots[k - 1], c = S.slots[k];
+  let lo = tOf(k - 1) + MIN, hi = tOf(k + 1) - MIN;
+  hi = Math.min(hi, tOf(k - 1) + matDur(p) - p.in);          // la anterior no puede durar más que su material
+  if (c.tipo === "toma") lo = Math.max(lo, c.t - c.in);      // esta no puede empezar antes de su primer cuadro
+  return [r2(lo), r2(hi)];
+}
+function moverCorte(k, t, guardar = true) {  // mueve el corte k; lo que se ve en cada instante no cambia (la toma k corre su inicio)
+  if (k <= 0 || k >= S.slots.length) return false;
+  const [lo, hi] = limitesCorte(k); if (hi < lo) return false;
+  t = r2(clamp(t, lo, hi)); const c = S.slots[k], d = t - c.t; if (Math.abs(d) < 0.005) return false;
+  if (guardar) snap();
+  if (c.tipo === "toma") c.in = r2(Math.max(0, c.in + d));
+  if (c.tomas) c.ins = c.ins.map(v => r2(Math.max(0, v + d)));
+  c.t = t; return true;
+}
+function deslizar(k, nuevoIn, guardar = true) {
+  const s = S.slots[k]; if (s.tipo !== "toma") return false;
+  const v = r2(clamp(nuevoIn, 0, Math.max(0, matDur(s) - durOf(k)))); if (Math.abs(v - s.in) < 0.005) return false;
+  if (guardar) snap(); s.in = v; return true;
+}
+function dividir() {
+  const t = r2(Live.time()), k = sel, s = S.slots[k];
+  if (s.tipo !== "toma" || t - s.t < MIN || tOf(k + 1) - t < MIN) return false;
+  snap(); S.slots.splice(k + 1, 0, { t, tipo: "toma", n: s.n, in: r2(s.in + (t - s.t)), tr: "Corte", nota: "" }); sel = k + 1; return true;
+}
+function eliminar() {
+  const k = sel; if (S.slots.length < 3 || S.slots[k].tipo === "placa") return false;
+  snap(); const fin = tOf(k + 1); S.slots.splice(k, 1);
+  if (k === 0) { const c = S.slots[0]; if (c.tipo === "toma") c.in = r2(Math.max(0, c.in - c.t)); c.t = 0; sel = 0; return true; }
+  const p = S.slots[k - 1], maxFin = r2(p.t + matDur(p) - p.in), c = S.slots[k];
+  if (c && maxFin < fin - 0.005) {            // a la anterior no le alcanza el material: la siguiente entra antes
+    const d = c.t - maxFin; if (c.tipo === "toma") c.in = r2(Math.max(0, c.in - d)); c.t = maxFin; }
+  sel = k - 1; return true;
 }
 
+/* ---- visor en vivo: la locución es el reloj ---- */
+const Live = (() => {
+  const vo = $("#vo"), seekEl = $("#lvSeek"), lbl = $("#lvTime"), btn = $("#lvPlay"), tri = $("#lvTri"), plate = $("#lvPlate");
+  let act = $("#lvA"), oth = $("#lvB"), raf = null;
+  const srcOf = n => "media/" + id3(n) + ".mp4";
+  const setSrc = (v, src) => { if (v.dataset.src !== src) { v.dataset.src = src; v.src = src; } };
+  const sync = (v, want, playing) => { const tol = playing ? 0.3 : 0.04;
+    if (v.readyState >= 1) { if (Math.abs(v.currentTime - want) > tol) v.currentTime = want; }
+    else v.addEventListener("loadedmetadata", () => { v.currentTime = want; }, { once: true });
+    if (playing) { if (v.paused) v.play().catch(() => {}); } else v.pause(); };
+  const kAt = t => { let k = 0; S.slots.forEach((x, i) => { if (t >= x.t) k = i; }); return k; };
+  function draw() {
+    if (!BASE || !S.slots.length) return;
+    const t = Math.min(vo.currentTime, END() - 0.05), playing = !vo.paused, k = kAt(t), s = S.slots[k], rel = t - s.t;
+    seekEl.value = t; lbl.textContent = fmt(t) + " / " + fmt(END()); TL.head(t);
+    tri.hidden = s.tipo !== "split"; plate.hidden = s.tipo !== "placa";
+    if (s.tipo === "toma") {
+      const src = srcOf(s.n);
+      if (act.dataset.src !== src) { if (oth.dataset.src === src) [act, oth] = [oth, act]; else setSrc(act, src); }
+      act.style.visibility = "visible"; oth.style.visibility = "hidden"; oth.pause();
+      sync(act, s.in + rel, playing);
+      const nx = S.slots[k + 1];
+      if (nx && nx.tipo === "toma" && srcOf(nx.n) !== src) { setSrc(oth, srcOf(nx.n)); if (oth.readyState >= 1 && Math.abs(oth.currentTime - nx.in) > 0.3) oth.currentTime = nx.in; }
+    } else {
+      act.pause(); act.style.visibility = oth.style.visibility = "hidden";
+      if (s.tipo === "split") [...tri.children].forEach((v, i) => { setSrc(v, srcOf(s.tomas[i])); sync(v, s.ins[i] + rel, playing); });
+    }
+    if (playing && k !== sel && !TL.busy()) { sel = k; pick = false; TL.render(); renderBoard(); renderEditor(); renderCtl(); }
+  }
+  const loop = () => { draw(); raf = vo.paused ? null : requestAnimationFrame(loop); };
+  vo.addEventListener("play", () => { btn.textContent = "Pausar"; $("#main").pause(); if (!raf) loop(); });
+  vo.addEventListener("pause", () => { btn.textContent = "Reproducir"; draw(); });
+  vo.addEventListener("seeked", draw); vo.addEventListener("loadedmetadata", draw);
+  btn.addEventListener("click", () => { if (vo.paused) vo.play().catch(() => {}); else vo.pause(); });
+  seekEl.addEventListener("input", () => { try { vo.currentTime = +seekEl.value; } catch (e) {} draw(); });
+  function modo(m) { $("#liveBox").hidden = m !== "live"; $("#finalBox").hidden = m !== "final";
+    document.querySelectorAll("#modo button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === m ? "true" : "false"));
+    if (m === "final") vo.pause(); else $("#main").pause(); }
+  document.querySelectorAll("#modo button").forEach(b => b.addEventListener("click", () => modo(b.dataset.m)));
+  return { draw, modo, time: () => vo.currentTime, pause: () => vo.pause(),
+    seek(t) { modo("live"); try { vo.currentTime = clamp(t, 0, END() - 0.1); } catch (e) {} draw(); },
+    init() { seekEl.max = END(); draw(); } };
+})();
+
+/* ---- línea de tiempo ---- */
+const TL = (() => {
+  const inner = $("#tlInner"), track = $("#tlTrack"), ruler = $("#tlRuler"), words = $("#tlWords"), headEl = $("#tlHead"), scroll = $("#tlScroll"), zoom = $("#tlZoom");
+  let pps = 36, drag = null, scrub = false, hd = false;
+  const xT = e => (e.clientX - inner.getBoundingClientRect().left) / pps;
+  function geom() {                           // solo posiciones (se usa mientras se arrastra, sin recrear nada)
+    [...track.children].forEach((d, k) => { d.style.left = (tOf(k) * pps) + "px"; d.style.width = Math.max(6, durOf(k) * pps - 2) + "px"; });
+  }
+  function render() {
+    if (!BASE || drag) return;
+    inner.style.width = (END() * pps + 2) + "px";
+    ruler.textContent = ""; const paso = pps >= 30 ? 1 : pps >= 14 ? 2 : 5;
+    for (let t = 0; t < END(); t += paso) { const m = el("span", null, fmt(t).replace(",0", "")); m.style.left = (t * pps) + "px"; ruler.appendChild(m); }
+    words.textContent = "";
+    (BASE.palabras || []).forEach((w, i, all) => { const m = el("span", null, w.w); m.style.left = (w.t * pps) + "px";
+      m.style.width = Math.max(4, ((all[i + 2] ? all[i + 2].t : END()) - w.t) * pps - 3) + "px"; words.appendChild(m); });
+    track.textContent = "";
+    S.slots.forEach((s, k) => {
+      const d = el("div", "tlb" + (k === sel ? " sel" : ""));
+      if (s.tipo === "toma") d.style.backgroundImage = "url(posters/" + id3(s.n) + ".jpg)";
+      else if (s.tipo === "split") d.style.backgroundImage = "url(posters/" + id3(s.tomas[1]) + ".jpg)";
+      d.appendChild(el("b", null, s.tipo === "placa" ? "Logo" : s.tipo === "split" ? (k + 1) + " ×3" : String(k + 1)));
+      if (k > 0 && s.tr !== "Corte") d.appendChild(el("em", null, TRN[s.tr] || s.tr));
+      // cuerpo: tocar = elegir e ir a ese punto · arrastrar = deslizar el tramo
+      d.addEventListener("pointerdown", e => { if (e.target.classList.contains("hnd")) return; Live.pause();
+        drag = { tipo: "slip", k, x: e.clientX, in0: s.in, tc: clamp(xT(e), s.t + 0.02, tOf(k + 1) - 0.05), movio: false, antes: JSON.stringify(S.slots) };
+        d.setPointerCapture(e.pointerId); });
+      d.addEventListener("pointermove", e => { if (!drag || drag.tipo !== "slip" || drag.k !== k) return; const dx = e.clientX - drag.x;
+        if (Math.abs(dx) < 4 && !drag.movio) return; drag.movio = true; d.classList.add("drag");
+        if (deslizar(k, drag.in0 - dx / pps, false)) Live.seek(drag.tc); });
+      const fin = () => { if (!drag || drag.tipo !== "slip" || drag.k !== k) return; const g = drag; drag = null; d.classList.remove("drag");
+        sel = k; pick = false;
+        if (g.movio && JSON.stringify(S.slots) !== g.antes) { hist.push(g.antes); commit(); Live.seek(g.tc); }
+        else { render(); renderBoard(); renderEditor(); renderCtl(); Live.seek(g.tc); try { $("#main").currentTime = g.tc; } catch (e) {} } };
+      d.addEventListener("pointerup", fin); d.addEventListener("pointercancel", fin); d.addEventListener("lostpointercapture", fin);
+      // bordes amarillos de la toma elegida: cambian la duración (mueven ese corte)
+      if (k === sel) [["l", k], ["r", k + 1]].forEach(([lado, kc]) => {
+        if (kc <= 0 || kc >= S.slots.length) return;
+        const h = el("div", "hnd " + lado); h.title = lado === "l" ? "Arrastrá para mover dónde empieza" : "Arrastrá para mover dónde termina";
+        h.addEventListener("pointerdown", e => { e.stopPropagation(); Live.pause(); drag = { tipo: "cut", kc, x: e.clientX, t0: tOf(kc), antes: JSON.stringify(S.slots) }; h.setPointerCapture(e.pointerId); });
+        h.addEventListener("pointermove", e => { if (!drag || drag.tipo !== "cut" || drag.kc !== kc) return;
+          const t = Math.round((drag.t0 + (e.clientX - drag.x) / pps) * 10) / 10;
+          if (moverCorte(kc, t, false)) { geom(); renderCtl(); Live.seek(lado === "l" ? tOf(kc) + 0.02 : tOf(kc) - 0.06); } });
+        const finc = () => { if (!drag || drag.tipo !== "cut" || drag.kc !== kc) return; const g = drag; drag = null;
+          if (JSON.stringify(S.slots) !== g.antes) { hist.push(g.antes); commit(); } else render(); };
+        h.addEventListener("pointerup", finc); h.addEventListener("pointercancel", finc); h.addEventListener("lostpointercapture", finc);
+        d.appendChild(h);
+      });
+      track.appendChild(d);
+    });
+    geom();
+  }
+  const ir = e => Live.seek(xT(e));
+  ruler.addEventListener("pointerdown", e => { scrub = true; ruler.setPointerCapture(e.pointerId); Live.pause(); ir(e); });
+  ruler.addEventListener("pointermove", e => { if (scrub) ir(e); });
+  const finScrub = () => { scrub = false; }; ruler.addEventListener("pointerup", finScrub); ruler.addEventListener("pointercancel", finScrub);
+  headEl.addEventListener("pointerdown", e => { e.stopPropagation(); hd = true; headEl.setPointerCapture(e.pointerId); Live.pause(); });
+  headEl.addEventListener("pointermove", e => { if (hd) ir(e); });
+  const finHd = () => { hd = false; }; headEl.addEventListener("pointerup", finHd); headEl.addEventListener("pointercancel", finHd);
+  zoom.addEventListener("input", () => { pps = +zoom.value; render(); Live.draw(); });
+  return { render, busy: () => !!drag || hd || scrub,
+    head(t) { headEl.style.left = (t * pps) + "px"; const x = t * pps, a = scroll.scrollLeft, w = scroll.clientWidth;
+      if (!drag && !hd && !scrub && (x < a + 20 || x > a + w - 60)) scroll.scrollLeft = Math.max(0, x - w * 0.3); },
+    ver(k) { const x = tOf(k) * pps, a = scroll.scrollLeft, w = scroll.clientWidth; if (x < a + 20 || x > a + w - 120) scroll.scrollLeft = Math.max(0, x - w * 0.3); } };
+})();
+
+/* ---- controles con botones ---- */
+function renderCtl() {
+  if (!BASE) return; const k = sel, s = S.slots[k], toma = s.tipo === "toma";
+  $("#cNum").textContent = "· " + (s.tipo === "placa" ? "logo" : k + 1);
+  $("#cDur").textContent = n1(durOf(k)) + " s"; $("#cIni").textContent = fmt(s.t); $("#cIn").textContent = toma ? n1(s.in) + " s" : "–";
+  document.querySelectorAll("#ctl .step").forEach(b => { const a = b.dataset.a;
+    b.disabled = a === "dur" ? k >= S.slots.length - 1 : a === "ini" ? k === 0 : !toma; });
+  $("#splitBtn").disabled = !toma; $("#delBtn").disabled = s.tipo === "placa" || S.slots.length < 3;
+}
+document.querySelectorAll("#ctl .step").forEach(b => b.addEventListener("click", () => {
+  const k = sel, d = +b.dataset.d, a = b.dataset.a; Live.pause(); let ok = false;
+  if (a === "dur") ok = moverCorte(k + 1, tOf(k + 1) + d);
+  else if (a === "ini") ok = moverCorte(k, tOf(k) + d);
+  else ok = deslizar(k, S.slots[k].in + d);
+  if (!ok) { $("#saveState").textContent = "No hay más margen en ese sentido"; return; }
+  commit(); Live.seek(a === "dur" ? tOf(k + 1) - 0.06 : tOf(k) + 0.02);
+}));
+$("#splitBtn").addEventListener("click", () => { Live.pause();
+  if (dividir()) { pick = true; grupo = LIB[S.slots[sel].n].grupo; commit(); Live.seek(tOf(sel) + 0.02); }
+  else $("#saveState").textContent = "Poné el cabezal dentro de la toma elegida, lejos de los bordes"; });
+$("#delBtn").addEventListener("click", () => { Live.pause(); if (eliminar()) { commit(); Live.seek(tOf(sel) + 0.02); } });
+$("#undoBtn").addEventListener("click", () => { if (!hist.length) return; S.slots = JSON.parse(hist.pop()); sel = Math.min(sel, S.slots.length - 1); pick = false; commit(); });
+let resetArmado = false;
+$("#resetBtn").addEventListener("click", e => { if (!resetArmado) { resetArmado = true; e.target.textContent = "Tocá de nuevo para confirmar"; setTimeout(() => { resetArmado = false; e.target.textContent = "Volver todo al borrador 5"; }, 3000); return; }
+  resetArmado = false; e.target.textContent = "Volver todo al borrador 5"; snap(); S.slots = baseSlots(); sel = 0; commit(); });
+
+/* ---- guion en tomas (derecha) ---- */
 function renderBoard() {
   const board = $("#board"); board.textContent = "";
-  BASE.slots.forEach((b, k) => {
-    const s = slot(k);
-    if (k) { const j = el("div", "join" + (s.tr !== "Corte" ? " fx" : ""), TRN[s.tr] || s.tr); board.appendChild(j); }
-    const btn = el("button", "slot"); btn.type = "button"; btn.id = "slot" + k;
-    btn.setAttribute("aria-current", k === sel ? "true" : "false");
+  S.slots.forEach((s, k) => {
+    const btn = el("button", "slot"); btn.type = "button"; btn.setAttribute("aria-current", k === sel ? "true" : "false");
     const th = el("div", "th");
     if (s.tipo === "placa") { th.classList.add("logo"); th.textContent = "ZIZI"; }
     else if (s.tipo === "split") { th.classList.add("tri"); s.tomas.forEach(n => { const i = el("img"); i.src = "posters/" + id3(n) + ".jpg"; i.alt = ""; i.loading = "lazy"; th.appendChild(i); }); }
     else { const i = el("img"); i.src = "posters/" + id3(s.n) + ".jpg"; i.alt = ""; i.loading = "lazy"; th.appendChild(i); }
     const body = el("div");
-    body.appendChild(el("div", "tc", (k + 1) + " · " + fmt(s.t) + " · " + s.dur.toFixed(1).replace(".", ",") + " s"));
-    body.appendChild(el("p", "fr", s.frase));
+    body.appendChild(el("div", "tc", (k + 1) + " · " + fmt(s.t) + " · " + n1(durOf(k)) + " s"));
+    body.appendChild(el("p", "fr", fraseDe(s.t, tOf(k + 1))));
     const tags = el("div", "tags");
     tags.appendChild(el("span", "tag", s.tipo === "placa" ? "Placa de cierre con logo" : s.tipo === "split" ? "Pantalla dividida en 3" : LIB[s.n].grupo));
-    if (s.cambiada) tags.appendChild(el("span", "tag ch", "Toma cambiada"));
-    if (s.movida) tags.appendChild(el("span", "tag ch", "Inicio movido"));
-    if (s.cortada) tags.appendChild(el("span", "tag ch", "Corte movido"));
-    if (s.trc) tags.appendChild(el("span", "tag ch", "Transición cambiada"));
-    if (s.nota) tags.appendChild(el("span", "tag ch", "Con nota"));
-    body.appendChild(tags);
-    btn.append(th, body);
-    btn.addEventListener("click", () => select(k, true));
+    if (k > 0 && s.tr !== "Corte") tags.appendChild(el("span", "tag fx", "Entra con " + (TRN[s.tr] || s.tr).toLowerCase()));
+    if (s.nota) tags.appendChild(el("span", "tag fx", "Con nota"));
+    body.appendChild(tags); btn.append(th, body);
+    btn.addEventListener("click", () => { sel = k; pick = false; Live.pause(); TL.render(); TL.ver(k); renderBoard(); renderEditor(); renderCtl(); Live.seek(s.t + 0.02); try { $("#main").currentTime = s.t; } catch (e) {} });
     board.appendChild(btn);
   });
 }
-function select(k, seek) {
-  sel = k; pick = false;
-  document.querySelectorAll(".slot").forEach((b, i) => b.setAttribute("aria-current", i === k ? "true" : "false"));
-  if (seek) { const v = $("#main"); try { v.currentTime = BASE.slots[k].t + 0.05; } catch (e) {} Live.goto(k); }
-  TL.render();
-  renderEditor();
-}
 
+/* ---- ajustes de la toma elegida ---- */
 let loopT = null;
 function renderEditor() {
-  const box = $("#editor"), k = sel, s = slot(k); box.textContent = ""; clearInterval(loopT);
-  box.appendChild(el("h2", null, "Toma " + (k + 1) + " · " + fmt(s.t)));
-  const top = el("div", "edit-top");
-  const left = el("div");
+  const box = $("#editor"), k = sel, s = S.slots[k], dur = durOf(k); box.textContent = ""; clearInterval(loopT);
+  box.appendChild(el("h2", null, (s.tipo === "placa" ? "Placa de cierre" : "Toma " + (k + 1)) + " · " + fmt(s.t)));
+  const top = el("div", "edit-top"), left = el("div"), right = el("div");
   if (s.tipo === "toma") {
-    const v = el("video"); v.muted = true; v.playsInline = true; v.loop = false; v.preload = "auto"; v.src = "media/" + id3(s.n) + ".mp4"; v.id = "pv";
-    const play = () => { try { v.currentTime = s.in; v.play().catch(() => {}); } catch (e) {} };
-    v.addEventListener("loadedmetadata", play);
-    loopT = setInterval(() => { const cur = slot(k); if (v.currentTime >= cur.in + cur.dur || v.ended) { v.currentTime = cur.in; v.play().catch(() => {}); } }, 120);
+    const v = el("video"); v.muted = true; v.playsInline = true; v.preload = "auto"; v.src = "media/" + id3(s.n) + ".mp4"; v.id = "pv";
+    v.addEventListener("loadedmetadata", () => { try { v.currentTime = s.in; v.play().catch(() => {}); } catch (e) {} });
+    loopT = setInterval(() => { if (S.slots[k] !== s) return; if (v.currentTime >= s.in + durOf(k) || v.ended) { v.currentTime = s.in; v.play().catch(() => {}); } }, 120);
     left.appendChild(v);
-    left.appendChild(el("div", "meta", LIB[s.n].archivo + " · dura " + LIB[s.n].dur.toFixed(1).replace(".", ",") + " s · " + LIB[s.n].res));
-  } else {
-    left.appendChild(el("p", "hint", s.tipo === "placa" ? "Placa de cierre con el logo y la web. Podés cambiar la transición o dejar una nota." : "Pantalla dividida con tres momentos de la obra. Podés cambiar la transición o dejar una nota (por ejemplo, qué tomas preferís)."));
-  }
-  const right = el("div");
-  right.appendChild(el("p", "frase", s.frase || "(sin locución: respira con música)"));
-  right.appendChild(el("div", "meta", "En el corte ocupa " + s.dur.toFixed(1).replace(".", ",") + " s"));
+    left.appendChild(el("div", "meta", LIB[s.n].archivo + " · material: " + n1(LIB[s.n].dur) + " s"));
+  } else left.appendChild(el("p", "hint", s.tipo === "placa" ? "Placa final con el logo y la web." : "Pantalla dividida con tres momentos de la obra."));
+  right.appendChild(el("p", "frase", fraseDe(s.t, tOf(k + 1)) || "(sin locución: respira con música)"));
+  right.appendChild(el("div", "meta", "En el corte: del " + fmt(s.t) + " al " + fmt(tOf(k + 1)) + " · " + n1(dur) + " s"));
   top.append(left, right); box.appendChild(top);
 
   if (s.tipo === "toma") {
-    // Deslizar: la barra es la toma entera; el recuadro amarillo es el tramo que entra en el corte.
-    const D = LIB[s.n].dur, max = Math.max(0, +(D - s.dur).toFixed(2));
-    box.appendChild(el("div", "lbl", "Deslizar la toma: qué tramo entra en el corte"));
-    const bar = el("div", "slip"), win = el("div", "win", "arrastrá"), cur = el("div", "cur");
-    bar.setAttribute("role", "slider"); bar.tabIndex = 0; bar.id = "slip" + k;
-    bar.setAttribute("aria-label", "Inicio del tramo usado, en segundos"); bar.setAttribute("aria-valuemin", 0); bar.setAttribute("aria-valuemax", max);
-    const out = el("div", "hint");
-    let inNow = Math.min(s.in, max);
-    const pinta = () => { win.style.left = (inNow / D * 100) + "%"; win.style.width = Math.min(100, s.dur / D * 100) + "%"; bar.setAttribute("aria-valuenow", inNow);
-      out.textContent = max <= 0 ? "La toma dura lo mismo que su lugar en el corte: no hay margen para deslizarla. Arrastrá sobre la barra para verla." :
-        "Usa del segundo " + inNow.toFixed(1).replace(".", ",") + " al " + (inNow + s.dur).toFixed(1).replace(".", ",") + " de " + D.toFixed(1).replace(".", ",") + ". Arrastrá el recuadro para deslizar; arrastrá fuera de él para mirar el resto de la toma."; };
+    const D = LIB[s.n].dur, max = Math.max(0, r2(D - dur));
+    box.appendChild(el("div", "lbl", "Tramo del material que se usa"));
+    const bar = el("div", "slip"), win = el("div", "win", "arrastrá"), cur = el("div", "cur"), out = el("div", "hint");
+    const pinta = () => { win.style.left = (s.in / D * 100) + "%"; win.style.width = Math.min(100, dur / D * 100) + "%";
+      out.textContent = max <= 0 ? "Se usa todo el material: no hay margen para deslizar (acortá la toma o cambiala)." :
+        "Usa del segundo " + n1(s.in) + " al " + n1(s.in + dur) + " de " + n1(D) + ". Arrastrá el recuadro; fuera de él, solo mirás el material."; };
     pinta(); bar.append(win, cur);
-    const vid = () => $("#pv");
-    let drag = null;
-    bar.addEventListener("pointerdown", e => { const r = bar.getBoundingClientRect(), enWin = e.target === win && max > 0;
-      drag = { x: e.clientX, in0: inNow, w: r.width, left: r.left, enWin }; bar.setPointerCapture(e.pointerId); win.classList.toggle("drag", enWin);
-      clearInterval(loopT); const v = vid(); if (v) v.pause(); if (!enWin) mira(e); });
-    const mira = e => { const t = Math.max(0, Math.min(D - 0.05, (e.clientX - drag.left) / drag.w * D)); cur.style.left = (t / D * 100) + "%"; const v = vid(); if (v) v.currentTime = t; };
-    bar.addEventListener("pointermove", e => { if (!drag) return;
-      if (drag.enWin) { inNow = Math.max(0, Math.min(max, +(drag.in0 + (e.clientX - drag.x) / drag.w * D).toFixed(2))); pinta(); cur.style.left = (inNow / D * 100) + "%"; const v = vid(); if (v) v.currentTime = inNow; }
+    let dg = null;
+    const mira = e => { const t = clamp((e.clientX - dg.left) / dg.w * D, 0, D - 0.05); cur.style.left = (t / D * 100) + "%"; const v = $("#pv"); if (v) v.currentTime = t; };
+    bar.addEventListener("pointerdown", e => { const r = bar.getBoundingClientRect(); Live.pause();
+      dg = { x: e.clientX, in0: s.in, w: r.width, left: r.left, enWin: e.target === win && max > 0, antes: JSON.stringify(S.slots) }; bar.setPointerCapture(e.pointerId); clearInterval(loopT);
+      const v = $("#pv"); if (v) v.pause(); if (!dg.enWin) mira(e); });
+    bar.addEventListener("pointermove", e => { if (!dg) return;
+      if (dg.enWin) { deslizar(k, dg.in0 + (e.clientX - dg.x) / dg.w * D, false); pinta(); const v = $("#pv"); if (v) v.currentTime = s.in; Live.seek(s.t + 0.02); }
       else mira(e); });
-    const suelta = () => { if (!drag) return; const enWin = drag.enWin; drag = null; win.classList.remove("drag");
-      if (enWin) { setCambio(k, { in: inNow }); renderBoard(); TL.render(); Live.goto(k, true); }
-      renderEditor(); };
-    bar.addEventListener("pointerup", suelta); bar.addEventListener("pointercancel", suelta);
-    bar.addEventListener("keydown", e => { if (max <= 0 || !["ArrowLeft", "ArrowRight"].includes(e.key)) return; e.preventDefault();
-      inNow = Math.max(0, Math.min(max, +(inNow + (e.key === "ArrowRight" ? 0.2 : -0.2)).toFixed(2))); setCambio(k, { in: inNow }); renderBoard(); TL.render(); Live.goto(k, true); renderEditor(); $("#slip" + k)?.focus(); });
+    const suelta = () => { if (!dg) return; const g = dg; dg = null; if (JSON.stringify(S.slots) !== g.antes) { hist.push(g.antes); commit(); Live.seek(s.t + 0.02); } else renderEditor(); };
+    bar.addEventListener("pointerup", suelta); bar.addEventListener("pointercancel", suelta); bar.addEventListener("lostpointercapture", suelta);
     box.append(bar, out);
     const row = el("div", "row"); row.style.marginTop = "10px";
     const b1 = el("button", "btn primary", pick ? "Cerrar las tomas" : "Cambiar por otra toma"); b1.type = "button";
-    b1.addEventListener("click", () => { pick = !pick; grupo = grupo || LIB[s.n].grupo; renderEditor(); });
-    row.appendChild(b1);
-    if (S.cambios[k]) { const b2 = el("button", "btn", "Volver a la original"); b2.type = "button"; b2.addEventListener("click", () => { delete S.cambios[k]; changed(); renderBoard(); TL.render(); Live.goto(k, true); renderEditor(); }); row.appendChild(b2); }
+    b1.addEventListener("click", () => { pick = !pick; grupo = grupo || LIB[s.n].grupo; renderEditor(); }); row.appendChild(b1);
     box.appendChild(row);
-    if (pick) box.appendChild(renderPicker(k, s));
+    if (pick) box.appendChild(renderPicker(k, s, dur));
   }
-
   if (k > 0) {
     box.appendChild(el("div", "lbl", "Cómo entra esta toma (transición)"));
     const g = el("div", "trans");
@@ -373,197 +534,67 @@ function renderEditor() {
       else { const v = el("video"); v.muted = true; v.playsInline = true; v.loop = true; v.preload = "none"; v.src = "trans/" + key + ".mp4"; v.poster = "trans/" + key + ".jpg";
              b.addEventListener("mouseenter", () => v.play().catch(() => {})); b.addEventListener("mouseleave", () => v.pause()); b.appendChild(v); }
       b.append(el("b", null, name), el("small", null, desc));
-      b.addEventListener("click", () => {
-        setCambio(k, { tr: key }); renderBoard(); TL.render();
-        g.querySelectorAll(".tr").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
-        const v = b.querySelector("video"); if (v) { v.currentTime = 0; v.play().catch(() => {}); }
-      });
+      b.addEventListener("click", () => { if (s.tr === key) return; snap(); s.tr = key; commit(); });
       g.appendChild(b);
     });
     box.appendChild(g);
-    box.appendChild(el("p", "hint", "Pasá el mouse o tocá para ver cada efecto con una muestra."));
   }
   box.appendChild(el("div", "lbl", "Nota para esta toma"));
-  const ta = el("textarea"); ta.id = "nota" + k; ta.value = s.nota; ta.placeholder = "Ej.: prefiero una donde se vea más gente · que dure menos · sacarla";
-  ta.addEventListener("input", () => { setCambio(k, { nota: ta.value.trim() }); });
-  ta.addEventListener("change", renderBoard);
+  const ta = el("textarea"); ta.id = "nota" + k; ta.value = s.nota || ""; ta.placeholder = "Ej.: prefiero una donde se vea más gente";
+  ta.addEventListener("change", () => { snap(); s.nota = ta.value.trim(); commit(); });
   box.appendChild(ta);
 }
-function renderPicker(k, s) {
-  const w = el("div", "picker"); w.style.marginTop = "10px";
+function renderPicker(k, s, dur) {
+  const w = el("div"); w.style.cssText = "display:flex;flex-direction:column;gap:8px;margin-top:10px";
   const grupos = [...new Set(Object.values(LIB).map(l => l.grupo))].sort((a, b) => {
     const o = g => { const m = g.match(/^(\d+)-(\d+)/); return (+m[2]) * 100 + (+m[1]) + (g.includes("celular") ? .5 : 0); }; return o(a) - o(b); });
   const pills = el("div", "pills");
   grupos.forEach(g => { const b = el("button", null, g); b.type = "button"; b.setAttribute("aria-pressed", g === grupo ? "true" : "false");
     b.addEventListener("click", () => { grupo = g; renderEditor(); }); pills.appendChild(b); });
   w.appendChild(pills);
-  const usadas = {}; BASE.slots.forEach((b, i) => { const x = slot(i); if (x.tipo === "toma") usadas[x.n] = i + 1; });
+  const usadas = {}; S.slots.forEach((x, i) => { if (x.tipo === "toma") usadas[x.n] = i + 1; });
   const grid = el("div", "takes");
   Object.entries(LIB).filter(([, l]) => l.grupo === grupo).forEach(([n, l]) => {
-    n = +n; const corta = l.dur < s.dur + 0.3;
-    const b = el("button", "take" + (corta ? " corta" : "")); b.type = "button"; b.setAttribute("aria-pressed", n === s.n ? "true" : "false");
-    b.title = l.archivo;
+    n = +n; const corta = l.dur < dur - 0.02;
+    const b = el("button", "take"); b.type = "button"; b.disabled = corta; b.setAttribute("aria-pressed", n === s.n ? "true" : "false"); b.title = l.archivo;
     const i = el("img"); i.src = "posters/" + id3(n) + ".jpg"; i.alt = l.archivo; i.loading = "lazy"; b.appendChild(i);
-    b.appendChild(el("span", "d", l.dur.toFixed(1).replace(".", ",") + " s"));
+    b.appendChild(el("span", "d", n1(l.dur) + " s"));
     if (usadas[n]) b.appendChild(el("span", "u", "en toma " + usadas[n]));
-    if (corta) b.appendChild(el("span", "short", "corta"));
-    b.addEventListener("click", () => { setCambio(k, { n, in: 0 }); renderBoard(); TL.render(); Live.goto(k, true); renderEditor(); });
-    // pasar el mouse por la miniatura recorre la toma
-    b.addEventListener("pointerenter", e => { if (e.pointerType !== "mouse" || b.querySelector("video")) return;
+    if (corta) b.appendChild(el("span", "short", "muy corta"));
+    b.addEventListener("click", () => { snap(); s.n = n; s.in = 0; commit(); Live.seek(s.t + 0.02); });
+    b.addEventListener("pointerenter", e => { if (e.pointerType !== "mouse" || corta || b.querySelector("video")) return;
       const v = el("video"); v.muted = true; v.playsInline = true; v.preload = "auto"; v.src = "media/" + id3(n) + ".mp4"; b.insertBefore(v, b.children[1]); });
     b.addEventListener("pointermove", e => { const v = b.querySelector("video"); if (!v || !v.duration) return; const r = b.getBoundingClientRect();
-      v.currentTime = Math.max(0, Math.min(v.duration - 0.05, (e.clientX - r.left) / r.width * v.duration)); });
+      v.currentTime = clamp((e.clientX - r.left) / r.width * v.duration, 0, v.duration - 0.05); });
     b.addEventListener("pointerleave", () => { const v = b.querySelector("video"); if (v) v.remove(); });
     grid.appendChild(b);
   });
   w.appendChild(grid);
-  w.appendChild(el("p", "hint", "Pasá el mouse por una miniatura para recorrer esa toma. «Corta» = dura menos que el lugar que ocupa; se puede usar, pero habrá que acortar ese momento. «En toma N» = ya está usada en otro lugar del corte."));
+  w.appendChild(el("p", "hint", "Pasá el mouse por una miniatura para recorrerla. «Muy corta»: tiene menos material que la duración actual de la toma; acortá la toma y vas a poder elegirla."));
   return w;
 }
 
-function pintarMusica() {}
-$("#notas").addEventListener("input", e => { S.notas = e.target.value; changed(); });
-
-// Vista rápida: la locución es el reloj; el video salta de toma en toma según el corte + tus cambios
-const Live = (() => {
-  const vo = $("#vo"), seek = $("#lvSeek"), lbl = $("#lvTime"), btn = $("#lvPlay"), tri = $("#lvTri"), plate = $("#lvPlate");
-  let act = $("#lvA"), oth = $("#lvB"), raf = null;
-  const srcOf = n => "media/" + id3(n) + ".mp4";
-  const setSrc = (v, src) => { if (v.dataset.src !== src) { v.dataset.src = src; v.src = src; } };
-  const sync = (v, want, playing) => { const tol = playing ? 0.3 : 0.04;
-    if (v.readyState >= 1) { if (Math.abs(v.currentTime - want) > tol) v.currentTime = want; }
-    else v.addEventListener("loadedmetadata", () => { v.currentTime = want; }, { once: true });
-    if (playing) { if (v.paused) v.play().catch(() => {}); } else v.pause(); };
-  function draw() {
-    if (!BASE) return;
-    const t = Math.min(vo.currentTime, BASE.dur - 0.05), playing = !vo.paused;
-    let k = 0; BASE.slots.forEach((x, i) => { if (t >= Tk(i)) k = i; });
-    const s = slot(k), rel = t - s.t; TL.head(t);
-    seek.value = t; lbl.textContent = fmt(t) + " / " + fmt(BASE.dur);
-    tri.hidden = s.tipo !== "split"; plate.hidden = s.tipo !== "placa";
-    if (s.tipo === "toma") {
-      const src = srcOf(s.n);
-      if (act.dataset.src !== src) { if (oth.dataset.src === src) [act, oth] = [oth, act]; else setSrc(act, src); }
-      act.style.visibility = "visible"; oth.style.visibility = "hidden"; oth.pause();
-      sync(act, s.in + rel, playing);
-      const nx = BASE.slots[k + 1] ? slot(k + 1) : null;
-      if (nx && nx.tipo === "toma" && srcOf(nx.n) !== src) { setSrc(oth, srcOf(nx.n)); if (oth.readyState >= 1 && Math.abs(oth.currentTime - nx.in) > 0.3) oth.currentTime = nx.in; }
-    } else {
-      act.pause(); act.style.visibility = oth.style.visibility = "hidden";
-      if (s.tipo === "split") [...tri.children].forEach((v, i) => { setSrc(v, srcOf(s.tomas[i])); sync(v, s.ins[i] + rel, playing); });
-    }
-    if (playing && k !== sel) { sel = k; pick = false; document.querySelectorAll(".slot").forEach((b, i) => b.setAttribute("aria-current", i === k ? "true" : "false")); if (!TL.busy()) renderEditor(); TL.render(); }
-  }
-  const loop = () => { draw(); raf = vo.paused ? null : requestAnimationFrame(loop); };
-  vo.addEventListener("play", () => { btn.textContent = "Pausar"; $("#main").pause(); if (!raf) loop(); });
-  vo.addEventListener("pause", () => { btn.textContent = "Reproducir"; draw(); });
-  vo.addEventListener("seeked", draw); vo.addEventListener("loadedmetadata", draw);
-  btn.addEventListener("click", () => { if (vo.paused) vo.play().catch(() => {}); else vo.pause(); });
-  seek.addEventListener("input", () => { try { vo.currentTime = +seek.value; } catch (e) {} draw(); });
-  function modo(m) { $("#liveBox").hidden = m !== "live"; $("#finalBox").hidden = m !== "final";
-    document.querySelectorAll("#modo button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === m ? "true" : "false"));
-    if (m === "final") vo.pause(); else $("#main").pause(); }
-  document.querySelectorAll("#modo button").forEach(b => b.addEventListener("click", () => modo(b.dataset.m)));
-  return { draw, modo,
-    goto(k, mostrar) { if (!BASE) return; if (mostrar) modo("live"); try { vo.currentTime = Tk(k) + 0.05; } catch (e) {} draw(); },
-    seek(t) { try { vo.currentTime = Math.max(0, Math.min(BASE.dur - 0.1, t)); } catch (e) {} draw(); },
-    init() { seek.max = BASE.dur; draw(); } };
-})();
-
-// Línea de tiempo: bloques = tomas (arrastrar = deslizar el tramo), marcas = cortes/transiciones (arrastrar = mover el corte)
-const TL = (() => {
-  const inner = $("#tlInner"), track = $("#tlTrack"), ruler = $("#tlRuler"), words = $("#tlWords"), headEl = $("#tlHead"), scroll = $("#tlScroll"), zoom = $("#tlZoom");
-  let pps = 36, drag = null;
-  const maxIn = (s) => s.tipo === "toma" ? Math.max(0, LIB[s.n].dur - s.dur) : 0;
-  function render() {
-    if (!BASE || drag) return;                       // nunca redibujar en medio de un arrastre: se perdería el cambio
-    inner.style.width = (BASE.dur * pps + 2) + "px";
-    ruler.textContent = ""; const paso = pps >= 30 ? 1 : pps >= 14 ? 2 : 5;
-    for (let t = 0; t < BASE.dur; t += paso) { const m = el("span", null, fmt(t).replace(",0", "")); m.style.left = (t * pps) + "px"; ruler.appendChild(m); }
-    words.textContent = "";
-    (BASE.palabras || []).forEach((w, i, all) => { const m = el("span", null, w.w); m.style.left = (w.t * pps) + "px";
-      const sig = all[i + 2] ? all[i + 2].t : BASE.dur; m.style.width = Math.max(4, (sig - w.t) * pps - 3) + "px"; words.appendChild(m); });
-    track.textContent = "";
-    BASE.slots.forEach((b, k) => {
-      const s = slot(k), d = el("div", "tlb" + (k === sel ? " sel" : "") + (S.cambios[k] ? " ch" : ""));
-      d.style.left = (s.t * pps) + "px"; d.style.width = Math.max(4, s.dur * pps - 2) + "px"; d.title = "Toma " + (k + 1) + ": arrastrá para deslizar";
-      if (s.tipo === "toma") d.style.backgroundImage = "url(posters/" + id3(s.n) + ".jpg)";
-      else if (s.tipo === "split") d.style.backgroundImage = "url(posters/" + id3(s.tomas[1]) + ".jpg)";
-      d.appendChild(el("b", null, s.tipo === "placa" ? "Logo" : s.tipo === "split" ? (k + 1) + " ×3" : String(k + 1)));
-      d.addEventListener("pointerdown", e => { const tc = Math.max(s.t + 0.02, Math.min(s.t + s.dur - 0.05, (e.clientX - inner.getBoundingClientRect().left) / pps));   // donde apoyó la mano
-        $("#vo").pause(); drag = { tipo: "slip", k, x: e.clientX, in0: s.in ?? 0, max: maxIn(s), el: d, movio: false, tc }; d.setPointerCapture(e.pointerId); });
-      d.addEventListener("pointermove", e => { if (!drag || drag.tipo !== "slip" || drag.k !== k) return; const dx = e.clientX - drag.x;
-        if (Math.abs(dx) < 3 && !drag.movio) return; drag.movio = true; d.classList.add("drag");
-        if (s.tipo !== "toma" || drag.max <= 0) return;
-        drag.val = Math.max(0, Math.min(drag.max, +(drag.in0 - dx / pps).toFixed(2)));
-        (S.cambios[k] = S.cambios[k] || {}).in = drag.val; Live.modo("live"); Live.seek(drag.tc); });
-      const fin = () => { if (!drag || drag.tipo !== "slip" || drag.k !== k) return; const g = drag; drag = null; d.classList.remove("drag");
-        if (g.movio && g.val != null) { setCambio(k, { in: g.val }); sel = k; renderBoard(); renderEditor(); render(); Live.seek(g.tc); }
-        else if (!g.movio) { select(k, false); Live.modo("live"); Live.seek(g.tc); try { $("#main").currentTime = g.tc; } catch (e) {} } };
-      d.addEventListener("pointerup", fin); d.addEventListener("pointercancel", fin); d.addEventListener("lostpointercapture", fin);
-      track.appendChild(d);
-      if (k > 0) {
-        const c = el("div", "tlcut" + (s.tr !== "Corte" ? " fx" : "")); c.appendChild(el("i")); c.style.left = (s.t * pps) + "px";
-        c.title = "Corte entre " + k + " y " + (k + 1) + " · " + (TRN[s.tr] || s.tr) + ": arrastrá para moverlo";
-        c.addEventListener("pointerdown", e => { e.stopPropagation(); const prev = slot(k - 1);
-          let lo = prev.t + MIN, hi = Tk(k + 1) - MIN;
-          if (prev.tipo === "toma") hi = Math.min(hi, prev.t + LIB[prev.n].dur - prev.in);          // la toma anterior no puede durar más que su material
-          if (s.tipo === "toma") lo = Math.max(lo, Tk(k + 1) - (LIB[s.n].dur - s.in));              // ni esta
-          $("#vo").pause(); drag = { tipo: "cut", k, x: e.clientX, t0: s.t, lo, hi, movio: false }; c.setPointerCapture(e.pointerId); c.classList.add("drag"); });
-        c.addEventListener("pointermove", e => { if (!drag || drag.tipo !== "cut" || drag.k !== k) return; const dx = e.clientX - drag.x;
-          if (Math.abs(dx) < 2 && !drag.movio) return; drag.movio = true;
-          if (drag.hi < drag.lo) return;
-          drag.val = Math.max(drag.lo, Math.min(drag.hi, Math.round((drag.t0 + dx / pps) * 10) / 10));
-          (S.cambios[k] = S.cambios[k] || {}).t = drag.val; c.style.left = (drag.val * pps) + "px";
-          const a = track.querySelectorAll(".tlb"); a[k].style.left = (drag.val * pps) + "px"; a[k].style.width = Math.max(4, (Tk(k + 1) - drag.val) * pps - 2) + "px";
-          a[k - 1].style.width = Math.max(4, (drag.val - Tk(k - 1)) * pps - 2) + "px";
-          Live.modo("live"); Live.seek(drag.val + 0.02); });
-        const finc = () => { if (!drag || drag.tipo !== "cut" || drag.k !== k) return; const g = drag; drag = null; c.classList.remove("drag");
-          if (g.movio && g.val != null) { setCambio(k, { t: g.val }); renderBoard(); renderEditor(); render(); Live.seek(Math.max(0, g.val - 1)); }
-          else select(k, true); };
-        c.addEventListener("pointerup", finc); c.addEventListener("pointercancel", finc); c.addEventListener("lostpointercapture", finc);
-        track.appendChild(c);
-      }
-    });
-  }
-  let scrub = false;                                   // arrastrar sobre la regla recorre el corte
-  const ir = e => Live.seek((e.clientX - inner.getBoundingClientRect().left) / pps);
-  ruler.addEventListener("pointerdown", e => { scrub = true; ruler.setPointerCapture(e.pointerId); Live.modo("live"); ir(e); });
-  ruler.addEventListener("pointermove", e => { if (scrub) ir(e); });
-  ruler.addEventListener("pointerup", () => scrub = false); ruler.addEventListener("pointercancel", () => scrub = false);
-  // el cabezal se agarra y se arrastra: el visor va mostrando lo que hay en cada punto
-  let hd = false; headEl.appendChild(document.createElement("i"));
-  headEl.addEventListener("pointerdown", e => { e.stopPropagation(); hd = true; headEl.setPointerCapture(e.pointerId); headEl.classList.add("drag"); $("#vo").pause(); Live.modo("live"); });
-  headEl.addEventListener("pointermove", e => { if (hd) ir(e); });
-  const sueltaHd = () => { hd = false; headEl.classList.remove("drag"); };
-  headEl.addEventListener("pointerup", sueltaHd); headEl.addEventListener("pointercancel", sueltaHd);
-  zoom.addEventListener("input", () => { pps = +zoom.value; render(); });
-  return { render, busy: () => !!drag, head(t) { headEl.style.left = (t * pps) + "px";
-      const x = t * pps, a = scroll.scrollLeft, w = scroll.clientWidth; if (!drag && !hd && !scrub && (x < a + 20 || x > a + w - 40)) scroll.scrollLeft = Math.max(0, x - w * 0.3); } };
-})();
-
-// el visor marca la toma que está sonando
-$("#main").addEventListener("timeupdate", () => {
-  if (!BASE) return; const t = $("#main").currentTime; let k = 0;
-  BASE.slots.forEach((s, i) => { if (t >= s.t) k = i; });
-  if (k !== sel && !$("#main").paused) { sel = k; pick = false; document.querySelectorAll(".slot").forEach((b, i) => b.setAttribute("aria-current", i === k ? "true" : "false")); renderEditor(); }
-});
+$("#notas").addEventListener("input", e => { S.notas = e.target.value; $("#saveState").textContent = "Guardando…"; clearTimeout(saveT); saveT = setTimeout(save, 600);
+  try { localStorage.setItem(LOCAL, JSON.stringify({ ...S, base: BASE.version })); } catch (er) {} });
 
 function aplicar(d) {
-  S = { cambios: d.cambios || {}, musica: d.musica || "", notas: d.notas || "" };
-  pintarMusica(); $("#notas").value = S.notas;
-  renderHeader(); renderBoard(); renderEditor(); Live.init(); TL.render();
+  const ok = d && d.base === BASE.version && Array.isArray(d.slots) && d.slots.length;
+  S = { slots: ok ? d.slots : baseSlots(), notas: (d && d.notas) || "" }; sel = Math.min(sel, S.slots.length - 1);
+  $("#notas").value = S.notas; const c = $("#chgChip"), ed = editado(); c.textContent = ed ? "Editado" : "Sin cambios"; c.classList.toggle("on", ed);
+  TL.render(); renderBoard(); renderEditor(); renderCtl(); Live.init();
 }
 async function boot() {
   try { BASE = await (await fetch("corte.json")).json(); }
   catch (e) { $("#notice").textContent = "No pude cargar el corte. Recargá la página."; $("#notice").hidden = false; return; }
   LIB = BASE.lib; $("#verChip").textContent = BASE.version + " · " + fmt(BASE.dur);
   let local = null; try { local = JSON.parse(localStorage.getItem(LOCAL) || "null"); } catch (e) {}
-  aplicar(local || {});
-  try { db = await claude.use("db"); } catch (e) { db = null; }
-  if (!db) { $("#notice").textContent = "Abrí esta página con tu cuenta de Claude para que tus elecciones se guarden y Claude pueda leerlas. Por ahora quedan solo en este navegador."; $("#notice").hidden = false; $("#saveState").textContent = "Sin guardar"; return; }
+  aplicar(local);
+  let db = null; try { db = await claude.use("db"); } catch (e) {}
+  if (!db) { $("#notice").textContent = "Abrí esta página con tu cuenta de Claude para que la edición se guarde y Claude pueda leerla. Por ahora queda solo en este navegador."; $("#notice").hidden = false; $("#saveState").textContent = "Sin guardar"; return; }
   ref = db.doc("selecciones/horizontal");
-  try { const snap = await ref.get(); if (snap.exists) aplicar(snap.data()); $("#saveState").textContent = "Guardado"; loaded = true; }
+  try { const s0 = await ref.get(), d = s0.exists ? s0.data() : null;
+    if (d && d.base === BASE.version && Array.isArray(d.slots) && !hist.length) aplicar(d);   // si ya empezó a editar, manda lo que está en pantalla
+    $("#saveState").textContent = "Guardado"; if (hist.length) save(); }
   catch (e) { $("#saveState").textContent = "No pude leer lo guardado (" + (e.code || "error") + ")"; }
 }
 boot();
