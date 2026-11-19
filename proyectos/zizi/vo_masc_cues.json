@@ -2,64 +2,64 @@
  {
   "block": 1,
   "start": 1.949,
-  "end": 10.729,
-  "tempo": 1.0,
+  "end": 10.621,
+  "tempo": 1.098,
   "orig_end": 10.939
  },
  {
   "block": 2,
   "start": 11.958,
-  "end": 21.491,
-  "tempo": 0.9,
+  "end": 21.858,
+  "tempo": 0.966,
   "orig_end": 22.108
  },
  {
   "block": 3,
   "start": 22.989,
   "end": 32.552,
-  "tempo": 0.914,
+  "tempo": 1.029,
   "orig_end": 32.802
  },
  {
   "block": 4,
   "start": 33.971,
-  "end": 43.215,
-  "tempo": 0.9,
+  "end": 43.627,
+  "tempo": 1.027,
   "orig_end": 43.877
  },
  {
   "block": 5,
   "start": 45.177,
-  "end": 56.234,
-  "tempo": 0.912,
+  "end": 56.235,
+  "tempo": 1.047,
   "orig_end": 56.485
  },
  {
   "block": 6,
   "start": 56.899,
-  "end": 62.099,
-  "tempo": 1.0,
+  "end": 62.226,
+  "tempo": 1.1,
   "orig_end": 62.208
  },
  {
   "block": 7,
   "start": 63.338,
-  "end": 71.618,
-  "tempo": 1.0,
+  "end": 71.611,
+  "tempo": 1.1,
   "orig_end": 71.6
  },
  {
   "block": 8,
   "start": 72.763,
-  "end": 78.185,
-  "tempo": 0.9,
+  "end": 78.344,
+  "tempo": 1.061,
   "orig_end": 78.594
  },
  {
   "block": 9,
   "start": 81.53,
-  "end": 84.953,
-  "tempo": 0.9,
+  "end": 85.312,
+  "tempo": 1.1,
   "orig_end": 85.362
  }
 ]

@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Versión alternativa de la locución con voz masculina (ElevenLabs vía Artlist, voz «Alberto Rodríguez», español latino).
+"""Versión alternativa de la locución con voz masculina (ElevenLabs vía Artlist, voz argentina «Mauricio»).
 Parte de una sola generación (media/audio/masc/alberto_raw.mp3), la corta en los mismos 9 bloques del guion y ubica cada
 bloque donde empieza el de la locución original (vo_a2_cues.json), para que la edición hecha sobre la voz femenina siga calzando.
 Cada bloque se estira hasta un 10 % si es más corto que el original. Salida: media/audio/vo_masc.wav (+ .json/.srt de palabras)."""
 import json, subprocess, re, numpy as np
 from pathlib import Path
 A = Path(__file__).parent.parent; SR = 48000
-RAW = A / "media/audio/masc/alberto_raw.mp3"
-W = json.load(open(A / "media/audio/masc/alberto_raw.json")); CUES = json.load(open(A / "vo_a2_cues.json"))
+RAW = A / "media/audio/masc/mauricio_t2.mp3"      # ElevenLabs · «Mauricio - Publicidad cálida | Argentina» (rioplatense), toma 2
+W = json.load(open(RAW.with_suffix(".json"))); CUES = json.load(open(A / "vo_a2_cues.json"))
 STARTS = ["cada", "nosotros", "por", "aportamos", "pero", "personas", "y", "porque", "zizi"]
 def load(p, af=None):
     c = ["ffmpeg", "-v", "error", "-i", str(p)] + (["-af", af] if af else []) + ["-ac", "1", "-ar", str(SR), "-f", "f32le", "-"]
@@ -32,7 +32,7 @@ for b in range(9):
     s, e = borde(ws[0]["start"], -1), min(len(x) / SR, borde(ws[-1]["end"], +1))
     if b < 8: e = min(e, W[idx[b + 1]]["start"] - 0.06)
     seg = x[int(s * SR):int(e * SR)].copy(); f = int(0.03 * SR); seg[:f] *= np.linspace(0, 1, f); seg[-3 * f:] *= np.linspace(1, 0, 3 * f) ** 2
-    orig = CUES[b]["end"] - CUES[b]["start"]; tempo = float(np.clip(len(seg) / SR / (orig - 0.25), 0.90, 1.0))
+    orig = CUES[b]["end"] - CUES[b]["start"]; tempo = float(np.clip(len(seg) / SR / (orig - 0.25), 0.90, 1.10))
     p = A / f"media/audio/masc/_b{b}.wav"; save(seg, p, f"rubberband=tempo={tempo:.4f}:formant=preserved:pitchq=quality"); seg = load(p); p.unlink()
     t0 = CUES[b]["start"]; i0 = int(t0 * SR); y[i0:i0 + len(seg)] += seg[:len(y) - i0]
     cues.append({"block": b + 1, "start": round(t0, 3), "end": round(t0 + len(seg) / SR, 3), "tempo": round(tempo, 3), "orig_end": CUES[b]["end"]})

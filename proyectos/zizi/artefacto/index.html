@@ -315,7 +315,7 @@ function renderFx() {
   const grupo = (titulo, clave, ops) => { const g = el("div"); g.appendChild(el("div", "lbl", titulo)); const pl = el("div", "pills");
     ops.forEach(([v, t]) => { const b = el("button", null, t); b.type = "button"; b.setAttribute("aria-pressed", S.fx[clave] === v ? "true" : "false");
       b.addEventListener("click", () => { S.fx[clave] = v; if (clave === "voz") Live.voz(); guardarFx(); }); pl.appendChild(b); }); g.appendChild(pl); box.appendChild(g); };
-  grupo("Locución", "voz", [["orig", "Locutora original"], ["masc", "Voz masculina"]]);
+  grupo("Locución", "voz", [["orig", "Locutora original"], ["masc", "Voz masculina argentina"]]);
   grupo("Look de color", "look", [["limpio", "Limpio"], ["personas", "Cálido en personas"], ["calido", "Cálido en todo"]]);
   const g = el("div"); g.appendChild(el("div", "lbl", "Textura"));
   [["grano", "Grano de película (leve)"], ["vineta", "Viñeta"]].forEach(([k, t]) => { const l = el("label"), c = el("input"); c.type = "checkbox"; c.checked = !!S.fx[k];
