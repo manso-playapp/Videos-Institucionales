@@ -302,6 +302,7 @@ const baseSlots = () => BASE.slots.map(b => ({ t: b.t, tipo: b.tipo, n: b.n ?? n
 const editado = () => JSON.stringify(S.slots) !== JSON.stringify(baseSlots());
 
 function commit() {                          // después de cada cambio: guardar y redibujar todo
+  normalizar();
   dlog("commit sel=" + (sel + 1) + " t=" + S.slots[sel].t + " in=" + S.slots[sel].in);
   $("#undoBtn").disabled = !hist.length;
   const c = $("#chgChip"), ed = editado(); c.textContent = ed ? "Editado" : "Sin cambios"; c.classList.toggle("on", ed);
@@ -324,9 +325,13 @@ function limitesCorte(k) {                   // entre qué tiempos puede moverse
   hi = Math.min(hi, tOf(k - 1) + matDur(p) - p.in);          // la anterior no puede durar más que su material
   return [r2(lo), r2(hi)];
 }
-function moverCorte(k, t, guardar = true) {  // mueve el corte k; lo que se ve en cada instante no cambia (la toma k corre su inicio)
+function normalizar() {                      // si a una toma no le alcanza el material para llegar al corte siguiente, el resto queda como espacio en negro
+  for (let i = 0; i < S.slots.length; i++) { const s = S.slots[i]; if (s.tipo !== "toma") continue;
+    const max = r2(s.t + matDur(s) - s.in); if (tOf(i + 1) - max > 0.02) { S.slots.splice(i + 1, 0, { t: max, tipo: "negro", n: null, in: 0, tr: "Corte", nota: "" }); if (i < sel) sel++; if (trSel != null && i < trSel) trSel++; } }
+}
+function moverCorte(k, t, guardar = true, hueco = false) {   // hueco: se permite que la anterior no llegue (queda negro en el medio)  // mueve el corte k; lo que se ve en cada instante no cambia (la toma k corre su inicio)
   if (k <= 0 || k >= S.slots.length) return false;
-  const [lo, hi] = limitesCorte(k); if (hi < lo) return false;
+  let [lo, hi] = limitesCorte(k); if (hueco) hi = r2(tOf(k + 1) - MIN); if (hi < lo) return false;
   t = r2(clamp(t, lo, hi)); const c = S.slots[k]; if (Math.abs(t - c.t) < 0.005) return false;
   if (guardar) snap();
   if (t < c.t && c.tipo === "toma") {        // la toma k entra antes y tiene que llenar más tiempo: si no le alcanza el material,
@@ -470,9 +475,10 @@ const TL = (() => {
         h.addEventListener("pointerdown", e => { e.stopPropagation(); Live.pause(); drag = { tipo: "cut", kc, x: e.clientX, t0: tOf(kc), antes: JSON.stringify(S.slots) }; h.setPointerCapture(e.pointerId); });
         h.addEventListener("pointermove", e => { if (!drag || drag.tipo !== "cut" || drag.kc !== kc) return;
           const t = Math.round((drag.t0 + (e.clientX - drag.x) / pps) * 10) / 10;
-          if (moverCorte(kc, t, false)) { geom(); renderCtl(); Live.seek(lado === "l" ? tOf(kc) + 0.02 : tOf(kc) - 0.06); } });
+          if (moverCorte(kc, t, false, lado === "l")) { geom(); renderCtl(); Live.seek(lado === "l" ? tOf(kc) + 0.02 : tOf(kc) - 0.06); } });
         const finc = () => { if (!drag || drag.tipo !== "cut" || drag.kc !== kc) return; const g = drag; drag = null;
-          if (JSON.stringify(S.slots) !== g.antes) { hist.push(g.antes); commit(); } else render(); };
+          if (JSON.stringify(S.slots) !== g.antes) { hist.push(g.antes); commit(); }
+          else { render(); $("#saveState").textContent = "Ese borde no tiene más margen: la toma vecina ya está en el mínimo (0,5 s) o no le queda material. Probá eliminarla (Supr) o mover el otro borde."; } };
         h.addEventListener("pointerup", finc); h.addEventListener("pointercancel", finc); h.addEventListener("lostpointercapture", finc);
         d.appendChild(h);
       });
@@ -550,7 +556,7 @@ function renderCtl() {
 document.querySelectorAll("#ctl .step").forEach(b => b.addEventListener("click", () => {
   const k = sel, d = +b.dataset.d, a = b.dataset.a; Live.pause(); let ok = false;
   if (a === "dur") ok = moverCorte(k + 1, tOf(k + 1) + d);
-  else if (a === "ini") ok = moverCorte(k, tOf(k) + d);
+  else if (a === "ini") ok = moverCorte(k, tOf(k) + d, true, true);
   else ok = deslizar(k, S.slots[k].in + d);
   dlog("paso " + a + d + " toma" + (k + 1) + " ok=" + ok);
   if (!ok) { $("#saveState").textContent = "No hay más margen en ese sentido"; return; }
