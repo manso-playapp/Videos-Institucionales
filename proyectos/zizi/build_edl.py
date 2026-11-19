@@ -65,6 +65,7 @@ END = 95.2
 
 # Edición hecha por el estudio en el artefacto (doc selecciones/horizontal → edicion_horizontal.json): si existe, manda sobre S.
 # Ahí "in" es el punto de la fuente que se ve en el corte t (sin contar el solape de la transición).
+UHD = bool(os.environ.get("ZIZI_4K"))
 DIN = os.environ.get("ZIZI_VERSION", "") == "dinamica"     # versión corta y dinámica: Carlos a ritmo natural (1:15) + ráfagas
 EDIC = AQUI / ("edicion_dinamica.json" if DIN else "edicion_horizontal.json")
 if DIN: END = 79.4; VO = "media/audio/vo_carlos_c.wav"
@@ -105,6 +106,7 @@ def build(vertical):
     MUS = ({"music": {"src": MUSIC, "in": MUS_IN, "gain_db": -12, "fade_in": 1.5, "fade_out": 1.8, "end": END},
             "duck_music_under_vo": True, "duck": {"threshold": 0.02, "ratio": 4.5, "attack": 120, "release": 900}} if MUSIC else {})
     W, H = (1080, 1920) if vertical else (1920, 1080)
+    if UHD: W, H = W * 2, H * 2                       # master 4K (3840x2160): el material de dron es 4K nativo
     clips, sfx = [], []
     for k, s in enumerate(S):
         t0 = s["t"]; t1 = S[k + 1]["t"] if k + 1 < len(S) else END
@@ -113,13 +115,13 @@ def build(vertical):
         d = (t1 - t0) + head + tail
         if s.get("plate"):
             # placa de cierre animada (logo vectorial que se arma): se renderiza una vez con tools/motion.py y entra como plano
-            cierre = AQUI / "render/cierre_zizi.mov"; pc = {"logo": "proyectos/zizi/motion/logo_zizi.json", "web": "WWW.TINGLADOSZIZI.COM.AR", "dur": round(d + 0.4, 2)}
-            firma = AQUI / "render/cierre_zizi.json"
+            cierre = AQUI / ("render/cierre_zizi_4k.mov" if UHD else "render/cierre_zizi.mov"); pc = {"logo": "proyectos/zizi/motion/logo_zizi.json", "web": "WWW.TINGLADOSZIZI.COM.AR", "dur": round(d + 0.4, 2)}
+            firma = cierre.with_suffix(".json")
             if not cierre.exists() or not firma.exists() or json.load(open(firma)) != pc:
                 import subprocess; cierre.parent.mkdir(exist_ok=True)
                 subprocess.run(["python3", str(AQUI.parent.parent / "tools/motion.py"), "plantilla", "cierre_vector", "-p", json.dumps(pc), "-o", str(cierre),
-                                "--size", "1920x1080", "--fps", str(FPS)], check=True, capture_output=True); json.dump(pc, open(firma, "w"))
-            c = {"src": "render/cierre_zizi.mov", "in": 0, "dur": round(d, 3), "global_grade": False}
+                                "--size", "3840x2160" if UHD else "1920x1080", "--fps", str(FPS)], check=True, capture_output=True); json.dump(pc, open(firma, "w"))
+            c = {"src": "render/" + cierre.name, "in": 0, "dur": round(d, 3), "global_grade": False}
         elif s.get("negro"):
             neg = AQUI / "media/negro.png"
             if not neg.exists():
@@ -209,8 +211,8 @@ def build(vertical):
             **MUS,
             "sfx": sfx,
         },
-        "loudness": {"I": -14, "TP": -1, "LRA": 11},
-        "encode": {"crf": 16, "preset": "slow", "maxrate": "30M"},
+        "loudness": {"I": -14, "TP": -1.5 if UHD else -1, "LRA": 11},
+        "encode": {"crf": 17, "preset": "medium", "maxrate": "60M"} if UHD else {"crf": 16, "preset": "slow", "maxrate": "30M"},
     }
     if vertical:   # en redes se ve sin sonido: subtítulos de la locución real
         edl["subtitles"] = {"src": "locucion_a2.srt", "offset": 0.0, "style": "subtitulo", "size": 22, "y": 1620}
