@@ -1,13 +1,27 @@
 {
  "pieza": "Horizontal 16:9",
- "version": "Borrador 6",
- "dur": 95.2,
+ "version": "Dinámica 1",
+ "dur": 79.4,
+ "voces": [
+  [
+   "carlos",
+   "Carlos (argentina) · ritmo natural",
+   "vo_cc.mp3"
+  ]
+ ],
+ "fx": {
+  "voz": "carlos",
+  "look": "calido",
+  "grano": true,
+  "vineta": true,
+  "musica": "glaciers"
+ },
  "slots": [
   {
    "k": 0,
-   "t": 0,
-   "dur": 5.3,
-   "frase": "Cada proyecto tiene un comienzo, a veces es solamente",
+   "t": 0.0,
+   "dur": 2.9,
+   "frase": "Cada proyecto tiene un comienzo.",
    "tr": "Corte",
    "tipo": "toma",
    "n": 118,
@@ -15,209 +29,365 @@
   },
   {
    "k": 1,
-   "t": 5.3,
-   "dur": 1.3,
-   "frase": "un terreno así,",
-   "tr": "DefocusBlur",
+   "t": 2.9,
+   "dur": 1.4,
+   "frase": "A veces es solamente",
+   "tr": "Corte",
    "tipo": "toma",
    "n": 99,
    "in": 2.33
   },
   {
    "k": 2,
-   "t": 6.6,
-   "dur": 4.9,
-   "frase": "otras veces una idea que lleva mucho tiempo esperando su oportunidad.",
+   "t": 4.3,
+   "dur": 1.1,
+   "frase": "un terreno vacío,",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 101,
-   "in": 1
+   "n": 98,
+   "in": 0.3,
+   "v": 1.5
   },
   {
    "k": 3,
-   "t": 11.5,
-   "dur": 3.9,
-   "frase": "Nosotros vemos en ese espacio algo más",
-   "tr": "WhipPan",
+   "t": 5.4,
+   "dur": 2.4,
+   "frase": "otras veces una idea que lleva mucho",
+   "tr": "Corte",
    "tipo": "toma",
-   "n": 98,
-   "in": 0.3
+   "n": 101,
+   "in": 14,
+   "v": 2.0
   },
   {
    "k": 4,
-   "t": 15.4,
-   "dur": 1.5,
-   "frase": "que una futura construcción,",
+   "t": 7.8,
+   "dur": 1.9,
+   "frase": "tiempo esperando su oportunidad.",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 93,
-   "in": 2
+   "n": 97,
+   "in": 3,
+   "v": 2.0
   },
   {
    "k": 5,
-   "t": 16.9,
-   "dur": 2.5,
-   "frase": "vemos el esfuerzo, las expectativas y",
-   "tr": "Corte",
+   "t": 9.7,
+   "dur": 2.2,
+   "frase": "Nosotros vemos en ese espacio algo",
+   "tr": "Fade",
    "tipo": "toma",
    "n": 95,
-   "in": 2
+   "in": 0
   },
   {
    "k": 6,
-   "t": 19.4,
-   "dur": 2.8,
-   "frase": "las ganas de crecer de quienes nos eligen.",
+   "t": 11.9,
+   "dur": 1.8,
+   "frase": "más que una futura construcción.",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 18,
-   "in": 8
+   "n": 93,
+   "in": 4,
+   "v": 2.0
   },
   {
    "k": 7,
-   "t": 22.2,
-   "dur": 4.0,
-   "frase": "Por eso, en ZIZI, antes de hablar de estructuras hablamos",
-   "tr": "BloomDissolve",
+   "t": 13.7,
+   "dur": 0.6,
+   "frase": "Vemos el",
+   "tr": "Corte",
    "tipo": "toma",
-   "n": 136,
-   "in": 0
+   "n": 94,
+   "in": 3
   },
   {
    "k": 8,
-   "t": 26.2,
-   "dur": 1.6,
-   "frase": "de proyectos.",
+   "t": 14.3,
+   "dur": 0.6,
+   "frase": "esfuerzo,",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 137,
-   "in": 0.2
+   "n": 96,
+   "in": 2
   },
   {
    "k": 9,
-   "t": 27.8,
-   "dur": 1.3,
-   "frase": "Escuchamos,",
+   "t": 14.9,
+   "dur": 0.6,
+   "frase": "las expectativas",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 147,
-   "in": 0.1
+   "n": 115,
+   "in": 3
   },
   {
    "k": 10,
-   "t": 29.1,
-   "dur": 2.2,
-   "frase": "compartimos ideas y buscamos juntos",
-   "tr": "WhipPan",
+   "t": 15.5,
+   "dur": 0.6,
+   "frase": "y",
+   "tr": "Corte",
    "tipo": "toma",
-   "n": 138,
-   "in": 4
+   "n": 103,
+   "in": 3
   },
   {
    "k": 11,
-   "t": 31.3,
-   "dur": 2.2,
-   "frase": "la mejor solución.",
+   "t": 16.1,
+   "dur": 0.6,
+   "frase": "las ganas",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 139,
-   "in": 9.6
+   "n": 17,
+   "in": 8
   },
   {
    "k": 12,
-   "t": 33.5,
-   "dur": 3.8,
-   "frase": "Aportamos más de 46 años de experiencia,",
-   "tr": "Overexposure",
+   "t": 16.7,
+   "dur": 0.6,
+   "frase": "de crecer",
+   "tr": "Corte",
    "tipo": "toma",
-   "n": 144,
-   "in": 2.7
+   "n": 18,
+   "in": 10.77
   },
   {
    "k": 13,
-   "t": 37.3,
-   "dur": 1.0,
-   "frase": "conocimiento y",
-   "tr": "Corte",
-   "tipo": "toma",
-   "n": 109,
-   "in": 0
-  },
-  {
-   "k": 14,
-   "t": 38.3,
-   "dur": 2.5,
-   "frase": "tecnología para que cada decisión tenga",
-   "tr": "WhipTilt",
-   "tipo": "toma",
-   "n": 112,
-   "in": 6
-  },
-  {
-   "k": 15,
-   "t": 40.8,
-   "dur": 3.6,
-   "frase": "el respaldo de una empresa que sabe construir.",
-   "tr": "LightWipe",
-   "tipo": "toma",
-   "n": 66,
-   "in": 1.5
-  },
-  {
-   "k": 16,
-   "t": 44.4,
-   "dur": 3.6,
-   "frase": "Pero también sabemos que ninguna obra se hace en soledad.",
-   "tr": "DefocusBlur",
-   "tipo": "toma",
-   "n": 27,
-   "in": 1
-  },
-  {
-   "k": 17,
-   "t": 48,
-   "dur": 3.4,
-   "frase": "Detrás de cada proyecto está el trabajo de nuestra gente,",
+   "t": 17.3,
+   "dur": 1.5,
+   "frase": "de quienes nos eligen.",
    "tr": "Corte",
    "tipo": "toma",
    "n": 28,
    "in": 1.5
   },
   {
-   "k": 18,
-   "t": 51.4,
-   "dur": 2.1,
-   "frase": "el compromiso de nuestros proveedores y",
-   "tr": "WhipPan",
+   "k": 14,
+   "t": 18.8,
+   "dur": 2.9,
+   "frase": "Por eso, en ZIZI, antes de hablar de estructuras",
+   "tr": "Fade",
    "tipo": "toma",
-   "n": 68,
+   "n": 139,
+   "in": 9.47
+  },
+  {
+   "k": 15,
+   "t": 21.7,
+   "dur": 2.1,
+   "frase": "hablamos de proyectos.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 147,
+   "in": 1.47
+  },
+  {
+   "k": 16,
+   "t": 23.8,
+   "dur": 1.6,
+   "frase": "Escuchamos, compartimos",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 136,
+   "in": 0
+  },
+  {
+   "k": 17,
+   "t": 25.4,
+   "dur": 1.7,
+   "frase": "ideas y buscamos juntos",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 138,
+   "in": 3.93
+  },
+  {
+   "k": 18,
+   "t": 27.1,
+   "dur": 1.7,
+   "frase": "la mejor solución.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 137,
    "in": 0
   },
   {
    "k": 19,
-   "t": 53.5,
-   "dur": 2.8,
-   "frase": "la confianza de nuestros clientes.",
+   "t": 28.8,
+   "dur": 2.9,
+   "frase": "Aportamos más de 46 años de experiencia,",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 144,
+   "in": 2.11
+  },
+  {
+   "k": 20,
+   "t": 31.7,
+   "dur": 0.7,
+   "frase": "conocimiento",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 109,
+   "in": 0
+  },
+  {
+   "k": 21,
+   "t": 32.4,
+   "dur": 0.7,
+   "frase": "y tecnología",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 112,
+   "in": 6
+  },
+  {
+   "k": 22,
+   "t": 33.1,
+   "dur": 0.6,
+   "frase": "para",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 110,
+   "in": 5
+  },
+  {
+   "k": 23,
+   "t": 33.7,
+   "dur": 0.7,
+   "frase": "que cada decisión",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 64,
+   "in": 7.83
+  },
+  {
+   "k": 24,
+   "t": 34.4,
+   "dur": 0.7,
+   "frase": "tenga",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 66,
+   "in": 1.5
+  },
+  {
+   "k": 25,
+   "t": 35.1,
+   "dur": 2.7,
+   "frase": "el respaldo de una empresa que sabe construir.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 56,
+   "in": 1,
+   "v": 2.0
+  },
+  {
+   "k": 26,
+   "t": 37.8,
+   "dur": 2.0,
+   "frase": "Pero también sabemos que ninguna obra",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 27,
+   "in": 1
+  },
+  {
+   "k": 27,
+   "t": 39.8,
+   "dur": 1.2,
+   "frase": "se hace en soledad.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 80,
+   "in": 4
+  },
+  {
+   "k": 28,
+   "t": 41.0,
+   "dur": 0.8,
+   "frase": "Detrás de cada",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 44,
+   "in": 0.6
+  },
+  {
+   "k": 29,
+   "t": 41.8,
+   "dur": 0.8,
+   "frase": "proyecto está",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 43,
+   "in": 0.6
+  },
+  {
+   "k": 30,
+   "t": 42.6,
+   "dur": 0.8,
+   "frase": "el trabajo de",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 82,
+   "in": 1
+  },
+  {
+   "k": 31,
+   "t": 43.4,
+   "dur": 0.9,
+   "frase": "nuestra gente,",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 86,
+   "in": 5
+  },
+  {
+   "k": 32,
+   "t": 44.3,
+   "dur": 1.0,
+   "frase": "el compromiso",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 68,
+   "in": 0,
+   "v": 1.5
+  },
+  {
+   "k": 33,
+   "t": 45.3,
+   "dur": 1.0,
+   "frase": "de nuestros proveedores",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 126,
+   "in": 0.5
+  },
+  {
+   "k": 34,
+   "t": 46.3,
+   "dur": 2.5,
+   "frase": "y la confianza de nuestros clientes.",
    "tr": "Corte",
    "tipo": "toma",
    "n": 135,
    "in": 0
   },
   {
-   "k": 20,
-   "t": 56.3,
-   "dur": 2.7,
-   "frase": "Personas que, desde distintos lugares,",
-   "tr": "BloomDissolve",
+   "k": 35,
+   "t": 48.8,
+   "dur": 1.4,
+   "frase": "Personas que, desde",
+   "tr": "Fade",
    "tipo": "toma",
    "n": 81,
    "in": 3
   },
   {
-   "k": 21,
-   "t": 59,
-   "dur": 1.9,
-   "frase": "hacen posible que las ideas se",
+   "k": 36,
+   "t": 50.2,
+   "dur": 1.6,
+   "frase": "distintos lugares, hacen posible",
    "tr": "Corte",
    "tipo": "split",
    "tomas": [
@@ -232,109 +402,193 @@
    ]
   },
   {
-   "k": 22,
-   "t": 60.9,
-   "dur": 1.7,
-   "frase": "conviertan en realidades.",
+   "k": 37,
+   "t": 51.8,
+   "dur": 0.6,
+   "frase": "que",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 10,
-   "in": 3
+   "n": 21,
+   "in": 6
   },
   {
-   "k": 23,
-   "t": 62.6,
-   "dur": 4.3,
-   "frase": "Y cuando estrechamos una mano, reafirmamos nuestra manera de trabajar,",
-   "tr": "Overexposure",
-   "tipo": "toma",
-   "n": 145,
-   "in": 2.6
-  },
-  {
-   "k": 24,
-   "t": 66.9,
-   "dur": 4.9,
-   "frase": "con responsabilidad, con cercanía y con la palabra como compromiso.",
+   "k": 38,
+   "t": 52.4,
+   "dur": 0.6,
+   "frase": "las ideas se",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 142,
-   "in": 3.3
-  },
-  {
-   "k": 25,
-   "t": 71.8,
-   "dur": 3.8,
-   "frase": "Porque construir no es solamente levantar estructuras,",
-   "tr": "WhipPan",
-   "tipo": "toma",
-   "n": 4,
-   "in": 3
-  },
-  {
-   "k": 26,
-   "t": 75.6,
-   "dur": 3.0,
-   "frase": "es construir relaciones que perduren.",
-   "tr": "BloomDissolve",
-   "tipo": "toma",
-   "n": 149,
-   "in": 0.2
-  },
-  {
-   "k": 27,
-   "t": 78.6,
-   "dur": 2.7,
-   "frase": "",
-   "tr": "Corte",
-   "tipo": "toma",
-   "n": 8,
+   "n": 59,
    "in": 5
   },
   {
-   "k": 28,
-   "t": 81.3,
-   "dur": 1.6,
-   "frase": "ZIZI es la gente,",
-   "tr": "Overexposure",
-   "tipo": "toma",
-   "n": 44,
-   "in": 0.2
-  },
-  {
-   "k": 29,
-   "t": 82.9,
-   "dur": 1.4,
-   "frase": "construimos cultura",
+   "k": 39,
+   "t": 53.0,
+   "dur": 0.6,
+   "frase": "conviertan en",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 43,
-   "in": 0.6
+   "n": 73,
+   "in": 6
   },
   {
-   "k": 30,
-   "t": 84.3,
-   "dur": 2.9,
-   "frase": "de trabajo.",
+   "k": 40,
+   "t": 53.6,
+   "dur": 1.2,
+   "frase": "realidades. Y",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 82,
-   "in": 1
+   "n": 10,
+   "in": 3.2,
+   "v": 2.0
   },
   {
-   "k": 31,
-   "t": 87.2,
-   "dur": 2.6,
-   "frase": "",
-   "tr": "BloomDissolve",
+   "k": 41,
+   "t": 54.8,
+   "dur": 2.2,
+   "frase": "cuando estrechamos una mano, reafirmamos",
+   "tr": "Fade",
    "tipo": "toma",
-   "n": 1,
+   "n": 145,
+   "in": 3.0,
+   "v": 0.8
+  },
+  {
+   "k": 42,
+   "t": 57.0,
+   "dur": 3.4,
+   "frase": "nuestra manera de trabajar, con responsabilidad,",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 142,
+   "in": 0.69
+  },
+  {
+   "k": 43,
+   "t": 60.4,
+   "dur": 1.5,
+   "frase": "con cercanía y con la palabra",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 149,
    "in": 0
   },
   {
-   "k": 32,
-   "t": 89.8,
-   "dur": 5.4,
+   "k": 44,
+   "t": 61.9,
+   "dur": 1.8,
+   "frase": "como compromiso.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 143,
+   "in": 0
+  },
+  {
+   "k": 45,
+   "t": 63.7,
+   "dur": 0.9,
+   "frase": "Porque construir",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 4,
+   "in": 3,
+   "v": 2.0
+  },
+  {
+   "k": 46,
+   "t": 64.6,
+   "dur": 0.6,
+   "frase": "no",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 24,
+   "in": 3
+  },
+  {
+   "k": 47,
+   "t": 65.2,
+   "dur": 0.6,
+   "frase": "es solamente levantar",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 65,
+   "in": 2
+  },
+  {
+   "k": 48,
+   "t": 65.8,
+   "dur": 0.7,
+   "frase": "estructuras,",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 79,
+   "in": 4
+  },
+  {
+   "k": 49,
+   "t": 66.5,
+   "dur": 1.6,
+   "frase": "es construir relaciones",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 8,
+   "in": 5.58
+  },
+  {
+   "k": 50,
+   "t": 68.1,
+   "dur": 1.8,
+   "frase": "que perduren.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 84,
+   "in": 5
+  },
+  {
+   "k": 51,
+   "t": 69.9,
+   "dur": 0.9,
+   "frase": "ZIZI",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 127,
+   "in": 1
+  },
+  {
+   "k": 52,
+   "t": 70.8,
+   "dur": 0.8,
+   "frase": "es la gente,",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 122,
+   "in": 0.5
+  },
+  {
+   "k": 53,
+   "t": 71.6,
+   "dur": 0.9,
+   "frase": "construimos",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 83,
+   "in": 4
+  },
+  {
+   "k": 54,
+   "t": 72.5,
+   "dur": 1.9,
+   "frase": "cultura de trabajo.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 1,
+   "in": 7.37,
+   "v": 1.5
+  },
+  {
+   "k": 55,
+   "t": 74.4,
+   "dur": 5.0,
    "frase": "",
    "tr": "CrossZoom",
    "tipo": "placa"
@@ -1239,939 +1493,939 @@
  "palabras": [
   {
    "w": "Cada",
-   "t": 1.65,
-   "e": 2.17
+   "t": 0.56,
+   "e": 1.08
   },
   {
    "w": "proyecto",
-   "t": 2.17,
-   "e": 2.63
+   "t": 1.08,
+   "e": 1.56
   },
   {
    "w": "tiene",
-   "t": 2.63,
-   "e": 3.17
+   "t": 1.56,
+   "e": 2.06
   },
   {
    "w": "un",
-   "t": 3.17,
-   "e": 3.31
+   "t": 2.06,
+   "e": 2.22
   },
   {
-   "w": "comienzo,",
-   "t": 3.31,
-   "e": 3.81
+   "w": "comienzo.",
+   "t": 2.22,
+   "e": 2.74
   },
   {
-   "w": "a",
-   "t": 4.15,
-   "e": 4.27
+   "w": "A",
+   "t": 3.14,
+   "e": 3.26
   },
   {
    "w": "veces",
-   "t": 4.27,
-   "e": 4.55
+   "t": 3.26,
+   "e": 3.52
   },
   {
    "w": "es",
-   "t": 4.55,
-   "e": 5.11
+   "t": 3.52,
+   "e": 3.88
   },
   {
    "w": "solamente",
-   "t": 5.11,
-   "e": 5.43
+   "t": 3.88,
+   "e": 4.24
   },
   {
    "w": "un",
-   "t": 5.43,
-   "e": 5.65
+   "t": 4.24,
+   "e": 4.48
   },
   {
    "w": "terreno",
-   "t": 5.65,
-   "e": 5.93
+   "t": 4.48,
+   "e": 4.78
   },
   {
-   "w": "así,",
-   "t": 5.93,
-   "e": 6.23
+   "w": "vacío,",
+   "t": 4.78,
+   "e": 5.26
   },
   {
    "w": "otras",
-   "t": 6.55,
-   "e": 6.95
+   "t": 5.64,
+   "e": 5.84
   },
   {
    "w": "veces",
-   "t": 6.95,
-   "e": 7.33
+   "t": 5.84,
+   "e": 6.24
   },
   {
    "w": "una",
-   "t": 7.33,
-   "e": 7.81
+   "t": 6.24,
+   "e": 6.7
   },
   {
    "w": "idea",
-   "t": 7.81,
-   "e": 8.01
+   "t": 6.7,
+   "e": 6.92
   },
   {
    "w": "que",
-   "t": 8.01,
-   "e": 8.19
+   "t": 6.92,
+   "e": 7.12
   },
   {
    "w": "lleva",
-   "t": 8.19,
-   "e": 8.45
+   "t": 7.12,
+   "e": 7.36
   },
   {
    "w": "mucho",
-   "t": 8.45,
-   "e": 8.87
+   "t": 7.36,
+   "e": 7.74
   },
   {
    "w": "tiempo",
-   "t": 8.87,
-   "e": 9.27
+   "t": 7.74,
+   "e": 8.08
   },
   {
    "w": "esperando",
-   "t": 9.27,
-   "e": 9.99
+   "t": 8.08,
+   "e": 8.46
   },
   {
    "w": "su",
-   "t": 9.99,
-   "e": 10.19
+   "t": 8.46,
+   "e": 8.68
   },
   {
    "w": "oportunidad.",
-   "t": 10.19,
-   "e": 10.61
+   "t": 8.68,
+   "e": 9.14
   },
   {
    "w": "Nosotros",
-   "t": 11.87,
-   "e": 12.55
+   "t": 9.98,
+   "e": 10.38
   },
   {
    "w": "vemos",
-   "t": 12.55,
-   "e": 13.07
+   "t": 10.38,
+   "e": 10.62
   },
   {
    "w": "en",
-   "t": 13.07,
-   "e": 13.61
+   "t": 10.62,
+   "e": 10.84
   },
   {
    "w": "ese",
-   "t": 13.61,
-   "e": 13.81
+   "t": 10.84,
+   "e": 10.98
   },
   {
    "w": "espacio",
-   "t": 13.81,
-   "e": 14.23
+   "t": 10.98,
+   "e": 11.38
   },
   {
    "w": "algo",
-   "t": 14.23,
-   "e": 14.79
+   "t": 11.38,
+   "e": 11.84
   },
   {
    "w": "más",
-   "t": 14.79,
-   "e": 15.29
+   "t": 11.84,
+   "e": 12.14
   },
   {
    "w": "que",
-   "t": 15.29,
-   "e": 15.51
+   "t": 12.14,
+   "e": 12.26
   },
   {
    "w": "una",
-   "t": 15.51,
-   "e": 15.69
+   "t": 12.26,
+   "e": 12.4
   },
   {
    "w": "futura",
-   "t": 15.69,
-   "e": 16.07
+   "t": 12.4,
+   "e": 12.72
   },
   {
-   "w": "construcción,",
-   "t": 16.07,
-   "e": 16.65
+   "w": "construcción.",
+   "t": 12.72,
+   "e": 13.32
   },
   {
-   "w": "vemos",
-   "t": 17.03,
-   "e": 17.31
+   "w": "Vemos",
+   "t": 13.8,
+   "e": 14.06
   },
   {
    "w": "el",
-   "t": 17.31,
-   "e": 17.47
+   "t": 14.06,
+   "e": 14.22
   },
   {
    "w": "esfuerzo,",
-   "t": 17.47,
-   "e": 17.95
+   "t": 14.22,
+   "e": 14.8
   },
   {
    "w": "las",
-   "t": 18.19,
-   "e": 18.27
+   "t": 15.12,
+   "e": 15.18
   },
   {
    "w": "expectativas",
-   "t": 18.27,
-   "e": 18.97
+   "t": 15.18,
+   "e": 15.94
   },
   {
    "w": "y",
-   "t": 18.97,
-   "e": 19.35
+   "t": 15.94,
+   "e": 16.36
   },
   {
    "w": "las",
-   "t": 19.35,
-   "e": 19.49
+   "t": 16.36,
+   "e": 16.48
   },
   {
    "w": "ganas",
-   "t": 19.49,
-   "e": 19.91
+   "t": 16.48,
+   "e": 16.9
   },
   {
    "w": "de",
-   "t": 19.91,
-   "e": 20.13
+   "t": 16.9,
+   "e": 17.0
   },
   {
    "w": "crecer",
-   "t": 20.13,
-   "e": 20.45
+   "t": 17.0,
+   "e": 17.32
   },
   {
    "w": "de",
-   "t": 20.45,
-   "e": 20.59
+   "t": 17.32,
+   "e": 17.5
   },
   {
    "w": "quienes",
-   "t": 20.59,
-   "e": 20.73
+   "t": 17.5,
+   "e": 17.66
   },
   {
    "w": "nos",
-   "t": 20.73,
-   "e": 20.99
+   "t": 17.66,
+   "e": 17.9
   },
   {
    "w": "eligen.",
-   "t": 20.99,
-   "e": 21.33
+   "t": 17.9,
+   "e": 18.26
   },
   {
    "w": "Por",
-   "t": 22.61,
-   "e": 23.17
+   "t": 18.96,
+   "e": 19.28
   },
   {
    "w": "eso,",
-   "t": 23.17,
-   "e": 23.49
+   "t": 19.28,
+   "e": 19.48
   },
   {
    "w": "en",
-   "t": 23.69,
-   "e": 23.85
+   "t": 19.88,
+   "e": 19.96
   },
   {
    "w": "ZIZI,",
-   "t": 23.85,
-   "e": 24.25
+   "t": 19.96,
+   "e": 20.32
   },
   {
    "w": "antes",
-   "t": 24.53,
-   "e": 24.73
+   "t": 20.72,
+   "e": 20.92
   },
   {
    "w": "de",
-   "t": 24.73,
-   "e": 24.93
+   "t": 20.92,
+   "e": 21.1
   },
   {
    "w": "hablar",
-   "t": 24.93,
-   "e": 25.01
+   "t": 21.1,
+   "e": 21.22
   },
   {
    "w": "de",
-   "t": 25.01,
-   "e": 25.21
+   "t": 21.22,
+   "e": 21.4
   },
   {
    "w": "estructuras",
-   "t": 25.21,
-   "e": 25.71
+   "t": 21.4,
+   "e": 21.94
   },
   {
    "w": "hablamos",
-   "t": 25.71,
-   "e": 26.29
+   "t": 21.94,
+   "e": 22.66
   },
   {
    "w": "de",
-   "t": 26.29,
-   "e": 26.43
+   "t": 22.66,
+   "e": 22.86
   },
   {
    "w": "proyectos.",
-   "t": 26.43,
-   "e": 27.17
+   "t": 22.86,
+   "e": 23.58
   },
   {
    "w": "Escuchamos,",
-   "t": 28.19,
-   "e": 28.95
+   "t": 23.96,
+   "e": 24.56
   },
   {
    "w": "compartimos",
-   "t": 29.25,
-   "e": 29.63
+   "t": 24.56,
+   "e": 25.44
   },
   {
    "w": "ideas",
-   "t": 29.63,
-   "e": 30.01
+   "t": 25.44,
+   "e": 25.78
   },
   {
    "w": "y",
-   "t": 30.01,
-   "e": 30.63
+   "t": 25.78,
+   "e": 26.26
   },
   {
    "w": "buscamos",
-   "t": 30.63,
-   "e": 30.95
+   "t": 26.26,
+   "e": 26.58
   },
   {
    "w": "juntos",
-   "t": 30.95,
-   "e": 31.39
+   "t": 26.58,
+   "e": 26.98
   },
   {
    "w": "la",
-   "t": 31.39,
-   "e": 31.79
+   "t": 26.98,
+   "e": 27.26
   },
   {
    "w": "mejor",
-   "t": 31.79,
-   "e": 32.03
+   "t": 27.26,
+   "e": 27.56
   },
   {
    "w": "solución.",
-   "t": 32.03,
-   "e": 32.61
+   "t": 27.56,
+   "e": 28.18
   },
   {
    "w": "Aportamos",
-   "t": 33.83,
-   "e": 34.57
+   "t": 28.98,
+   "e": 29.5
   },
   {
    "w": "más",
-   "t": 34.57,
-   "e": 34.99
+   "t": 29.5,
+   "e": 29.72
   },
   {
    "w": "de",
-   "t": 34.99,
-   "e": 35.17
+   "t": 29.72,
+   "e": 29.88
   },
   {
    "w": "46",
-   "t": 35.17,
-   "e": 35.91
+   "t": 29.88,
+   "e": 30.52
   },
   {
    "w": "años",
-   "t": 35.91,
-   "e": 36.41
+   "t": 30.52,
+   "e": 30.92
   },
   {
    "w": "de",
-   "t": 36.41,
-   "e": 36.55
+   "t": 30.92,
+   "e": 31.08
   },
   {
    "w": "experiencia,",
-   "t": 36.55,
-   "e": 37.13
+   "t": 31.08,
+   "e": 31.72
   },
   {
    "w": "conocimiento",
-   "t": 37.47,
-   "e": 38.05
+   "t": 32.1,
+   "e": 32.62
   },
   {
    "w": "y",
-   "t": 38.05,
-   "e": 38.35
+   "t": 32.62,
+   "e": 32.76
   },
   {
    "w": "tecnología",
-   "t": 38.35,
-   "e": 38.87
+   "t": 32.76,
+   "e": 33.24
   },
   {
    "w": "para",
-   "t": 38.87,
-   "e": 39.37
+   "t": 33.24,
+   "e": 33.8
   },
   {
    "w": "que",
-   "t": 39.37,
-   "e": 39.55
+   "t": 33.8,
+   "e": 33.94
   },
   {
    "w": "cada",
-   "t": 39.55,
-   "e": 39.87
+   "t": 33.94,
+   "e": 34.22
   },
   {
    "w": "decisión",
-   "t": 39.87,
-   "e": 40.49
+   "t": 34.22,
+   "e": 34.78
   },
   {
    "w": "tenga",
-   "t": 40.49,
-   "e": 40.87
+   "t": 34.78,
+   "e": 35.06
   },
   {
    "w": "el",
-   "t": 40.87,
-   "e": 41.03
+   "t": 35.06,
+   "e": 35.2
   },
   {
    "w": "respaldo",
-   "t": 41.03,
-   "e": 41.51
+   "t": 35.2,
+   "e": 35.58
   },
   {
    "w": "de",
-   "t": 41.51,
-   "e": 41.89
+   "t": 35.58,
+   "e": 35.76
   },
   {
    "w": "una",
-   "t": 41.89,
-   "e": 42.01
+   "t": 35.76,
+   "e": 35.86
   },
   {
    "w": "empresa",
-   "t": 42.01,
-   "e": 42.33
+   "t": 35.86,
+   "e": 36.2
   },
   {
    "w": "que",
-   "t": 42.33,
-   "e": 42.71
+   "t": 36.2,
+   "e": 36.44
   },
   {
    "w": "sabe",
-   "t": 42.71,
-   "e": 43.13
+   "t": 36.44,
+   "e": 36.78
   },
   {
    "w": "construir.",
-   "t": 43.13,
-   "e": 43.55
+   "t": 36.78,
+   "e": 37.28
   },
   {
    "w": "Pero",
-   "t": 44.67,
-   "e": 45.39
+   "t": 38.0,
+   "e": 38.24
   },
   {
    "w": "también",
-   "t": 45.39,
-   "e": 45.75
+   "t": 38.24,
+   "e": 38.52
   },
   {
    "w": "sabemos",
-   "t": 45.75,
-   "e": 46.21
+   "t": 38.52,
+   "e": 38.88
   },
   {
    "w": "que",
-   "t": 46.21,
-   "e": 46.43
+   "t": 38.88,
+   "e": 39.08
   },
   {
    "w": "ninguna",
-   "t": 46.43,
-   "e": 46.71
+   "t": 39.08,
+   "e": 39.46
   },
   {
    "w": "obra",
-   "t": 46.71,
-   "e": 47.03
+   "t": 39.46,
+   "e": 39.84
   },
   {
    "w": "se",
-   "t": 47.03,
-   "e": 47.25
+   "t": 39.84,
+   "e": 40.06
   },
   {
    "w": "hace",
-   "t": 47.25,
-   "e": 47.43
+   "t": 40.06,
+   "e": 40.18
   },
   {
    "w": "en",
-   "t": 47.43,
-   "e": 47.57
+   "t": 40.18,
+   "e": 40.34
   },
   {
    "w": "soledad.",
-   "t": 47.57,
-   "e": 47.89
+   "t": 40.34,
+   "e": 40.78
   },
   {
    "w": "Detrás",
-   "t": 48.29,
-   "e": 48.67
+   "t": 41.16,
+   "e": 41.48
   },
   {
    "w": "de",
-   "t": 48.67,
-   "e": 48.83
+   "t": 41.48,
+   "e": 41.64
   },
   {
    "w": "cada",
-   "t": 48.83,
-   "e": 48.95
+   "t": 41.64,
+   "e": 41.82
   },
   {
    "w": "proyecto",
-   "t": 48.95,
-   "e": 49.39
+   "t": 41.82,
+   "e": 42.38
   },
   {
    "w": "está",
-   "t": 49.39,
-   "e": 49.95
+   "t": 42.38,
+   "e": 42.88
   },
   {
    "w": "el",
-   "t": 49.95,
-   "e": 50.11
+   "t": 42.88,
+   "e": 42.98
   },
   {
    "w": "trabajo",
-   "t": 50.11,
-   "e": 50.51
+   "t": 42.98,
+   "e": 43.24
   },
   {
    "w": "de",
-   "t": 50.51,
-   "e": 50.73
+   "t": 43.24,
+   "e": 43.44
   },
   {
    "w": "nuestra",
-   "t": 50.73,
-   "e": 50.87
+   "t": 43.44,
+   "e": 43.58
   },
   {
    "w": "gente,",
-   "t": 50.87,
-   "e": 51.37
+   "t": 43.58,
+   "e": 44.1
   },
   {
    "w": "el",
-   "t": 51.67,
-   "e": 51.69
+   "t": 44.54,
+   "e": 44.58
   },
   {
    "w": "compromiso",
-   "t": 51.69,
-   "e": 52.33
+   "t": 44.58,
+   "e": 45.18
   },
   {
    "w": "de",
-   "t": 52.33,
-   "e": 52.45
+   "t": 45.18,
+   "e": 45.32
   },
   {
    "w": "nuestros",
-   "t": 52.45,
-   "e": 52.65
+   "t": 45.32,
+   "e": 45.46
   },
   {
    "w": "proveedores",
-   "t": 52.65,
-   "e": 53.27
+   "t": 45.46,
+   "e": 46.16
   },
   {
    "w": "y",
-   "t": 53.27,
-   "e": 53.65
+   "t": 46.16,
+   "e": 46.56
   },
   {
    "w": "la",
-   "t": 53.65,
-   "e": 53.77
+   "t": 46.56,
+   "e": 46.66
   },
   {
    "w": "confianza",
-   "t": 53.77,
-   "e": 54.39
+   "t": 46.66,
+   "e": 47.26
   },
   {
    "w": "de",
-   "t": 54.39,
-   "e": 54.85
+   "t": 47.26,
+   "e": 47.4
   },
   {
    "w": "nuestros",
-   "t": 54.85,
-   "e": 55.07
+   "t": 47.4,
+   "e": 47.58
   },
   {
    "w": "clientes.",
-   "t": 55.07,
-   "e": 55.77
+   "t": 47.58,
+   "e": 48.26
   },
   {
    "w": "Personas",
-   "t": 56.59,
-   "e": 57.35
+   "t": 48.94,
+   "e": 49.48
   },
   {
    "w": "que,",
-   "t": 57.35,
-   "e": 57.51
+   "t": 49.48,
+   "e": 49.7
   },
   {
    "w": "desde",
-   "t": 57.71,
-   "e": 57.87
+   "t": 50.0,
+   "e": 50.08
   },
   {
    "w": "distintos",
-   "t": 57.87,
-   "e": 58.35
+   "t": 50.08,
+   "e": 50.58
   },
   {
    "w": "lugares,",
-   "t": 58.35,
-   "e": 58.75
+   "t": 50.58,
+   "e": 51.04
   },
   {
    "w": "hacen",
-   "t": 59.07,
-   "e": 59.27
+   "t": 51.44,
+   "e": 51.62
   },
   {
    "w": "posible",
-   "t": 59.27,
-   "e": 59.69
+   "t": 51.62,
+   "e": 52.08
   },
   {
    "w": "que",
-   "t": 59.69,
-   "e": 60.01
+   "t": 52.08,
+   "e": 52.28
   },
   {
    "w": "las",
-   "t": 60.01,
-   "e": 60.17
+   "t": 52.28,
+   "e": 52.48
   },
   {
    "w": "ideas",
-   "t": 60.17,
-   "e": 60.47
+   "t": 52.48,
+   "e": 52.74
   },
   {
    "w": "se",
-   "t": 60.47,
-   "e": 60.85
+   "t": 52.74,
+   "e": 52.98
   },
   {
    "w": "conviertan",
-   "t": 60.85,
-   "e": 61.31
+   "t": 52.98,
+   "e": 53.44
   },
   {
    "w": "en",
-   "t": 61.31,
-   "e": 61.43
+   "t": 53.44,
+   "e": 53.6
   },
   {
    "w": "realidades.",
-   "t": 61.43,
-   "e": 61.87
+   "t": 53.6,
+   "e": 54.14
   },
   {
    "w": "Y",
-   "t": 62.83,
-   "e": 63.47
+   "t": 54.14,
+   "e": 55.12
   },
   {
    "w": "cuando",
-   "t": 63.47,
-   "e": 63.63
+   "t": 55.12,
+   "e": 55.32
   },
   {
    "w": "estrechamos",
-   "t": 63.63,
-   "e": 64.19
+   "t": 55.32,
+   "e": 55.84
   },
   {
    "w": "una",
-   "t": 64.19,
-   "e": 64.43
+   "t": 55.84,
+   "e": 56.06
   },
   {
    "w": "mano,",
-   "t": 64.43,
-   "e": 64.75
+   "t": 56.06,
+   "e": 56.4
   },
   {
    "w": "reafirmamos",
-   "t": 65.05,
-   "e": 65.51
+   "t": 56.78,
+   "e": 57.32
   },
   {
    "w": "nuestra",
-   "t": 65.51,
-   "e": 65.75
+   "t": 57.32,
+   "e": 57.56
   },
   {
    "w": "manera",
-   "t": 65.75,
-   "e": 66.09
+   "t": 57.56,
+   "e": 57.92
   },
   {
    "w": "de",
-   "t": 66.09,
-   "e": 66.27
+   "t": 57.92,
+   "e": 58.08
   },
   {
    "w": "trabajar,",
-   "t": 66.27,
-   "e": 66.61
+   "t": 58.08,
+   "e": 58.54
   },
   {
    "w": "con",
-   "t": 67.01,
-   "e": 67.43
+   "t": 58.9,
+   "e": 59.08
   },
   {
    "w": "responsabilidad,",
-   "t": 67.43,
-   "e": 68.31
+   "t": 59.08,
+   "e": 60.02
   },
   {
    "w": "con",
-   "t": 68.69,
-   "e": 68.77
+   "t": 60.3,
+   "e": 60.44
   },
   {
    "w": "cercanía",
-   "t": 68.77,
-   "e": 69.27
+   "t": 60.44,
+   "e": 61.08
   },
   {
    "w": "y",
-   "t": 69.27,
-   "e": 69.61
+   "t": 61.08,
+   "e": 61.42
   },
   {
    "w": "con",
-   "t": 69.61,
-   "e": 69.75
+   "t": 61.42,
+   "e": 61.56
   },
   {
    "w": "la",
-   "t": 69.75,
-   "e": 69.87
+   "t": 61.56,
+   "e": 61.72
   },
   {
    "w": "palabra",
-   "t": 69.87,
-   "e": 70.25
+   "t": 61.72,
+   "e": 62.14
   },
   {
    "w": "como",
-   "t": 70.25,
-   "e": 70.63
+   "t": 62.14,
+   "e": 62.38
   },
   {
    "w": "compromiso.",
-   "t": 70.63,
-   "e": 71.27
+   "t": 62.38,
+   "e": 63.04
   },
   {
    "w": "Porque",
-   "t": 72.63,
-   "e": 73.01
+   "t": 63.86,
+   "e": 64.18
   },
   {
    "w": "construir",
-   "t": 73.01,
-   "e": 73.49
+   "t": 64.18,
+   "e": 64.66
   },
   {
    "w": "no",
-   "t": 73.49,
-   "e": 74.01
+   "t": 64.66,
+   "e": 65.1
   },
   {
    "w": "es",
-   "t": 74.01,
-   "e": 74.55
+   "t": 65.1,
+   "e": 65.26
   },
   {
    "w": "solamente",
-   "t": 74.55,
-   "e": 74.55
+   "t": 65.26,
+   "e": 65.48
   },
   {
    "w": "levantar",
-   "t": 74.55,
-   "e": 74.93
+   "t": 65.48,
+   "e": 66.1
   },
   {
    "w": "estructuras,",
-   "t": 74.93,
-   "e": 75.47
+   "t": 66.1,
+   "e": 66.64
   },
   {
    "w": "es",
-   "t": 75.89,
-   "e": 76.03
+   "t": 67.04,
+   "e": 67.2
   },
   {
    "w": "construir",
-   "t": 76.03,
-   "e": 76.55
+   "t": 67.2,
+   "e": 67.68
   },
   {
    "w": "relaciones",
-   "t": 76.55,
-   "e": 77.31
+   "t": 67.68,
+   "e": 68.28
   },
   {
    "w": "que",
-   "t": 77.31,
-   "e": 77.51
+   "t": 68.28,
+   "e": 68.52
   },
   {
    "w": "perduren.",
-   "t": 77.51,
-   "e": 77.87
+   "t": 68.52,
+   "e": 69.02
   },
   {
    "w": "ZIZI",
-   "t": 81.48,
-   "e": 82.02
+   "t": 70.24,
+   "e": 70.82
   },
   {
    "w": "es",
-   "t": 82.02,
-   "e": 82.36
+   "t": 70.82,
+   "e": 71.2
   },
   {
    "w": "la",
-   "t": 82.36,
-   "e": 82.5
+   "t": 71.2,
+   "e": 71.36
   },
   {
    "w": "gente,",
-   "t": 82.5,
-   "e": 82.78
+   "t": 71.36,
+   "e": 71.72
   },
   {
    "w": "construimos",
-   "t": 83.2,
-   "e": 83.92
+   "t": 72.14,
+   "e": 72.78
   },
   {
    "w": "cultura",
-   "t": 83.92,
-   "e": 84.4
+   "t": 72.78,
+   "e": 73.26
   },
   {
    "w": "de",
-   "t": 84.4,
-   "e": 84.6
+   "t": 73.26,
+   "e": 73.5
   },
   {
    "w": "trabajo.",
-   "t": 84.6,
-   "e": 84.9
+   "t": 73.5,
+   "e": 73.92
   }
  ],
  "textos": [
   {
    "t": 0.3,
-   "dur": 3.8,
+   "dur": 3.2,
    "src": "ov/o00.webm"
   },
   {
-   "t": 1.5,
-   "dur": 4.2,
+   "t": 0.45,
+   "dur": 3.4,
    "src": "ov/o01.webm"
   },
   {
-   "t": 24.3,
-   "dur": 3.6,
+   "t": 20.5,
+   "dur": 3.2,
    "src": "ov/o02.webm"
   },
   {
-   "t": 34.9,
-   "dur": 2.6,
+   "t": 29.7,
+   "dur": 2.3,
    "src": "ov/o03.webm"
   },
   {
-   "t": 37.4,
-   "dur": 3.3,
+   "t": 31.95,
+   "dur": 2.6,
    "src": "ov/o04.webm"
   },
   {
-   "t": 50.5,
-   "dur": 5.6,
+   "t": 43.2,
+   "dur": 5.4,
    "src": "ov/o05.webm"
   },
   {
-   "t": 59.6,
-   "dur": 3.0,
+   "t": 52.2,
+   "dur": 2.5,
    "src": "ov/o06.webm"
   },
   {
-   "t": 67.2,
+   "t": 58.9,
    "dur": 4.6,
    "src": "ov/o07.webm"
   },
   {
-   "t": 75.9,
+   "t": 67.0,
    "dur": 2.7,
    "src": "ov/o08.webm"
   },
   {
-   "t": 81.4,
-   "dur": 4.4,
+   "t": 70.0,
+   "dur": 4.2,
    "src": "ov/o09.webm"
   }
  ]

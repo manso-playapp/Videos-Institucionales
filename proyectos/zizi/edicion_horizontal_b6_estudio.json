@@ -1,0 +1,249 @@
+{
+ "base": "Borrador 6",
+ "editado": "2026-11-19T22:16:12.883Z",
+ "fx": {
+  "grano": true,
+  "look": "calido",
+  "musica": "glaciers",
+  "vineta": true,
+  "voz": "carlos"
+ },
+ "notas": "",
+ "pieza": "horizontal",
+ "slots": [
+  {
+   "in": 1.78,
+   "n": 118,
+   "nota": "",
+   "t": 0,
+   "tipo": "toma",
+   "tr": "Corte"
+  },
+  {
+   "in": 2.33,
+   "n": 99,
+   "nota": "",
+   "t": 5.3,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 21.52,
+   "n": 101,
+   "nota": "",
+   "t": 7.94,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 0,
+   "n": 95,
+   "nota": "",
+   "t": 12,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 0,
+   "n": null,
+   "nota": "",
+   "t": 14.4,
+   "tipo": "negro",
+   "tr": "Fade"
+  },
+  {
+   "in": 9.47,
+   "n": 139,
+   "nota": "",
+   "t": 21.8,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 1.47,
+   "n": 147,
+   "nota": "",
+   "t": 26,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 3.93,
+   "n": 138,
+   "nota": "",
+   "t": 30.1,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 2.11,
+   "n": 144,
+   "nota": "",
+   "t": 33.5,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 0,
+   "n": 109,
+   "nota": "",
+   "t": 37.3,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 6,
+   "n": 112,
+   "nota": "",
+   "t": 38.3,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 7.83,
+   "n": 64,
+   "nota": "",
+   "t": 40.8,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 1,
+   "n": 27,
+   "nota": "",
+   "t": 44.4,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 1.5,
+   "n": 28,
+   "nota": "",
+   "t": 48,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 4.07,
+   "n": 68,
+   "nota": "",
+   "t": 51.4,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 0,
+   "n": 135,
+   "nota": "",
+   "t": 53.5,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 3,
+   "n": 81,
+   "nota": "",
+   "t": 56.3,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 0,
+   "ins": [
+    6,
+    2,
+    2
+   ],
+   "n": null,
+   "nota": "",
+   "t": 59,
+   "tipo": "split",
+   "tomas": [
+    104,
+    77,
+    80
+   ],
+   "tr": "Fade"
+  },
+  {
+   "in": 3.2,
+   "n": 10,
+   "nota": "",
+   "t": 61.1,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 3.8,
+   "n": 145,
+   "nota": "",
+   "t": 63.5,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 0.69,
+   "n": 142,
+   "nota": "",
+   "t": 66.3,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 3,
+   "n": 4,
+   "nota": "",
+   "t": 71.8,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 0,
+   "n": 149,
+   "nota": "",
+   "t": 75.6,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 5.58,
+   "n": 8,
+   "nota": "",
+   "t": 78.5,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 0.6,
+   "n": 44,
+   "nota": "",
+   "t": 81.7,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 0,
+   "n": 2,
+   "nota": "",
+   "t": 84.8,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 7.37,
+   "n": 1,
+   "nota": "",
+   "t": 87.2,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 0,
+   "n": null,
+   "nota": "",
+   "t": 89.8,
+   "tipo": "placa",
+   "tr": "Fade"
+  }
+ ]
+}

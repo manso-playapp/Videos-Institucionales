@@ -65,7 +65,9 @@ END = 95.2
 
 # Edición hecha por el estudio en el artefacto (doc selecciones/horizontal → edicion_horizontal.json): si existe, manda sobre S.
 # Ahí "in" es el punto de la fuente que se ve en el corte t (sin contar el solape de la transición).
-EDIC = AQUI / "edicion_horizontal.json"
+DIN = os.environ.get("ZIZI_VERSION", "") == "dinamica"     # versión corta y dinámica: Carlos a ritmo natural (1:15) + ráfagas
+EDIC = AQUI / ("edicion_dinamica.json" if DIN else "edicion_horizontal.json")
+if DIN: END = 79.4; VO = "media/audio/vo_carlos_c.wav"
 TR_DUR = {"WhipPan": 0.38, "WhipTilt": 0.45, "BloomDissolve": 0.5, "Overexposure": 0.42, "DefocusBlur": 0.5, "LightWipe": 0.5, "CrossZoom": 0.7}
 if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):
     _meta = {s["n"]: {k: s[k] for k in ("f", "blur") if k in s} for s in S if "n" in s}
@@ -75,7 +77,7 @@ if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):
         if e["tipo"] == "placa": s["plate"] = True
         elif e["tipo"] == "negro": s["negro"] = True      # espacio reservado sin toma: sale negro
         elif e["tipo"] == "split": s["split"], s["si"] = e["tomas"], e["ins"]
-        else: s.update(n=e["n"], i=e["in"], **_meta.get(e["n"], {}))
+        else: s.update(n=e["n"], i=e["in"], v=float(e.get("v", 1)), luz=bool(e.get("luz")), **_meta.get(e["n"], {}))
         if e.get("tr") and e["tr"] != "Corte": s["tr"] = T(e["tr"], TR_DUR.get(e["tr"], 0.5))
         S2.append(s)
     S = S2
@@ -149,23 +151,39 @@ def build(vertical):
     lead = dict(fuente="texto", peso=300)
     lugar = {"lugar": "Santa Fe", "pais": "Argentina", "acento": "#FDB913", "dur": 3.8, "size": round(78 * (0.6 if vertical else 1))}
     lugar.update(dict(x=40, y=70) if vertical else dict(x=150, y=130))
-    ov = [
-        {"template": "lugar", "params": lugar, "start": 0.3, "dur": 3.8},      # localizador de apertura (dato dado por el estudio)
-        frase(1.5, 4.2, [L("Cada proyecto tiene un", 54, 0, **lead), L("comienzo", 240, 1.55, mayus=True, punto=True)]),
-        frase(24.3, 3.6, [L("Antes de hablar de estructuras,", 50, 0, **lead), L("hablamos de", 104, 1.25, peso=500, mayus=True),
-                          L("proyectos", 220, 1.9, mayus=True, punto=True)]),
-        {"template": "dato", "params": {"valor": "46", "prefijo": "+", "etiqueta": "años de experiencia", "acento": "#FDB913",
-                                         "y": 330 if not vertical else 300, **({"align": "center"} if vertical else {"x": 150})},
-         "start": 34.9, "dur": 2.6},
-        frase(37.4, 3.3, [L("conocimiento", 150, 0, mayus=True), L("y tecnología", 150, 0.95, mayus=True, punto=True, color="acento")]),
-        frase(50.5, 5.6, [L("Nuestra gente", 118, 0, mayus=True, punto=True), L("Nuestros proveedores", 118, 1.9, mayus=True, punto=True),
-                          L("Nuestros clientes", 118, 4.25, mayus=True, punto=True)]),
-        frase(59.6, 3.0, [L("Las ideas se convierten en", 52, 0, **lead), L("realidades", 220, 1.6, mayus=True, punto=True)]),
-        frase(67.2, 4.6, [L("Responsabilidad", 128, 0, mayus=True, punto=True), L("Cercanía", 128, 1.5, mayus=True, punto=True),
-                          L("Compromiso", 128, 3.3, mayus=True, punto=True, color="acento")]),
-        frase(75.9, 2.7, [L("Construir", 54, 0, **lead), L("relaciones", 220, 0.5, mayus=True), L("que perduren", 104, 1.45, peso=500, mayus=True, punto=True)]),
-        frase(81.4, 4.4, [L("ZIZI es la gente", 176, 0, mayus=True, punto=True), L("Construimos cultura de trabajo", 58, 1.75, **lead)]),
-    ]
+    if DIN:      # tiempos sobre la locución compacta (media/audio/vo_carlos_c.json)
+        lugar["dur"] = 3.2
+        ov = [
+            {"template": "lugar", "params": lugar, "start": 0.3, "dur": 3.2},
+            frase(0.45, 3.4, [L("Cada proyecto tiene un", 54, 0, **lead), L("comienzo", 240, 1.6, mayus=True, punto=True)]),
+            frase(20.5, 3.2, [L("Antes de hablar de estructuras,", 50, 0, **lead), L("hablamos de", 104, 1.3, peso=500, mayus=True), L("proyectos", 220, 2.3, mayus=True, punto=True)]),
+            {"template": "dato", "params": {"valor": "46", "prefijo": "+", "etiqueta": "años de experiencia", "acento": "#FDB913",
+                                             "y": 330 if not vertical else 300, **({"align": "center"} if vertical else {"x": 150})}, "start": 29.7, "dur": 2.3},
+            frase(31.95, 2.6, [L("conocimiento", 150, 0, mayus=True), L("y tecnología", 150, 0.75, mayus=True, punto=True, color="acento")]),
+            frase(43.2, 5.4, [L("Nuestra gente", 118, 0, mayus=True, punto=True), L("Nuestros proveedores", 118, 2.0, mayus=True, punto=True), L("Nuestros clientes", 118, 4.1, mayus=True, punto=True)]),
+            frase(52.2, 2.5, [L("Las ideas se convierten en", 52, 0, **lead), L("realidades", 220, 1.3, mayus=True, punto=True)]),
+            frase(58.9, 4.6, [L("Responsabilidad", 128, 0, mayus=True, punto=True), L("Cercanía", 128, 1.45, mayus=True, punto=True), L("Compromiso", 128, 3.4, mayus=True, punto=True, color="acento")]),
+            frase(67.0, 2.7, [L("Construir", 54, 0, **lead), L("relaciones", 220, 0.6, mayus=True), L("que perduren", 104, 1.25, peso=500, mayus=True, punto=True)]),
+            frase(70.0, 4.2, [L("ZIZI es la gente", 176, 0, mayus=True, punto=True), L("Construimos cultura de trabajo", 58, 2.0, **lead)]),
+        ]
+    else:
+        ov = [
+            {"template": "lugar", "params": lugar, "start": 0.3, "dur": 3.8},      # localizador de apertura (dato dado por el estudio)
+            frase(1.5, 4.2, [L("Cada proyecto tiene un", 54, 0, **lead), L("comienzo", 240, 1.55, mayus=True, punto=True)]),
+            frase(24.3, 3.6, [L("Antes de hablar de estructuras,", 50, 0, **lead), L("hablamos de", 104, 1.25, peso=500, mayus=True),
+                              L("proyectos", 220, 1.9, mayus=True, punto=True)]),
+            {"template": "dato", "params": {"valor": "46", "prefijo": "+", "etiqueta": "años de experiencia", "acento": "#FDB913",
+                                             "y": 330 if not vertical else 300, **({"align": "center"} if vertical else {"x": 150})},
+             "start": 34.9, "dur": 2.6},
+            frase(37.4, 3.3, [L("conocimiento", 150, 0, mayus=True), L("y tecnología", 150, 0.95, mayus=True, punto=True, color="acento")]),
+            frase(50.5, 5.6, [L("Nuestra gente", 118, 0, mayus=True, punto=True), L("Nuestros proveedores", 118, 1.9, mayus=True, punto=True),
+                              L("Nuestros clientes", 118, 4.25, mayus=True, punto=True)]),
+            frase(59.6, 3.0, [L("Las ideas se convierten en", 52, 0, **lead), L("realidades", 220, 1.6, mayus=True, punto=True)]),
+            frase(67.2, 4.6, [L("Responsabilidad", 128, 0, mayus=True, punto=True), L("Cercanía", 128, 1.5, mayus=True, punto=True),
+                              L("Compromiso", 128, 3.3, mayus=True, punto=True, color="acento")]),
+            frase(75.9, 2.7, [L("Construir", 54, 0, **lead), L("relaciones", 220, 0.5, mayus=True), L("que perduren", 104, 1.45, peso=500, mayus=True, punto=True)]),
+            frase(81.4, 4.4, [L("ZIZI es la gente", 176, 0, mayus=True, punto=True), L("Construimos cultura de trabajo", 58, 1.75, **lead)]),
+        ]
     edl = {
         "output": f"entregas/ZIZI_Institucional_{'9x16' if vertical else '16x9'}{TAG}.mp4",
         "canvas": {"width": W, "height": H, "fps": FPS},

@@ -84,6 +84,7 @@ input[type=range]{accent-color:var(--accent)}
 .tlb{position:absolute;top:0;height:62px;border-radius:5px;border:2px solid transparent;background:#000 center/cover;cursor:grab;touch-action:none;
   outline:1px solid rgba(255,255,255,.16);outline-offset:-1px}
 .tlb.sel{border-color:var(--accent);z-index:2}
+.tlb .vel{position:absolute;right:3px;top:2px;font:700 9px/1.4 var(--ui);font-style:normal;background:#16130a;color:#FDB913;border-radius:3px;padding:0 3px;pointer-events:none}
 .tlb.negro{background:repeating-linear-gradient(135deg,#111 0 8px,#1c1c1c 8px 16px);border-color:#555;border-style:dashed}
 .tlb.negro.sel{border-color:var(--accent)}
 .slot .th.negro{display:flex;align-items:center;justify-content:center;background:#000;color:#888;font:600 11px/1 var(--ui);text-transform:uppercase;letter-spacing:.08em}
@@ -170,7 +171,7 @@ input[type=range]{accent-color:var(--accent)}
 <div class="app">
   <header>
     <div class="brand"><i></i>ZIZI · Corte horizontal</div>
-    <span class="chip" id="verChip">Borrador 6</span>
+    <span class="chip" id="verChip">Dinámica 1</span>
     <span class="chip" id="chgChip">Sin cambios</span>
     <span class="spacer"></span>
     <span class="state" id="saveState">Cargando…</span>
@@ -182,7 +183,7 @@ input[type=range]{accent-color:var(--accent)}
       <section class="card" aria-label="Visor">
         <div class="pills" id="modo" role="group" aria-label="Qué ver en el visor" style="margin-bottom:10px">
           <button type="button" data-m="live" aria-pressed="true">Tu edición · vista rápida</button>
-          <button type="button" data-m="final" aria-pressed="false">Último render · borrador 6</button>
+          <button type="button" data-m="final" aria-pressed="false">Último render (versión larga)</button>
         </div>
         <div id="liveBox">
           <div class="stage">
@@ -269,7 +270,7 @@ input[type=range]{accent-color:var(--accent)}
   <section class="card foot">
     <h2>Notas generales para el próximo corte</h2>
     <textarea id="notas" placeholder="Ritmo, locución, textos, música, lo que quieras cambiar en general…"></textarea>
-    <div class="row"><button class="btn danger" id="resetBtn" type="button">Volver todo al borrador 6</button><span class="hint">Todo se guarda solo. Cuando termines, avisale a Claude en el chat y arma el corte nuevo con tu edición.</span></div>
+    <div class="row"><button class="btn danger" id="resetBtn" type="button">Volver a la propuesta dinámica</button><span class="hint">Todo se guarda solo. Cuando termines, avisale a Claude en el chat y arma el corte nuevo con tu edición.</span></div>
   </section>
 </div>
 
@@ -317,7 +318,7 @@ function renderFx() {
   const grupo = (titulo, clave, ops) => { const g = el("div"); g.appendChild(el("div", "lbl", titulo)); const pl = el("div", "pills");
     ops.forEach(([v, t]) => { const b = el("button", null, t); b.type = "button"; b.setAttribute("aria-pressed", S.fx[clave] === v ? "true" : "false");
       b.addEventListener("click", () => { S.fx[clave] = v; if (clave === "voz") Live.voz(); if (clave === "musica") Live.musica(); guardarFx(); }); pl.appendChild(b); }); g.appendChild(pl); box.appendChild(g); };
-  grupo("Locución", "voz", [["orig", "Locutora original"], ["masc", "Mauricio (argentina, cálida)"], ["carlos", "Carlos (argentina, documental)"]]);
+  grupo("Locución", "voz", BASE.voces ? BASE.voces.map(x => [x[0], x[1]]) : [["orig", "Locutora original"], ["masc", "Mauricio (argentina, cálida)"], ["carlos", "Carlos (argentina, documental)"]]);
   grupo("Música (muestra, baja sola bajo la voz)", "musica", [["", "Sin música"], ...MUSICAS]);
   grupo("Look de color", "look", [["limpio", "Limpio"], ["personas", "Cálido en personas"], ["calido", "Cálido en todo"]]);
   const g = el("div"); g.appendChild(el("div", "lbl", "Textura"));
@@ -329,9 +330,10 @@ function renderFx() {
 const END = () => BASE.dur;
 const tOf = k => k >= S.slots.length ? END() : S.slots[k].t;
 const durOf = k => r2(tOf(k + 1) - tOf(k));
-const matDur = s => s.tipo === "toma" ? LIB[s.n].dur : 1e9;                   // cuánto material hay
+const vel = s => (s && s.tipo === "toma" && s.v) || 1;                          // velocidad de la toma (1 = normal, 2 = el doble de rápido)
+const matDur = s => s.tipo === "toma" ? s.in + (LIB[s.n].dur - s.in) / vel(s) : 1e9;   // en segundos de la línea de tiempo                   // cuánto material hay
 const fraseDe = (a, b) => (BASE.palabras || []).filter(w => w.t >= a - 0.15 && w.t < b - 0.15).map(w => w.w).join(" ");
-const baseSlots = () => BASE.slots.map(b => ({ t: b.t, tipo: b.tipo, n: b.n ?? null, in: b.in ?? 0, tr: b.tr, nota: "", ...(b.tomas ? { tomas: b.tomas, ins: b.ins } : {}) }));
+const baseSlots = () => BASE.slots.map(b => ({ t: b.t, tipo: b.tipo, n: b.n ?? null, in: b.in ?? 0, tr: b.tr, nota: "", ...(b.tomas ? { tomas: b.tomas, ins: b.ins } : {}), ...(b.v ? { v: b.v } : {}), ...(b.luz ? { luz: true } : {}) }));
 const editado = () => JSON.stringify(S.slots) !== JSON.stringify(baseSlots());
 
 function commit() {                          // después de cada cambio: guardar y redibujar todo
@@ -360,7 +362,7 @@ function limitesCorte(k) {                   // entre qué tiempos puede moverse
 }
 function normalizar() {                      // si a una toma no le alcanza el material para llegar al corte siguiente, arranca antes en su material; si ni así llega, el resto queda en negro
   for (let i = 0; i < S.slots.length; i++) { const s = S.slots[i]; if (s.tipo !== "toma") continue;
-    const falta = r2(s.in + (tOf(i + 1) - s.t) - matDur(s)); if (falta > 0.005 && s.in > 0) s.in = r2(Math.max(0, s.in - falta));   // primero usa el material anterior de la misma toma
+    const falta = r2(s.in + (tOf(i + 1) - s.t) * vel(s) - LIB[s.n].dur); if (falta > 0.005 && s.in > 0) s.in = r2(Math.max(0, s.in - falta));   // primero usa el material anterior de la misma toma
     const max = r2(s.t + matDur(s) - s.in); if (tOf(i + 1) - max > 0.02) { S.slots.splice(i + 1, 0, { t: max, tipo: "negro", n: null, in: 0, tr: "Corte", nota: "" }); if (i < sel) sel++; if (trSel != null && i < trSel) trSel++; } }
 }
 function moverCorte(k, t, guardar = true, hueco = false) {   // hueco: se permite que la anterior no llegue (queda negro en el medio)  // mueve el corte k; lo que se ve en cada instante no cambia (la toma k corre su inicio)
@@ -374,13 +376,13 @@ function moverCorte(k, t, guardar = true, hueco = false) {   // hueco: se permit
       const aun = r2((tOf(k + 1) - t) - (matDur(c) - Math.max(0, c.in + (t - c.t)))); if (aun > 0.005) t = r2(t + aun); }
     if (Math.abs(t - c.t) < 0.005) { if (guardar) hist.pop(); return false; } }
   const d = t - c.t;
-  if (c.tipo === "toma") c.in = r2(Math.max(0, c.in + d));
+  if (c.tipo === "toma") c.in = r2(Math.max(0, c.in + d * vel(c)));
   if (c.tomas) c.ins = c.ins.map(v => r2(Math.max(0, v + d)));
   c.t = t; return true;
 }
 function deslizar(k, nuevoIn, guardar = true) {
   const s = S.slots[k]; if (s.tipo !== "toma") return false;
-  const v = r2(clamp(nuevoIn, 0, Math.max(0, matDur(s) - durOf(k)))); if (Math.abs(v - s.in) < 0.005) return false;
+  const v = r2(clamp(nuevoIn, 0, Math.max(0, LIB[s.n].dur - durOf(k) * vel(s)))); if (Math.abs(v - s.in) < 0.005) return false;
   if (guardar) snap(); s.in = v; return true;
 }
 function insertar() {
@@ -392,7 +394,7 @@ function insertar() {
   snap();
   const resto = fin - (t + len) >= MIN ? JSON.parse(JSON.stringify(s)) : null, nuevo = { t, tipo: "negro", n: null, in: 0, tr: alInicio ? s.tr : "Corte", nota: "" };
   if (resto) { const d = r2(t + len - s.t); resto.t = r2(t + len); resto.tr = "Corte"; resto.nota = "";
-    if (resto.tipo === "toma") resto.in = r2(resto.in + d); if (resto.tomas) resto.ins = resto.ins.map(v => r2(v + d)); }
+    if (resto.tipo === "toma") resto.in = r2(resto.in + d * vel(resto)); if (resto.tomas) resto.ins = resto.ins.map(v => r2(v + d)); }
   if (alInicio) { S.slots.splice(k, 1, nuevo, ...(resto ? [resto] : [])); sel = k; }
   else { S.slots.splice(k + 1, 0, nuevo, ...(resto ? [resto] : [])); sel = k + 1; }
   return true;
@@ -406,7 +408,7 @@ function reubicar(k, b) {                     // saca la toma k y la pone antes 
 function dividir() {
   const t = r2(Live.time()), k = sel, s = S.slots[k];
   if (s.tipo !== "toma" || t - s.t < MIN || tOf(k + 1) - t < MIN) return false;
-  snap(); S.slots.splice(k + 1, 0, { t, tipo: "toma", n: s.n, in: r2(s.in + (t - s.t)), tr: "Corte", nota: "" }); sel = k + 1; return true;
+  snap(); S.slots.splice(k + 1, 0, { t, tipo: "toma", n: s.n, in: r2(s.in + (t - s.t) * vel(s)), tr: "Corte", nota: "", ...(s.v ? { v: s.v } : {}) }); sel = k + 1; return true;
 }
 function eliminar() {
   const k = sel; if (S.slots.length < 3 || S.slots[k].tipo === "placa") return false;
@@ -424,7 +426,7 @@ const Live = (() => {
   let act = $("#lvA"), oth = $("#lvB"), raf = null; const ovEls = [];
   const srcOf = n => "media/" + id3(n) + ".mp4";
   const setSrc = (v, src) => { if (v.dataset.src !== src) { v.dataset.src = src; v.src = src; } };
-  const sync = (v, want, playing) => { const tol = playing ? 0.3 : 0.04;
+  const sync = (v, want, playing, k = 1) => { const tol = playing ? 0.3 * Math.max(1, k) : 0.04;
     if (v.readyState >= 1) { if (Math.abs(v.currentTime - want) > tol) v.currentTime = want; }
     else v.addEventListener("loadedmetadata", () => { v.currentTime = want; }, { once: true });
     if (playing) { if (v.paused) v.play().catch(() => {}); } else v.pause(); };
@@ -442,7 +444,7 @@ const Live = (() => {
       const src = srcOf(s.n);
       if (act.dataset.src !== src) { if (oth.dataset.src === src) [act, oth] = [oth, act]; else setSrc(act, src); }
       act.style.visibility = "visible"; oth.style.visibility = "hidden"; oth.pause();
-      sync(act, s.in + rel, playing);
+      const vv = vel(s); if (act.playbackRate !== vv) act.playbackRate = vv; sync(act, s.in + rel * vv, playing, vv);
       const nx = S.slots[k + 1];
       if (nx && nx.tipo === "toma" && srcOf(nx.n) !== src) { setSrc(oth, srcOf(nx.n)); if (oth.readyState >= 1 && Math.abs(oth.currentTime - nx.in) > 0.3) oth.currentTime = nx.in; }
     } else {
@@ -476,7 +478,7 @@ const Live = (() => {
     const enVoz = habla.some(([a, b]) => t > a - 0.25 && t < b + 0.35), obj = enVoz ? 0.16 : 0.5; mus.volume += (obj - mus.volume) * 0.08;
     if (mus.readyState >= 1 && Math.abs(mus.currentTime - t) > 0.35) { try { mus.currentTime = t; } catch (e) {} }
     if (playing) { if (mus.paused) mus.play().catch(() => {}); } else if (!mus.paused) mus.pause(); }
-  function voz() { const src = ({ masc: "vo_m.mp3", carlos: "vo_c.mp3" })[S.fx && S.fx.voz] || "vo.mp3"; if (vo.getAttribute("src") === src) return;
+  function voz() { const src = BASE.voces ? (BASE.voces.find(x => x[0] === (S.fx && S.fx.voz)) || BASE.voces[0])[2] : ({ masc: "vo_m.mp3", carlos: "vo_c.mp3" })[S.fx && S.fx.voz] || "vo.mp3"; if (vo.getAttribute("src") === src) return;
     const t = vo.currentTime, sonando = !vo.paused; vo.src = src; vo.addEventListener("loadedmetadata", () => { try { vo.currentTime = t; } catch (e) {} if (sonando) vo.play().catch(() => {}); }, { once: true }); vo.load(); }
   return { draw, modo, voz, musica, time: () => vo.currentTime, pause: () => vo.pause(),
     seek(t) { modo("live"); try { vo.currentTime = clamp(t, 0, END() - 0.1); } catch (e) {} draw(); },
@@ -506,6 +508,7 @@ const TL = (() => {
       if (s.tipo === "toma") d.style.backgroundImage = "url(posters/" + id3(s.n) + ".jpg)";
       else if (s.tipo === "split") d.style.backgroundImage = "url(posters/" + id3(s.tomas[1]) + ".jpg)";
       if (s.tipo === "negro") d.classList.add("negro");
+      if (vel(s) !== 1) { const sp = el("i", "vel", String(vel(s)).replace(".", ",") + "×"); d.appendChild(sp); }
       d.appendChild(el("b", null, s.tipo === "placa" ? "Logo" : s.tipo === "split" ? (k + 1) + " ×3" : s.tipo === "negro" ? (k + 1) + " · negro" : String(k + 1)));
       if (k > 0) { const em = el("em", (s.tr === "Corte" ? "corte" : "") + (trSel === k ? " on" : ""), s.tr === "Corte" ? "＋" : TRN[s.tr] || s.tr);
         em.title = "Tocá para cambiar la transición de entrada de esta toma";
@@ -582,7 +585,7 @@ function renderSlip() {
   if (slipDrag) return;                       // no reconstruir la barra mientras se la está arrastrando
   const box = $("#slipBox"), k = sel, s = S.slots[k]; box.textContent = "";
   if (s.tipo !== "toma") return;
-  const dur = durOf(k), D = LIB[s.n].dur, max = Math.max(0, r2(D - dur));
+  const dur = r2(durOf(k) * vel(s)), D = LIB[s.n].dur, max = Math.max(0, r2(D - dur));
   const lbl = el("div", "lbl", "Deslizar la toma " + (k + 1) + ": qué tramo de su material se ve"); lbl.style.marginTop = "0"; box.appendChild(lbl);
   const bar = el("div", "slip"), win = el("div", "win", max > 0 ? "◀ arrastrá ▶" : "se usa todo"), out = el("div", "hint");
   const pinta = () => { win.style.left = (s.in / D * 100) + "%"; win.style.width = Math.min(100, dur / D * 100) + "%";
@@ -632,8 +635,8 @@ $("#splitBtn").addEventListener("click", () => { Live.pause(); trSel = null;
 $("#delBtn").addEventListener("click", () => { Live.pause(); trSel = null; if (eliminar()) { commit(); Live.seek(tOf(sel) + 0.02); } });
 $("#undoBtn").addEventListener("click", () => { if (!hist.length) return; S.slots = JSON.parse(hist.pop()); sel = Math.min(sel, S.slots.length - 1); pick = false; commit(); });
 let resetArmado = false;
-$("#resetBtn").addEventListener("click", e => { if (!resetArmado) { resetArmado = true; e.target.textContent = "Tocá de nuevo para confirmar"; setTimeout(() => { resetArmado = false; e.target.textContent = "Volver todo al borrador 6"; }, 3000); return; }
-  resetArmado = false; e.target.textContent = "Volver todo al borrador 6"; snap(); S.slots = baseSlots(); sel = 0; commit(); });
+$("#resetBtn").addEventListener("click", e => { if (!resetArmado) { resetArmado = true; e.target.textContent = "Tocá de nuevo para confirmar"; setTimeout(() => { resetArmado = false; e.target.textContent = "Volver a la propuesta dinámica"; }, 3000); return; }
+  resetArmado = false; e.target.textContent = "Volver a la propuesta dinámica"; snap(); S.slots = baseSlots(); sel = 0; commit(); });
 
 /* ---- guion en tomas (derecha) ---- */
 function renderBoard() {
@@ -680,6 +683,11 @@ function renderEditor() {
       const b2 = el("button", "btn", "Dejar en negro"); b2.type = "button"; setTimeout(() => row.appendChild(lz), 0);
       b2.addEventListener("click", () => { snap(); s.tipo = "negro"; s.n = null; s.in = 0; pick = false; commit(); }); row.appendChild(b2); }
     box.appendChild(row);
+    if (s.tipo === "toma") { box.appendChild(el("div", "lbl", "Velocidad de esta toma")); const pv = el("div", "pills");
+      [[0.75, "0,75× lento"], [1, "1× normal"], [1.5, "1,5×"], [2, "2×"], [3, "3×"], [4, "4×"]].forEach(([v, t]) => { const b = el("button", null, t); b.type = "button"; b.setAttribute("aria-pressed", vel(s) === v ? "true" : "false");
+        b.disabled = dur * v > LIB[s.n].dur + 0.02;
+        b.addEventListener("click", () => { snap(); if (v === 1) delete s.v; else s.v = v; commit(); Live.seek(s.t + 0.02); }); pv.appendChild(b); });
+      box.appendChild(pv); box.appendChild(el("p", "hint", "Acelerar da dinamismo a aéreos y montaje. Más lento que 0,75× se ve a saltos, porque el material está filmado a 30 cuadros. Las opciones apagadas piden más material del que tiene la toma: acortala primero.")); }
     if (pick) box.appendChild(renderPicker(k, s, dur));
   }
   if (k > 0) {
@@ -717,7 +725,7 @@ function renderPicker(k, s, dur) {
   chk.append(ci, " Mostrar solo las libres"); row.appendChild(chk); w.appendChild(row);
   const grid = el("div", "takes");
   enGrupo.forEach(([n, l]) => {
-    n = +n; const corta = l.dur < dur - 0.02, us = usadas[n], esta = n === s.n;
+    n = +n; const corta = l.dur < dur * 0.75 - 0.02, us = usadas[n], esta = n === s.n;
     if (soloLibres && us && !esta) return;
     const b = el("button", "take"); b.type = "button"; b.disabled = corta; b.setAttribute("aria-pressed", n === s.n ? "true" : "false"); b.title = l.archivo;
     const i = el("img"); i.src = "posters/" + id3(n) + ".jpg"; i.alt = l.archivo; i.loading = "lazy"; b.appendChild(i);
@@ -725,7 +733,7 @@ function renderPicker(k, s, dur) {
     if (us) { const otras = us.filter(x => x !== k + 1); b.classList.add("usada");
       b.appendChild(el("span", "u" + (esta && !otras.length ? " esta" : ""), esta && !otras.length ? "La de ahora" : "Usada · toma " + (esta ? otras : us).join(", ") + (esta ? " (y acá)" : ""))); }
     if (corta) b.appendChild(el("span", "short", "muy corta"));
-    b.addEventListener("click", () => { snap(); s.tipo = "toma"; s.n = n; s.in = 0; commit(); Live.seek(s.t + 0.02); });
+    b.addEventListener("click", () => { snap(); s.tipo = "toma"; s.n = n; s.in = 0; if (LIB[n].dur < dur) s.v = r2(Math.max(0.75, LIB[n].dur / dur - 0.01)); else delete s.v; commit(); Live.seek(s.t + 0.02); });
     b.addEventListener("pointerenter", e => { if (e.pointerType !== "mouse" || corta || b.querySelector("video")) return;
       const v = el("video"); v.muted = true; v.playsInline = true; v.preload = "auto"; v.src = "media/" + id3(n) + ".mp4"; b.insertBefore(v, b.children[1]); });
     b.addEventListener("pointermove", e => { const v = b.querySelector("video"); if (!v || !v.duration) return; const r = b.getBoundingClientRect();
@@ -743,7 +751,7 @@ $("#notas").addEventListener("input", e => { S.notas = e.target.value; $("#saveS
 
 function aplicar(d) {
   const ok = d && d.base === BASE.version && Array.isArray(d.slots) && d.slots.length;
-  S = { slots: ok ? JSON.parse(JSON.stringify(d.slots)) : baseSlots(), notas: (d && d.notas) || "", fx: { ...FX0, ...((d && d.fx) || {}) } }; renderFx(); sel = Math.min(sel, S.slots.length - 1);
+  S = { slots: ok ? JSON.parse(JSON.stringify(d.slots)) : baseSlots(), notas: (d && d.notas) || "", fx: { ...FX0, ...(BASE.fx || {}), ...((ok && d.fx) || {}) } }; renderFx(); sel = Math.min(sel, S.slots.length - 1);
   $("#notas").value = S.notas; const c = $("#chgChip"), ed = editado(); c.textContent = ed ? "Editado" : "Sin cambios"; c.classList.toggle("on", ed);
   TL.render(); renderBoard(); renderEditor(); renderCtl(); Live.init();
 }

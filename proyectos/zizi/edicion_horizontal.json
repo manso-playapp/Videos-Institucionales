@@ -1,6 +1,13 @@
 {
  "base": "Borrador 6",
- "editado": "2026-11-19T21:28:05.680Z",
+ "editado": "2026-11-19T22:16:12.883Z",
+ "fx": {
+  "grano": true,
+  "look": "calido",
+  "musica": "glaciers",
+  "vineta": true,
+  "voz": "carlos"
+ },
  "notas": "",
  "pieza": "horizontal",
  "slots": [
@@ -117,7 +124,7 @@
    "tr": "Fade"
   },
   {
-   "in": 0,
+   "in": 4.07,
    "n": 68,
    "nota": "",
    "t": 51.4,

@@ -5,7 +5,7 @@ from pathlib import Path
 A = Path(__file__).parent.parent; sys.path.insert(0, str(A))
 import build_edl as B
 inv = {c["n"]: c for c in json.load(open(A / "inventario/inventario.json"))}
-words = json.load(open(A / "media/audio/vo_a2.json"))
+words = json.load(open(A / ("media/audio/vo_carlos_c.json" if B.DIN else "media/audio/vo_a2.json")))
 GR = {"14-11": "14-11 · Galpón terminado", "27-10": "27-10 · Montaje", "30-10": "30-10 · Primeros techos", "6-11": "6-11 · Techo completo"}
 def grupo(c):
     p = c["file"].split("/tomas/")[1]
@@ -24,12 +24,15 @@ for k, s in enumerate(B.S):
     if s.get("plate"): d["tipo"] = "placa"
     elif s.get("negro"): d["tipo"] = "negro"
     elif "split" in s: d["tipo"] = "split"; d["tomas"] = s["split"]; d["ins"] = s["si"]
-    else: d["tipo"] = "toma"; d["n"] = s["n"]; d["in"] = s["i"]
+    else:
+        d["tipo"] = "toma"; d["n"] = s["n"]; d["in"] = s["i"]
+        if s.get("v", 1) != 1: d["v"] = s["v"]
+        if s.get("luz"): d["luz"] = True
     slots.append(d)
 pal = [{"w": re.sub(r"\bZizi\b", "ZIZI", w["w"]).replace("hora", "obra") if w["w"] in ("hora",) else re.sub(r"\bZizi\b", "ZIZI", w["w"]),
         "t": round(w["start"], 2), "e": round(w["end"], 2)} for w in words]
 # textos animados: los .webm con transparencia de artefacto/ov/ (uno por overlay de la EDL, en orden) para la vista rápida
 textos = [{"t": o["start"], "dur": o["dur"], "src": "ov/o%02d.webm" % i} for i, o in enumerate(B.build(False)["overlays"])]
-json.dump({"pieza": "Horizontal 16:9", "version": "Borrador 6", "dur": B.END, "slots": slots, "lib": lib, "palabras": pal, "textos": textos},
+json.dump({"pieza": "Horizontal 16:9", "version": "Dinámica 1" if B.DIN else "Borrador 6", "dur": B.END, **({"voces": [["carlos", "Carlos (argentina) · ritmo natural", "vo_cc.mp3"]], "fx": json.load(open(A / "edicion_dinamica.json")).get("fx", {})} if B.DIN else {}), "slots": slots, "lib": lib, "palabras": pal, "textos": textos},
           open(A / "artefacto/corte.json", "w"), ensure_ascii=False, indent=1)
 print(len(slots), "slots", len(lib), "tomas")
