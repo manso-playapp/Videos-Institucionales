@@ -22,6 +22,7 @@ for k, s in enumerate(B.S):
     d = {"k": k, "t": t0, "dur": round(t1 - t0, 2), "frase": frase,
          "tr": s["tr"]["type"].replace("gl:", "") if s.get("tr") else "Corte"}
     if s.get("plate"): d["tipo"] = "placa"
+    elif s.get("negro"): d["tipo"] = "negro"
     elif "split" in s: d["tipo"] = "split"; d["tomas"] = s["split"]; d["ins"] = s["si"]
     else: d["tipo"] = "toma"; d["n"] = s["n"]; d["in"] = s["i"]
     slots.append(d)

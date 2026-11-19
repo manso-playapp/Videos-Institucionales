@@ -72,6 +72,7 @@ if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):
     for e in json.load(open(EDIC))["slots"]:
         s = {"t": e["t"], "exacto": True}
         if e["tipo"] == "placa": s["plate"] = True
+        elif e["tipo"] == "negro": s["negro"] = True      # espacio reservado sin toma: sale negro
         elif e["tipo"] == "split": s["split"], s["si"] = e["tomas"], e["ins"]
         else: s.update(n=e["n"], i=e["in"], **_meta.get(e["n"], {}))
         if e.get("tr") and e["tr"] != "Corte": s["tr"] = T(e["tr"], TR_DUR.get(e["tr"], 0.5))
@@ -95,6 +96,11 @@ def build(vertical):
         d = (t1 - t0) + head + tail
         if s.get("plate"):
             c = {"src": "media/logo/placa_web.png", "dur": round(d, 3), "fit": "contain", "bg": "black"}
+        elif s.get("negro"):
+            neg = AQUI / "media/negro.png"
+            if not neg.exists():
+                import subprocess; subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "color=c=black:s=320x180", "-frames:v", "1", str(neg)], check=True)
+            c = {"src": "media/negro.png", "dur": round(d, 3), "fit": "contain", "bg": "black"}
         elif "split" in s:
             c = {"split": [{"src": INV[n]["file"].replace("proyectos/zizi/", ""), "in": i, **({"grade": niveles(n)} if niveles(n) else {})}
                            for n, i in zip(s["split"], [round(max(0.0, x - head), 3) if s.get("exacto") else x for x in s["si"]])], "dur": round(d, 3), "gap": 10,
