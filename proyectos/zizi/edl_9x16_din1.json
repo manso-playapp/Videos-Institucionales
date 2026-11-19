@@ -1653,7 +1653,7 @@
     "music": {
       "src": "media/music/glaciers.wav",
       "in": 4.0,
-      "gain_db": -9,
+      "gain_db": -12,
       "fade_in": 1.5,
       "fade_out": 1.8,
       "end": 79.4
