@@ -627,5 +627,12 @@ async function boot() {
     $("#saveState").textContent = "Guardado"; if (hist.length) save(); }
   catch (e) { $("#saveState").textContent = "No pude leer lo guardado (" + (e.code || "error") + ")"; }
 }
+/* ---- teclado: espacio = reproducir/pausar · flechas = mover el cabezal (Mayús = 1 s) ---- */
+const escribiendo = e => { const t = e.target; return t && (t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && t.type !== "range" && t.type !== "checkbox") || t.isContentEditable); };
+addEventListener("keydown", e => { if (escribiendo(e) || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.code === "Space") { e.preventDefault(); if (e.repeat) return; if (e.target && e.target.blur && e.target !== document.body) e.target.blur();
+    Live.modo("live"); $("#lvPlay").click(); }
+  else if (e.code === "ArrowLeft" || e.code === "ArrowRight") { e.preventDefault(); Live.pause(); Live.seek(Live.time() + (e.code === "ArrowLeft" ? -1 : 1) * (e.shiftKey ? 1 : 0.1)); } }, true);
+addEventListener("keyup", e => { if (e.code === "Space" && !escribiendo(e)) e.preventDefault(); }, true);
 boot();
 </script>
