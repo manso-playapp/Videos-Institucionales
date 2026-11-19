@@ -20,6 +20,7 @@
   --accent:#d99a00; --on-accent:#1b1500; --accent-soft:#fbeec4; --ok:#22794a; --warn:#a85a12;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{background:var(--bg);color:var(--fg);font:400 14px/1.45 var(--ui);font-variant-numeric:tabular-nums;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 40px}
 button,select,textarea,input{font:inherit;color:inherit}
@@ -43,7 +44,15 @@ header{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
 @media (max-width:860px){.left{position:static;max-height:none;overflow:visible}}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0}
 video{display:block;width:100%;background:#000;border-radius:6px}
-.viewer video{aspect-ratio:16/9;width:min(100%,calc(56vh * 16 / 9));margin-inline:auto}
+.stage{position:relative;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden;width:min(100%,calc(56vh * 16 / 9));margin-inline:auto}
+.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0}
+#lvTri{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:#000}
+#lvTri video{position:static;width:100%;height:100%}
+#lvPlate{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#000;color:#FDB913;font:700 72px/1 var(--display);letter-spacing:.02em}
+.transport{display:flex;align-items:center;gap:10px;margin-top:10px}
+.transport input{flex:1;min-width:0}
+.transport span{font-size:12px;color:var(--muted);white-space:nowrap}
+.viewer > video{aspect-ratio:16/9;width:min(100%,calc(56vh * 16 / 9));margin-inline:auto}
 h2{font:600 19px/1.1 var(--display);text-transform:uppercase;letter-spacing:.04em;margin:0 0 8px;text-wrap:balance}
 .lbl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
 .hint{font-size:12px;color:var(--muted)}
@@ -122,8 +131,29 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   <div class="grid">
     <div class="left">
       <section class="card viewer" aria-label="Corte completo">
-        <video id="main" src="corte.mp4" controls playsinline preload="metadata"></video>
-        <p class="hint" style="margin:8px 0 0">Borrador 5: locución corregida, sin música todavía (se suma cuando elijas un tema). Tocá una toma de la lista para saltar a ese momento. Los cambios que elijas se ven en la vista de la toma; el video completo se vuelve a armar cuando le avises a Claude.</p>
+        <div class="pills" id="modo" role="group" aria-label="Qué ver en el visor" style="margin-bottom:10px">
+          <button type="button" data-m="live" aria-pressed="true">Con tus cambios · vista rápida</button>
+          <button type="button" data-m="final" aria-pressed="false">Corte terminado · borrador 5</button>
+        </div>
+        <div id="liveBox">
+          <div class="stage">
+            <video id="lvA" muted playsinline preload="auto"></video>
+            <video id="lvB" muted playsinline preload="auto" style="visibility:hidden"></video>
+            <div id="lvTri" hidden><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video></div>
+            <div id="lvPlate" hidden>ZIZI</div>
+          </div>
+          <div class="transport">
+            <button class="btn primary" id="lvPlay" type="button">Reproducir</button>
+            <input type="range" id="lvSeek" min="0" max="95" step="0.05" value="0" aria-label="Posición en el corte">
+            <span id="lvTime">0:00,0</span>
+          </div>
+          <audio id="vo" src="vo.mp3" preload="auto"></audio>
+          <p class="hint" style="margin:8px 0 0">Vista rápida: arma el corte al instante con las tomas y los tramos que elijas, con la locución. Va en baja calidad y sin transiciones, textos ni color; para eso está «Corte terminado», que es el último render.</p>
+        </div>
+        <div id="finalBox" hidden>
+          <video id="main" src="corte.mp4" controls playsinline preload="metadata"></video>
+          <p class="hint" style="margin:8px 0 0">Último render (borrador 5). No refleja lo que cambies acá hasta que Claude arme el corte nuevo.</p>
+        </div>
       </section>
 
       <section class="card" id="editor" aria-label="Toma seleccionada"></section>
@@ -227,7 +257,7 @@ function renderBoard() {
 function select(k, seek) {
   sel = k; pick = false;
   document.querySelectorAll(".slot").forEach((b, i) => b.setAttribute("aria-current", i === k ? "true" : "false"));
-  if (seek) { const v = $("#main"); try { v.currentTime = BASE.slots[k].t + 0.05; } catch (e) {} }
+  if (seek) { const v = $("#main"); try { v.currentTime = BASE.slots[k].t + 0.05; } catch (e) {} Live.goto(k); }
   renderEditor();
 }
 
@@ -275,17 +305,17 @@ function renderEditor() {
       if (drag.enWin) { inNow = Math.max(0, Math.min(max, +(drag.in0 + (e.clientX - drag.x) / drag.w * D).toFixed(2))); pinta(); cur.style.left = (inNow / D * 100) + "%"; const v = vid(); if (v) v.currentTime = inNow; }
       else mira(e); });
     const suelta = () => { if (!drag) return; const enWin = drag.enWin; drag = null; win.classList.remove("drag");
-      if (enWin) { setCambio(k, { in: inNow }); renderBoard(); }
+      if (enWin) { setCambio(k, { in: inNow }); renderBoard(); Live.goto(k, true); }
       renderEditor(); };
     bar.addEventListener("pointerup", suelta); bar.addEventListener("pointercancel", suelta);
     bar.addEventListener("keydown", e => { if (max <= 0 || !["ArrowLeft", "ArrowRight"].includes(e.key)) return; e.preventDefault();
-      inNow = Math.max(0, Math.min(max, +(inNow + (e.key === "ArrowRight" ? 0.2 : -0.2)).toFixed(2))); setCambio(k, { in: inNow }); renderBoard(); renderEditor(); $("#slip" + k)?.focus(); });
+      inNow = Math.max(0, Math.min(max, +(inNow + (e.key === "ArrowRight" ? 0.2 : -0.2)).toFixed(2))); setCambio(k, { in: inNow }); renderBoard(); Live.goto(k, true); renderEditor(); $("#slip" + k)?.focus(); });
     box.append(bar, out);
     const row = el("div", "row"); row.style.marginTop = "10px";
     const b1 = el("button", "btn primary", pick ? "Cerrar las tomas" : "Cambiar por otra toma"); b1.type = "button";
     b1.addEventListener("click", () => { pick = !pick; grupo = grupo || LIB[s.n].grupo; renderEditor(); });
     row.appendChild(b1);
-    if (S.cambios[k]) { const b2 = el("button", "btn", "Volver a la original"); b2.type = "button"; b2.addEventListener("click", () => { delete S.cambios[k]; changed(); renderBoard(); renderEditor(); }); row.appendChild(b2); }
+    if (S.cambios[k]) { const b2 = el("button", "btn", "Volver a la original"); b2.type = "button"; b2.addEventListener("click", () => { delete S.cambios[k]; changed(); renderBoard(); Live.goto(k, true); renderEditor(); }); row.appendChild(b2); }
     box.appendChild(row);
     if (pick) box.appendChild(renderPicker(k, s));
   }
@@ -333,7 +363,7 @@ function renderPicker(k, s) {
     b.appendChild(el("span", "d", l.dur.toFixed(1).replace(".", ",") + " s"));
     if (usadas[n]) b.appendChild(el("span", "u", "en toma " + usadas[n]));
     if (corta) b.appendChild(el("span", "short", "corta"));
-    b.addEventListener("click", () => { setCambio(k, { n, in: 0 }); renderBoard(); renderEditor(); });
+    b.addEventListener("click", () => { setCambio(k, { n, in: 0 }); renderBoard(); Live.goto(k, true); renderEditor(); });
     // pasar el mouse por la miniatura recorre la toma
     b.addEventListener("pointerenter", e => { if (e.pointerType !== "mouse" || b.querySelector("video")) return;
       const v = el("video"); v.muted = true; v.playsInline = true; v.preload = "auto"; v.src = "media/" + id3(n) + ".mp4"; b.insertBefore(v, b.children[1]); });
@@ -350,6 +380,51 @@ function renderPicker(k, s) {
 function pintarMusica() {}
 $("#notas").addEventListener("input", e => { S.notas = e.target.value; changed(); });
 
+// Vista rápida: la locución es el reloj; el video salta de toma en toma según el corte + tus cambios
+const Live = (() => {
+  const vo = $("#vo"), seek = $("#lvSeek"), lbl = $("#lvTime"), btn = $("#lvPlay"), tri = $("#lvTri"), plate = $("#lvPlate");
+  let act = $("#lvA"), oth = $("#lvB"), raf = null;
+  const srcOf = n => "media/" + id3(n) + ".mp4";
+  const setSrc = (v, src) => { if (v.dataset.src !== src) { v.dataset.src = src; v.src = src; } };
+  const sync = (v, want, playing) => { const tol = playing ? 0.3 : 0.04;
+    if (v.readyState >= 1) { if (Math.abs(v.currentTime - want) > tol) v.currentTime = want; }
+    else v.addEventListener("loadedmetadata", () => { v.currentTime = want; }, { once: true });
+    if (playing) { if (v.paused) v.play().catch(() => {}); } else v.pause(); };
+  function draw() {
+    if (!BASE) return;
+    const t = Math.min(vo.currentTime, BASE.dur - 0.05), playing = !vo.paused;
+    let k = 0; BASE.slots.forEach((x, i) => { if (t >= x.t) k = i; });
+    const s = slot(k), rel = t - s.t;
+    seek.value = t; lbl.textContent = fmt(t) + " / " + fmt(BASE.dur);
+    tri.hidden = s.tipo !== "split"; plate.hidden = s.tipo !== "placa";
+    if (s.tipo === "toma") {
+      const src = srcOf(s.n);
+      if (act.dataset.src !== src) { if (oth.dataset.src === src) [act, oth] = [oth, act]; else setSrc(act, src); }
+      act.style.visibility = "visible"; oth.style.visibility = "hidden"; oth.pause();
+      sync(act, s.in + rel, playing);
+      const nx = BASE.slots[k + 1] ? slot(k + 1) : null;
+      if (nx && nx.tipo === "toma" && srcOf(nx.n) !== src) { setSrc(oth, srcOf(nx.n)); if (oth.readyState >= 1 && Math.abs(oth.currentTime - nx.in) > 0.3) oth.currentTime = nx.in; }
+    } else {
+      act.pause(); act.style.visibility = oth.style.visibility = "hidden";
+      if (s.tipo === "split") [...tri.children].forEach((v, i) => { setSrc(v, srcOf(s.tomas[i])); sync(v, s.ins[i] + rel, playing); });
+    }
+    if (playing && k !== sel) { sel = k; pick = false; document.querySelectorAll(".slot").forEach((b, i) => b.setAttribute("aria-current", i === k ? "true" : "false")); renderEditor(); }
+  }
+  const loop = () => { draw(); raf = vo.paused ? null : requestAnimationFrame(loop); };
+  vo.addEventListener("play", () => { btn.textContent = "Pausar"; $("#main").pause(); if (!raf) loop(); });
+  vo.addEventListener("pause", () => { btn.textContent = "Reproducir"; draw(); });
+  vo.addEventListener("seeked", draw); vo.addEventListener("loadedmetadata", draw);
+  btn.addEventListener("click", () => { if (vo.paused) vo.play().catch(() => {}); else vo.pause(); });
+  seek.addEventListener("input", () => { try { vo.currentTime = +seek.value; } catch (e) {} draw(); });
+  function modo(m) { $("#liveBox").hidden = m !== "live"; $("#finalBox").hidden = m !== "final";
+    document.querySelectorAll("#modo button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === m ? "true" : "false"));
+    if (m === "final") vo.pause(); else $("#main").pause(); }
+  document.querySelectorAll("#modo button").forEach(b => b.addEventListener("click", () => modo(b.dataset.m)));
+  return { draw, modo,
+    goto(k, mostrar) { if (!BASE) return; if (mostrar) modo("live"); try { vo.currentTime = BASE.slots[k].t + 0.05; } catch (e) {} draw(); },
+    init() { seek.max = BASE.dur; draw(); } };
+})();
+
 // el visor marca la toma que está sonando
 $("#main").addEventListener("timeupdate", () => {
   if (!BASE) return; const t = $("#main").currentTime; let k = 0;
@@ -360,7 +435,7 @@ $("#main").addEventListener("timeupdate", () => {
 function aplicar(d) {
   S = { cambios: d.cambios || {}, musica: d.musica || "", notas: d.notas || "" };
   pintarMusica(); $("#notas").value = S.notas;
-  renderHeader(); renderBoard(); renderEditor();
+  renderHeader(); renderBoard(); renderEditor(); Live.init();
 }
 async function boot() {
   try { BASE = await (await fetch("corte.json")).json(); }
