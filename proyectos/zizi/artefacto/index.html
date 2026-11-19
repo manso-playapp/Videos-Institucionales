@@ -325,8 +325,9 @@ function limitesCorte(k) {                   // entre qué tiempos puede moverse
   hi = Math.min(hi, tOf(k - 1) + matDur(p) - p.in);          // la anterior no puede durar más que su material
   return [r2(lo), r2(hi)];
 }
-function normalizar() {                      // si a una toma no le alcanza el material para llegar al corte siguiente, el resto queda como espacio en negro
+function normalizar() {                      // si a una toma no le alcanza el material para llegar al corte siguiente, arranca antes en su material; si ni así llega, el resto queda en negro
   for (let i = 0; i < S.slots.length; i++) { const s = S.slots[i]; if (s.tipo !== "toma") continue;
+    const falta = r2(s.in + (tOf(i + 1) - s.t) - matDur(s)); if (falta > 0.005 && s.in > 0) s.in = r2(Math.max(0, s.in - falta));   // primero usa el material anterior de la misma toma
     const max = r2(s.t + matDur(s) - s.in); if (tOf(i + 1) - max > 0.02) { S.slots.splice(i + 1, 0, { t: max, tipo: "negro", n: null, in: 0, tr: "Corte", nota: "" }); if (i < sel) sel++; if (trSel != null && i < trSel) trSel++; } }
 }
 function moverCorte(k, t, guardar = true, hueco = false) {   // hueco: se permite que la anterior no llegue (queda negro en el medio)  // mueve el corte k; lo que se ve en cada instante no cambia (la toma k corre su inicio)
