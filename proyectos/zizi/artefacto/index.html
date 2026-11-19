@@ -61,7 +61,15 @@ input[type=range]{accent-color:var(--accent)}
 #lvOv video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;background:transparent;border-radius:0}
 #lvTri{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:#000}
 #lvTri video{position:static;width:100%;height:100%}
-#lvPlate{position:absolute;inset:0;background:#000 url(placa.jpg) center/contain no-repeat;color:transparent;font-size:0}
+#lvPlate{position:absolute;inset:0;background:#0b0a08}
+#lvLuz{position:absolute;inset:-10%;mix-blend-mode:screen;pointer-events:none;background:radial-gradient(ellipse 38% 46% at 18% 30%,rgba(255,190,90,.55),rgba(255,150,60,.16) 45%,transparent 72%),radial-gradient(ellipse 30% 40% at 86% 72%,rgba(255,120,60,.32),transparent 70%);animation:luz 5s ease-in-out infinite alternate}
+@keyframes luz{from{transform:translate(-3%,-2%) scale(1)}to{transform:translate(4%,3%) scale(1.12)}}
+#lvVig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 78% 78% at 50% 50%,transparent 58%,rgba(0,0,0,.42))}
+#lvGrain{position:absolute;inset:0;pointer-events:none;opacity:.16;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1 0'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>")}
+.stage.calido #lvA,.stage.calido #lvB,.stage.calido #lvTri video{filter:sepia(.16) saturate(1.12) brightness(1.02) contrast(1.02)}
+#fxBar{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px 18px}
+#fxBar .lbl{margin:0 0 5px}#fxBar .pills{margin:0}#fxBar label{display:flex;gap:6px;align-items:center;font-size:13px;margin-top:3px}
+#fxBar .hint{grid-column:1/-1;margin:0}
 #finalBox video{aspect-ratio:16/9;width:min(100%,calc(52vh * 16 / 9));margin-inline:auto}
 .transport{display:flex;align-items:center;gap:10px;margin-top:10px}
 .transport input{flex:1;min-width:0}
@@ -181,8 +189,11 @@ input[type=range]{accent-color:var(--accent)}
             <video id="lvA" muted playsinline preload="auto"></video>
             <video id="lvB" muted playsinline preload="auto" style="visibility:hidden"></video>
             <div id="lvTri" hidden><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video></div>
-            <div id="lvPlate" hidden>ZIZI</div>
+            <div id="lvPlate" hidden><video muted playsinline preload="auto" src="cierre.mp4"></video></div>
+            <div id="lvLuz" hidden></div>
             <div id="lvOv"></div>
+            <div id="lvVig" hidden></div>
+            <div id="lvGrain" hidden></div>
           </div>
           <div class="transport">
             <button class="btn primary" id="lvPlay" type="button">Reproducir</button>
@@ -190,6 +201,7 @@ input[type=range]{accent-color:var(--accent)}
             <span id="lvTime">0:00,0</span>
           </div>
           <audio id="vo" src="vo.mp3" preload="auto"></audio>
+          <div id="fxBar"></div>
         </div>
         <div id="finalBox" hidden>
           <video id="main" src="corte.mp4" controls playsinline preload="metadata"></video>
@@ -294,6 +306,23 @@ const MIN = 0.5, LOCAL = "zizi-corte-horizontal-v2";
    La duración de cada toma es hasta el corte siguiente; el total (la locución) no cambia nunca. */
 let BASE = null, LIB = {}, S = { slots: [], notas: "" }, sel = 0, pick = false, grupo = null, soloLibres = false;
 let ref = null, saveT = null, hist = [];
+/* ---- look, textura y voz de toda la pieza (se guardan con la edición; en el visor son una aproximación, el render usa los recursos reales del repo) ---- */
+const FX0 = { voz: "orig", look: "personas", grano: false, vineta: false };
+const esPersona = s => s && s.tipo === "toma" && /celular/.test(LIB[s.n].grupo);
+function guardarFx() { $("#saveState").textContent = "Guardando…"; try { localStorage.setItem(LOCAL, JSON.stringify({ ...S, base: BASE.version })); } catch (e) {} clearTimeout(saveT); saveT = setTimeout(save, 400); renderFx(); Live.draw(); }
+function renderFx() {
+  const box = $("#fxBar"); if (!box || !S.fx) return; box.textContent = "";
+  const grupo = (titulo, clave, ops) => { const g = el("div"); g.appendChild(el("div", "lbl", titulo)); const pl = el("div", "pills");
+    ops.forEach(([v, t]) => { const b = el("button", null, t); b.type = "button"; b.setAttribute("aria-pressed", S.fx[clave] === v ? "true" : "false");
+      b.addEventListener("click", () => { S.fx[clave] = v; if (clave === "voz") Live.voz(); guardarFx(); }); pl.appendChild(b); }); g.appendChild(pl); box.appendChild(g); };
+  grupo("Locución", "voz", [["orig", "Locutora original"], ["masc", "Voz masculina"]]);
+  grupo("Look de color", "look", [["limpio", "Limpio"], ["personas", "Cálido en personas"], ["calido", "Cálido en todo"]]);
+  const g = el("div"); g.appendChild(el("div", "lbl", "Textura"));
+  [["grano", "Grano de película (leve)"], ["vineta", "Viñeta"]].forEach(([k, t]) => { const l = el("label"), c = el("input"); c.type = "checkbox"; c.checked = !!S.fx[k];
+    c.addEventListener("change", () => { S.fx[k] = c.checked; guardarFx(); }); l.append(c, t); g.appendChild(l); }); box.appendChild(g);
+  const n = S.slots.filter(x => x.luz).length;
+  box.appendChild(el("p", "hint", "Las tomas ya se ven con el color nivelado. La luz cálida se activa toma por toma (abajo, en la toma elegida): hay " + n + " con luz. Todo esto queda guardado y sale en el próximo render."));
+}
 const END = () => BASE.dur;
 const tOf = k => k >= S.slots.length ? END() : S.slots[k].t;
 const durOf = k => r2(tOf(k + 1) - tOf(k));
@@ -315,7 +344,7 @@ function commit() {                          // después de cada cambio: guardar
 const snap = () => { hist.push(JSON.stringify(S.slots)); if (hist.length > 60) hist.shift(); };
 async function save() {
   if (!ref) { $("#saveState").textContent = "Guardado solo en este navegador"; return; }
-  try { await ref.set({ slots: S.slots, notas: S.notas, pieza: "horizontal", base: BASE.version, editado: new Date().toISOString() }); $("#saveState").textContent = "Guardado"; }
+  try { await ref.set({ slots: S.slots, notas: S.notas, fx: S.fx, pieza: "horizontal", base: BASE.version, editado: new Date().toISOString() }); $("#saveState").textContent = "Guardado"; }
   catch (e) { $("#saveState").textContent = "No se pudo guardar (" + (e.code || "error") + ")"; }
 }
 
@@ -402,6 +431,9 @@ const Live = (() => {
     const t = Math.min(vo.currentTime, END() - 0.05), playing = !vo.paused, k = kAt(t), s = S.slots[k], rel = t - s.t;
     seekEl.value = t; lbl.textContent = fmt(t) + " / " + fmt(END()); TL.head(t);
     tri.hidden = s.tipo !== "split"; plate.hidden = s.tipo !== "placa";
+    if (s.tipo === "placa") sync(plate.firstElementChild, Math.min(rel, 6), playing); else plate.firstElementChild.pause();
+    const fx = S.fx || {}; $("#lvLuz").hidden = !s.luz; $("#lvGrain").hidden = !fx.grano; $("#lvVig").hidden = !fx.vineta || s.tipo === "placa";
+    act.parentNode.classList.toggle("calido", fx.look === "calido" || (fx.look === "personas" && (esPersona(s) || s.tipo === "split")));
     if (s.tipo === "toma") {
       const src = srcOf(s.n);
       if (act.dataset.src !== src) { if (oth.dataset.src === src) [act, oth] = [oth, act]; else setSrc(act, src); }
@@ -431,7 +463,9 @@ const Live = (() => {
     document.querySelectorAll("#modo button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === m ? "true" : "false"));
     if (m === "final") vo.pause(); else $("#main").pause(); }
   document.querySelectorAll("#modo button").forEach(b => b.addEventListener("click", () => modo(b.dataset.m)));
-  return { draw, modo, time: () => vo.currentTime, pause: () => vo.pause(),
+  function voz() { const src = S.fx && S.fx.voz === "masc" ? "vo_m.mp3" : "vo.mp3"; if (vo.getAttribute("src") === src) return;
+    const t = vo.currentTime, sonando = !vo.paused; vo.src = src; vo.addEventListener("loadedmetadata", () => { try { vo.currentTime = t; } catch (e) {} if (sonando) vo.play().catch(() => {}); }, { once: true }); vo.load(); }
+  return { draw, modo, voz, time: () => vo.currentTime, pause: () => vo.pause(),
     seek(t) { modo("live"); try { vo.currentTime = clamp(t, 0, END() - 0.1); } catch (e) {} draw(); },
     init() { seekEl.max = END(); draw(); } };
 })();
@@ -628,7 +662,9 @@ function renderEditor() {
     const row = el("div", "row"); row.style.marginTop = "10px"; const g0 = Object.values(LIB)[0].grupo;
     const b1 = el("button", "btn primary", pick ? "Cerrar las tomas" : s.tipo === "negro" ? "Poner una toma acá" : "Cambiar por otra toma"); b1.type = "button";
     b1.addEventListener("click", () => { pick = !pick; grupo = grupo || (s.tipo === "toma" ? LIB[s.n].grupo : g0); renderEditor(); }); row.appendChild(b1);
-    if (s.tipo === "toma") { const b2 = el("button", "btn", "Dejar en negro"); b2.type = "button";
+    if (s.tipo === "toma") { const lz = el("label"), ck = el("input"); ck.type = "checkbox"; ck.checked = !!s.luz; lz.style.cssText = "display:flex;gap:6px;align-items:center;font-size:13px";
+      ck.addEventListener("change", () => { snap(); if (ck.checked) s.luz = true; else delete s.luz; commit(); renderFx(); }); lz.append(ck, "Luz cálida sobre esta toma");
+      const b2 = el("button", "btn", "Dejar en negro"); b2.type = "button"; setTimeout(() => row.appendChild(lz), 0);
       b2.addEventListener("click", () => { snap(); s.tipo = "negro"; s.n = null; s.in = 0; pick = false; commit(); }); row.appendChild(b2); }
     box.appendChild(row);
     if (pick) box.appendChild(renderPicker(k, s, dur));
@@ -694,7 +730,7 @@ $("#notas").addEventListener("input", e => { S.notas = e.target.value; $("#saveS
 
 function aplicar(d) {
   const ok = d && d.base === BASE.version && Array.isArray(d.slots) && d.slots.length;
-  S = { slots: ok ? JSON.parse(JSON.stringify(d.slots)) : baseSlots(), notas: (d && d.notas) || "" }; sel = Math.min(sel, S.slots.length - 1);
+  S = { slots: ok ? JSON.parse(JSON.stringify(d.slots)) : baseSlots(), notas: (d && d.notas) || "", fx: { ...FX0, ...((d && d.fx) || {}) } }; renderFx(); sel = Math.min(sel, S.slots.length - 1);
   $("#notas").value = S.notas; const c = $("#chgChip"), ed = editado(); c.textContent = ed ? "Editado" : "Sin cambios"; c.classList.toggle("on", ed);
   TL.render(); renderBoard(); renderEditor(); renderCtl(); Live.init();
 }
