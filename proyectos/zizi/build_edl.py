@@ -8,7 +8,7 @@ AQUI = Path(__file__).parent
 import os
 MUSIC = os.environ.get("ZIZI_MUSIC", "")   # todavía sin música elegida
 TAG = os.environ.get("ZIZI_TAG", "")
-VO = {"": "media/audio/vo_a2.wav", "masc": "media/audio/vo_masc.wav"}[os.environ.get("ZIZI_VO", "")]   # locución original (default) o voz masculina alternativa
+VO = {"": "media/audio/vo_a2.wav", "masc": "media/audio/vo_masc.wav", "carlos": "media/audio/vo_carlos.wav"}[os.environ.get("ZIZI_VO", "")]   # locución original (default) o voz masculina alternativa
 INV = {c["n"]: c for c in json.load(open(AQUI / "inventario/inventario.json"))}
 FPS, ERR = 29.97, []
 

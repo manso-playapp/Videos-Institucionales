@@ -315,7 +315,7 @@ function renderFx() {
   const grupo = (titulo, clave, ops) => { const g = el("div"); g.appendChild(el("div", "lbl", titulo)); const pl = el("div", "pills");
     ops.forEach(([v, t]) => { const b = el("button", null, t); b.type = "button"; b.setAttribute("aria-pressed", S.fx[clave] === v ? "true" : "false");
       b.addEventListener("click", () => { S.fx[clave] = v; if (clave === "voz") Live.voz(); guardarFx(); }); pl.appendChild(b); }); g.appendChild(pl); box.appendChild(g); };
-  grupo("Locución", "voz", [["orig", "Locutora original"], ["masc", "Voz masculina argentina"]]);
+  grupo("Locución", "voz", [["orig", "Locutora original"], ["masc", "Mauricio (argentina, cálida)"], ["carlos", "Carlos (argentina, documental)"]]);
   grupo("Look de color", "look", [["limpio", "Limpio"], ["personas", "Cálido en personas"], ["calido", "Cálido en todo"]]);
   const g = el("div"); g.appendChild(el("div", "lbl", "Textura"));
   [["grano", "Grano de película (leve)"], ["vineta", "Viñeta"]].forEach(([k, t]) => { const l = el("label"), c = el("input"); c.type = "checkbox"; c.checked = !!S.fx[k];
@@ -463,11 +463,11 @@ const Live = (() => {
     document.querySelectorAll("#modo button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === m ? "true" : "false"));
     if (m === "final") vo.pause(); else $("#main").pause(); }
   document.querySelectorAll("#modo button").forEach(b => b.addEventListener("click", () => modo(b.dataset.m)));
-  function voz() { const src = S.fx && S.fx.voz === "masc" ? "vo_m.mp3" : "vo.mp3"; if (vo.getAttribute("src") === src) return;
+  function voz() { const src = ({ masc: "vo_m.mp3", carlos: "vo_c.mp3" })[S.fx && S.fx.voz] || "vo.mp3"; if (vo.getAttribute("src") === src) return;
     const t = vo.currentTime, sonando = !vo.paused; vo.src = src; vo.addEventListener("loadedmetadata", () => { try { vo.currentTime = t; } catch (e) {} if (sonando) vo.play().catch(() => {}); }, { once: true }); vo.load(); }
   return { draw, modo, voz, time: () => vo.currentTime, pause: () => vo.pause(),
     seek(t) { modo("live"); try { vo.currentTime = clamp(t, 0, END() - 0.1); } catch (e) {} draw(); },
-    init() { seekEl.max = END(); draw(); } };
+    init() { seekEl.max = END(); voz(); draw(); } };
 })();
 
 /* ---- línea de tiempo ---- */

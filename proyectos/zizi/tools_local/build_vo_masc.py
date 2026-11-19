@@ -6,7 +6,9 @@ Cada bloque se estira hasta un 10 % si es más corto que el original. Salida: me
 import json, subprocess, re, numpy as np
 from pathlib import Path
 A = Path(__file__).parent.parent; SR = 48000
-RAW = A / "media/audio/masc/mauricio_t2.mp3"      # ElevenLabs · «Mauricio - Publicidad cálida | Argentina» (rioplatense), toma 2
+import sys
+# uso: build_vo_masc.py [toma.mp3] [salida]   (por defecto: Mauricio, toma 2 -> vo_masc)
+RAW = A / (sys.argv[1] if len(sys.argv) > 1 else "media/audio/masc/mauricio_t2.mp3"); OUT = sys.argv[2] if len(sys.argv) > 2 else "vo_masc"      # ElevenLabs · «Mauricio - Publicidad cálida | Argentina» (rioplatense), toma 2
 W = json.load(open(RAW.with_suffix(".json"))); CUES = json.load(open(A / "vo_a2_cues.json"))
 STARTS = ["cada", "nosotros", "por", "aportamos", "pero", "personas", "y", "porque", "zizi"]
 def load(p, af=None):
@@ -41,7 +43,7 @@ rng = np.random.default_rng(7); sala = np.cumsum(rng.standard_normal(len(y)).ast
 sala *= 10 ** (-68 / 20) / (np.sqrt(np.mean(sala ** 2)) + 1e-9); r = int(0.4 * SR); sala[:r] *= np.linspace(0, 1, r); sala[-SR:] *= np.linspace(1, 0, SR)
 save(y, A / "media/audio/_m.wav", "equalizer=f=250:t=q:w=1:g=-1.5,equalizer=f=3500:t=q:w=1.2:g=1.5,deesser=i=0.3:f=0.5,acompressor=threshold=0.09:ratio=2.5:attack=10:release=160:makeup=2,alimiter=limit=0.89")
 v = load(A / "media/audio/_m.wav") + sala; (A / "media/audio/_m.wav").unlink()
-save(v, A / "media/audio/vo_masc.wav", "aformat=channel_layouts=stereo")
-json.dump(cues, open(A / "vo_masc_cues.json", "w"), indent=1)
-subprocess.run(["python3", str(A.parent.parent / "tools/transcribir.py"), str(A / "media/audio/vo_masc.wav"), "--prompt", "ZIZI, 46 años, obra"], capture_output=True, check=True)
+save(v, A / f"media/audio/{OUT}.wav", "aformat=channel_layouts=stereo")
+json.dump(cues, open(A / f"{OUT}_cues.json", "w"), indent=1)
+subprocess.run(["python3", str(A.parent.parent / "tools/transcribir.py"), str(A / f"media/audio/{OUT}.wav"), "--prompt", "ZIZI, 46 años, obra"], capture_output=True, check=True)
 print("ok", round(len(v) / SR, 2))
