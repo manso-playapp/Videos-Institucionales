@@ -112,7 +112,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <div class="app">
   <header>
     <div class="brand"><i></i>ZIZI · Corte horizontal</div>
-    <span class="chip" id="verChip">Borrador 4</span>
+    <span class="chip" id="verChip">Borrador 5</span>
     <span class="chip" id="chgChip">Sin cambios</span>
     <span class="spacer"></span>
     <span class="state" id="saveState">Cargando…</span>
@@ -122,21 +122,12 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   <div class="grid">
     <div class="left">
       <section class="card viewer" aria-label="Corte completo">
-        <video id="main" src="corte_summer.mp4" controls playsinline preload="metadata"></video>
-        <div class="row" style="margin-top:10px"><span class="lbl" style="margin:0">Música del video</span>
-          <div class="pills" id="musPills" role="group" aria-label="Música del video">
-            <button type="button" data-m="summer">Signs of Summer · cálida</button>
-            <button type="button" data-m="winter">Winter to Spring · luminosa</button>
-            <button type="button" data-m="farit">As Far as It Goes · piano</button>
-          </div></div>
-        <p class="hint" style="margin:8px 0 0">Es el mismo corte con tres músicas: tocá una y el video sigue desde donde estaba con ese tema. La que quede marcada es la elegida. Tocá una toma de la lista para saltar a ese momento. Los cambios que elijas se ven en la vista de la toma; el video completo se vuelve a armar cuando le avises a Claude.</p>
+        <video id="main" src="corte.mp4" controls playsinline preload="metadata"></video>
+        <p class="hint" style="margin:8px 0 0">Borrador 5: locución corregida, sin música todavía (se suma cuando elijas un tema). Tocá una toma de la lista para saltar a ese momento. Los cambios que elijas se ven en la vista de la toma; el video completo se vuelve a armar cuando le avises a Claude.</p>
       </section>
 
       <section class="card" id="editor" aria-label="Toma seleccionada"></section>
 
-      <section class="card" aria-label="Si ninguna música te cierra">
-        <label class="check" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="otraMus"> Ninguna de las tres me cierra: buscar otra música</label>
-      </section>
     </div>
 
     <div class="board" id="board" aria-label="Tomas del corte, en orden"></div>
@@ -356,19 +347,7 @@ function renderPicker(k, s) {
   return w;
 }
 
-// música: el mismo corte con tres temas; al elegir se cambia el video y sigue en el mismo punto
-function pintarMusica() {
-  const m = S.musica && S.musica !== "otra" ? S.musica : "summer";
-  document.querySelectorAll("#musPills button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === m && S.musica !== "otra" && !!S.musica ? "true" : "false"));
-  $("#otraMus").checked = S.musica === "otra";
-  const v = $("#main"), src = "corte_" + m + ".mp4";
-  if (!v.getAttribute("src").endsWith(src)) {
-    const t = v.currentTime, play = !v.paused;
-    v.src = src; v.addEventListener("loadedmetadata", () => { try { v.currentTime = t; } catch (e) {} if (play) v.play().catch(() => {}); }, { once: true });
-  }
-}
-document.querySelectorAll("#musPills button").forEach(b => b.addEventListener("click", () => { S.musica = b.dataset.m; pintarMusica(); changed(); }));
-$("#otraMus").addEventListener("change", e => { S.musica = e.target.checked ? "otra" : ""; pintarMusica(); changed(); });
+function pintarMusica() {}
 $("#notas").addEventListener("input", e => { S.notas = e.target.value; changed(); });
 
 // el visor marca la toma que está sonando
