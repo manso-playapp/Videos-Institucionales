@@ -6,9 +6,11 @@
     "fps": 29.97
   },
   "grade": {
-    "lut": "assets/luts/estudio_limpio.cube",
+    "lut": "assets/luts/estudio_calido.cube",
     "saturation": 1.05,
-    "temperature": 0.06
+    "temperature": 0.06,
+    "grain": 3,
+    "vignette": true
   },
   "fade": {
     "in": 1.0,
@@ -1647,6 +1649,21 @@
       "src": "media/audio/vo_carlos_c.wav",
       "start": 0.0,
       "gain_db": 0
+    },
+    "music": {
+      "src": "media/music/glaciers.wav",
+      "in": 4.0,
+      "gain_db": -9,
+      "fade_in": 1.5,
+      "fade_out": 1.8,
+      "end": 79.4
+    },
+    "duck_music_under_vo": true,
+    "duck": {
+      "threshold": 0.02,
+      "ratio": 4.5,
+      "attack": 120,
+      "release": 900
     },
     "sfx": []
   },

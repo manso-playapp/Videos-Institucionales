@@ -68,6 +68,12 @@ END = 95.2
 DIN = os.environ.get("ZIZI_VERSION", "") == "dinamica"     # versión corta y dinámica: Carlos a ritmo natural (1:15) + ráfagas
 EDIC = AQUI / ("edicion_dinamica.json" if DIN else "edicion_horizontal.json")
 if DIN: END = 79.4; VO = "media/audio/vo_carlos_c.wav"
+# Opciones de look, textura y música elegidas en el editor (campo fx de la edición guardada)
+FX = (json.load(open(EDIC)).get("fx") or {}) if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION") else {}
+LUT = {"calido": "assets/luts/estudio_calido.cube"}.get(FX.get("look"), "assets/luts/estudio_limpio.cube")
+BASE_G = {"saturation": 1.05, "temperature": 0.06, **({"grain": 3} if FX.get("grano") else {}), **({"vignette": True} if FX.get("vineta") else {})}
+if not MUSIC and FX.get("musica") and (AQUI / f"media/music/{FX['musica']}.wav").exists(): MUSIC = f"media/music/{FX['musica']}.wav"
+MUS_IN = {"glaciers": 4.0}.get(FX.get("musica"), 0.0)      # desde dónde entra el tema, para que llegue rápido a pleno
 TR_DUR = {"WhipPan": 0.38, "WhipTilt": 0.45, "BloomDissolve": 0.5, "Overexposure": 0.42, "DefocusBlur": 0.5, "LightWipe": 0.5, "CrossZoom": 0.7}
 if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):
     _meta = {s["n"]: {k: s[k] for k in ("f", "blur") if k in s} for s in S if "n" in s}
@@ -96,7 +102,7 @@ def niveles(n):
     return g
 
 def build(vertical):
-    MUS = ({"music": {"src": MUSIC, "in": 0, "gain_db": -9, "fade_in": 1.5, "fade_out": 1.8, "end": END},
+    MUS = ({"music": {"src": MUSIC, "in": MUS_IN, "gain_db": -12, "fade_in": 1.5, "fade_out": 1.8, "end": END},
             "duck_music_under_vo": True, "duck": {"threshold": 0.02, "ratio": 4.5, "attack": 120, "release": 900}} if MUSIC else {})
     W, H = (1080, 1920) if vertical else (1920, 1080)
     clips, sfx = [], []
@@ -134,6 +140,8 @@ def build(vertical):
             c = {"src": inv["file"].replace("proyectos/zizi/", ""), "in": s["i"], "dur": round(d, 3)}
             if vv != 1: c["speed"] = vv
             if niveles(s["n"]): c["grade"] = niveles(s["n"])
+            if FX.get("look") == "personas" and "IMG_" in inv["file"]:      # look cálido solo en los planos de personas (celulares)
+                c["grade"] = {**c.get("grade", {}), **BASE_G, "lut": "assets/luts/estudio_calido.cube"}; c["global_grade"] = False
             if vertical:
                 if s.get("blur"): c["fit"], c["bg"] = "contain", "blur"
                 else: c["focus"] = {"x": s.get("f", 0.5), "y": 0.5}
@@ -186,10 +194,14 @@ def build(vertical):
             frase(75.9, 2.7, [L("Construir", 54, 0, **lead), L("relaciones", 220, 0.5, mayus=True), L("que perduren", 104, 1.45, peso=500, mayus=True, punto=True)]),
             frase(81.4, 4.4, [L("ZIZI es la gente", 176, 0, mayus=True, punto=True), L("Construimos cultura de trabajo", 58, 1.75, **lead)]),
         ]
+    for k, s in enumerate(S):                           # luz cálida orgánica sobre las tomas marcadas en el editor
+        if s.get("luz"):
+            d = (S[k + 1]["t"] if k + 1 < len(S) else END) - s["t"]
+            ov.append({"template": "luz", "params": {"semilla": 3 + k}, "start": s["t"], "dur": round(min(max(d, 1.2), 4.0), 2), "opacity": 0.6})
     edl = {
         "output": f"entregas/ZIZI_Institucional_{'9x16' if vertical else '16x9'}{TAG}.mp4",
         "canvas": {"width": W, "height": H, "fps": FPS},
-        "grade": {"lut": "assets/luts/estudio_limpio.cube", "saturation": 1.05, "temperature": 0.06},
+        "grade": {"lut": LUT, **BASE_G},
         "fade": {"in": 1.0, "out": 1.6, "color": "black"},
         "clips": clips, "texts": [], "overlays": ov,
         "audio": {
