@@ -25,7 +25,7 @@ body{background:var(--bg);color:var(--fg);font:400 14px/1.45 var(--ui);font-vari
 button,select,textarea,input{font:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.app{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.app{max-width:1560px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
 
 header{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
 .brand{font:700 26px/1 var(--display);text-transform:uppercase;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
@@ -36,14 +36,14 @@ header{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
 .state{font-size:12px;color:var(--muted)}
 .notice{background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;padding:8px 12px;font-size:13px}
 
-.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:16px;align-items:start}
+.grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:16px;align-items:start}
 @media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}}
 .left{position:sticky;top:calc(10px + env(safe-area-inset-top,0px));display:flex;flex-direction:column;gap:12px;min-width:0;
   max-height:calc(100vh - 20px);overflow-y:auto;scrollbar-width:thin}
 @media (max-width:860px){.left{position:static;max-height:none;overflow:visible}}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0}
 video{display:block;width:100%;background:#000;border-radius:6px}
-.viewer video{aspect-ratio:16/9}
+.viewer video{aspect-ratio:16/9;width:min(100%,calc(56vh * 16 / 9));margin-inline:auto}
 h2{font:600 19px/1.1 var(--display);text-transform:uppercase;letter-spacing:.04em;margin:0 0 8px;text-wrap:balance}
 .lbl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
 .hint{font-size:12px;color:var(--muted)}
@@ -54,6 +54,11 @@ h2{font:600 19px/1.1 var(--display);text-transform:uppercase;letter-spacing:.04e
 select,textarea{background:var(--raised);border:1px solid var(--line);border-radius:7px;padding:6px 9px;min-width:0}
 textarea{width:100%;resize:vertical;min-height:56px}
 input[type=range]{width:100%;accent-color:var(--accent)}
+.slip{position:relative;height:40px;border-radius:6px;background:var(--raised);border:1px solid var(--line);touch-action:none;cursor:ew-resize;overflow:hidden}
+.slip .win{position:absolute;top:0;bottom:0;background:var(--accent-soft);border:2px solid var(--accent);border-radius:5px;cursor:grab;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;white-space:nowrap}
+.slip .win.drag{cursor:grabbing}
+.slip .cur{position:absolute;top:0;bottom:0;width:2px;background:var(--fg);pointer-events:none}
+.take video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0;pointer-events:none}
 
 .edit-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:start}
 @media (max-width:480px){.edit-top{grid-template-columns:minmax(0,1fr)}}
@@ -257,14 +262,34 @@ function renderEditor() {
   top.append(left, right); box.appendChild(top);
 
   if (s.tipo === "toma") {
-    const max = Math.max(0, +(LIB[s.n].dur - s.dur - 0.5).toFixed(2));
-    box.appendChild(el("div", "lbl", "Desde qué momento de la toma"));
-    const r = el("input"); r.type = "range"; r.id = "inRange"; r.min = 0; r.max = max; r.step = 0.1; r.value = Math.min(s.in, max); r.disabled = max <= 0;
-    r.setAttribute("aria-label", "Inicio de la toma en segundos");
-    const out = el("div", "hint", max <= 0 ? "La toma dura justo lo que ocupa: no hay margen para mover el inicio." : "Empieza en el segundo " + (+r.value).toFixed(1).replace(".", ","));
-    r.addEventListener("input", () => { out.textContent = "Empieza en el segundo " + (+r.value).toFixed(1).replace(".", ","); const v = $("#pv"); if (v) { v.pause(); v.currentTime = +r.value; } });
-    r.addEventListener("change", () => { setCambio(k, { in: +r.value }); renderBoard(); const v = $("#pv"); if (v) v.play().catch(() => {}); });
-    box.append(r, out);
+    // Deslizar: la barra es la toma entera; el recuadro amarillo es el tramo que entra en el corte.
+    const D = LIB[s.n].dur, max = Math.max(0, +(D - s.dur).toFixed(2));
+    box.appendChild(el("div", "lbl", "Deslizar la toma: qué tramo entra en el corte"));
+    const bar = el("div", "slip"), win = el("div", "win", "arrastrá"), cur = el("div", "cur");
+    bar.setAttribute("role", "slider"); bar.tabIndex = 0; bar.id = "slip" + k;
+    bar.setAttribute("aria-label", "Inicio del tramo usado, en segundos"); bar.setAttribute("aria-valuemin", 0); bar.setAttribute("aria-valuemax", max);
+    const out = el("div", "hint");
+    let inNow = Math.min(s.in, max);
+    const pinta = () => { win.style.left = (inNow / D * 100) + "%"; win.style.width = Math.min(100, s.dur / D * 100) + "%"; bar.setAttribute("aria-valuenow", inNow);
+      out.textContent = max <= 0 ? "La toma dura lo mismo que su lugar en el corte: no hay margen para deslizarla. Arrastrá sobre la barra para verla." :
+        "Usa del segundo " + inNow.toFixed(1).replace(".", ",") + " al " + (inNow + s.dur).toFixed(1).replace(".", ",") + " de " + D.toFixed(1).replace(".", ",") + ". Arrastrá el recuadro para deslizar; arrastrá fuera de él para mirar el resto de la toma."; };
+    pinta(); bar.append(win, cur);
+    const vid = () => $("#pv");
+    let drag = null;
+    bar.addEventListener("pointerdown", e => { const r = bar.getBoundingClientRect(), enWin = e.target === win && max > 0;
+      drag = { x: e.clientX, in0: inNow, w: r.width, left: r.left, enWin }; bar.setPointerCapture(e.pointerId); win.classList.toggle("drag", enWin);
+      clearInterval(loopT); const v = vid(); if (v) v.pause(); if (!enWin) mira(e); });
+    const mira = e => { const t = Math.max(0, Math.min(D - 0.05, (e.clientX - drag.left) / drag.w * D)); cur.style.left = (t / D * 100) + "%"; const v = vid(); if (v) v.currentTime = t; };
+    bar.addEventListener("pointermove", e => { if (!drag) return;
+      if (drag.enWin) { inNow = Math.max(0, Math.min(max, +(drag.in0 + (e.clientX - drag.x) / drag.w * D).toFixed(2))); pinta(); cur.style.left = (inNow / D * 100) + "%"; const v = vid(); if (v) v.currentTime = inNow; }
+      else mira(e); });
+    const suelta = () => { if (!drag) return; const enWin = drag.enWin; drag = null; win.classList.remove("drag");
+      if (enWin) { setCambio(k, { in: inNow }); renderBoard(); }
+      renderEditor(); };
+    bar.addEventListener("pointerup", suelta); bar.addEventListener("pointercancel", suelta);
+    bar.addEventListener("keydown", e => { if (max <= 0 || !["ArrowLeft", "ArrowRight"].includes(e.key)) return; e.preventDefault();
+      inNow = Math.max(0, Math.min(max, +(inNow + (e.key === "ArrowRight" ? 0.2 : -0.2)).toFixed(2))); setCambio(k, { in: inNow }); renderBoard(); renderEditor(); $("#slip" + k)?.focus(); });
+    box.append(bar, out);
     const row = el("div", "row"); row.style.marginTop = "10px";
     const b1 = el("button", "btn primary", pick ? "Cerrar las tomas" : "Cambiar por otra toma"); b1.type = "button";
     b1.addEventListener("click", () => { pick = !pick; grupo = grupo || LIB[s.n].grupo; renderEditor(); });
@@ -318,10 +343,16 @@ function renderPicker(k, s) {
     if (usadas[n]) b.appendChild(el("span", "u", "en toma " + usadas[n]));
     if (corta) b.appendChild(el("span", "short", "corta"));
     b.addEventListener("click", () => { setCambio(k, { n, in: 0 }); renderBoard(); renderEditor(); });
+    // pasar el mouse por la miniatura recorre la toma
+    b.addEventListener("pointerenter", e => { if (e.pointerType !== "mouse" || b.querySelector("video")) return;
+      const v = el("video"); v.muted = true; v.playsInline = true; v.preload = "auto"; v.src = "media/" + id3(n) + ".mp4"; b.insertBefore(v, b.children[1]); });
+    b.addEventListener("pointermove", e => { const v = b.querySelector("video"); if (!v || !v.duration) return; const r = b.getBoundingClientRect();
+      v.currentTime = Math.max(0, Math.min(v.duration - 0.05, (e.clientX - r.left) / r.width * v.duration)); });
+    b.addEventListener("pointerleave", () => { const v = b.querySelector("video"); if (v) v.remove(); });
     grid.appendChild(b);
   });
   w.appendChild(grid);
-  w.appendChild(el("p", "hint", "«Corta» = dura menos que el lugar que ocupa; se puede usar, pero habrá que acortar ese momento. «En toma N» = ya está usada en otro lugar del corte."));
+  w.appendChild(el("p", "hint", "Pasá el mouse por una miniatura para recorrer esa toma. «Corta» = dura menos que el lugar que ocupa; se puede usar, pero habrá que acortar ese momento. «En toma N» = ya está usada en otro lugar del corte."));
   return w;
 }
 
