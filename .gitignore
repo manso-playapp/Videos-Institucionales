@@ -29,3 +29,9 @@ rclone.conf
 examples/media/
 examples/render/
 examples/.cache/
+
+# Artefacto de selección: los proxies se regeneran con tools_local/proxies.py
+proyectos/*/artefacto/media/
+proyectos/*/artefacto/posters/
+proyectos/*/artefacto/trans/
+proyectos/*/artefacto/musica/

@@ -1,0 +1,1189 @@
+{
+ "pieza": "Horizontal 16:9",
+ "version": "Borrador 4",
+ "dur": 95.4,
+ "slots": [
+  {
+   "k": 0,
+   "t": 0.0,
+   "dur": 3.6,
+   "frase": "Cada proyecto tiene un comienzo,",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 118,
+   "in": 6.95
+  },
+  {
+   "k": 1,
+   "t": 3.6,
+   "dur": 2.8,
+   "frase": "a veces es solamente un terreno vacío,",
+   "tr": "DefocusBlur",
+   "tipo": "toma",
+   "n": 99,
+   "in": 0.5
+  },
+  {
+   "k": 2,
+   "t": 6.4,
+   "dur": 4.8,
+   "frase": "otras veces una idea que lleva mucho tiempo esperando su oportunidad.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 101,
+   "in": 1.0
+  },
+  {
+   "k": 3,
+   "t": 11.2,
+   "dur": 4.2,
+   "frase": "Nosotros vemos en ese espacio algo más",
+   "tr": "WhipPan",
+   "tipo": "toma",
+   "n": 98,
+   "in": 0.3
+  },
+  {
+   "k": 4,
+   "t": 15.4,
+   "dur": 3.2,
+   "frase": "que una futura construcción, vemos el esfuerzo, las expectativas",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 93,
+   "in": 2.0
+  },
+  {
+   "k": 5,
+   "t": 18.6,
+   "dur": 3.7,
+   "frase": "y las ganas de crecer de quienes nos eligen.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 95,
+   "in": 2.0
+  },
+  {
+   "k": 6,
+   "t": 22.3,
+   "dur": 4.6,
+   "frase": "Por eso, en ZIZI, antes de hablar de estructuras hablamos de proyectos,",
+   "tr": "BloomDissolve",
+   "tipo": "toma",
+   "n": 136,
+   "in": 0.1
+  },
+  {
+   "k": 7,
+   "t": 26.9,
+   "dur": 2.6,
+   "frase": "escuchamos, compartimos",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 147,
+   "in": 0.1
+  },
+  {
+   "k": 8,
+   "t": 29.5,
+   "dur": 3.7,
+   "frase": "ideas y buscamos juntos la mejor solución.",
+   "tr": "WhipPan",
+   "tipo": "toma",
+   "n": 138,
+   "in": 4.0
+  },
+  {
+   "k": 9,
+   "t": 33.2,
+   "dur": 3.4,
+   "frase": "Aportamos más de 46 años de",
+   "tr": "Overexposure",
+   "tipo": "toma",
+   "n": 144,
+   "in": 2.7
+  },
+  {
+   "k": 10,
+   "t": 36.6,
+   "dur": 2.3,
+   "frase": "experiencia, conocimiento y tecnología",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 109,
+   "in": 0.0
+  },
+  {
+   "k": 11,
+   "t": 38.9,
+   "dur": 2.1,
+   "frase": "para que cada decisión tenga",
+   "tr": "WhipTilt",
+   "tipo": "toma",
+   "n": 112,
+   "in": 6.0
+  },
+  {
+   "k": 12,
+   "t": 41.0,
+   "dur": 3.6,
+   "frase": "el respaldo de una empresa que sabe construir.",
+   "tr": "LightWipe",
+   "tipo": "toma",
+   "n": 66,
+   "in": 1.5
+  },
+  {
+   "k": 13,
+   "t": 44.6,
+   "dur": 3.6,
+   "frase": "Pero también sabemos que ninguna obra se hace en soledad.",
+   "tr": "DefocusBlur",
+   "tipo": "toma",
+   "n": 27,
+   "in": 1.0
+  },
+  {
+   "k": 14,
+   "t": 48.2,
+   "dur": 3.2,
+   "frase": "Detrás de cada proyecto está el trabajo de nuestra gente,",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 28,
+   "in": 1.5
+  },
+  {
+   "k": 15,
+   "t": 51.4,
+   "dur": 2.2,
+   "frase": "el compromiso de nuestros proveedores y",
+   "tr": "WhipPan",
+   "tipo": "toma",
+   "n": 68,
+   "in": 0.0
+  },
+  {
+   "k": 16,
+   "t": 53.6,
+   "dur": 2.8,
+   "frase": "la confianza de nuestros clientes.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 135,
+   "in": 0.0
+  },
+  {
+   "k": 17,
+   "t": 56.4,
+   "dur": 3.2,
+   "frase": "Personas que desde distintos",
+   "tr": "BloomDissolve",
+   "tipo": "toma",
+   "n": 81,
+   "in": 3.0
+  },
+  {
+   "k": 18,
+   "t": 59.6,
+   "dur": 3.0,
+   "frase": "lugares hacen posible que las ideas",
+   "tr": "Corte",
+   "tipo": "split",
+   "tomas": [
+    104,
+    77,
+    80
+   ],
+   "ins": [
+    6.0,
+    2.0,
+    2.0
+   ]
+  },
+  {
+   "k": 19,
+   "t": 62.6,
+   "dur": 2.4,
+   "frase": "se conviertan en realidades.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 10,
+   "in": 3.0
+  },
+  {
+   "k": 20,
+   "t": 65.0,
+   "dur": 4.3,
+   "frase": "Y cuando estrechamos una mano, reafirmamos nuestra manera de trabajar,",
+   "tr": "Overexposure",
+   "tipo": "toma",
+   "n": 145,
+   "in": 2.6
+  },
+  {
+   "k": 21,
+   "t": 69.3,
+   "dur": 4.6,
+   "frase": "con responsabilidad, con cercanía y con la palabra como compromiso.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 142,
+   "in": 3.6
+  },
+  {
+   "k": 22,
+   "t": 73.9,
+   "dur": 3.7,
+   "frase": "Porque construir no es solamente levantar estructuras,",
+   "tr": "WhipPan",
+   "tipo": "toma",
+   "n": 79,
+   "in": 0.0
+  },
+  {
+   "k": 23,
+   "t": 77.6,
+   "dur": 3.0,
+   "frase": "es construir relaciones que perduren.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 8,
+   "in": 5.0
+  },
+  {
+   "k": 24,
+   "t": 80.6,
+   "dur": 2.6,
+   "frase": "",
+   "tr": "BloomDissolve",
+   "tipo": "toma",
+   "n": 1,
+   "in": 0.0
+  },
+  {
+   "k": 25,
+   "t": 83.2,
+   "dur": 3.0,
+   "frase": "ZIZI es la gente, construimos",
+   "tr": "Overexposure",
+   "tipo": "toma",
+   "n": 149,
+   "in": 0.2
+  },
+  {
+   "k": 26,
+   "t": 86.2,
+   "dur": 3.4,
+   "frase": "cultura de trabajo.",
+   "tr": "WhipTilt",
+   "tipo": "toma",
+   "n": 12,
+   "in": 8.0
+  },
+  {
+   "k": 27,
+   "t": 89.6,
+   "dur": 5.8,
+   "frase": "",
+   "tr": "CrossZoom",
+   "tipo": "placa"
+  }
+ ],
+ "lib": {
+  "1": {
+   "archivo": "DJI_20250508094220_0721_D.MP4",
+   "dur": 15.65,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "2": {
+   "archivo": "DJI_20250508094252_0722_D.MP4",
+   "dur": 6.24,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "3": {
+   "archivo": "DJI_20250508094302_0723_D.MP4",
+   "dur": 22.92,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "4": {
+   "archivo": "DJI_20250508094327_0724_D.MP4",
+   "dur": 20.39,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "5": {
+   "archivo": "DJI_20250508094414_0725_D.MP4",
+   "dur": 25.66,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "6": {
+   "archivo": "DJI_20250508094508_0726_D.MP4",
+   "dur": 19.59,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "7": {
+   "archivo": "DJI_20250508094534_0727_D.MP4",
+   "dur": 5.87,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "8": {
+   "archivo": "DJI_20250508094550_0728_D.MP4",
+   "dur": 10.44,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "9": {
+   "archivo": "DJI_20250508094631_0729_D.MP4",
+   "dur": 5.77,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "10": {
+   "archivo": "DJI_20250508094650_0730_D.MP4",
+   "dur": 14.31,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "11": {
+   "archivo": "DJI_20250508094718_0731_D.MP4",
+   "dur": 12.78,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "12": {
+   "archivo": "DJI_20250508094739_0732_D.MP4",
+   "dur": 27.79,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "13": {
+   "archivo": "DJI_20250508094841_0733_D.MP4",
+   "dur": 15.12,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "14": {
+   "archivo": "DJI_20250508094900_0734_D.MP4",
+   "dur": 10.81,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "15": {
+   "archivo": "DJI_20250508094915_0735_D.MP4",
+   "dur": 9.01,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "16": {
+   "archivo": "DJI_20250508094934_0736_D.MP4",
+   "dur": 13.15,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "17": {
+   "archivo": "DJI_20261027094118_0616_D.MP4",
+   "dur": 22.62,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "18": {
+   "archivo": "DJI_20261027094147_0617_D.MP4",
+   "dur": 25.59,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "19": {
+   "archivo": "DJI_20261027094231_0618_D.MP4",
+   "dur": 6.24,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "20": {
+   "archivo": "DJI_20261027094253_0619_D.MP4",
+   "dur": 6.41,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "21": {
+   "archivo": "DJI_20261027094435_0622_D.MP4",
+   "dur": 18.25,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "22": {
+   "archivo": "DJI_20261027094519_0623_D.MP4",
+   "dur": 6.74,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "23": {
+   "archivo": "DJI_20261027094556_0624_D.MP4",
+   "dur": 17.95,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "24": {
+   "archivo": "DJI_20261027094706_0625_D.MP4",
+   "dur": 9.41,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "25": {
+   "archivo": "DJI_20261027094758_0626_D.MP4",
+   "dur": 5.94,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "26": {
+   "archivo": "DJI_20261027094835_0627_D.MP4",
+   "dur": 14.15,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "27": {
+   "archivo": "DJI_20261027094918_0628_D.MP4",
+   "dur": 8.44,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "28": {
+   "archivo": "DJI_20261027094944_0629_D.MP4",
+   "dur": 9.78,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "29": {
+   "archivo": "DJI_20261027095136_0630_D.MP4",
+   "dur": 18.52,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "30": {
+   "archivo": "DJI_20261027095456_0631_D.MP4",
+   "dur": 7.67,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "31": {
+   "archivo": "DJI_20261027095537_0633_D.MP4",
+   "dur": 10.34,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "32": {
+   "archivo": "DJI_20261027095706_0634_D.MP4",
+   "dur": 9.34,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "33": {
+   "archivo": "DJI_20261027095827_0635_D.MP4",
+   "dur": 15.98,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "34": {
+   "archivo": "DJI_20261027095914_0636_D.MP4",
+   "dur": 20.19,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "35": {
+   "archivo": "DJI_20261027095936_0637_D.MP4",
+   "dur": 39.24,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "36": {
+   "archivo": "DJI_20261027100043_0638_D.MP4",
+   "dur": 9.54,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "37": {
+   "archivo": "IMG_3382.MP4",
+   "dur": 1.8,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "38": {
+   "archivo": "IMG_3383.MP4",
+   "dur": 3.47,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "39": {
+   "archivo": "IMG_3384.MP4",
+   "dur": 3.7,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "40": {
+   "archivo": "IMG_3385.MOV",
+   "dur": 2.73,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "3840x2160"
+  },
+  "41": {
+   "archivo": "IMG_3386.MOV",
+   "dur": 2.53,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "3840x2160"
+  },
+  "42": {
+   "archivo": "IMG_3387.MP4",
+   "dur": 3.3,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "43": {
+   "archivo": "IMG_3388.MP4",
+   "dur": 4.7,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "44": {
+   "archivo": "IMG_3389.MP4",
+   "dur": 3.94,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "45": {
+   "archivo": "IMG_3390.MP4",
+   "dur": 2.9,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "46": {
+   "archivo": "IMG_3391.MP4",
+   "dur": 2.73,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "47": {
+   "archivo": "IMG_3392.MP4",
+   "dur": 2.3,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "48": {
+   "archivo": "IMG_3393.MP4",
+   "dur": 5.17,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "49": {
+   "archivo": "IMG_3394.MP4",
+   "dur": 3.74,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "50": {
+   "archivo": "IMG_3395.MP4",
+   "dur": 5.97,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "51": {
+   "archivo": "IMG_3396.MP4",
+   "dur": 5.24,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "52": {
+   "archivo": "IMG_3397.MP4",
+   "dur": 2.67,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "53": {
+   "archivo": "DJI_20261030120827_0663_D.MP4",
+   "dur": 5.91,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "54": {
+   "archivo": "DJI_20261030120835_0664_D.MP4",
+   "dur": 14.05,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "55": {
+   "archivo": "DJI_20261030120900_0665_D.MP4",
+   "dur": 12.28,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "56": {
+   "archivo": "DJI_20261030120932_0666_D.MP4",
+   "dur": 7.24,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "57": {
+   "archivo": "DJI_20261030121001_0667_D.MP4",
+   "dur": 4.6,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "58": {
+   "archivo": "DJI_20261030121119_0668_D.MP4",
+   "dur": 12.45,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "59": {
+   "archivo": "DJI_20261030121139_0669_D.MP4",
+   "dur": 12.11,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "60": {
+   "archivo": "DJI_20261030121207_0670_D.MP4",
+   "dur": 12.58,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "61": {
+   "archivo": "DJI_20261030121228_0671_D.MP4",
+   "dur": 24.82,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "62": {
+   "archivo": "DJI_20261030121304_0672_D.MP4",
+   "dur": 18.28,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "63": {
+   "archivo": "DJI_20261030121329_0673_D.MP4",
+   "dur": 8.04,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "64": {
+   "archivo": "DJI_20261030121345_0674_D.MP4",
+   "dur": 14.48,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "65": {
+   "archivo": "DJI_20261030121425_0675_D.MP4",
+   "dur": 7.37,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "66": {
+   "archivo": "DJI_20261030121438_0676_D.MP4",
+   "dur": 10.38,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "67": {
+   "archivo": "DJI_20261030121501_0677_D.MP4",
+   "dur": 24.72,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "68": {
+   "archivo": "DJI_20261030121654_0678_D.MP4",
+   "dur": 8.74,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "69": {
+   "archivo": "DJI_20261030121715_0679_D.MP4",
+   "dur": 12.45,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "70": {
+   "archivo": "DJI_20261030121803_0680_D.MP4",
+   "dur": 3.94,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "71": {
+   "archivo": "DJI_20250428061302_0699_D.MP4",
+   "dur": 8.68,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "72": {
+   "archivo": "DJI_20250428061325_0700_D.MP4",
+   "dur": 11.58,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "73": {
+   "archivo": "DJI_20250428061341_0701_D.MP4",
+   "dur": 16.85,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "74": {
+   "archivo": "DJI_20250428061406_0702_D.MP4",
+   "dur": 10.08,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "75": {
+   "archivo": "DJI_20250428061422_0703_D.MP4",
+   "dur": 20.79,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "76": {
+   "archivo": "DJI_20250428061451_0704_D.MP4",
+   "dur": 13.71,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "77": {
+   "archivo": "DJI_20250428061513_0705_D.MP4",
+   "dur": 11.51,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "78": {
+   "archivo": "DJI_20250428061639_0706_D.MP4",
+   "dur": 9.94,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "79": {
+   "archivo": "DJI_20250428061712_0707_D.MP4",
+   "dur": 14.71,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "80": {
+   "archivo": "DJI_20250428061747_0708_D.MP4",
+   "dur": 15.52,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "81": {
+   "archivo": "DJI_20250428061822_0709_D.MP4",
+   "dur": 20.62,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "82": {
+   "archivo": "DJI_20250428061854_0710_D.MP4",
+   "dur": 5.81,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "83": {
+   "archivo": "DJI_20250428061916_0711_D.MP4",
+   "dur": 15.48,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "84": {
+   "archivo": "DJI_20250428061949_0712_D.MP4",
+   "dur": 16.18,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "85": {
+   "archivo": "DJI_20250428062035_0713_D.MP4",
+   "dur": 21.52,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "86": {
+   "archivo": "DJI_20250428062110_0714_D.MP4",
+   "dur": 17.48,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "87": {
+   "archivo": "DJI_20250428062137_0715_D.MP4",
+   "dur": 13.68,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "88": {
+   "archivo": "DJI_20250428062211_0716_D.MP4",
+   "dur": 18.82,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "89": {
+   "archivo": "DJI_20250428062233_0717_D.MP4",
+   "dur": 17.78,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "90": {
+   "archivo": "DJI_20250428062322_0718_D.MP4",
+   "dur": 4.74,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "91": {
+   "archivo": "DJI_20250428062329_0719_D.MP4",
+   "dur": 6.64,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "92": {
+   "archivo": "DJI_20250428062338_0720_D.MP4",
+   "dur": 21.05,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "93": {
+   "archivo": "DJI_20261019121534_0539_D.MP4",
+   "dur": 21.42,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "94": {
+   "archivo": "DJI_20261019121633_0540_D.MP4",
+   "dur": 9.71,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "95": {
+   "archivo": "DJI_20261019121707_0541_D.MP4",
+   "dur": 13.95,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "96": {
+   "archivo": "DJI_20261019122218_0542_D.MP4",
+   "dur": 7.37,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "97": {
+   "archivo": "DJI_20261019122229_0543_D.MP4",
+   "dur": 13.05,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "98": {
+   "archivo": "DJI_20261019122245_0544_D.MP4",
+   "dur": 5.64,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "99": {
+   "archivo": "DJI_20261019122259_0545_D.MP4",
+   "dur": 4.97,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "100": {
+   "archivo": "DJI_20261019122307_0546_D.MP4",
+   "dur": 2.7,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "101": {
+   "archivo": "DJI_20261019122312_0547_D.MP4",
+   "dur": 28.33,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "102": {
+   "archivo": "DJI_20261019122410_0548_D.MP4",
+   "dur": 12.95,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "103": {
+   "archivo": "DJI_20261019122437_0549_D.MP4",
+   "dur": 8.91,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "104": {
+   "archivo": "DJI_20261019122449_0550_D.MP4",
+   "dur": 17.12,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "105": {
+   "archivo": "DJI_20261019122550_0551_D.MP4",
+   "dur": 16.42,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "106": {
+   "archivo": "DJI_20261019122609_0552_D.MP4",
+   "dur": 0.73,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "107": {
+   "archivo": "DJI_20261019122626_0553_D.MP4",
+   "dur": 11.34,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "108": {
+   "archivo": "DJI_20261019122645_0554_D.MP4",
+   "dur": 9.51,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "109": {
+   "archivo": "DJI_20261019122918_0555_D.MP4",
+   "dur": 7.07,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "110": {
+   "archivo": "DJI_20261019123009_0556_D.MP4",
+   "dur": 17.25,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "111": {
+   "archivo": "DJI_20261019123046_0557_D.MP4",
+   "dur": 15.48,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "112": {
+   "archivo": "DJI_20261019123146_0558_D.MP4",
+   "dur": 19.92,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "113": {
+   "archivo": "DJI_20261019123210_0559_D.MP4",
+   "dur": 9.74,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "114": {
+   "archivo": "DJI_20261019123230_0560_D.MP4",
+   "dur": 12.58,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "115": {
+   "archivo": "DJI_20261019123303_0561_D.MP4",
+   "dur": 8.48,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "116": {
+   "archivo": "DJI_20261019123333_0562_D.MP4",
+   "dur": 11.91,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "117": {
+   "archivo": "DJI_20261019123414_0563_D.MP4",
+   "dur": 8.01,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "118": {
+   "archivo": "DJI_20261019123435_0564_D.MP4",
+   "dur": 10.84,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "119": {
+   "archivo": "DJI_20261019123525_0565_D.MP4",
+   "dur": 7.84,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "120": {
+   "archivo": "DJI_20261019123536_0566_D.MP4",
+   "dur": 4.3,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "121": {
+   "archivo": "IMG_2229.MP4",
+   "dur": 2.4,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "122": {
+   "archivo": "IMG_2230.MP4",
+   "dur": 4.3,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "123": {
+   "archivo": "IMG_2231.MP4",
+   "dur": 4.07,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "124": {
+   "archivo": "IMG_2232.MP4",
+   "dur": 4.2,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "125": {
+   "archivo": "IMG_2233.MP4",
+   "dur": 2.17,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "126": {
+   "archivo": "IMG_2234.MP4",
+   "dur": 3.23,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "127": {
+   "archivo": "IMG_2235.MP4",
+   "dur": 7.2,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "128": {
+   "archivo": "IMG_2236.MP4",
+   "dur": 3.5,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "129": {
+   "archivo": "IMG_2237.MP4",
+   "dur": 3.56,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "130": {
+   "archivo": "IMG_2238.MP4",
+   "dur": 2.87,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "131": {
+   "archivo": "IMG_2239.MP4",
+   "dur": 4.8,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "132": {
+   "archivo": "IMG_2240.MP4",
+   "dur": 10.11,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "133": {
+   "archivo": "IMG_2241.MP4",
+   "dur": 3.27,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "134": {
+   "archivo": "IMG_2242.MP4",
+   "dur": 4.14,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "135": {
+   "archivo": "IMG_2243.MP4",
+   "dur": 3.13,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "136": {
+   "archivo": "IMG_2244.MOV",
+   "dur": 5.1,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "3840x2160"
+  },
+  "137": {
+   "archivo": "IMG_2245.MP4",
+   "dur": 2.0,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "138": {
+   "archivo": "IMG_2246.MOV",
+   "dur": 8.4,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "3840x2160"
+  },
+  "139": {
+   "archivo": "IMG_2247.MOV",
+   "dur": 13.67,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "3840x2160"
+  },
+  "140": {
+   "archivo": "IMG_2248.MP4",
+   "dur": 5.07,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "141": {
+   "archivo": "IMG_2249.MP4",
+   "dur": 14.13,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "142": {
+   "archivo": "IMG_2250.MP4",
+   "dur": 8.47,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "143": {
+   "archivo": "IMG_2251.MOV",
+   "dur": 2.97,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "3840x2160"
+  },
+  "144": {
+   "archivo": "IMG_2252.MOV",
+   "dur": 7.33,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "3840x2160"
+  },
+  "145": {
+   "archivo": "IMG_2253.MOV",
+   "dur": 7.41,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "3840x2160"
+  },
+  "146": {
+   "archivo": "IMG_2254.MP4",
+   "dur": 1.4,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "147": {
+   "archivo": "IMG_2255.MP4",
+   "dur": 5.57,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "148": {
+   "archivo": "IMG_2256.MP4",
+   "dur": 2.77,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "149": {
+   "archivo": "IMG_2257.MP4",
+   "dur": 8.03,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  }
+ }
+}
