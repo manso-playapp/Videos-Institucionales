@@ -79,7 +79,8 @@ input[type=range]{accent-color:var(--accent)}
 .tlb.negro{background:repeating-linear-gradient(135deg,#111 0 8px,#1c1c1c 8px 16px);border-color:#555;border-style:dashed}
 .tlb.negro.sel{border-color:var(--accent)}
 .slot .th.negro{display:flex;align-items:center;justify-content:center;background:#000;color:#888;font:600 11px/1 var(--ui);text-transform:uppercase;letter-spacing:.08em}
-.tlb.drag{cursor:grabbing}
+.tlb.drag{cursor:grabbing;z-index:8;opacity:.8;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.tldrop{position:absolute;top:20px;height:70px;width:4px;background:#fff;border-radius:2px;box-shadow:0 0 0 2px var(--accent);z-index:9;pointer-events:none}
 .tlb b{position:absolute;left:5px;top:2px;font:600 11px/1.3 var(--ui);color:#fff;text-shadow:0 1px 3px #000;pointer-events:none;white-space:nowrap}
 .tlb em{position:absolute;left:3px;bottom:3px;font:600 9px/1.4 var(--ui);font-style:normal;background:#FDB913;color:#16130a;border-radius:3px;padding:0 4px;pointer-events:auto;cursor:pointer;white-space:nowrap;max-width:calc(100% - 6px);overflow:hidden;z-index:4;touch-action:none}
 .tlb em:hover,.tlb em.on{outline:2px solid #fff}
@@ -243,7 +244,7 @@ input[type=range]{accent-color:var(--accent)}
             <p>Agregar pone 2 s nuevos donde está el cabezal (después ajustás la duración con los bordes); lo que sigue no se corre. «Agregar toma» abre las tomas para elegir; «Espacio en negro» lo deja reservado. Eliminar hace que la anterior ocupe su lugar.</p>
           </div>
         </div>
-        <p class="hint" style="margin:10px 0 0">También con el mouse: tocá una toma para elegirla; arrastrá sus <b>bordes amarillos</b> para cambiar la duración; arrastrá la toma para deslizar el tramo; arrastrá el <b>cabezal</b> o la regla para recorrer. Abajo va la locución palabra por palabra.</p>
+        <p class="hint" style="margin:10px 0 0">También con el mouse: tocá una toma para elegirla; arrastrá sus <b>bordes amarillos</b> para cambiar la duración; arrastrá una toma para <b>cambiarla de lugar</b> (la línea blanca marca dónde cae); el tramo se desliza con la barra «arrastrá»; arrastrá el <b>cabezal</b> o la regla para recorrer. Abajo va la locución palabra por palabra.</p>
       </section>
 
       <section class="card" id="editor" aria-label="Toma seleccionada"></section>
@@ -364,6 +365,12 @@ function insertar() {
   else { S.slots.splice(k + 1, 0, nuevo, ...(resto ? [resto] : [])); sel = k + 1; }
   return true;
 }
+function reubicar(k, b) {                     // saca la toma k y la pone antes de la que hoy está en la posición b; cada toma conserva su duración
+  if (b === k || b === k + 1 || S.slots[k].tipo === "placa") return false;
+  const durs = S.slots.map((_, i) => durOf(i)), it = S.slots.splice(k, 1)[0], du = durs.splice(k, 1)[0], j = b > k ? b - 1 : b;
+  S.slots.splice(j, 0, it); durs.splice(j, 0, du);
+  let t = 0; S.slots.forEach((x, i) => { x.t = r2(t); t += durs[i]; }); sel = j; return true;
+}
 function dividir() {
   const t = r2(Live.time()), k = sel, s = S.slots[k];
   if (s.tipo !== "toma" || t - s.t < MIN || tOf(k + 1) - t < MIN) return false;
@@ -434,6 +441,7 @@ const TL = (() => {
   const inner = $("#tlInner"), track = $("#tlTrack"), ruler = $("#tlRuler"), words = $("#tlWords"), headEl = $("#tlHead"), scroll = $("#tlScroll"), zoom = $("#tlZoom");
   let pps = 36, drag = null, scrub = false, hd = false;
   const xT = e => (e.clientX - inner.getBoundingClientRect().left) / pps;
+  const drop = el("div", "tldrop"); drop.hidden = true; inner.appendChild(drop);
   function geom() {                           // solo posiciones (se usa mientras se arrastra, sin recrear nada)
     [...track.children].forEach((d, k) => { d.style.left = (tOf(k) * pps) + "px"; d.style.width = Math.max(6, durOf(k) * pps - 2) + "px"; });
   }
@@ -457,16 +465,19 @@ const TL = (() => {
         em.addEventListener("pointerdown", e => { e.stopPropagation(); e.preventDefault(); Live.pause(); trSel = trSel === k ? null : k; sel = k; pick = false;
           render(); renderBoard(); renderEditor(); renderCtl(); Live.seek(s.t + 0.02); });
         d.appendChild(em); }
-      // cuerpo: tocar = elegir e ir a ese punto · arrastrar = deslizar el tramo
+      // cuerpo: tocar = elegir e ir a ese punto · arrastrar = cambiarla de lugar (el tramo se desliza con la barra de abajo)
+      const fija = s.tipo === "placa";
       d.addEventListener("pointerdown", e => { if (e.target.classList.contains("hnd")) return; Live.pause();
-        drag = { tipo: "slip", k, x: e.clientX, in0: s.in, tc: clamp(xT(e), s.t + 0.02, tOf(k + 1) - 0.05), movio: false, antes: JSON.stringify(S.slots) };
+        drag = { tipo: "mover", k, x: e.clientX, tc: clamp(xT(e), s.t + 0.02, tOf(k + 1) - 0.05), movio: false, b: null, antes: JSON.stringify(S.slots) };
         d.setPointerCapture(e.pointerId); });
-      d.addEventListener("pointermove", e => { if (!drag || drag.tipo !== "slip" || drag.k !== k) return; const dx = e.clientX - drag.x;
-        if (Math.abs(dx) < 4 && !drag.movio) return; drag.movio = true; d.classList.add("drag");
-        if (deslizar(k, drag.in0 - dx / pps, false)) Live.seek(drag.tc); });
-      const fin = () => { if (!drag || drag.tipo !== "slip" || drag.k !== k) return; const g = drag; drag = null; d.classList.remove("drag");
+      d.addEventListener("pointermove", e => { if (!drag || drag.tipo !== "mover" || drag.k !== k || fija) return; const dx = e.clientX - drag.x;
+        if (Math.abs(dx) < 6 && !drag.movio) return; drag.movio = true; d.classList.add("drag"); d.style.transform = "translateX(" + dx + "px)";
+        const tp = xT(e), tope = S.slots[S.slots.length - 1].tipo === "placa" ? S.slots.length - 1 : S.slots.length; let b = 0, best = 1e9;
+        for (let i = 0; i <= tope; i++) { const dd = Math.abs(tOf(i) - tp); if (dd < best) { best = dd; b = i; } }
+        drag.b = b; drop.style.left = (tOf(b) * pps - 2) + "px"; drop.hidden = b === k || b === k + 1; });
+      const fin = () => { if (!drag || drag.tipo !== "mover" || drag.k !== k) return; const g = drag; drag = null; d.classList.remove("drag"); d.style.transform = ""; drop.hidden = true;
         sel = k; pick = false;
-        if (g.movio && JSON.stringify(S.slots) !== g.antes) { hist.push(g.antes); commit(); Live.seek(g.tc); }
+        if (g.movio && g.b != null && reubicar(k, g.b)) { hist.push(g.antes); trSel = null; commit(); TL.ver(sel); Live.seek(tOf(sel) + 0.02); }
         else { render(); renderBoard(); renderEditor(); renderCtl(); Live.seek(g.tc); try { $("#main").currentTime = g.tc; } catch (e) {} } };
       d.addEventListener("pointerup", fin); d.addEventListener("pointercancel", fin); d.addEventListener("lostpointercapture", fin);
       // bordes amarillos de la toma elegida: cambian la duración (mueven ese corte)
