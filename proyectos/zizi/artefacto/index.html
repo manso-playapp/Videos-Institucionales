@@ -609,7 +609,7 @@ $("#notas").addEventListener("input", e => { S.notas = e.target.value; $("#saveS
 
 function aplicar(d) {
   const ok = d && d.base === BASE.version && Array.isArray(d.slots) && d.slots.length;
-  S = { slots: ok ? d.slots : baseSlots(), notas: (d && d.notas) || "" }; sel = Math.min(sel, S.slots.length - 1);
+  S = { slots: ok ? JSON.parse(JSON.stringify(d.slots)) : baseSlots(), notas: (d && d.notas) || "" }; sel = Math.min(sel, S.slots.length - 1);
   $("#notas").value = S.notas; const c = $("#chgChip"), ed = editado(); c.textContent = ed ? "Editado" : "Sin cambios"; c.classList.toggle("on", ed);
   TL.render(); renderBoard(); renderEditor(); renderCtl(); Live.init();
 }
