@@ -29,9 +29,11 @@ def save(x, p):
 # 1) limpieza global
 clean = A / "media/audio/_a_clean.wav"
 run(["ffmpeg", "-v", "error", "-y", "-i", str(SRC), "-ac", "1", "-ar", str(SR), "-af",
-     "adeclick=w=55:o=75,highpass=f=80,anlmdn=s=0.0012:p=0.004:r=0.006,afftdn=nr=10:nf=-52:tn=1,"
-     "equalizer=f=180:t=q:w=1:g=-1.5,equalizer=f=320:t=q:w=1.2:g=-2,equalizer=f=3300:t=q:w=1.1:g=2.5,"
-     "equalizer=f=9000:t=h:w=1:g=1.5,deesser=i=0.3:f=0.5", "-c:a", "pcm_f32le", str(clean)])
+     # clics -> retumbe/hum (pasa-altos 95 Hz + muescas 50/100) -> ruido de fondo -> EQ de voz -> de-esser
+     "adeclick=w=55:o=75,highpass=f=95:p=2,bandreject=f=50:t=q:w=8,bandreject=f=100:t=q:w=10,"
+     "anlmdn=s=0.002:p=0.004:r=0.006,afftdn=nr=14:nf=-48:tn=1,"
+     "equalizer=f=190:t=q:w=1:g=-2,equalizer=f=330:t=q:w=1.2:g=-2.5,equalizer=f=3200:t=q:w=1.1:g=2.5,"
+     "equalizer=f=9500:t=h:w=1:g=1,deesser=i=0.55:m=0.5:f=0.45", "-c:a", "pcm_f32le", str(clean)])
 x = load(clean)
 
 # 2) bloques por frases
@@ -44,6 +46,8 @@ blocks = []
 F = int(0.04 * SR)
 for b in range(9):
     ws = WORDS[idx[b]: idx[b + 1] if b < 8 else len(WORDS)]
+    if b == 5:   # arranque fallido de la locutora ("Personas que…" 74,0–75,4 s): la frase buena empieza en 76,2 s
+        ws = [(max(s, 76.24), max(e, 76.5), w) for (s, e, w) in ws]
     segs, cur = [], [ws[0][0] - 0.12, ws[0][1]]
     for (s, e, w) in ws[1:]:
         if s - cur[1] > 0.45:
@@ -76,7 +80,9 @@ for i, b in enumerate(blocks):
     t += len(b) / SR + (GAPS[i] if i < len(GAPS) else 0)
 tmp = A / "media/audio/_a_seq.wav"; save(y, tmp)
 run(["ffmpeg", "-v", "error", "-y", "-i", str(tmp), "-af",
-     "acompressor=threshold=0.08:ratio=2.5:attack=10:release=160:makeup=2,alimiter=limit=0.89,aformat=channel_layouts=stereo",
+     # nivelado suave entre frases + compresión + limitador
+     "dynaudnorm=f=400:g=21:p=0.85:m=5:s=8,acompressor=threshold=0.07:ratio=3:attack=8:release=140:makeup=2,"
+     "alimiter=limit=0.89,aformat=channel_layouts=stereo",
      "-ar", str(SR), "-c:a", "pcm_s24le", str(A / "media/audio/vo_a2.wav")])
 tmp.unlink(); clean.unlink()
 json.dump(cues, open(A / "vo_a2_cues.json", "w"), indent=1)
@@ -87,10 +93,10 @@ subprocess.run(["python3", str(A.parent.parent / "tools/transcribir.py"), str(A 
                capture_output=True, check=True)
 w = json.load(open(A / "media/audio/vo_a2.json"))
 v = load(A / "media/audio/vo_a2.wav")
-g = np.ones_like(v); R = int(0.05 * SR); floor = 10 ** (-15 / 20)
+g = np.ones_like(v); R = int(0.05 * SR); floor = 10 ** (-26 / 20)
 for i in range(len(w) - 1):
     a, b = w[i]["end"] + 0.07, w[i + 1]["start"] - 0.06
-    if b - a > 0.18:
+    if b - a > 0.13:
         s, e = int(a * SR), int(b * SR)
         env = np.full(e - s, floor, dtype=np.float32)
         r = min(R, (e - s) // 2); env[:r] = np.linspace(1, floor, r); env[-r:] = np.linspace(floor, 1, r)
