@@ -117,26 +117,20 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   <div class="grid">
     <div class="left">
       <section class="card viewer" aria-label="Corte completo">
-        <video id="main" src="corte.mp4" controls playsinline preload="metadata"></video>
-        <p class="hint" style="margin:8px 0 0">Este es el corte actual. Tocá una toma de la lista para saltar a ese momento. Los cambios que elijas se ven en la vista de la toma; el video completo se vuelve a armar cuando le avises a Claude.</p>
+        <video id="main" src="corte_summer.mp4" controls playsinline preload="metadata"></video>
+        <div class="row" style="margin-top:10px"><span class="lbl" style="margin:0">Música del video</span>
+          <div class="pills" id="musPills" role="group" aria-label="Música del video">
+            <button type="button" data-m="summer">Signs of Summer · cálida</button>
+            <button type="button" data-m="winter">Winter to Spring · luminosa</button>
+            <button type="button" data-m="farit">As Far as It Goes · piano</button>
+          </div></div>
+        <p class="hint" style="margin:8px 0 0">Es el mismo corte con tres músicas: tocá una y el video sigue desde donde estaba con ese tema. La que quede marcada es la elegida. Tocá una toma de la lista para saltar a ese momento. Los cambios que elijas se ven en la vista de la toma; el video completo se vuelve a armar cuando le avises a Claude.</p>
       </section>
 
       <section class="card" id="editor" aria-label="Toma seleccionada"></section>
 
-      <section class="card" aria-label="Música">
-        <h2>Música</h2>
-        <div class="row">
-          <select id="musica" aria-label="Música elegida">
-            <option value="">Todavía sin elegir</option>
-            <option value="summer">Signs of Summer · cálida</option>
-            <option value="winter">Winter to Spring · luminosa</option>
-            <option value="farit">As Far as It Goes · piano, íntima</option>
-            <option value="otra">Ninguna de estas: buscar otra</option>
-          </select>
-          <button class="btn" id="musPlay" type="button">Escuchar</button>
-        </div>
-        <audio id="mus" preload="none"></audio>
-        <p class="hint" style="margin:8px 0 0">El video de arriba suena con Signs of Summer.</p>
+      <section class="card" aria-label="Si ninguna música te cierra">
+        <label class="check" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="otraMus"> Ninguna de las tres me cierra: buscar otra música</label>
       </section>
     </div>
 
@@ -331,15 +325,19 @@ function renderPicker(k, s) {
   return w;
 }
 
-// música
-$("#musica").addEventListener("change", e => { S.musica = e.target.value; changed(); });
-$("#musPlay").addEventListener("click", () => {
-  const a = $("#mus"), m = $("#musica").value, b = $("#musPlay");
-  if (!a.paused) { a.pause(); b.textContent = "Escuchar"; return; }
-  if (!m || m === "otra") { b.textContent = "Elegí un tema primero"; setTimeout(() => b.textContent = "Escuchar", 1600); return; }
-  $("#main").pause(); a.src = "musica/" + m + ".mp3"; a.play().then(() => b.textContent = "Pausar").catch(() => {});
-});
-$("#mus").addEventListener("ended", () => $("#musPlay").textContent = "Escuchar");
+// música: el mismo corte con tres temas; al elegir se cambia el video y sigue en el mismo punto
+function pintarMusica() {
+  const m = S.musica && S.musica !== "otra" ? S.musica : "summer";
+  document.querySelectorAll("#musPills button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === m && S.musica !== "otra" && !!S.musica ? "true" : "false"));
+  $("#otraMus").checked = S.musica === "otra";
+  const v = $("#main"), src = "corte_" + m + ".mp4";
+  if (!v.getAttribute("src").endsWith(src)) {
+    const t = v.currentTime, play = !v.paused;
+    v.src = src; v.addEventListener("loadedmetadata", () => { try { v.currentTime = t; } catch (e) {} if (play) v.play().catch(() => {}); }, { once: true });
+  }
+}
+document.querySelectorAll("#musPills button").forEach(b => b.addEventListener("click", () => { S.musica = b.dataset.m; pintarMusica(); changed(); }));
+$("#otraMus").addEventListener("change", e => { S.musica = e.target.checked ? "otra" : ""; pintarMusica(); changed(); });
 $("#notas").addEventListener("input", e => { S.notas = e.target.value; changed(); });
 
 // el visor marca la toma que está sonando
@@ -351,7 +349,7 @@ $("#main").addEventListener("timeupdate", () => {
 
 function aplicar(d) {
   S = { cambios: d.cambios || {}, musica: d.musica || "", notas: d.notas || "" };
-  $("#musica").value = S.musica; $("#notas").value = S.notas;
+  pintarMusica(); $("#notas").value = S.notas;
   renderHeader(); renderBoard(); renderEditor();
 }
 async function boot() {
