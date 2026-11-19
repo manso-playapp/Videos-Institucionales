@@ -100,7 +100,7 @@ input[type=range]{accent-color:var(--accent)}
 .grp p{margin:6px 0 0;font-size:11px;color:var(--muted);line-height:1.35}
 
 /* ajustes de la toma */
-.edit-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:start}
+.edit-top{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:12px;align-items:start}
 @media (max-width:480px){.edit-top{grid-template-columns:minmax(0,1fr)}}
 .edit-top video{aspect-ratio:16/9}
 .frase{font-size:15px;line-height:1.4;margin:0}
@@ -196,6 +196,8 @@ input[type=range]{accent-color:var(--accent)}
           <div class="tlwords" id="tlWords"></div>
           <div class="tlhead" id="tlHead"><i></i></div>
         </div></div>
+
+        <div id="slipBox" style="margin-top:10px"></div>
 
         <div class="ctl" id="ctl">
           <div class="grp">
@@ -435,9 +437,31 @@ const TL = (() => {
     ver(k) { const x = tOf(k) * pps, a = scroll.scrollLeft, w = scroll.clientWidth; if (x < a + 20 || x > a + w - 120) scroll.scrollLeft = Math.max(0, x - w * 0.3); } };
 })();
 
+/* ---- barra de deslizar: todo el material de la toma elegida; el recuadro amarillo es el tramo que entra ---- */
+function renderSlip() {
+  const box = $("#slipBox"), k = sel, s = S.slots[k]; box.textContent = "";
+  if (s.tipo !== "toma") return;
+  const dur = durOf(k), D = LIB[s.n].dur, max = Math.max(0, r2(D - dur));
+  const lbl = el("div", "lbl", "Deslizar la toma " + (k + 1) + ": qué tramo de su material se ve"); lbl.style.marginTop = "0"; box.appendChild(lbl);
+  const bar = el("div", "slip"), win = el("div", "win", max > 0 ? "◀ arrastrá ▶" : "se usa todo"), out = el("div", "hint");
+  const pinta = () => { win.style.left = (s.in / D * 100) + "%"; win.style.width = Math.min(100, dur / D * 100) + "%";
+    out.textContent = max <= 0 ? "Se usa todo el material de esta toma: no hay margen para deslizar. Acortala o cambiala por otra." :
+      "Usa del segundo " + n1(s.in) + " al " + n1(s.in + dur) + " de los " + n1(D) + " que dura el material."; };
+  pinta(); bar.appendChild(win);
+  let dg = null;
+  bar.addEventListener("pointerdown", e => { if (max <= 0) return; const r = bar.getBoundingClientRect(); Live.pause();
+    const t0 = clamp(Live.time(), s.t + 0.02, tOf(k + 1) - 0.05);
+    dg = { x: e.clientX, in0: s.in, w: r.width, antes: JSON.stringify(S.slots), tc: t0 }; bar.setPointerCapture(e.pointerId);
+    if (e.target !== win) { deslizar(k, (e.clientX - r.left) / r.width * D - dur / 2, false); dg.in0 = s.in; pinta(); Live.seek(dg.tc); } });
+  bar.addEventListener("pointermove", e => { if (!dg) return; if (deslizar(k, dg.in0 + (e.clientX - dg.x) / dg.w * D, false)) { pinta(); Live.seek(dg.tc); } });
+  const suelta = () => { if (!dg) return; const g = dg; dg = null; if (JSON.stringify(S.slots) !== g.antes) { hist.push(g.antes); commit(); Live.seek(g.tc); } };
+  bar.addEventListener("pointerup", suelta); bar.addEventListener("pointercancel", suelta); bar.addEventListener("lostpointercapture", suelta);
+  box.append(bar, out);
+}
+
 /* ---- controles con botones ---- */
 function renderCtl() {
-  if (!BASE) return; const k = sel, s = S.slots[k], toma = s.tipo === "toma";
+  if (!BASE) return; const k = sel, s = S.slots[k], toma = s.tipo === "toma"; renderSlip();
   $("#cNum").textContent = "· " + (s.tipo === "placa" ? "logo" : k + 1);
   $("#cDur").textContent = n1(durOf(k)) + " s"; $("#cIni").textContent = fmt(s.t); $("#cIn").textContent = toma ? n1(s.in) + " s" : "–";
   document.querySelectorAll("#ctl .step").forEach(b => { const a = b.dataset.a;
@@ -486,14 +510,10 @@ function renderBoard() {
 /* ---- ajustes de la toma elegida ---- */
 let loopT = null;
 function renderEditor() {
-  const box = $("#editor"), k = sel, s = S.slots[k], dur = durOf(k); box.textContent = ""; clearInterval(loopT);
+  const box = $("#editor"), k = sel, s = S.slots[k], dur = durOf(k); box.textContent = ""; 
   box.appendChild(el("h2", null, (s.tipo === "placa" ? "Placa de cierre" : "Toma " + (k + 1)) + " · " + fmt(s.t)));
   const top = el("div", "edit-top"), left = el("div"), right = el("div");
-  if (s.tipo === "toma") {
-    const v = el("video"); v.muted = true; v.playsInline = true; v.preload = "auto"; v.src = "media/" + id3(s.n) + ".mp4"; v.id = "pv";
-    v.addEventListener("loadedmetadata", () => { try { v.currentTime = s.in; v.play().catch(() => {}); } catch (e) {} });
-    loopT = setInterval(() => { if (S.slots[k] !== s) return; if (v.currentTime >= s.in + durOf(k) || v.ended) { v.currentTime = s.in; v.play().catch(() => {}); } }, 120);
-    left.appendChild(v);
+  if (s.tipo === "toma") { const i = el("img"); i.src = "posters/" + id3(s.n) + ".jpg"; i.alt = ""; i.style.cssText = "width:100%;border-radius:6px;display:block"; left.appendChild(i);
     left.appendChild(el("div", "meta", LIB[s.n].archivo + " · material: " + n1(LIB[s.n].dur) + " s"));
   } else left.appendChild(el("p", "hint", s.tipo === "placa" ? "Placa final con el logo y la web." : "Pantalla dividida con tres momentos de la obra."));
   right.appendChild(el("p", "frase", fraseDe(s.t, tOf(k + 1)) || "(sin locución: respira con música)"));
@@ -501,24 +521,6 @@ function renderEditor() {
   top.append(left, right); box.appendChild(top);
 
   if (s.tipo === "toma") {
-    const D = LIB[s.n].dur, max = Math.max(0, r2(D - dur));
-    box.appendChild(el("div", "lbl", "Tramo del material que se usa"));
-    const bar = el("div", "slip"), win = el("div", "win", "arrastrá"), cur = el("div", "cur"), out = el("div", "hint");
-    const pinta = () => { win.style.left = (s.in / D * 100) + "%"; win.style.width = Math.min(100, dur / D * 100) + "%";
-      out.textContent = max <= 0 ? "Se usa todo el material: no hay margen para deslizar (acortá la toma o cambiala)." :
-        "Usa del segundo " + n1(s.in) + " al " + n1(s.in + dur) + " de " + n1(D) + ". Arrastrá el recuadro; fuera de él, solo mirás el material."; };
-    pinta(); bar.append(win, cur);
-    let dg = null;
-    const mira = e => { const t = clamp((e.clientX - dg.left) / dg.w * D, 0, D - 0.05); cur.style.left = (t / D * 100) + "%"; const v = $("#pv"); if (v) v.currentTime = t; };
-    bar.addEventListener("pointerdown", e => { const r = bar.getBoundingClientRect(); Live.pause();
-      dg = { x: e.clientX, in0: s.in, w: r.width, left: r.left, enWin: e.target === win && max > 0, antes: JSON.stringify(S.slots) }; bar.setPointerCapture(e.pointerId); clearInterval(loopT);
-      const v = $("#pv"); if (v) v.pause(); if (!dg.enWin) mira(e); });
-    bar.addEventListener("pointermove", e => { if (!dg) return;
-      if (dg.enWin) { deslizar(k, dg.in0 + (e.clientX - dg.x) / dg.w * D, false); pinta(); const v = $("#pv"); if (v) v.currentTime = s.in; Live.seek(s.t + 0.02); }
-      else mira(e); });
-    const suelta = () => { if (!dg) return; const g = dg; dg = null; if (JSON.stringify(S.slots) !== g.antes) { hist.push(g.antes); commit(); Live.seek(s.t + 0.02); } else renderEditor(); };
-    bar.addEventListener("pointerup", suelta); bar.addEventListener("pointercancel", suelta); bar.addEventListener("lostpointercapture", suelta);
-    box.append(bar, out);
     const row = el("div", "row"); row.style.marginTop = "10px";
     const b1 = el("button", "btn primary", pick ? "Cerrar las tomas" : "Cambiar por otra toma"); b1.type = "button";
     b1.addEventListener("click", () => { pick = !pick; grupo = grupo || LIB[s.n].grupo; renderEditor(); }); row.appendChild(b1);
