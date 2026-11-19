@@ -113,3 +113,14 @@ Pin que se dibuja + barra de acento + lugar grande y país en versalitas. Va en 
 segundos para situar la pieza sin competir con la frase de apertura.
 `{"template": "lugar", "params": {"lugar": "Santa Fe", "pais": "Argentina", "x": 150, "y": 130, "size": 78}, "start": 0.3, "dur": 3.8}`
 Opcionales: `detalle` (tercera línea), `align: "right"`, `velo: false`. El lugar lo confirma el cliente o el estudio: no se inventa.
+
+## Placa de cierre con logo vectorial (`cierre_vector`)
+El logo se arma pieza por pieza: una viga de acento cruza el cuadro, las letras suben desde atrás, los puntos caen con un
+rebote corto, se escribe la bajada, pasa un brillo y entra la web. Fondo oscuro cálido con una luz que respira. Cuadro completo.
+Necesita el logo separado en partes (JSON con `viewBox`, `base`, `cuerpo`, `puntos`, `bajada`; ver `proyectos/zizi/motion/logo_zizi.json`,
+extraído del PDF del cliente con `pdftocairo -svg`).
+`python3 tools/motion.py plantilla cierre_vector -p '{"logo":"proyectos/zizi/motion/logo_zizi.json","web":"WWW.EJEMPLO.COM.AR","dur":6}' -o render/cierre.mov`
+
+## Nivelación por toma (`grade.levels`)
+`"grade": {"levels": {"black": 0.03, "white": 0.9, "wb": [1.02, 1, 0.97]}, "gamma": 1.1}`: punto negro/blanco medidos y balance de
+blancos por canal, antes del look. `proyectos/zizi/tools_local/niveles.py` mide todas las tomas y los calcula.

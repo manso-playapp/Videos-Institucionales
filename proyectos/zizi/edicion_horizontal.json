@@ -1,6 +1,6 @@
 {
- "base": "Borrador 5",
- "editado": "2026-11-19T20:05:45.155Z",
+ "base": "Borrador 6",
+ "editado": "2026-11-19T21:28:05.680Z",
  "notas": "",
  "pieza": "horizontal",
  "slots": [
@@ -18,95 +18,63 @@
    "nota": "",
    "t": 5.3,
    "tipo": "toma",
-   "tr": "DefocusBlur"
+   "tr": "Fade"
   },
   {
-   "in": 1,
+   "in": 21.52,
    "n": 101,
    "nota": "",
-   "t": 6.6,
+   "t": 7.94,
    "tipo": "toma",
-   "tr": "Corte"
-  },
-  {
-   "in": 0.3,
-   "n": 98,
-   "nota": "",
-   "t": 11.5,
-   "tipo": "toma",
-   "tr": "WhipPan"
-  },
-  {
-   "in": 2,
-   "n": 93,
-   "nota": "",
-   "t": 15.4,
-   "tipo": "toma",
-   "tr": "Corte"
-  },
-  {
-   "in": 2,
-   "n": 95,
-   "nota": "",
-   "t": 16.9,
-   "tipo": "toma",
-   "tr": "Corte"
-  },
-  {
-   "in": 8,
-   "n": 18,
-   "nota": "",
-   "t": 19.4,
-   "tipo": "toma",
-   "tr": "Corte"
+   "tr": "Fade"
   },
   {
    "in": 0,
-   "n": 136,
+   "n": 95,
    "nota": "",
-   "t": 22.2,
+   "t": 12,
    "tipo": "toma",
-   "tr": "BloomDissolve"
+   "tr": "Fade"
   },
   {
-   "in": 0.2,
-   "n": 137,
+   "in": 0,
+   "n": null,
    "nota": "",
-   "t": 26.2,
-   "tipo": "toma",
-   "tr": "Corte"
+   "t": 14.4,
+   "tipo": "negro",
+   "tr": "Fade"
   },
   {
-   "in": 0.1,
-   "n": 147,
-   "nota": "",
-   "t": 27.8,
-   "tipo": "toma",
-   "tr": "Corte"
-  },
-  {
-   "in": 4,
-   "n": 138,
-   "nota": "",
-   "t": 29.1,
-   "tipo": "toma",
-   "tr": "WhipPan"
-  },
-  {
-   "in": 9.6,
+   "in": 9.47,
    "n": 139,
    "nota": "",
-   "t": 31.3,
+   "t": 21.8,
    "tipo": "toma",
-   "tr": "Corte"
+   "tr": "Fade"
   },
   {
-   "in": 2.7,
+   "in": 1.47,
+   "n": 147,
+   "nota": "",
+   "t": 26,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 3.93,
+   "n": 138,
+   "nota": "",
+   "t": 30.1,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 2.11,
    "n": 144,
    "nota": "",
    "t": 33.5,
    "tipo": "toma",
-   "tr": "Overexposure"
+   "tr": "Fade"
   },
   {
    "in": 0,
@@ -114,7 +82,7 @@
    "nota": "",
    "t": 37.3,
    "tipo": "toma",
-   "tr": "Corte"
+   "tr": "Fade"
   },
   {
    "in": 6,
@@ -122,15 +90,15 @@
    "nota": "",
    "t": 38.3,
    "tipo": "toma",
-   "tr": "WhipTilt"
+   "tr": "Fade"
   },
   {
-   "in": 1.5,
-   "n": 66,
+   "in": 7.83,
+   "n": 64,
    "nota": "",
    "t": 40.8,
    "tipo": "toma",
-   "tr": "LightWipe"
+   "tr": "Fade"
   },
   {
    "in": 1,
@@ -138,7 +106,7 @@
    "nota": "",
    "t": 44.4,
    "tipo": "toma",
-   "tr": "DefocusBlur"
+   "tr": "Fade"
   },
   {
    "in": 1.5,
@@ -146,7 +114,7 @@
    "nota": "",
    "t": 48,
    "tipo": "toma",
-   "tr": "Corte"
+   "tr": "Fade"
   },
   {
    "in": 0,
@@ -154,7 +122,7 @@
    "nota": "",
    "t": 51.4,
    "tipo": "toma",
-   "tr": "WhipPan"
+   "tr": "Fade"
   },
   {
    "in": 0,
@@ -162,7 +130,7 @@
    "nota": "",
    "t": 53.5,
    "tipo": "toma",
-   "tr": "Corte"
+   "tr": "Fade"
   },
   {
    "in": 3,
@@ -170,7 +138,7 @@
    "nota": "",
    "t": 56.3,
    "tipo": "toma",
-   "tr": "BloomDissolve"
+   "tr": "Fade"
   },
   {
    "in": 0,
@@ -188,31 +156,31 @@
     77,
     80
    ],
-   "tr": "Corte"
+   "tr": "Fade"
   },
   {
-   "in": 3,
+   "in": 3.2,
    "n": 10,
    "nota": "",
-   "t": 60.9,
+   "t": 61.1,
    "tipo": "toma",
-   "tr": "Corte"
+   "tr": "Fade"
   },
   {
-   "in": 2.6,
+   "in": 3.8,
    "n": 145,
    "nota": "",
-   "t": 62.6,
+   "t": 63.5,
    "tipo": "toma",
-   "tr": "Overexposure"
+   "tr": "Fade"
   },
   {
-   "in": 3.3,
+   "in": 0.69,
    "n": 142,
    "nota": "",
-   "t": 66.9,
+   "t": 66.3,
    "tipo": "toma",
-   "tr": "Corte"
+   "tr": "Fade"
   },
   {
    "in": 3,
@@ -220,55 +188,47 @@
    "nota": "",
    "t": 71.8,
    "tipo": "toma",
-   "tr": "WhipPan"
+   "tr": "Fade"
   },
   {
-   "in": 0.2,
+   "in": 0,
    "n": 149,
    "nota": "",
    "t": 75.6,
    "tipo": "toma",
-   "tr": "BloomDissolve"
+   "tr": "Fade"
   },
   {
-   "in": 5,
+   "in": 5.58,
    "n": 8,
    "nota": "",
-   "t": 78.6,
+   "t": 78.5,
    "tipo": "toma",
-   "tr": "Corte"
-  },
-  {
-   "in": 0.2,
-   "n": 44,
-   "nota": "",
-   "t": 81.3,
-   "tipo": "toma",
-   "tr": "Overexposure"
+   "tr": "Fade"
   },
   {
    "in": 0.6,
-   "n": 43,
+   "n": 44,
    "nota": "",
-   "t": 82.9,
+   "t": 81.7,
    "tipo": "toma",
-   "tr": "Corte"
-  },
-  {
-   "in": 1,
-   "n": 82,
-   "nota": "",
-   "t": 84.3,
-   "tipo": "toma",
-   "tr": "Corte"
+   "tr": "Fade"
   },
   {
    "in": 0,
+   "n": 2,
+   "nota": "",
+   "t": 84.8,
+   "tipo": "toma",
+   "tr": "Fade"
+  },
+  {
+   "in": 7.37,
    "n": 1,
    "nota": "",
    "t": 87.2,
    "tipo": "toma",
-   "tr": "BloomDissolve"
+   "tr": "Fade"
   },
   {
    "in": 0,
@@ -276,7 +236,7 @@
    "nota": "",
    "t": 89.8,
    "tipo": "placa",
-   "tr": "CrossZoom"
+   "tr": "Fade"
   }
  ]
 }

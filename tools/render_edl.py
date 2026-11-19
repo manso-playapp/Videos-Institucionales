@@ -365,6 +365,11 @@ class Builder:
 
     def grade_filters(self, g: dict) -> list[str]:
         out = []
+        if g.get("levels"):
+            # nivelación por toma: punto negro/blanco medidos y balance de blancos (ganancia por canal). Va antes del look.
+            lv = g["levels"]; b, w = float(lv.get("black", 0.0)), float(lv.get("white", 1.0)); wb = lv.get("wb", [1, 1, 1])
+            out.append("colorlevels=" + ":".join(f"{c}imin={b:.4f}:{c}imax={min(1.0, w / float(k)):.4f}:{c}omin={float(lv.get('omin', 0.0)):.3f}:{c}omax={float(lv.get('omax', 1.0)):.3f}"
+                                                 for c, k in zip("rgb", wb)))
         if g.get("lut"):
             lut = self.path(g["lut"]).replace(":", "\\:")
             out.append(f"lut3d=file='{lut}':interp=tetrahedral")

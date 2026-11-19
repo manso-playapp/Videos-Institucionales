@@ -8,6 +8,7 @@ AQUI = Path(__file__).parent
 import os
 MUSIC = os.environ.get("ZIZI_MUSIC", "")   # todavía sin música elegida
 TAG = os.environ.get("ZIZI_TAG", "")
+VO = {"": "media/audio/vo_a2.wav", "masc": "media/audio/vo_masc.wav"}[os.environ.get("ZIZI_VO", "")]   # locución original (default) o voz masculina alternativa
 INV = {c["n"]: c for c in json.load(open(AQUI / "inventario/inventario.json"))}
 FPS, ERR = 29.97, []
 
@@ -78,6 +79,14 @@ if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):
         if e.get("tr") and e["tr"] != "Corte": s["tr"] = T(e["tr"], TR_DUR.get(e["tr"], 0.5))
         S2.append(s)
     S = S2
+    # una transición necesita material extra de las dos tomas (se solapan): si a una toma no le sobra, la transición se acorta
+    for k, s in enumerate(S):
+        if "n" not in s: continue
+        libre = INV[s["n"]]["duracion"] - ((S[k + 1]["t"] if k + 1 < len(S) else END) - s["t"]) - 0.04
+        for j in (k, k + 1):
+            if 0 < j < len(S) and S[j].get("tr"):
+                S[j]["tr"] = dict(S[j]["tr"], dur=round(max(0.0, min(S[j]["tr"]["dur"], libre)), 2))
+                if S[j]["tr"]["dur"] < 0.12: S[j].pop("tr")
 NIV = json.load(open(AQUI / "niveles.json"))
 def niveles(n):
     g = dict(NIV.get(str(n), {}).get("grade", {}))
@@ -95,7 +104,14 @@ def build(vertical):
         tail = S[k + 1]["tr"]["dur"] / 2 if k + 1 < len(S) and S[k + 1].get("tr") else 0.0
         d = (t1 - t0) + head + tail
         if s.get("plate"):
-            c = {"src": "media/logo/placa_web.png", "dur": round(d, 3), "fit": "contain", "bg": "black"}
+            # placa de cierre animada (logo vectorial que se arma): se renderiza una vez con tools/motion.py y entra como plano
+            cierre = AQUI / "render/cierre_zizi.mov"; pc = {"logo": "proyectos/zizi/motion/logo_zizi.json", "web": "WWW.TINGLADOSZIZI.COM.AR", "dur": round(d + 0.4, 2)}
+            firma = AQUI / "render/cierre_zizi.json"
+            if not cierre.exists() or not firma.exists() or json.load(open(firma)) != pc:
+                import subprocess; cierre.parent.mkdir(exist_ok=True)
+                subprocess.run(["python3", str(AQUI.parent.parent / "tools/motion.py"), "plantilla", "cierre_vector", "-p", json.dumps(pc), "-o", str(cierre),
+                                "--size", "1920x1080", "--fps", str(FPS)], check=True, capture_output=True); json.dump(pc, open(firma, "w"))
+            c = {"src": "render/cierre_zizi.mov", "in": 0, "dur": round(d, 3), "global_grade": False}
         elif s.get("negro"):
             neg = AQUI / "media/negro.png"
             if not neg.exists():
@@ -108,6 +124,7 @@ def build(vertical):
         else:
             inv = INV[s["n"]]
             if s.get("exacto"): s = {**s, "i": round(max(0.0, s["i"] - head), 3)}   # el cuadro elegido cae justo en el corte
+            if s.get("exacto"): s = dict(s, i=round(max(0.0, min(s["i"], inv["duracion"] - d - 0.02)), 3))        # si no alcanza la cola, arranca un poco antes
             need = s["i"] + d
             if need > inv["duracion"] + 0.02:
                 ERR.append(f"n{s['n']}: pide {need:.2f}s (in {s['i']} + {d:.2f}) y el clip dura {inv['duracion']:.2f}s")
@@ -156,7 +173,7 @@ def build(vertical):
         "fade": {"in": 1.0, "out": 1.6, "color": "black"},
         "clips": clips, "texts": [], "overlays": ov,
         "audio": {
-            "vo": {"src": "media/audio/vo_a2.wav", "start": 0.0, "gain_db": 0},
+            "vo": {"src": VO, "start": 0.0, "gain_db": 0},
             **MUS,
             "sfx": sfx,
         },
