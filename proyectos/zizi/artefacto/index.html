@@ -152,7 +152,7 @@ input[type=range]{accent-color:var(--accent)}
 <div class="app">
   <header>
     <div class="brand"><i></i>ZIZI · Corte horizontal</div>
-    <span class="chip" id="verChip">Borrador 5</span>
+    <span class="chip" id="verChip">Borrador 6</span>
     <span class="chip" id="chgChip">Sin cambios</span>
     <span class="spacer"></span>
     <span class="state" id="saveState">Cargando…</span>
@@ -164,7 +164,7 @@ input[type=range]{accent-color:var(--accent)}
       <section class="card" aria-label="Visor">
         <div class="pills" id="modo" role="group" aria-label="Qué ver en el visor" style="margin-bottom:10px">
           <button type="button" data-m="live" aria-pressed="true">Tu edición · vista rápida</button>
-          <button type="button" data-m="final" aria-pressed="false">Último render · borrador 5</button>
+          <button type="button" data-m="final" aria-pressed="false">Último render · borrador 6</button>
         </div>
         <div id="liveBox">
           <div class="stage">
@@ -243,7 +243,7 @@ input[type=range]{accent-color:var(--accent)}
   <section class="card foot">
     <h2>Notas generales para el próximo corte</h2>
     <textarea id="notas" placeholder="Ritmo, locución, textos, música, lo que quieras cambiar en general…"></textarea>
-    <div class="row"><button class="btn danger" id="resetBtn" type="button">Volver todo al borrador 5</button><span class="hint">Todo se guarda solo. Cuando termines, avisale a Claude en el chat y arma el corte nuevo con tu edición.</span></div>
+    <div class="row"><button class="btn danger" id="resetBtn" type="button">Volver todo al borrador 6</button><span class="hint">Todo se guarda solo. Cuando termines, avisale a Claude en el chat y arma el corte nuevo con tu edición.</span></div>
   </section>
 </div>
 
@@ -503,8 +503,8 @@ $("#splitBtn").addEventListener("click", () => { Live.pause();
 $("#delBtn").addEventListener("click", () => { Live.pause(); if (eliminar()) { commit(); Live.seek(tOf(sel) + 0.02); } });
 $("#undoBtn").addEventListener("click", () => { if (!hist.length) return; S.slots = JSON.parse(hist.pop()); sel = Math.min(sel, S.slots.length - 1); pick = false; commit(); });
 let resetArmado = false;
-$("#resetBtn").addEventListener("click", e => { if (!resetArmado) { resetArmado = true; e.target.textContent = "Tocá de nuevo para confirmar"; setTimeout(() => { resetArmado = false; e.target.textContent = "Volver todo al borrador 5"; }, 3000); return; }
-  resetArmado = false; e.target.textContent = "Volver todo al borrador 5"; snap(); S.slots = baseSlots(); sel = 0; commit(); });
+$("#resetBtn").addEventListener("click", e => { if (!resetArmado) { resetArmado = true; e.target.textContent = "Tocá de nuevo para confirmar"; setTimeout(() => { resetArmado = false; e.target.textContent = "Volver todo al borrador 6"; }, 3000); return; }
+  resetArmado = false; e.target.textContent = "Volver todo al borrador 6"; snap(); S.slots = baseSlots(); sel = 0; commit(); });
 
 /* ---- guion en tomas (derecha) ---- */
 function renderBoard() {

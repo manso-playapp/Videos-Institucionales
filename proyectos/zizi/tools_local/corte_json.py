@@ -27,6 +27,6 @@ for k, s in enumerate(B.S):
     slots.append(d)
 pal = [{"w": re.sub(r"\bZizi\b", "ZIZI", w["w"]).replace("hora", "obra") if w["w"] in ("hora",) else re.sub(r"\bZizi\b", "ZIZI", w["w"]),
         "t": round(w["start"], 2), "e": round(w["end"], 2)} for w in words]
-json.dump({"pieza": "Horizontal 16:9", "version": "Borrador 5", "dur": B.END, "slots": slots, "lib": lib, "palabras": pal},
+json.dump({"pieza": "Horizontal 16:9", "version": "Borrador 6", "dur": B.END, "slots": slots, "lib": lib, "palabras": pal},
           open(A / "artefacto/corte.json", "w"), ensure_ascii=False, indent=1)
 print(len(slots), "slots", len(lib), "tomas")
