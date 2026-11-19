@@ -318,14 +318,19 @@ function limitesCorte(k) {                   // entre qué tiempos puede moverse
   const p = S.slots[k - 1], c = S.slots[k];
   let lo = tOf(k - 1) + MIN, hi = tOf(k + 1) - MIN;
   hi = Math.min(hi, tOf(k - 1) + matDur(p) - p.in);          // la anterior no puede durar más que su material
-  if (c.tipo === "toma") lo = Math.max(lo, tOf(k + 1) - matDur(c));   // si no le queda material antes, entra desde su primer cuadro: solo hace falta que alcance para llenar
   return [r2(lo), r2(hi)];
 }
 function moverCorte(k, t, guardar = true) {  // mueve el corte k; lo que se ve en cada instante no cambia (la toma k corre su inicio)
   if (k <= 0 || k >= S.slots.length) return false;
   const [lo, hi] = limitesCorte(k); if (hi < lo) return false;
-  t = r2(clamp(t, lo, hi)); const c = S.slots[k], d = t - c.t; if (Math.abs(d) < 0.005) return false;
+  t = r2(clamp(t, lo, hi)); const c = S.slots[k]; if (Math.abs(t - c.t) < 0.005) return false;
   if (guardar) snap();
+  if (t < c.t && c.tipo === "toma") {        // la toma k entra antes y tiene que llenar más tiempo: si no le alcanza el material,
+    const falta = r2((tOf(k + 1) - t) - (matDur(c) - Math.max(0, c.in + (t - c.t))));   // se corre también su final (y así en cadena hasta una que alcance)
+    if (falta > 0.005) { if (k + 1 < S.slots.length) moverCorte(k + 1, tOf(k + 1) - falta, false);
+      const aun = r2((tOf(k + 1) - t) - (matDur(c) - Math.max(0, c.in + (t - c.t)))); if (aun > 0.005) t = r2(t + aun); }
+    if (Math.abs(t - c.t) < 0.005) { if (guardar) hist.pop(); return false; } }
+  const d = t - c.t;
   if (c.tipo === "toma") c.in = r2(Math.max(0, c.in + d));
   if (c.tomas) c.ins = c.ins.map(v => r2(Math.max(0, v + d)));
   c.t = t; return true;
