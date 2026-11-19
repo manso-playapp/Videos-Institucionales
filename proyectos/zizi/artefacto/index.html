@@ -248,6 +248,16 @@ input[type=range]{accent-color:var(--accent)}
 </div>
 
 <script>
+/* ---- diagnóstico temporal: registra qué pasa al editar para poder ver por qué falla un arrastre ---- */
+const DIAG = [], dlog = m => { DIAG.push(((performance.now() / 1000).toFixed(1)) + " " + m); if (DIAG.length > 250) DIAG.shift(); clearTimeout(dlog.t); dlog.t = setTimeout(dflush, 1200); };
+let diagRef = null;
+function dflush() { if (!diagRef) return; diagRef.set({ ua: navigator.userAgent, vista: innerWidth + "x" + innerHeight, tactil: navigator.maxTouchPoints, cuando: new Date().toISOString(), log: DIAG.slice() }).catch(() => {}); }
+addEventListener("error", e => { dlog("ERROR " + e.message + " @" + e.lineno); const n = document.getElementById("notice"); if (n) { n.textContent = "Error en la página: " + e.message + " (línea " + e.lineno + "). Avisale a Claude."; n.hidden = false; } });
+addEventListener("unhandledrejection", e => dlog("RECHAZO " + (e.reason && e.reason.message || e.reason)));
+const dq = e => { const t = e.target, c = t && t.closest ? t.closest(".hnd,.win,.slip,.tlb,.tlhead,.tlruler,.step,button") : null;
+  return e.type + " " + e.pointerType + "#" + e.pointerId + " " + (c ? (c.className || c.tagName) + (c.dataset && c.dataset.a ? "[" + c.dataset.a + c.dataset.d + "]" : "") : (t && t.tagName)) + " x" + Math.round(e.clientX) + " b" + e.buttons; };
+["pointerdown", "pointerup", "pointercancel", "lostpointercapture", "gotpointercapture", "dragstart", "click"].forEach(n => addEventListener(n, e => dlog(dq(e)), true));
+let dmv = 0; addEventListener("pointermove", e => { if (e.buttons && ++dmv % 8 === 0) dlog(dq(e)); }, true);
 const TRANS = [
   ["Corte", "Corte directo", "Sin efecto"], ["Fade", "Disolvencia", "Una imagen se funde en la otra"],
   ["DefocusBlur", "Desenfoque", "Pasa por fuera de foco"], ["BloomDissolve", "Resplandor", "Las luces se abren y funden"],
@@ -280,6 +290,7 @@ const baseSlots = () => BASE.slots.map(b => ({ t: b.t, tipo: b.tipo, n: b.n ?? n
 const editado = () => JSON.stringify(S.slots) !== JSON.stringify(baseSlots());
 
 function commit() {                          // después de cada cambio: guardar y redibujar todo
+  dlog("commit sel=" + (sel + 1) + " t=" + S.slots[sel].t + " in=" + S.slots[sel].in);
   $("#undoBtn").disabled = !hist.length;
   const c = $("#chgChip"), ed = editado(); c.textContent = ed ? "Editado" : "Sin cambios"; c.classList.toggle("on", ed);
   $("#saveState").textContent = "Guardando…";
@@ -482,6 +493,7 @@ document.querySelectorAll("#ctl .step").forEach(b => b.addEventListener("click",
   if (a === "dur") ok = moverCorte(k + 1, tOf(k + 1) + d);
   else if (a === "ini") ok = moverCorte(k, tOf(k) + d);
   else ok = deslizar(k, S.slots[k].in + d);
+  dlog("paso " + a + d + " toma" + (k + 1) + " ok=" + ok);
   if (!ok) { $("#saveState").textContent = "No hay más margen en ese sentido"; return; }
   commit(); Live.seek(a === "dur" ? tOf(k + 1) - 0.06 : tOf(k) + 0.02);
 }));
@@ -609,7 +621,7 @@ async function boot() {
   aplicar(local);
   let db = null; try { db = await claude.use("db"); } catch (e) {}
   if (!db) { $("#notice").textContent = "Abrí esta página con tu cuenta de Claude para que la edición se guarde y Claude pueda leerla. Por ahora queda solo en este navegador."; $("#notice").hidden = false; $("#saveState").textContent = "Sin guardar"; return; }
-  ref = db.doc("selecciones/horizontal");
+  ref = db.doc("selecciones/horizontal"); diagRef = db.doc("selecciones/diag"); dlog("inicio");
   try { const s0 = await ref.get(), d = s0.exists ? s0.data() : null;
     if (d && d.base === BASE.version && Array.isArray(d.slots) && !hist.length) aplicar(d);   // si ya empezó a editar, manda lo que está en pantalla
     $("#saveState").textContent = "Guardado"; if (hist.length) save(); }
