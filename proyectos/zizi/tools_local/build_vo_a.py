@@ -44,17 +44,42 @@ for i, (s, e, w) in enumerate(WORDS):
 assert len(idx) == 9, idx
 blocks = []
 F = int(0.04 * SR)
+# v3 — bordes por energía (Whisper marca los comienzos antes de tiempo y los finales antes de que termine la cola):
+#  · comienzo de bloque: si entre la marca y la voz hay un silencio, se arranca al final de ese silencio (deja afuera chasquidos y respiraciones)
+#  · final de bloque: se sigue la cola real de la última palabra y se funde despacio
+# Los bloques se ubican en los mismos tiempos de la versión anterior (ANCLA), así la edición hecha sobre la locución no se corre.
+ANCLA = [1.5, 11.846, 22.615, 33.821, 44.934, 56.862, 63.095, 72.501, 80.689]
+W20 = int(0.02 * SR)
+def envdb(a, b):
+    n = max(1, int((b - a) * SR) // W20); s0 = int(a * SR)
+    return np.array([20 * np.log10(np.sqrt(np.mean(x[s0 + i * W20: s0 + (i + 1) * W20] ** 2)) + 1e-9) for i in range(n)])
+PICO = 20 * np.log10(np.sqrt(np.mean(np.sort(x ** 2)[-len(x) // 4:])) + 1e-9)       # nivel típico de la voz
+def comienzo(s):                                # s = marca de Whisper
+    a = s - 0.15; e = envdb(a, a + 1.6); fuerte = np.where((e[:-2] > PICO - 8) & (e[1:-1] > PICO - 8) & (e[2:] > PICO - 8))[0]   # voz: 60 ms seguidos bien arriba
+    if not len(fuerte): return a
+    f, ini, run, tope = fuerte[0], None, 0, None
+    for i in range(f - 1, -1, -1):              # hacia atrás desde la voz: el silencio (>= 120 ms) más cercano
+        if e[i] < PICO - 24:
+            if run == 0: tope = i + 1           # primer cuadro con sonido después de ese silencio
+            run += 1
+            if run >= 6: ini = tope; break
+        else: run = 0
+    return a if ini is None else max(a, a + ini * 0.02 - 0.05)
+def final(t):                                   # t = fin de la última palabra según Whisper
+    e = envdb(t - 0.1, t + 0.7); viva = np.where(e > PICO - 28)[0]
+    return (t - 0.1 + (viva[-1] + 1) * 0.02 if len(viva) else t) + 0.16
 for b in range(9):
     ws = WORDS[idx[b]: idx[b + 1] if b < 8 else len(WORDS)]
     if b == 5:   # arranque fallido de la locutora ("Personas que…" 74,0–75,4 s): la frase buena empieza en 76,2 s
         ws = [(max(s, 76.24), max(e, 76.5), w) for (s, e, w) in ws]
-    segs, cur = [], [ws[0][0] - 0.12, ws[0][1]]
+    ini = comienzo(ws[0][0]); corr = ini - (ws[0][0] - 0.12)
+    segs, cur = [], [ini, ws[0][1]]
     for (s, e, w) in ws[1:]:
         if s - cur[1] > 0.45:
             segs.append(cur); cur = [s - 0.10, e]
         else:
             cur[1] = e
-    segs.append(cur); segs[-1][1] += 0.28
+    segs.append(cur); segs[-1][1] = final(segs[-1][1])
     out = np.zeros(0, dtype=np.float32)
     for j, (s, e) in enumerate(segs):
         seg = x[int(s * SR):int(e * SR)].copy()
@@ -65,19 +90,18 @@ for b in range(9):
             out[-F:] *= np.linspace(1, 0, F); seg[:F] *= np.linspace(0, 1, F)
             out = np.concatenate([out, pause])
         out = np.concatenate([out, seg])
-    out[-int(0.12 * SR):] *= np.linspace(1, 0, int(0.12 * SR))
+    out[-int(0.14 * SR):] *= np.linspace(1, 0, int(0.14 * SR)) ** 2
     p = A / f"media/audio/_b{b+1}.wav"; save(out, p)
     q = A / f"media/audio/_b{b+1}_t.wav"
     run(["ffmpeg", "-v", "error", "-y", "-i", str(p), "-af", f"rubberband=tempo={TEMPO}:formant=preserved:pitchq=quality:window=standard", "-c:a", "pcm_f32le", str(q)])
-    blocks.append(load(q)); p.unlink(); q.unlink()
+    blocks.append((load(q), ANCLA[b] + corr / TEMPO)); p.unlink(); q.unlink()
+    print(f"  bloque {b+1}: comienzo {corr:+.2f} s respecto de antes")
 
-t = LEAD; cues = []
-total = LEAD + sum(len(b) / SR for b in blocks) + sum(GAPS) + 2.0
-y = np.zeros(int(total * SR), dtype=np.float32)
-for i, b in enumerate(blocks):
+cues = []
+y = np.zeros(4180829, dtype=np.float32)          # misma duración que la versión anterior (87,10 s)
+for i, (b, t) in enumerate(blocks):
     s = int(t * SR); y[s:s + len(b)] += b
     cues.append({"block": i + 1, "start": round(t, 3), "end": round(t + len(b) / SR, 3)})
-    t += len(b) / SR + (GAPS[i] if i < len(GAPS) else 0)
 tmp = A / "media/audio/_a_seq.wav"; save(y, tmp)
 run(["ffmpeg", "-v", "error", "-y", "-i", str(tmp), "-af",
      # nivelado suave entre frases + compresión + limitador
@@ -85,6 +109,13 @@ run(["ffmpeg", "-v", "error", "-y", "-i", str(tmp), "-af",
      "alimiter=limit=0.89,aformat=channel_layouts=stereo",
      "-ar", str(SR), "-c:a", "pcm_s24le", str(A / "media/audio/vo_a2.wav")])
 tmp.unlink(); clean.unlink()
+v0 = load(A / "media/audio/vo_a2.wav"); rng = np.random.default_rng(7)
+sala = np.cumsum(rng.standard_normal(len(v0)).astype(np.float32)); sala -= np.convolve(sala, np.ones(2400) / 2400, "same")   # ruido grave y parejo
+sala *= 10 ** (-66 / 20) / (np.sqrt(np.mean(sala ** 2)) + 1e-9)
+r = int(0.4 * SR); sala[:r] *= np.linspace(0, 1, r); sala[-int(1.2 * SR):] *= np.linspace(1, 0, int(1.2 * SR))
+save(v0 + sala, A / "media/audio/_sala.wav")
+run(["ffmpeg", "-v", "error", "-y", "-i", str(A / "media/audio/_sala.wav"), "-af", "aformat=channel_layouts=stereo", "-ar", str(SR), "-c:a", "pcm_s24le", str(A / "media/audio/vo_a2.wav")])
+(A / "media/audio/_sala.wav").unlink()
 json.dump(cues, open(A / "vo_a2_cues.json", "w"), indent=1)
 print("dur", round(len(y) / SR, 2), [(c["block"], c["start"], c["end"]) for c in cues])
 
@@ -93,15 +124,15 @@ subprocess.run(["python3", str(A.parent.parent / "tools/transcribir.py"), str(A 
                capture_output=True, check=True)
 w = json.load(open(A / "media/audio/vo_a2.json"))
 v = load(A / "media/audio/vo_a2.wav")
-g = np.ones_like(v); R = int(0.05 * SR); floor = 10 ** (-26 / 20)
+g = np.ones_like(v); R = int(0.09 * SR); floor = 10 ** (-12 / 20)
 for i in range(len(w) - 1):
-    a, b = w[i]["end"] + 0.07, w[i + 1]["start"] - 0.06
-    if b - a > 0.13:
+    a, b = w[i]["end"] + 0.26, w[i + 1]["start"] - 0.14
+    if b - a > 0.2:
         s, e = int(a * SR), int(b * SR)
         env = np.full(e - s, floor, dtype=np.float32)
         r = min(R, (e - s) // 2); env[:r] = np.linspace(1, floor, r); env[-r:] = np.linspace(floor, 1, r)
         g[s:e] = np.minimum(g[s:e], env)
-tail0 = int((w[-1]["end"] + 0.25) * SR); g[tail0:] = np.minimum(g[tail0:], floor)
+pass
 save(v * g, A / "media/audio/_vo_g.wav")
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(A / "media/audio/_vo_g.wav"), "-af", "aformat=channel_layouts=stereo",
                 "-ar", str(SR), "-c:a", "pcm_s24le", str(A / "media/audio/vo_a2.wav")], check=True)
