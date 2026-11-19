@@ -27,6 +27,8 @@ for k, s in enumerate(B.S):
     slots.append(d)
 pal = [{"w": re.sub(r"\bZizi\b", "ZIZI", w["w"]).replace("hora", "obra") if w["w"] in ("hora",) else re.sub(r"\bZizi\b", "ZIZI", w["w"]),
         "t": round(w["start"], 2), "e": round(w["end"], 2)} for w in words]
-json.dump({"pieza": "Horizontal 16:9", "version": "Borrador 6", "dur": B.END, "slots": slots, "lib": lib, "palabras": pal},
+# textos animados: los .webm con transparencia de artefacto/ov/ (uno por overlay de la EDL, en orden) para la vista rápida
+textos = [{"t": o["start"], "dur": o["dur"], "src": "ov/o%02d.webm" % i} for i, o in enumerate(B.build(False)["overlays"])]
+json.dump({"pieza": "Horizontal 16:9", "version": "Borrador 6", "dur": B.END, "slots": slots, "lib": lib, "palabras": pal, "textos": textos},
           open(A / "artefacto/corte.json", "w"), ensure_ascii=False, indent=1)
 print(len(slots), "slots", len(lib), "tomas")
