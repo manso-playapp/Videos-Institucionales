@@ -77,7 +77,12 @@ input[type=range]{accent-color:var(--accent)}
 .tlb.sel{border-color:var(--accent);z-index:2}
 .tlb.drag{cursor:grabbing}
 .tlb b{position:absolute;left:5px;top:2px;font:600 11px/1.3 var(--ui);color:#fff;text-shadow:0 1px 3px #000;pointer-events:none;white-space:nowrap}
-.tlb em{position:absolute;left:3px;bottom:3px;font:600 9px/1.4 var(--ui);font-style:normal;background:#FDB913;color:#16130a;border-radius:3px;padding:0 4px;pointer-events:none;white-space:nowrap;max-width:calc(100% - 6px);overflow:hidden}
+.tlb em{position:absolute;left:3px;bottom:3px;font:600 9px/1.4 var(--ui);font-style:normal;background:#FDB913;color:#16130a;border-radius:3px;padding:0 4px;pointer-events:auto;cursor:pointer;white-space:nowrap;max-width:calc(100% - 6px);overflow:hidden;z-index:4;touch-action:none}
+.tlb em:hover,.tlb em.on{outline:2px solid #fff}
+.tlb em.corte{background:rgba(0,0,0,.6);color:#fff;font-weight:700}
+.tlb.sel em{left:20px}
+#trBox{margin-top:10px;padding:10px;border:1px solid var(--accent);border-radius:8px;background:var(--accent-soft)}
+#trBox .pills{margin:6px 0 8px}
 .hnd{position:absolute;top:-2px;bottom:-2px;width:16px;background:var(--accent);cursor:ew-resize;touch-action:none;z-index:3;display:flex;align-items:center;justify-content:center}
 .hnd::after{content:"";width:3px;height:44%;border-radius:2px;background:var(--on-accent)}
 .hnd.l{left:-9px;border-radius:6px 0 0 6px}
@@ -201,6 +206,7 @@ input[type=range]{accent-color:var(--accent)}
           <div class="tlhead" id="tlHead"><i></i></div>
         </div></div>
 
+        <div id="trBox" hidden></div>
         <div id="slipBox" style="margin-top:10px"></div>
 
         <div class="ctl" id="ctl">
@@ -310,7 +316,7 @@ function limitesCorte(k) {                   // entre qué tiempos puede moverse
   const p = S.slots[k - 1], c = S.slots[k];
   let lo = tOf(k - 1) + MIN, hi = tOf(k + 1) - MIN;
   hi = Math.min(hi, tOf(k - 1) + matDur(p) - p.in);          // la anterior no puede durar más que su material
-  if (c.tipo === "toma") lo = Math.max(lo, c.t - c.in);      // esta no puede empezar antes de su primer cuadro
+  if (c.tipo === "toma") lo = Math.max(lo, tOf(k + 1) - matDur(c));   // si no le queda material antes, entra desde su primer cuadro: solo hace falta que alcance para llenar
   return [r2(lo), r2(hi)];
 }
 function moverCorte(k, t, guardar = true) {  // mueve el corte k; lo que se ve en cada instante no cambia (la toma k corre su inicio)
@@ -408,7 +414,11 @@ const TL = (() => {
       if (s.tipo === "toma") d.style.backgroundImage = "url(posters/" + id3(s.n) + ".jpg)";
       else if (s.tipo === "split") d.style.backgroundImage = "url(posters/" + id3(s.tomas[1]) + ".jpg)";
       d.appendChild(el("b", null, s.tipo === "placa" ? "Logo" : s.tipo === "split" ? (k + 1) + " ×3" : String(k + 1)));
-      if (k > 0 && s.tr !== "Corte") d.appendChild(el("em", null, TRN[s.tr] || s.tr));
+      if (k > 0) { const em = el("em", (s.tr === "Corte" ? "corte" : "") + (trSel === k ? " on" : ""), s.tr === "Corte" ? "＋" : TRN[s.tr] || s.tr);
+        em.title = "Tocá para cambiar la transición de entrada de esta toma";
+        em.addEventListener("pointerdown", e => { e.stopPropagation(); e.preventDefault(); Live.pause(); trSel = trSel === k ? null : k; sel = k; pick = false;
+          render(); renderBoard(); renderEditor(); renderCtl(); Live.seek(s.t + 0.02); });
+        d.appendChild(em); }
       // cuerpo: tocar = elegir e ir a ese punto · arrastrar = deslizar el tramo
       d.addEventListener("pointerdown", e => { if (e.target.classList.contains("hnd")) return; Live.pause();
         drag = { tipo: "slip", k, x: e.clientX, in0: s.in, tc: clamp(xT(e), s.t + 0.02, tOf(k + 1) - 0.05), movio: false, antes: JSON.stringify(S.slots) };
@@ -453,7 +463,24 @@ const TL = (() => {
 })();
 
 /* ---- barra de deslizar: todo el material de la toma elegida; el recuadro amarillo es el tramo que entra ---- */
-let slipDrag = false;
+let slipDrag = false, trSel = null;
+/* ---- panel de transición: se abre tocando la etiqueta de la transición en la línea de tiempo ---- */
+function renderTr() {
+  const box = $("#trBox"); if (trSel == null || trSel <= 0 || trSel >= S.slots.length) { trSel = null; box.hidden = true; return; }
+  const k = trSel, s = S.slots[k]; box.hidden = false; box.textContent = "";
+  box.appendChild(el("div", "lbl", "Transición entre la toma " + k + " y la " + (s.tipo === "placa" ? "placa del logo" : k + 1)));
+  const pills = el("div", "pills");
+  TRANS.forEach(([key, name, desc]) => { const b = el("button", null, name); b.type = "button"; b.title = desc || ""; b.setAttribute("aria-pressed", s.tr === key ? "true" : "false");
+    b.addEventListener("click", () => { if (s.tr === key) return; snap(); s.tr = key; commit(); Live.seek(Math.max(0, s.t - 0.6)); }); pills.appendChild(b); });
+  box.appendChild(pills);
+  const row = el("div", "row"), nom = (TRN[s.tr] || s.tr).toLowerCase();
+  const todas = (soloConFx, txt) => { const b = el("button", "btn", txt); b.type = "button";
+    b.addEventListener("click", () => { snap(); S.slots.forEach((x, i) => { if (i > 0 && (!soloConFx || x.tr !== "Corte")) x.tr = s.tr; }); commit(); }); row.appendChild(b); };
+  todas(true, "Aplicar «" + nom + "» a todas las transiciones"); todas(false, "Aplicar a todos los cortes");
+  const c = el("button", "btn", "Cerrar"); c.type = "button"; c.addEventListener("click", () => { trSel = null; TL.render(); renderTr(); }); row.appendChild(c);
+  box.appendChild(row);
+  box.appendChild(el("p", "hint", "«Todas las transiciones» cambia solo los cortes que ya tienen efecto (" + S.slots.filter((x, i) => i > 0 && x.tr !== "Corte").length + "); «todos los cortes» también los directos (" + (S.slots.length - 1) + " en total). Se deshace con Ctrl+Z."));
+}
 function renderSlip() {
   if (slipDrag) return;                       // no reconstruir la barra mientras se la está arrastrando
   const box = $("#slipBox"), k = sel, s = S.slots[k]; box.textContent = "";
@@ -481,7 +508,7 @@ function renderSlip() {
 
 /* ---- controles con botones ---- */
 function renderCtl() {
-  if (!BASE) return; const k = sel, s = S.slots[k], toma = s.tipo === "toma"; renderSlip();
+  if (!BASE) return; const k = sel, s = S.slots[k], toma = s.tipo === "toma"; renderSlip(); renderTr();
   $("#cNum").textContent = "· " + (s.tipo === "placa" ? "logo" : k + 1);
   $("#cDur").textContent = n1(durOf(k)) + " s"; $("#cIni").textContent = fmt(s.t); $("#cIn").textContent = toma ? n1(s.in) + " s" : "–";
   document.querySelectorAll("#ctl .step").forEach(b => { const a = b.dataset.a;
@@ -497,10 +524,10 @@ document.querySelectorAll("#ctl .step").forEach(b => b.addEventListener("click",
   if (!ok) { $("#saveState").textContent = "No hay más margen en ese sentido"; return; }
   commit(); Live.seek(a === "dur" ? tOf(k + 1) - 0.06 : tOf(k) + 0.02);
 }));
-$("#splitBtn").addEventListener("click", () => { Live.pause();
+$("#splitBtn").addEventListener("click", () => { Live.pause(); trSel = null;
   if (dividir()) { pick = true; grupo = LIB[S.slots[sel].n].grupo; commit(); Live.seek(tOf(sel) + 0.02); }
   else $("#saveState").textContent = "Poné el cabezal dentro de la toma elegida, lejos de los bordes"; });
-$("#delBtn").addEventListener("click", () => { Live.pause(); if (eliminar()) { commit(); Live.seek(tOf(sel) + 0.02); } });
+$("#delBtn").addEventListener("click", () => { Live.pause(); trSel = null; if (eliminar()) { commit(); Live.seek(tOf(sel) + 0.02); } });
 $("#undoBtn").addEventListener("click", () => { if (!hist.length) return; S.slots = JSON.parse(hist.pop()); sel = Math.min(sel, S.slots.length - 1); pick = false; commit(); });
 let resetArmado = false;
 $("#resetBtn").addEventListener("click", e => { if (!resetArmado) { resetArmado = true; e.target.textContent = "Tocá de nuevo para confirmar"; setTimeout(() => { resetArmado = false; e.target.textContent = "Volver todo al borrador 6"; }, 3000); return; }
