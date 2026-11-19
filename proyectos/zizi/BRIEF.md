@@ -47,5 +47,14 @@ ZIZI es la gente: construye relaciones que perduren y una cultura de trabajo.
 - Música de fondo tranquila (Artlist; track y licencia pendientes). Ducking bajo la voz.
 - Las tomas tienen que acompañar el guion. Transiciones de GPU como en Schneider (empuje, franjas, split), usadas como puntuación.
 
+## Entregables pedidos por el cliente (19-11)
+1. **Pieza horizontal 16:9** (la principal; se resuelve primero).
+2. **Pieza vertical 9:16** (mismo video, tomas reacomodadas).
+3. **Pieza para pantalla LED**: sin locución, con música; subtítulos/textos de apoyo si hace falta. Resolución de la pantalla: **PENDIENTE**.
+4. **Versión resumida < 60 s** para YouTube Shorts, con audio (la principal dura 1:35, así que corresponde).
+
+## Estado (19-11)
+- Borrador 4 de la horizontal entregado para revisión: locución original limpia (+7 % de velocidad), 8 textos de marca, tres músicas candidatas (Signs of Summer / Winter to Spring / As Far as It Goes). Falta elección de música y visto bueno.
+
 ## Prohibido
 - **PENDIENTE** (el audio original de las tomas no se usa)
