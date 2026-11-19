@@ -201,6 +201,7 @@ input[type=range]{accent-color:var(--accent)}
             <span id="lvTime">0:00,0</span>
           </div>
           <audio id="vo" src="vo.mp3" preload="auto"></audio>
+          <audio id="mus" preload="none"></audio>
           <div id="fxBar"></div>
         </div>
         <div id="finalBox" hidden>
@@ -307,15 +308,17 @@ const MIN = 0.5, LOCAL = "zizi-corte-horizontal-v2";
 let BASE = null, LIB = {}, S = { slots: [], notas: "" }, sel = 0, pick = false, grupo = null, soloLibres = false;
 let ref = null, saveT = null, hist = [];
 /* ---- look, textura y voz de toda la pieza (se guardan con la edición; en el visor son una aproximación, el render usa los recursos reales del repo) ---- */
-const FX0 = { voz: "orig", look: "personas", grano: false, vineta: false };
+const FX0 = { voz: "orig", look: "personas", grano: false, vineta: false, musica: "" };
+const MUSICAS = [["building_tomorrow", "Building Tomorrow · Ikoliks"], ["golden_awakening", "Golden Awakening · Russo"], ["travelling_light", "Travelling Light · Amos Ever Hadani"], ["new_chapter", "New Chapter · Dredstudio"], ["in_flight", "In Flight · Ziv Moran"], ["sweet_glimpse", "Sweet Glimpse · Assaf Ayalon"], ["life_begins", "Life Begins · Zac Nelson"]];   // candidatas de Artlist (muestras para elegir; se licencia solo la elegida)
 const esPersona = s => s && s.tipo === "toma" && /celular/.test(LIB[s.n].grupo);
 function guardarFx() { $("#saveState").textContent = "Guardando…"; try { localStorage.setItem(LOCAL, JSON.stringify({ ...S, base: BASE.version })); } catch (e) {} clearTimeout(saveT); saveT = setTimeout(save, 400); renderFx(); Live.draw(); }
 function renderFx() {
   const box = $("#fxBar"); if (!box || !S.fx) return; box.textContent = "";
   const grupo = (titulo, clave, ops) => { const g = el("div"); g.appendChild(el("div", "lbl", titulo)); const pl = el("div", "pills");
     ops.forEach(([v, t]) => { const b = el("button", null, t); b.type = "button"; b.setAttribute("aria-pressed", S.fx[clave] === v ? "true" : "false");
-      b.addEventListener("click", () => { S.fx[clave] = v; if (clave === "voz") Live.voz(); guardarFx(); }); pl.appendChild(b); }); g.appendChild(pl); box.appendChild(g); };
+      b.addEventListener("click", () => { S.fx[clave] = v; if (clave === "voz") Live.voz(); if (clave === "musica") Live.musica(); guardarFx(); }); pl.appendChild(b); }); g.appendChild(pl); box.appendChild(g); };
   grupo("Locución", "voz", [["orig", "Locutora original"], ["masc", "Mauricio (argentina, cálida)"], ["carlos", "Carlos (argentina, documental)"]]);
+  grupo("Música (muestra, baja sola bajo la voz)", "musica", [["", "Sin música"], ...MUSICAS]);
   grupo("Look de color", "look", [["limpio", "Limpio"], ["personas", "Cálido en personas"], ["calido", "Cálido en todo"]]);
   const g = el("div"); g.appendChild(el("div", "lbl", "Textura"));
   [["grano", "Grano de película (leve)"], ["vineta", "Viñeta"]].forEach(([k, t]) => { const l = el("label"), c = el("input"); c.type = "checkbox"; c.checked = !!S.fx[k];
@@ -432,6 +435,7 @@ const Live = (() => {
     seekEl.value = t; lbl.textContent = fmt(t) + " / " + fmt(END()); TL.head(t);
     tri.hidden = s.tipo !== "split"; plate.hidden = s.tipo !== "placa";
     if (s.tipo === "placa") sync(plate.firstElementChild, Math.min(rel, 6), playing); else plate.firstElementChild.pause();
+    sonarMusica(t, playing);
     const fx = S.fx || {}; $("#lvLuz").hidden = !s.luz; $("#lvGrain").hidden = !fx.grano; $("#lvVig").hidden = !fx.vineta || s.tipo === "placa";
     act.parentNode.classList.toggle("calido", fx.look === "calido" || (fx.look === "personas" && (esPersona(s) || s.tipo === "split")));
     if (s.tipo === "toma") {
@@ -463,11 +467,20 @@ const Live = (() => {
     document.querySelectorAll("#modo button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === m ? "true" : "false"));
     if (m === "final") vo.pause(); else $("#main").pause(); }
   document.querySelectorAll("#modo button").forEach(b => b.addEventListener("click", () => modo(b.dataset.m)));
+  const mus = $("#mus"); let habla = null;
+  function musica() { const id = S.fx && S.fx.musica, src = id ? "musica/" + id + ".mp3" : ""; if ((mus.getAttribute("src") || "") === src) return;
+    if (!src) { mus.pause(); mus.removeAttribute("src"); mus.load(); return; } mus.src = src; mus.load(); }
+  function sonarMusica(t, playing) {            // la música sigue al cabezal y baja cuando hay voz (aproximación del ducking del render)
+    if (!mus.getAttribute("src")) return;
+    if (!habla) { habla = []; (BASE.palabras || []).forEach(w => { const u = habla[habla.length - 1]; if (u && w.t - u[1] < 0.7) u[1] = w.e; else habla.push([w.t, w.e]); }); }
+    const enVoz = habla.some(([a, b]) => t > a - 0.25 && t < b + 0.35), obj = enVoz ? 0.16 : 0.5; mus.volume += (obj - mus.volume) * 0.08;
+    if (mus.readyState >= 1 && Math.abs(mus.currentTime - t) > 0.35) { try { mus.currentTime = t; } catch (e) {} }
+    if (playing) { if (mus.paused) mus.play().catch(() => {}); } else if (!mus.paused) mus.pause(); }
   function voz() { const src = ({ masc: "vo_m.mp3", carlos: "vo_c.mp3" })[S.fx && S.fx.voz] || "vo.mp3"; if (vo.getAttribute("src") === src) return;
     const t = vo.currentTime, sonando = !vo.paused; vo.src = src; vo.addEventListener("loadedmetadata", () => { try { vo.currentTime = t; } catch (e) {} if (sonando) vo.play().catch(() => {}); }, { once: true }); vo.load(); }
-  return { draw, modo, voz, time: () => vo.currentTime, pause: () => vo.pause(),
+  return { draw, modo, voz, musica, time: () => vo.currentTime, pause: () => vo.pause(),
     seek(t) { modo("live"); try { vo.currentTime = clamp(t, 0, END() - 0.1); } catch (e) {} draw(); },
-    init() { seekEl.max = END(); voz(); draw(); } };
+    init() { seekEl.max = END(); voz(); musica(); draw(); } };
 })();
 
 /* ---- línea de tiempo ---- */

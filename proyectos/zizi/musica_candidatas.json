@@ -1,0 +1,51 @@
+[
+ {
+  "id": "building_tomorrow",
+  "titulo": "Building Tomorrow",
+  "artista": "Ikoliks",
+  "songId": "6002018",
+  "modo": "mayor"
+ },
+ {
+  "id": "golden_awakening",
+  "titulo": "Golden Awakening",
+  "artista": "Russo",
+  "songId": "6001895",
+  "modo": "mayor"
+ },
+ {
+  "id": "travelling_light",
+  "titulo": "Travelling Light",
+  "artista": "Amos Ever Hadani",
+  "songId": "116228",
+  "modo": "mayor"
+ },
+ {
+  "id": "new_chapter",
+  "titulo": "New Chapter",
+  "artista": "Dredstudio",
+  "songId": "6002250",
+  "modo": "mayor"
+ },
+ {
+  "id": "in_flight",
+  "titulo": "In Flight",
+  "artista": "Ziv Moran",
+  "songId": "6002027",
+  "modo": "mayor"
+ },
+ {
+  "id": "sweet_glimpse",
+  "titulo": "Sweet Glimpse",
+  "artista": "Assaf Ayalon",
+  "songId": "2391",
+  "modo": "mayor"
+ },
+ {
+  "id": "life_begins",
+  "titulo": "Life Begins",
+  "artista": "Zac Nelson",
+  "songId": "112561",
+  "modo": "mayor"
+ }
+]
