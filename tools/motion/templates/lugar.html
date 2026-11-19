@@ -1,0 +1,62 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!--
+  LUGAR — localizador de apertura: pin que se dibuja + línea de acento + ciudad/provincia grande y país en
+  versalitas espaciadas. Chico y de esquina: sitúa la pieza sin competir con la frase de apertura.
+  params: {
+    "lugar": "Santa Fe", "pais": "Argentina", "detalle": "línea opcional (ej. nombre de la obra)",
+    "x": 150, "y": 150 (esquina superior izquierda del bloque, px a 1080p), "align": "left"|"right",
+    "size": 62, "acento": "#FDB913", "color": "#ffffff", "velo": true, "dur": 3.6
+  }
+-->
+<style>
+  html,body{margin:0;overflow:hidden;background:transparent}
+  #velo{position:absolute;inset:0;opacity:0}
+  #g{position:absolute;display:flex;align-items:stretch;gap:calc(20px*var(--k));color:var(--c)}
+  #pin{width:calc(46px*var(--k));flex:none;align-self:center;filter:drop-shadow(0 calc(2px*var(--k)) calc(8px*var(--k)) rgba(0,0,0,.45))}
+  #pin path,#pin circle{fill:none;stroke:var(--a);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  #bar{width:calc(3px*var(--k));background:var(--a);transform-origin:center top;flex:none}
+  #t{display:flex;flex-direction:column;justify-content:center}
+  .m{overflow:hidden;white-space:nowrap}
+  .m span{display:inline-block}
+  #lugar{font-family:'Barlow Condensed';font-weight:600;text-transform:uppercase;letter-spacing:.07em;line-height:1;padding:.04em 0 .06em;
+         text-shadow:0 calc(3px*var(--k)) calc(18px*var(--k)) rgba(0,0,0,.5)}
+  #pais,#det{font-family:Inter;font-weight:500;text-transform:uppercase;letter-spacing:.34em;font-size:calc(21px*var(--k));line-height:1.5;
+         text-shadow:0 calc(2px*var(--k)) calc(10px*var(--k)) rgba(0,0,0,.6)}
+  #det{font-weight:300;letter-spacing:.12em;text-transform:none;opacity:.9}
+</style></head>
+<body><div id="velo"></div>
+<div id="g">
+  <svg id="pin" viewBox="0 0 32 44"><path d="M16 41C16 41 3 26.5 3 15.5a13 13 0 0 1 26 0C29 26.500 16 41 16 41Z"/><circle cx="16" cy="15.5" r="4.6"/></svg>
+  <div id="bar"></div>
+  <div id="t"><div class="m" id="lugar"><span></span></div><div class="m" id="pais"><span></span></div><div class="m" id="det"><span></span></div></div>
+</div>
+<script src="_base.js"></script>
+<script>
+defineMotion(async (tl, p, env, k) => {
+  const g = document.getElementById('g'), velo = document.getElementById('velo'), q = s => document.querySelector(s);
+  const dur = +(p.dur || 3.6), right = p.align === 'right';
+  document.documentElement.style.setProperty('--c', p.color || '#fff');
+  document.documentElement.style.setProperty('--a', p.acento || '#FDB913');
+  q('#lugar').style.fontSize = (p.size || 62) * k + 'px';
+  q('#lugar span').textContent = p.lugar || ''; q('#pais span').textContent = p.pais || ''; q('#det span').textContent = p.detalle || '';
+  if (!p.pais) q('#pais').style.display = 'none'; if (!p.detalle) q('#det').style.display = 'none';
+  const x = (p.x ?? 150) * k, y = (p.y ?? 150) * k;
+  if (right) { g.style.right = x + 'px'; g.style.flexDirection = 'row-reverse'; q('#t').style.alignItems = 'flex-end'; } else g.style.left = x + 'px';
+  g.style.top = y + 'px';
+  const cx = right ? 100 - (x + g.offsetWidth / 2) / env.width * 100 : (x + g.offsetWidth / 2) / env.width * 100, cy = (y + g.offsetHeight / 2) / env.height * 100;
+  velo.style.background = `radial-gradient(ellipse 34% 26% at ${cx}% ${cy}%, rgba(0,0,0,.38), rgba(0,0,0,0) 72%)`;
+  if (p.velo === false) velo.style.display = 'none';
+  const trazos = document.querySelectorAll('#pin path,#pin circle');
+  trazos.forEach(e => { const L = e.getTotalLength(); e.style.strokeDasharray = L; e.style.strokeDashoffset = L; });
+  tl.to(velo, { opacity: 1, duration: 0.6, ease: 'power2.out' }, 0)
+    .to(trazos, { strokeDashoffset: 0, duration: 0.9, ease: 'casaInOut', stagger: 0.25 }, 0.05)
+    .from('#pin', { y: -10 * k, duration: 0.7, ease: 'casa' }, 0.05)
+    .from('#bar', { scaleY: 0, duration: 0.6, ease: 'casa' }, 0.3)
+    .from(['#lugar span', '#pais span', '#det span'], { yPercent: 115, duration: 0.7, ease: 'casa', stagger: 0.12 }, 0.42);
+  const out = 0.5;
+  tl.to(g, { opacity: 0, x: (right ? 14 : -14) * k, duration: out, ease: 'power2.in' }, dur - out - 0.1)
+    .to(velo, { opacity: 0, duration: 0.5, ease: 'power2.in' }, dur - 0.55);
+  return dur;
+});
+</script></body></html>

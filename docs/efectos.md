@@ -107,3 +107,9 @@ buscan primero junto a la EDL y después desde la raíz del repo).
 - **Light leaks / destellos:** plantilla `luz`.
 - **Packs comprados** (polvo, grano de película escaneado, *light leaks* reales de Artlist u otros):
   van como `overlays` con `"src"` y `"blend": "screen"`.
+
+## Localizador de apertura (`lugar`)
+Pin que se dibuja + barra de acento + lugar grande y país en versalitas. Va en una esquina durante los primeros
+segundos para situar la pieza sin competir con la frase de apertura.
+`{"template": "lugar", "params": {"lugar": "Santa Fe", "pais": "Argentina", "x": 150, "y": 130, "size": 78}, "start": 0.3, "dur": 3.8}`
+Opcionales: `detalle` (tercera línea), `align: "right"`, `velo: false`. El lugar lo confirma el cliente o el estudio: no se inventa.

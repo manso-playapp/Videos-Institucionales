@@ -106,7 +106,10 @@ def build(vertical):
         else:        p.update(align="left", x=150, y=y or 520)
         return {"template": "frase", "params": p, "start": start, "dur": dur}
     lead = dict(fuente="texto", peso=300)
+    lugar = {"lugar": "Santa Fe", "pais": "Argentina", "acento": "#FDB913", "dur": 3.8, "size": round(78 * (0.6 if vertical else 1))}
+    lugar.update(dict(x=40, y=70) if vertical else dict(x=150, y=130))
     ov = [
+        {"template": "lugar", "params": lugar, "start": 0.3, "dur": 3.8},      # localizador de apertura (dato dado por el estudio)
         frase(1.5, 4.2, [L("Cada proyecto tiene un", 54, 0, **lead), L("comienzo", 240, 1.55, mayus=True, punto=True)]),
         frase(24.3, 3.6, [L("Antes de hablar de estructuras,", 50, 0, **lead), L("hablamos de", 104, 1.25, peso=500, mayus=True),
                           L("proyectos", 220, 1.9, mayus=True, punto=True)]),
