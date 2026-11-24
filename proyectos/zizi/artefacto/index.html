@@ -478,7 +478,7 @@ const Live = (() => {
   function sonarMusica(t, playing) {            // la música sigue al cabezal y baja cuando hay voz (aproximación del ducking del render)
     if (!mus.getAttribute("src")) return;
     if (!habla) { habla = []; (BASE.palabras || []).forEach(w => { const u = habla[habla.length - 1]; if (u && w.t - u[1] < 0.7) u[1] = w.e; else habla.push([w.t, w.e]); }); }
-    const enVoz = habla.some(([a, b]) => t > a - 0.25 && t < b + 0.35), obj = enVoz ? 0.16 : 0.5; mus.volume += (obj - mus.volume) * 0.08;
+    const enVoz = habla.some(([a, b]) => t > a - 0.25 && t < b + 0.35), obj = enVoz ? 0.32 : 0.75; mus.volume += (obj - mus.volume) * 0.08;
     if (mus.readyState >= 1 && Math.abs(mus.currentTime - t) > 0.35) { try { mus.currentTime = t; } catch (e) {} }
     if (playing) { if (mus.paused) mus.play().catch(() => {}); } else if (!mus.paused) mus.pause(); }
   function voz() { const src = BASE.voces ? (BASE.voces.find(x => x[0] === (S.fx && S.fx.voz)) || BASE.voces[0])[2] : ({ masc: "vo_m.mp3", carlos: "vo_c.mp3" })[S.fx && S.fx.voz] || "vo.mp3"; if (vo.getAttribute("src") === src) return;

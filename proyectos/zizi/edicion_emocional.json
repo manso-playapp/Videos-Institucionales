@@ -1,275 +1,274 @@
 {
+ "base": "Emocional 2",
+ "editado": "2026-11-24T12:51:59.203Z",
+ "fx": {
+  "grano": true,
+  "look": "personas",
+  "musica": "travelling_light",
+  "vineta": false,
+  "voz": "orig"
+ },
+ "notas": "",
+ "pieza": "horizontal",
  "slots": [
   {
-   "t": 0.0,
-   "tipo": "toma",
-   "n": 95,
    "in": 0,
-   "tr": "Corte",
+   "n": 95,
    "nota": "",
+   "t": 0,
+   "tipo": "toma",
+   "tr": "Corte",
    "v": 0.8
   },
   {
+   "in": 0.3,
+   "n": 98,
+   "nota": "",
    "t": 4.6,
    "tipo": "toma",
-   "n": 98,
-   "in": 0.3,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   },
   {
+   "in": 1,
+   "n": 147,
+   "nota": "",
    "t": 7.9,
    "tipo": "toma",
-   "n": 147,
-   "in": 1.0,
    "tr": "Fade",
-   "nota": "",
    "v": 0.8
   },
   {
-   "t": 12.0,
-   "tipo": "toma",
-   "n": 139,
    "in": 8,
-   "tr": "Fade",
-   "nota": ""
+   "n": 139,
+   "nota": "",
+   "t": 12,
+   "tipo": "toma",
+   "tr": "Fade"
   },
   {
-   "t": 16.0,
-   "tipo": "toma",
-   "n": 122,
    "in": 0.3,
-   "tr": "Fade",
+   "n": 122,
    "nota": "",
+   "t": 16,
+   "tipo": "toma",
+   "tr": "Fade",
    "v": 0.8
   },
   {
+   "in": 0.2,
+   "n": 49,
+   "nota": "",
    "t": 18.4,
    "tipo": "toma",
-   "n": 49,
-   "in": 0.2,
-   "tr": "Corte",
-   "nota": ""
+   "tr": "Corte"
   },
   {
+   "in": 1.0,
+   "n": 27,
+   "nota": "",
    "t": 20.2,
    "tipo": "toma",
-   "n": 70,
-   "in": 0.4,
-   "tr": "Fade",
-   "nota": "",
-   "v": 0.8
+   "tr": "Fade"
   },
   {
+   "in": 0,
+   "n": 136,
+   "nota": "",
    "t": 21.8,
    "tipo": "toma",
-   "n": 136,
-   "in": 0,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   },
   {
-   "t": 26.0,
-   "tipo": "toma",
+   "in": 0,
    "n": 137,
-   "in": 0,
-   "tr": "Corte",
-   "nota": ""
+   "nota": "",
+   "t": 26,
+   "tipo": "toma",
+   "tr": "Corte"
   },
   {
+   "in": 3.9,
+   "n": 138,
+   "nota": "",
    "t": 27.9,
    "tipo": "toma",
-   "n": 138,
-   "in": 3.9,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Corte"
   },
   {
+   "in": 10.44,
+   "n": 141,
+   "nota": "",
    "t": 30.1,
    "tipo": "toma",
-   "n": 141,
-   "in": 4,
    "tr": "Fade",
-   "nota": "",
    "v": 0.8
   },
   {
+   "in": 2.11,
+   "n": 144,
+   "nota": "",
    "t": 33.5,
    "tipo": "toma",
-   "n": 144,
-   "in": 2.11,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   },
   {
+   "in": 0.5,
+   "n": 109,
+   "nota": "",
    "t": 37.3,
    "tipo": "toma",
-   "n": 109,
-   "in": 0.5,
    "tr": "Fade",
-   "nota": "",
    "v": 0.8
   },
   {
+   "in": 7.83,
+   "n": 64,
+   "nota": "",
    "t": 40.8,
    "tipo": "toma",
-   "n": 64,
-   "in": 7.83,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   },
   {
+   "in": 6,
+   "n": 93,
+   "nota": "",
    "t": 44.4,
    "tipo": "toma",
-   "n": 93,
-   "in": 6,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   },
   {
-   "t": 48.0,
-   "tipo": "toma",
-   "n": 44,
    "in": 0.4,
-   "tr": "Fade",
+   "n": 44,
    "nota": "",
+   "t": 48,
+   "tipo": "toma",
+   "tr": "Fade",
    "v": 0.8
   },
   {
+   "in": 0.3,
+   "n": 126,
+   "nota": "",
    "t": 51.4,
    "tipo": "toma",
-   "n": 126,
-   "in": 0.3,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   },
   {
+   "in": 0,
+   "n": 135,
+   "nota": "",
    "t": 53.5,
    "tipo": "toma",
-   "n": 135,
-   "in": 0,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   },
   {
+   "in": 1,
+   "n": 127,
+   "nota": "",
    "t": 56.3,
    "tipo": "toma",
-   "n": 127,
-   "in": 1,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   },
   {
-   "t": 59.0,
-   "tipo": "toma",
-   "n": 43,
    "in": 0.5,
-   "tr": "Corte",
-   "nota": ""
+   "n": 43,
+   "nota": "",
+   "t": 59,
+   "tipo": "toma",
+   "tr": "Corte"
   },
   {
+   "in": 3.2,
+   "n": 10,
+   "nota": "",
    "t": 61.1,
    "tipo": "toma",
-   "n": 10,
-   "in": 3.2,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   },
   {
+   "in": 3,
+   "luz": true,
+   "n": 145,
+   "nota": "",
    "t": 63.5,
    "tipo": "toma",
-   "n": 145,
-   "in": 3.0,
    "tr": "Fade",
-   "nota": "",
-   "v": 0.8,
-   "luz": true
+   "v": 0.8
   },
   {
+   "in": 0.69,
+   "n": 142,
+   "nota": "",
    "t": 66.3,
    "tipo": "toma",
-   "n": 142,
-   "in": 0.69,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   },
   {
+   "in": 0.2,
+   "n": 148,
+   "nota": "",
    "t": 69.5,
    "tipo": "toma",
-   "n": 148,
-   "in": 0.2,
    "tr": "Corte",
-   "nota": "",
    "v": 0.8
   },
   {
+   "in": 3.0,
+   "n": 4,
+   "nota": "",
    "t": 71.8,
    "tipo": "toma",
-   "n": 119,
-   "in": 1,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   },
   {
+   "in": 0,
+   "luz": true,
+   "n": 149,
+   "nota": "",
    "t": 75.6,
    "tipo": "toma",
-   "n": 149,
-   "in": 0,
-   "tr": "Fade",
-   "nota": "",
-   "luz": true
+   "tr": "Fade"
   },
   {
+   "in": 5.58,
+   "n": 8,
+   "nota": "",
    "t": 78.5,
    "tipo": "toma",
-   "n": 8,
-   "in": 5.58,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   },
   {
+   "in": 0.5,
+   "n": 123,
+   "nota": "",
    "t": 81.7,
    "tipo": "toma",
-   "n": 123,
-   "in": 0.5,
    "tr": "Fade",
-   "nota": "",
    "v": 0.8
   },
   {
+   "in": 1.5,
+   "n": 28,
+   "nota": "",
    "t": 83.3,
    "tipo": "toma",
-   "n": 28,
-   "in": 1.5,
-   "tr": "Corte",
-   "nota": ""
+   "tr": "Corte"
   },
   {
+   "in": 6,
+   "n": 1,
+   "nota": "",
    "t": 84.8,
    "tipo": "toma",
-   "n": 1,
-   "in": 6,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   },
   {
+   "in": 0,
+   "n": null,
+   "nota": "",
    "t": 89.8,
    "tipo": "placa",
-   "n": null,
-   "in": 0,
-   "tr": "Fade",
-   "nota": ""
+   "tr": "Fade"
   }
- ],
- "notas": "",
- "fx": {
-  "voz": "orig",
-  "look": "personas",
-  "grano": true,
-  "vineta": false,
-  "musica": "travelling_light"
- },
- "pieza": "horizontal",
- "base": "Emocional 2",
- "dur": 95.2
+ ]
 }

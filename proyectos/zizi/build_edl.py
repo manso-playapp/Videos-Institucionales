@@ -76,6 +76,7 @@ LUT = {"calido": "assets/luts/estudio_calido.cube"}.get(FX.get("look"), "assets/
 BASE_G = {"saturation": 1.05, "temperature": 0.06, **({"grain": 3} if FX.get("grano") else {}), **({"vignette": True} if FX.get("vineta") else {})}
 if not MUSIC and FX.get("musica") and (AQUI / f"media/music/{FX['musica']}.wav").exists(): MUSIC = f"media/music/{FX['musica']}.wav"
 if not os.environ.get("ZIZI_VO") and not DIN: VO = {"masc": "media/audio/vo_masc.wav", "carlos": "media/audio/vo_carlos.wav"}.get(FX.get("voz"), "media/audio/vo_a2.wav")
+MUS_GAIN = {"glaciers": -8, "travelling_light": -4}.get(FX.get("musica"), -7)     # 24-11: el estudio pidió la música más presente
 MUS_IN = {"glaciers": 4.0}.get(FX.get("musica"), 0.0)      # desde dónde entra el tema, para que llegue rápido a pleno
 TR_DUR = {"WhipPan": 0.38, "WhipTilt": 0.45, "BloomDissolve": 0.5, "Overexposure": 0.42, "DefocusBlur": 0.5, "LightWipe": 0.5, "CrossZoom": 0.7}
 if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):
@@ -105,8 +106,8 @@ def niveles(n):
     return g
 
 def build(vertical):
-    MUS = ({"music": {"src": MUSIC, "in": MUS_IN, "gain_db": -12, "fade_in": 1.5, "fade_out": 1.8, "end": END},
-            "duck_music_under_vo": True, "duck": {"threshold": 0.02, "ratio": 4.5, "attack": 120, "release": 900}} if MUSIC else {})
+    MUS = ({"music": {"src": MUSIC, "in": MUS_IN, "gain_db": MUS_GAIN, "fade_in": 1.5, "fade_out": 1.8, "end": END},
+            "duck_music_under_vo": True, "duck": {"threshold": 0.02, "ratio": 3.0, "attack": 120, "release": 900}} if MUSIC else {})
     W, H = (1080, 1920) if vertical else (1920, 1080)
     if UHD: W, H = W * 2, H * 2                       # master 4K (3840x2160): el material de dron es 4K nativo
     clips, sfx = [], []

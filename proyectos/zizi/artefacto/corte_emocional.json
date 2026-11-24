@@ -3,11 +3,11 @@
  "version": "Emocional 2",
  "dur": 95.2,
  "fx": {
-  "voz": "orig",
-  "look": "personas",
   "grano": true,
+  "look": "personas",
+  "musica": "travelling_light",
   "vineta": false,
-  "musica": "travelling_light"
+  "voz": "orig"
  },
  "render": "",
  "voces": [
@@ -30,7 +30,7 @@
  "slots": [
   {
    "k": 0,
-   "t": 0.0,
+   "t": 0,
    "dur": 4.6,
    "frase": "Cada proyecto tiene un comienzo, a veces",
    "tr": "Corte",
@@ -57,13 +57,13 @@
    "tr": "Fade",
    "tipo": "toma",
    "n": 147,
-   "in": 1.0,
+   "in": 1,
    "v": 0.8
   },
   {
    "k": 3,
-   "t": 12.0,
-   "dur": 4.0,
+   "t": 12,
+   "dur": 4,
    "frase": "Nosotros vemos en ese espacio algo más que una futura",
    "tr": "Fade",
    "tipo": "toma",
@@ -72,7 +72,7 @@
   },
   {
    "k": 4,
-   "t": 16.0,
+   "t": 16,
    "dur": 2.4,
    "frase": "construcción, vemos el esfuerzo, las",
    "tr": "Fade",
@@ -98,9 +98,8 @@
    "frase": "crecer de quienes nos eligen.",
    "tr": "Fade",
    "tipo": "toma",
-   "n": 70,
-   "in": 0.4,
-   "v": 0.8
+   "n": 27,
+   "in": 1.0
   },
   {
    "k": 7,
@@ -114,7 +113,7 @@
   },
   {
    "k": 8,
-   "t": 26.0,
+   "t": 26,
    "dur": 1.9,
    "frase": "de proyectos.",
    "tr": "Corte",
@@ -140,7 +139,7 @@
    "tr": "Fade",
    "tipo": "toma",
    "n": 141,
-   "in": 4,
+   "in": 10.44,
    "v": 0.8
   },
   {
@@ -186,7 +185,7 @@
   },
   {
    "k": 15,
-   "t": 48.0,
+   "t": 48,
    "dur": 3.4,
    "frase": "Detrás de cada proyecto está el trabajo de nuestra gente,",
    "tr": "Fade",
@@ -227,7 +226,7 @@
   },
   {
    "k": 19,
-   "t": 59.0,
+   "t": 59,
    "dur": 2.1,
    "frase": "hacen posible que las ideas se conviertan",
    "tr": "Corte",
@@ -253,7 +252,7 @@
    "tr": "Fade",
    "tipo": "toma",
    "n": 145,
-   "in": 3.0,
+   "in": 3,
    "v": 0.8,
    "luz": true
   },
@@ -285,8 +284,8 @@
    "frase": "Porque construir no es solamente levantar estructuras,",
    "tr": "Fade",
    "tipo": "toma",
-   "n": 119,
-   "in": 1
+   "n": 4,
+   "in": 3.0
   },
   {
    "k": 25,

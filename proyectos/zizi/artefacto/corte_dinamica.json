@@ -542,8 +542,9 @@
    "frase": "que perduren.",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 120,
-   "in": 0.5
+   "n": 148,
+   "in": 0.2,
+   "v": 0.8
   },
   {
    "k": 51,
