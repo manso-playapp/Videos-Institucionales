@@ -539,7 +539,9 @@ class Builder:
             g = float(vo.get("gain_db", 0))
             chain = (f"[{vi}:a]aresample=48000,aformat=channel_layouts=stereo,"
                      f"highpass=f=80,acompressor=threshold=-20dB:ratio=3:attack=5:release=120:makeup=2,"
-                     f"volume={g}dB,adelay={int(st*1000)}|{int(st*1000)}")
+                     f"volume={g}dB,adelay={int(st*1000)}|{int(st*1000)},"
+                     # la locución se rellena con silencio hasta el final: si termina antes, el ducking (sidechain) cortaba la música ahí
+                     f"apad=whole_dur={total:.3f}")
             if a.get("duck_music_under_vo", True) and a.get("music"):
                 self.filters.append(chain + ",asplit=2[vo][vosc]")
                 vo_lbl = "[vosc]"

@@ -84,6 +84,9 @@ def main() -> None:
                  "silencedetect=n=-50dB:d=2", "-f", "null", "-"]).stderr
         sil = [(float(x), float(y)) for x, y in zip(re.findall(r"silence_start: ([0-9.]+)", s),
                                                     re.findall(r"silence_end: ([0-9.]+)", s))]
+        ini = [float(x) for x in re.findall(r"silence_start: ([0-9.]+)", s)]
+        cola = dur - ini[-1] if ini and (len(ini) > len(sil) or sil[-1][1] >= dur - 0.5) else 0.0     # silencio que llega hasta el final
+        (fails if cola > 2.5 else oks).append(f"Silencio al final: {round(cola, 1)} s" + (" (el audio se corta antes que la imagen)" if cola > 2.5 else ""))
         sil = [x for x in sil if x[0] > 0.5 and x[1] < dur - 0.5]
         (warns if sil else oks).append(f"Silencios >2s en medio: {[(round(a_,1), round(b,1)) for a_, b in sil] or 'ninguno'}")
     else:
