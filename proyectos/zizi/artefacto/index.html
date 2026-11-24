@@ -734,12 +734,13 @@ function renderPicker(k, s, dur) {
   enGrupo.forEach(([n, l]) => {
     n = +n; const corta = l.dur < dur * 0.75 - 0.02, us = usadas[n], esta = n === s.n;
     if (soloLibres && us && !esta) return;
-    const b = el("button", "take"); b.type = "button"; b.disabled = corta; b.setAttribute("aria-pressed", n === s.n ? "true" : "false"); b.title = l.archivo;
+    const b = el("button", "take"); b.type = "button"; b.disabled = corta || !!l.veto; b.setAttribute("aria-pressed", n === s.n ? "true" : "false"); b.title = l.archivo;
     const i = el("img"); i.src = "posters/" + id3(n) + ".jpg"; i.alt = l.archivo; i.loading = "lazy"; b.appendChild(i);
     b.appendChild(el("span", "d", n1(l.dur) + " s"));
     if (us) { const otras = us.filter(x => x !== k + 1); b.classList.add("usada");
       b.appendChild(el("span", "u" + (esta && !otras.length ? " esta" : ""), esta && !otras.length ? "La de ahora" : "Usada · toma " + (esta ? otras : us).join(", ") + (esta ? " (y acá)" : ""))); }
-    if (corta) b.appendChild(el("span", "short", "muy corta"));
+    if (l.veto) { const vt = el("span", "short", "No usar · " + l.veto); vt.style.cssText = "background:#b3261e;color:#fff;font-weight:700"; b.appendChild(vt); }
+    else if (corta) b.appendChild(el("span", "short", "muy corta"));
     b.addEventListener("click", () => { snap(); s.tipo = "toma"; s.n = n; s.in = 0; if (LIB[n].dur < dur) s.v = r2(Math.max(0.75, LIB[n].dur / dur - 0.01)); else delete s.v; commit(); Live.seek(s.t + 0.02); });
     b.addEventListener("pointerenter", e => { if (e.pointerType !== "mouse" || corta || b.querySelector("video")) return;
       const v = el("video"); v.muted = true; v.playsInline = true; v.preload = "auto"; v.src = "media/" + id3(n) + ".mp4"; b.insertBefore(v, b.children[1]); });

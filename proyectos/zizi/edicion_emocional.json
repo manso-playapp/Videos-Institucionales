@@ -3,64 +3,59 @@
   {
    "t": 0.0,
    "tipo": "toma",
-   "n": 118,
-   "in": 1.78,
+   "n": 95,
+   "in": 0,
    "tr": "Corte",
-   "nota": ""
+   "nota": "",
+   "v": 0.8
   },
   {
-   "t": 5.3,
+   "t": 4.6,
    "tipo": "toma",
-   "n": 99,
-   "in": 2.33,
+   "n": 98,
+   "in": 0.3,
    "tr": "Fade",
    "nota": ""
   },
   {
    "t": 7.9,
    "tipo": "toma",
-   "n": 101,
-   "in": 21.52,
+   "n": 147,
+   "in": 1.0,
    "tr": "Fade",
-   "nota": ""
+   "nota": "",
+   "v": 0.8
   },
   {
    "t": 12.0,
    "tipo": "toma",
-   "n": 95,
-   "in": 0,
+   "n": 139,
+   "in": 8,
    "tr": "Fade",
    "nota": ""
   },
   {
-   "t": 14.4,
-   "tipo": "toma",
-   "n": 93,
-   "in": 5,
-   "tr": "Fade",
-   "nota": ""
-  },
-  {
-   "t": 17.0,
+   "t": 16.0,
    "tipo": "toma",
    "n": 122,
-   "in": 0.5,
-   "tr": "Corte",
-   "nota": ""
+   "in": 0.3,
+   "tr": "Fade",
+   "nota": "",
+   "v": 0.8
   },
   {
-   "t": 18.5,
+   "t": 18.4,
    "tipo": "toma",
-   "n": 127,
-   "in": 1,
+   "n": 49,
+   "in": 0.2,
    "tr": "Corte",
    "nota": ""
   },
   {
-   "t": 20.1,
+   "t": 20.2,
    "tipo": "toma",
    "n": 70,
-   "in": 0.5,
+   "in": 0.4,
    "tr": "Fade",
    "nota": "",
    "v": 0.8
@@ -68,41 +63,33 @@
   {
    "t": 21.8,
    "tipo": "toma",
-   "n": 139,
-   "in": 9.42,
+   "n": 136,
+   "in": 0,
    "tr": "Fade",
    "nota": ""
   },
   {
    "t": 26.0,
    "tipo": "toma",
-   "n": 147,
-   "in": 1.47,
-   "tr": "Fade",
-   "nota": ""
-  },
-  {
-   "t": 28.2,
-   "tipo": "toma",
-   "n": 136,
+   "n": 137,
    "in": 0,
    "tr": "Corte",
    "nota": ""
   },
   {
-   "t": 30.1,
+   "t": 27.9,
    "tipo": "toma",
    "n": 138,
-   "in": 3.93,
+   "in": 3.9,
    "tr": "Fade",
    "nota": ""
   },
   {
-   "t": 32.0,
+   "t": 30.1,
    "tipo": "toma",
-   "n": 148,
-   "in": 0.3,
-   "tr": "Corte",
+   "n": 141,
+   "in": 4,
+   "tr": "Fade",
    "nota": "",
    "v": 0.8
   },
@@ -118,17 +105,10 @@
    "t": 37.3,
    "tipo": "toma",
    "n": 109,
-   "in": 0,
+   "in": 0.5,
    "tr": "Fade",
-   "nota": ""
-  },
-  {
-   "t": 38.3,
-   "tipo": "toma",
-   "n": 112,
-   "in": 6,
-   "tr": "Corte",
-   "nota": ""
+   "nota": "",
+   "v": 0.8
   },
   {
    "t": 40.8,
@@ -141,49 +121,26 @@
   {
    "t": 44.4,
    "tipo": "toma",
-   "n": 27,
-   "in": 1,
+   "n": 93,
+   "in": 6,
    "tr": "Fade",
    "nota": ""
   },
   {
    "t": 48.0,
    "tipo": "toma",
-   "n": 28,
-   "in": 1.5,
+   "n": 44,
+   "in": 0.4,
    "tr": "Fade",
-   "nota": ""
-  },
-  {
-   "t": 49.7,
-   "tipo": "toma",
-   "n": 123,
-   "in": 0.5,
-   "tr": "Corte",
-   "nota": ""
-  },
-  {
-   "t": 50.5,
-   "tipo": "toma",
-   "n": 43,
-   "in": 0.6,
-   "tr": "Corte",
-   "nota": ""
+   "nota": "",
+   "v": 0.8
   },
   {
    "t": 51.4,
    "tipo": "toma",
-   "n": 68,
-   "in": 4.07,
-   "tr": "Fade",
-   "nota": ""
-  },
-  {
-   "t": 52.5,
-   "tipo": "toma",
    "n": 126,
-   "in": 0.5,
-   "tr": "Corte",
+   "in": 0.3,
+   "tr": "Fade",
    "nota": ""
   },
   {
@@ -197,28 +154,18 @@
   {
    "t": 56.3,
    "tipo": "toma",
-   "n": 81,
-   "in": 3,
+   "n": 127,
+   "in": 1,
    "tr": "Fade",
    "nota": ""
   },
   {
    "t": 59.0,
-   "tipo": "split",
-   "n": null,
-   "in": 0,
-   "tr": "Fade",
-   "nota": "",
-   "tomas": [
-    104,
-    77,
-    80
-   ],
-   "ins": [
-    6,
-    2,
-    2
-   ]
+   "tipo": "toma",
+   "n": 43,
+   "in": 0.5,
+   "tr": "Corte",
+   "nota": ""
   },
   {
    "t": 61.1,
@@ -247,19 +194,19 @@
    "nota": ""
   },
   {
-   "t": 69.3,
+   "t": 69.5,
    "tipo": "toma",
-   "n": 143,
-   "in": 0,
-   "tr": "Fade",
+   "n": 148,
+   "in": 0.2,
+   "tr": "Corte",
    "nota": "",
    "v": 0.8
   },
   {
    "t": 71.8,
    "tipo": "toma",
-   "n": 4,
-   "in": 3,
+   "n": 119,
+   "in": 1,
    "tr": "Fade",
    "nota": ""
   },
@@ -283,32 +230,25 @@
   {
    "t": 81.7,
    "tipo": "toma",
-   "n": 44,
-   "in": 0.6,
+   "n": 123,
+   "in": 0.5,
    "tr": "Fade",
-   "nota": ""
+   "nota": "",
+   "v": 0.8
   },
   {
    "t": 83.3,
    "tipo": "toma",
-   "n": 84,
-   "in": 5,
+   "n": 28,
+   "in": 1.5,
    "tr": "Corte",
    "nota": ""
   },
   {
    "t": 84.8,
    "tipo": "toma",
-   "n": 2,
-   "in": 0,
-   "tr": "Fade",
-   "nota": ""
-  },
-  {
-   "t": 87.2,
-   "tipo": "toma",
    "n": 1,
-   "in": 7.37,
+   "in": 6,
    "tr": "Fade",
    "nota": ""
   },
@@ -330,6 +270,6 @@
   "musica": "travelling_light"
  },
  "pieza": "horizontal",
- "base": "Emocional 1",
+ "base": "Emocional 2",
  "dur": 95.2
 }

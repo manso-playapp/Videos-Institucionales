@@ -1,6 +1,6 @@
 {
  "pieza": "Horizontal 16:9",
- "version": "Dinámica 1",
+ "version": "Dinámica 2",
  "dur": 79.4,
  "fx": {
   "voz": "carlos",
@@ -9,7 +9,7 @@
   "vineta": true,
   "musica": "glaciers"
  },
- "render": "corte.mp4",
+ "render": "",
  "voces": [
   [
    "carlos",
@@ -300,8 +300,8 @@
    "frase": "se hace en soledad.",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 80,
-   "in": 4
+   "n": 50,
+   "in": 1
   },
   {
    "k": 28,
@@ -330,8 +330,8 @@
    "frase": "el trabajo de",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 82,
-   "in": 1
+   "n": 123,
+   "in": 0.5
   },
   {
    "k": 31,
@@ -340,8 +340,8 @@
    "frase": "nuestra gente,",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 86,
-   "in": 5
+   "n": 49,
+   "in": 0.3
   },
   {
    "k": 32,
@@ -381,8 +381,8 @@
    "frase": "Personas que, desde",
    "tr": "Fade",
    "tipo": "toma",
-   "n": 81,
-   "in": 3
+   "n": 134,
+   "in": 0.5
   },
   {
    "k": 36,
@@ -394,12 +394,12 @@
    "tomas": [
     104,
     77,
-    80
+    5
    ],
    "ins": [
     6,
     2,
-    2
+    6
    ]
   },
   {
@@ -522,8 +522,8 @@
    "frase": "estructuras,",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 79,
-   "in": 4
+   "n": 7,
+   "in": 1
   },
   {
    "k": 49,
@@ -542,8 +542,8 @@
    "frase": "que perduren.",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 84,
-   "in": 5
+   "n": 120,
+   "in": 0.5
   },
   {
    "k": 51,
@@ -572,8 +572,8 @@
    "frase": "construimos",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 83,
-   "in": 4
+   "n": 128,
+   "in": 0.5
   },
   {
    "k": 54,
@@ -1074,31 +1074,36 @@
    "archivo": "DJI_20250428061747_0708_D.MP4",
    "dur": 15.52,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "81": {
    "archivo": "DJI_20250428061822_0709_D.MP4",
    "dur": 20.62,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "82": {
    "archivo": "DJI_20250428061854_0710_D.MP4",
    "dur": 5.81,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "83": {
    "archivo": "DJI_20250428061916_0711_D.MP4",
    "dur": 15.48,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "84": {
    "archivo": "DJI_20250428061949_0712_D.MP4",
    "dur": 16.18,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "85": {
    "archivo": "DJI_20250428062035_0713_D.MP4",
@@ -1110,13 +1115,15 @@
    "archivo": "DJI_20250428062110_0714_D.MP4",
    "dur": 17.48,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "87": {
    "archivo": "DJI_20250428062137_0715_D.MP4",
    "dur": 13.68,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "88": {
    "archivo": "DJI_20250428062211_0716_D.MP4",

@@ -87,7 +87,7 @@ if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):
         elif e["tipo"] == "negro": s["negro"] = True      # espacio reservado sin toma: sale negro
         elif e["tipo"] == "split": s["split"], s["si"] = e["tomas"], e["ins"]
         else: s.update(n=e["n"], i=e["in"], v=float(e.get("v", 1)), luz=bool(e.get("luz")), **_meta.get(e["n"], {}))
-        if e.get("tr") and e["tr"] != "Corte": s["tr"] = T(e["tr"], TR_DUR.get(e["tr"], 0.5))
+        if e.get("tr") and e["tr"] != "Corte": s["tr"] = T(e["tr"], 0.9 if (VER == "emocional" and e["tr"] == "Fade") else TR_DUR.get(e["tr"], 0.5))   # disolvencias largas en la emocional
         S2.append(s)
     S = S2
     # una transición necesita material extra de las dos tomas (se solapan): si a una toma no le sobra, la transición se acorta

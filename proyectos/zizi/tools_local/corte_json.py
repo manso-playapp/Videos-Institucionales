@@ -14,6 +14,7 @@ def grupo(c):
     return "19-10 · Dueños y planos (celular)" if "IMG_" in p else "19-10 · Terreno y columnas"
 lib = {str(n): {"archivo": c["file"].split("/")[-1], "dur": round(c["duracion"], 2), "grupo": grupo(c),
                 "res": c["video"]["res"]} for n, c in inv.items() if n < 150}
+for n in (80, 81, 82, 83, 84, 86, 87): lib[str(n)]["veto"] = "sin protección"      # operarios sobre el techo sin elementos de protección: no se usan (pedido del estudio, 24-11)
 slots = []
 for k, s in enumerate(B.S):
     t0 = s["t"]; t1 = B.S[k + 1]["t"] if k + 1 < len(B.S) else B.END
@@ -33,7 +34,7 @@ pal = [{"w": re.sub(r"\bZizi\b", "ZIZI", w["w"]).replace("hora", "obra") if w["w
         "t": round(w["start"], 2), "e": round(w["end"], 2)} for w in words]
 # textos animados: los .webm con transparencia de artefacto/ov/ (uno por overlay de la EDL, en orden) para la vista rápida
 textos = [{"t": o["start"], "dur": o["dur"], "src": ("ov" if B.DIN else "ove") + "/o%02d.webm" % i} for i, o in enumerate(x for x in B.build(False)["overlays"] if x["template"] != "luz")]
-json.dump({"pieza": "Horizontal 16:9", "version": "Dinámica 1" if B.DIN else "Emocional 1" if B.VER == "emocional" else "Borrador 6", "dur": B.END, "fx": B.FX, "render": "corte.mp4" if B.DIN else "",
+json.dump({"pieza": "Horizontal 16:9", "version": "Dinámica 2" if B.DIN else "Emocional 2" if B.VER == "emocional" else "Borrador 6", "dur": B.END, "fx": B.FX, "render": "",
            "voces": [["carlos", "Carlos (argentina) · ritmo natural", "vo_cc.mp3"]] if B.DIN else [["orig", "Lara (locución original)", "vo.mp3"], ["carlos", "Carlos (argentina)", "vo_c.mp3"], ["masc", "Mauricio (argentina)", "vo_m.mp3"]], "slots": slots, "lib": lib, "palabras": pal, "textos": textos},
           open(A / ("artefacto/corte_%s.json" % (B.VER or "larga")), "w"), ensure_ascii=False, indent=1)
 print(len(slots), "slots", len(lib), "tomas")

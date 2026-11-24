@@ -1,6 +1,6 @@
 {
  "pieza": "Horizontal 16:9",
- "version": "Emocional 1",
+ "version": "Emocional 2",
  "dur": 95.2,
  "fx": {
   "voz": "orig",
@@ -31,22 +31,23 @@
   {
    "k": 0,
    "t": 0.0,
-   "dur": 5.3,
-   "frase": "Cada proyecto tiene un comienzo, a veces es solamente",
+   "dur": 4.6,
+   "frase": "Cada proyecto tiene un comienzo, a veces",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 118,
-   "in": 1.78
+   "n": 95,
+   "in": 0,
+   "v": 0.8
   },
   {
    "k": 1,
-   "t": 5.3,
-   "dur": 2.6,
-   "frase": "un terreno así, otras veces una",
+   "t": 4.6,
+   "dur": 3.3,
+   "frase": "es solamente un terreno así, otras veces una",
    "tr": "Fade",
    "tipo": "toma",
-   "n": 99,
-   "in": 2.33
+   "n": 98,
+   "in": 0.3
   },
   {
    "k": 2,
@@ -55,113 +56,95 @@
    "frase": "idea que lleva mucho tiempo esperando su oportunidad.",
    "tr": "Fade",
    "tipo": "toma",
-   "n": 101,
-   "in": 21.52
+   "n": 147,
+   "in": 1.0,
+   "v": 0.8
   },
   {
    "k": 3,
    "t": 12.0,
-   "dur": 2.4,
-   "frase": "Nosotros vemos en ese espacio algo",
+   "dur": 4.0,
+   "frase": "Nosotros vemos en ese espacio algo más que una futura",
    "tr": "Fade",
    "tipo": "toma",
-   "n": 95,
-   "in": 0
+   "n": 139,
+   "in": 8
   },
   {
    "k": 4,
-   "t": 14.4,
-   "dur": 2.6,
-   "frase": "más que una futura construcción,",
+   "t": 16.0,
+   "dur": 2.4,
+   "frase": "construcción, vemos el esfuerzo, las",
    "tr": "Fade",
    "tipo": "toma",
-   "n": 93,
-   "in": 5
+   "n": 122,
+   "in": 0.3,
+   "v": 0.8
   },
   {
    "k": 5,
-   "t": 17.0,
-   "dur": 1.5,
-   "frase": "vemos el esfuerzo, las expectativas",
+   "t": 18.4,
+   "dur": 1.8,
+   "frase": "expectativas y las ganas de",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 122,
-   "in": 0.5
+   "n": 49,
+   "in": 0.2
   },
   {
    "k": 6,
-   "t": 18.5,
+   "t": 20.2,
    "dur": 1.6,
-   "frase": "y las ganas de",
-   "tr": "Corte",
-   "tipo": "toma",
-   "n": 127,
-   "in": 1
-  },
-  {
-   "k": 7,
-   "t": 20.1,
-   "dur": 1.7,
    "frase": "crecer de quienes nos eligen.",
    "tr": "Fade",
    "tipo": "toma",
    "n": 70,
-   "in": 0.5,
+   "in": 0.4,
    "v": 0.8
   },
   {
-   "k": 8,
+   "k": 7,
    "t": 21.8,
    "dur": 4.2,
    "frase": "Por eso, en ZIZI, antes de hablar de estructuras hablamos",
    "tr": "Fade",
    "tipo": "toma",
-   "n": 139,
-   "in": 9.42
-  },
-  {
-   "k": 9,
-   "t": 26.0,
-   "dur": 2.2,
-   "frase": "de proyectos.",
-   "tr": "Fade",
-   "tipo": "toma",
-   "n": 147,
-   "in": 1.47
-  },
-  {
-   "k": 10,
-   "t": 28.2,
-   "dur": 1.9,
-   "frase": "Escuchamos, compartimos ideas",
-   "tr": "Corte",
-   "tipo": "toma",
    "n": 136,
    "in": 0
   },
   {
-   "k": 11,
-   "t": 30.1,
+   "k": 8,
+   "t": 26.0,
    "dur": 1.9,
-   "frase": "y buscamos juntos la mejor",
-   "tr": "Fade",
-   "tipo": "toma",
-   "n": 138,
-   "in": 3.93
-  },
-  {
-   "k": 12,
-   "t": 32.0,
-   "dur": 1.5,
-   "frase": "solución.",
+   "frase": "de proyectos.",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 148,
-   "in": 0.3,
+   "n": 137,
+   "in": 0
+  },
+  {
+   "k": 9,
+   "t": 27.9,
+   "dur": 2.2,
+   "frase": "Escuchamos, compartimos ideas",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 138,
+   "in": 3.9
+  },
+  {
+   "k": 10,
+   "t": 30.1,
+   "dur": 3.4,
+   "frase": "y buscamos juntos la mejor solución.",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 141,
+   "in": 4,
    "v": 0.8
   },
   {
-   "k": 13,
+   "k": 11,
    "t": 33.5,
    "dur": 3.8,
    "frase": "Aportamos más de 46 años de experiencia,",
@@ -171,27 +154,18 @@
    "in": 2.11
   },
   {
-   "k": 14,
+   "k": 12,
    "t": 37.3,
-   "dur": 1.0,
-   "frase": "conocimiento y",
+   "dur": 3.5,
+   "frase": "conocimiento y tecnología para que cada decisión tenga",
    "tr": "Fade",
    "tipo": "toma",
    "n": 109,
-   "in": 0
+   "in": 0.5,
+   "v": 0.8
   },
   {
-   "k": 15,
-   "t": 38.3,
-   "dur": 2.5,
-   "frase": "tecnología para que cada decisión tenga",
-   "tr": "Corte",
-   "tipo": "toma",
-   "n": 112,
-   "in": 6
-  },
-  {
-   "k": 16,
+   "k": 13,
    "t": 40.8,
    "dur": 3.6,
    "frase": "el respaldo de una empresa que sabe construir.",
@@ -201,67 +175,38 @@
    "in": 7.83
   },
   {
-   "k": 17,
+   "k": 14,
    "t": 44.4,
    "dur": 3.6,
    "frase": "Pero también sabemos que ninguna obra se hace en soledad.",
    "tr": "Fade",
    "tipo": "toma",
-   "n": 27,
-   "in": 1
+   "n": 93,
+   "in": 6
   },
   {
-   "k": 18,
+   "k": 15,
    "t": 48.0,
-   "dur": 1.7,
-   "frase": "Detrás de cada proyecto está",
+   "dur": 3.4,
+   "frase": "Detrás de cada proyecto está el trabajo de nuestra gente,",
    "tr": "Fade",
    "tipo": "toma",
-   "n": 28,
-   "in": 1.5
+   "n": 44,
+   "in": 0.4,
+   "v": 0.8
   },
   {
-   "k": 19,
-   "t": 49.7,
-   "dur": 0.8,
-   "frase": "el trabajo",
-   "tr": "Corte",
-   "tipo": "toma",
-   "n": 123,
-   "in": 0.5
-  },
-  {
-   "k": 20,
-   "t": 50.5,
-   "dur": 0.9,
-   "frase": "de nuestra gente,",
-   "tr": "Corte",
-   "tipo": "toma",
-   "n": 43,
-   "in": 0.6
-  },
-  {
-   "k": 21,
+   "k": 16,
    "t": 51.4,
-   "dur": 1.1,
-   "frase": "el compromiso de",
+   "dur": 2.1,
+   "frase": "el compromiso de nuestros proveedores y",
    "tr": "Fade",
-   "tipo": "toma",
-   "n": 68,
-   "in": 4.07
-  },
-  {
-   "k": 22,
-   "t": 52.5,
-   "dur": 1.0,
-   "frase": "nuestros proveedores y",
-   "tr": "Corte",
    "tipo": "toma",
    "n": 126,
-   "in": 0.5
+   "in": 0.3
   },
   {
-   "k": 23,
+   "k": 17,
    "t": 53.5,
    "dur": 2.8,
    "frase": "la confianza de nuestros clientes.",
@@ -271,35 +216,27 @@
    "in": 0
   },
   {
-   "k": 24,
+   "k": 18,
    "t": 56.3,
    "dur": 2.7,
    "frase": "Personas que, desde distintos lugares,",
    "tr": "Fade",
    "tipo": "toma",
-   "n": 81,
-   "in": 3
+   "n": 127,
+   "in": 1
   },
   {
-   "k": 25,
+   "k": 19,
    "t": 59.0,
    "dur": 2.1,
    "frase": "hacen posible que las ideas se conviertan",
-   "tr": "Fade",
-   "tipo": "split",
-   "tomas": [
-    104,
-    77,
-    80
-   ],
-   "ins": [
-    6,
-    2,
-    2
-   ]
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 43,
+   "in": 0.5
   },
   {
-   "k": 26,
+   "k": 20,
    "t": 61.1,
    "dur": 2.4,
    "frase": "en realidades. Y",
@@ -309,7 +246,7 @@
    "in": 3.2
   },
   {
-   "k": 27,
+   "k": 21,
    "t": 63.5,
    "dur": 2.8,
    "frase": "cuando estrechamos una mano, reafirmamos nuestra manera de",
@@ -321,38 +258,38 @@
    "luz": true
   },
   {
-   "k": 28,
+   "k": 22,
    "t": 66.3,
-   "dur": 3.0,
-   "frase": "trabajar, con responsabilidad, con cercanía",
+   "dur": 3.2,
+   "frase": "trabajar, con responsabilidad, con cercanía y",
    "tr": "Fade",
    "tipo": "toma",
    "n": 142,
    "in": 0.69
   },
   {
-   "k": 29,
-   "t": 69.3,
-   "dur": 2.5,
-   "frase": "y con la palabra como compromiso.",
-   "tr": "Fade",
+   "k": 23,
+   "t": 69.5,
+   "dur": 2.3,
+   "frase": "con la palabra como compromiso.",
+   "tr": "Corte",
    "tipo": "toma",
-   "n": 143,
-   "in": 0,
+   "n": 148,
+   "in": 0.2,
    "v": 0.8
   },
   {
-   "k": 30,
+   "k": 24,
    "t": 71.8,
    "dur": 3.8,
    "frase": "Porque construir no es solamente levantar estructuras,",
    "tr": "Fade",
    "tipo": "toma",
-   "n": 4,
-   "in": 3
+   "n": 119,
+   "in": 1
   },
   {
-   "k": 31,
+   "k": 25,
    "t": 75.6,
    "dur": 2.9,
    "frase": "es construir relaciones que perduren.",
@@ -363,7 +300,7 @@
    "luz": true
   },
   {
-   "k": 32,
+   "k": 26,
    "t": 78.5,
    "dur": 3.2,
    "frase": "ZIZI",
@@ -373,47 +310,38 @@
    "in": 5.58
   },
   {
-   "k": 33,
+   "k": 27,
    "t": 81.7,
    "dur": 1.6,
    "frase": "es la gente,",
    "tr": "Fade",
    "tipo": "toma",
-   "n": 44,
-   "in": 0.6
+   "n": 123,
+   "in": 0.5,
+   "v": 0.8
   },
   {
-   "k": 34,
+   "k": 28,
    "t": 83.3,
    "dur": 1.5,
    "frase": "construimos cultura de trabajo.",
    "tr": "Corte",
    "tipo": "toma",
-   "n": 84,
-   "in": 5
+   "n": 28,
+   "in": 1.5
   },
   {
-   "k": 35,
+   "k": 29,
    "t": 84.8,
-   "dur": 2.4,
-   "frase": "",
-   "tr": "Fade",
-   "tipo": "toma",
-   "n": 2,
-   "in": 0
-  },
-  {
-   "k": 36,
-   "t": 87.2,
-   "dur": 2.6,
+   "dur": 5.0,
    "frase": "",
    "tr": "Fade",
    "tipo": "toma",
    "n": 1,
-   "in": 7.37
+   "in": 6
   },
   {
-   "k": 37,
+   "k": 30,
    "t": 89.8,
    "dur": 5.4,
    "frase": "",
@@ -900,31 +828,36 @@
    "archivo": "DJI_20250428061747_0708_D.MP4",
    "dur": 15.52,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "81": {
    "archivo": "DJI_20250428061822_0709_D.MP4",
    "dur": 20.62,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "82": {
    "archivo": "DJI_20250428061854_0710_D.MP4",
    "dur": 5.81,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "83": {
    "archivo": "DJI_20250428061916_0711_D.MP4",
    "dur": 15.48,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "84": {
    "archivo": "DJI_20250428061949_0712_D.MP4",
    "dur": 16.18,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "85": {
    "archivo": "DJI_20250428062035_0713_D.MP4",
@@ -936,13 +869,15 @@
    "archivo": "DJI_20250428062110_0714_D.MP4",
    "dur": 17.48,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "87": {
    "archivo": "DJI_20250428062137_0715_D.MP4",
    "dur": 13.68,
    "grupo": "6-11 · Techo completo",
-   "res": "3840x2160"
+   "res": "3840x2160",
+   "veto": "sin protección"
   },
   "88": {
    "archivo": "DJI_20250428062211_0716_D.MP4",
