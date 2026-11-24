@@ -67,13 +67,15 @@ END = 95.2
 # Ahí "in" es el punto de la fuente que se ve en el corte t (sin contar el solape de la transición).
 UHD = bool(os.environ.get("ZIZI_4K"))
 DIN = os.environ.get("ZIZI_VERSION", "") == "dinamica"     # versión corta y dinámica: Carlos a ritmo natural (1:15) + ráfagas
-EDIC = AQUI / ("edicion_dinamica.json" if DIN else "edicion_horizontal.json")
+VER = os.environ.get("ZIZI_VERSION", "")                     # "" = edición larga del estudio · "dinamica" · "emocional"
+EDIC = AQUI / {"dinamica": "edicion_dinamica.json", "emocional": "edicion_emocional.json"}.get(VER, "edicion_horizontal.json")
 if DIN: END = 79.4; VO = "media/audio/vo_carlos_c.wav"
 # Opciones de look, textura y música elegidas en el editor (campo fx de la edición guardada)
 FX = (json.load(open(EDIC)).get("fx") or {}) if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION") else {}
 LUT = {"calido": "assets/luts/estudio_calido.cube"}.get(FX.get("look"), "assets/luts/estudio_limpio.cube")
 BASE_G = {"saturation": 1.05, "temperature": 0.06, **({"grain": 3} if FX.get("grano") else {}), **({"vignette": True} if FX.get("vineta") else {})}
 if not MUSIC and FX.get("musica") and (AQUI / f"media/music/{FX['musica']}.wav").exists(): MUSIC = f"media/music/{FX['musica']}.wav"
+if not os.environ.get("ZIZI_VO") and not DIN: VO = {"masc": "media/audio/vo_masc.wav", "carlos": "media/audio/vo_carlos.wav"}.get(FX.get("voz"), "media/audio/vo_a2.wav")
 MUS_IN = {"glaciers": 4.0}.get(FX.get("musica"), 0.0)      # desde dónde entra el tema, para que llegue rápido a pleno
 TR_DUR = {"WhipPan": 0.38, "WhipTilt": 0.45, "BloomDissolve": 0.5, "Overexposure": 0.42, "DefocusBlur": 0.5, "LightWipe": 0.5, "CrossZoom": 0.7}
 if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):

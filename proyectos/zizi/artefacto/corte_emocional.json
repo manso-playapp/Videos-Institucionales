@@ -1,0 +1,2259 @@
+{
+ "pieza": "Horizontal 16:9",
+ "version": "Emocional 1",
+ "dur": 95.2,
+ "fx": {
+  "voz": "orig",
+  "look": "personas",
+  "grano": true,
+  "vineta": false,
+  "musica": "travelling_light"
+ },
+ "render": "",
+ "voces": [
+  [
+   "orig",
+   "Lara (locución original)",
+   "vo.mp3"
+  ],
+  [
+   "carlos",
+   "Carlos (argentina)",
+   "vo_c.mp3"
+  ],
+  [
+   "masc",
+   "Mauricio (argentina)",
+   "vo_m.mp3"
+  ]
+ ],
+ "slots": [
+  {
+   "k": 0,
+   "t": 0.0,
+   "dur": 5.3,
+   "frase": "Cada proyecto tiene un comienzo, a veces es solamente",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 118,
+   "in": 1.78
+  },
+  {
+   "k": 1,
+   "t": 5.3,
+   "dur": 2.6,
+   "frase": "un terreno así, otras veces una",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 99,
+   "in": 2.33
+  },
+  {
+   "k": 2,
+   "t": 7.9,
+   "dur": 4.1,
+   "frase": "idea que lleva mucho tiempo esperando su oportunidad.",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 101,
+   "in": 21.52
+  },
+  {
+   "k": 3,
+   "t": 12.0,
+   "dur": 2.4,
+   "frase": "Nosotros vemos en ese espacio algo",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 95,
+   "in": 0
+  },
+  {
+   "k": 4,
+   "t": 14.4,
+   "dur": 2.6,
+   "frase": "más que una futura construcción,",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 93,
+   "in": 5
+  },
+  {
+   "k": 5,
+   "t": 17.0,
+   "dur": 1.5,
+   "frase": "vemos el esfuerzo, las expectativas",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 122,
+   "in": 0.5
+  },
+  {
+   "k": 6,
+   "t": 18.5,
+   "dur": 1.6,
+   "frase": "y las ganas de",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 127,
+   "in": 1
+  },
+  {
+   "k": 7,
+   "t": 20.1,
+   "dur": 1.7,
+   "frase": "crecer de quienes nos eligen.",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 70,
+   "in": 0.5,
+   "v": 0.8
+  },
+  {
+   "k": 8,
+   "t": 21.8,
+   "dur": 4.2,
+   "frase": "Por eso, en ZIZI, antes de hablar de estructuras hablamos",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 139,
+   "in": 9.42
+  },
+  {
+   "k": 9,
+   "t": 26.0,
+   "dur": 2.2,
+   "frase": "de proyectos.",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 147,
+   "in": 1.47
+  },
+  {
+   "k": 10,
+   "t": 28.2,
+   "dur": 1.9,
+   "frase": "Escuchamos, compartimos ideas",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 136,
+   "in": 0
+  },
+  {
+   "k": 11,
+   "t": 30.1,
+   "dur": 1.9,
+   "frase": "y buscamos juntos la mejor",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 138,
+   "in": 3.93
+  },
+  {
+   "k": 12,
+   "t": 32.0,
+   "dur": 1.5,
+   "frase": "solución.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 148,
+   "in": 0.3,
+   "v": 0.8
+  },
+  {
+   "k": 13,
+   "t": 33.5,
+   "dur": 3.8,
+   "frase": "Aportamos más de 46 años de experiencia,",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 144,
+   "in": 2.11
+  },
+  {
+   "k": 14,
+   "t": 37.3,
+   "dur": 1.0,
+   "frase": "conocimiento y",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 109,
+   "in": 0
+  },
+  {
+   "k": 15,
+   "t": 38.3,
+   "dur": 2.5,
+   "frase": "tecnología para que cada decisión tenga",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 112,
+   "in": 6
+  },
+  {
+   "k": 16,
+   "t": 40.8,
+   "dur": 3.6,
+   "frase": "el respaldo de una empresa que sabe construir.",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 64,
+   "in": 7.83
+  },
+  {
+   "k": 17,
+   "t": 44.4,
+   "dur": 3.6,
+   "frase": "Pero también sabemos que ninguna obra se hace en soledad.",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 27,
+   "in": 1
+  },
+  {
+   "k": 18,
+   "t": 48.0,
+   "dur": 1.7,
+   "frase": "Detrás de cada proyecto está",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 28,
+   "in": 1.5
+  },
+  {
+   "k": 19,
+   "t": 49.7,
+   "dur": 0.8,
+   "frase": "el trabajo",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 123,
+   "in": 0.5
+  },
+  {
+   "k": 20,
+   "t": 50.5,
+   "dur": 0.9,
+   "frase": "de nuestra gente,",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 43,
+   "in": 0.6
+  },
+  {
+   "k": 21,
+   "t": 51.4,
+   "dur": 1.1,
+   "frase": "el compromiso de",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 68,
+   "in": 4.07
+  },
+  {
+   "k": 22,
+   "t": 52.5,
+   "dur": 1.0,
+   "frase": "nuestros proveedores y",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 126,
+   "in": 0.5
+  },
+  {
+   "k": 23,
+   "t": 53.5,
+   "dur": 2.8,
+   "frase": "la confianza de nuestros clientes.",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 135,
+   "in": 0
+  },
+  {
+   "k": 24,
+   "t": 56.3,
+   "dur": 2.7,
+   "frase": "Personas que, desde distintos lugares,",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 81,
+   "in": 3
+  },
+  {
+   "k": 25,
+   "t": 59.0,
+   "dur": 2.1,
+   "frase": "hacen posible que las ideas se conviertan",
+   "tr": "Fade",
+   "tipo": "split",
+   "tomas": [
+    104,
+    77,
+    80
+   ],
+   "ins": [
+    6,
+    2,
+    2
+   ]
+  },
+  {
+   "k": 26,
+   "t": 61.1,
+   "dur": 2.4,
+   "frase": "en realidades. Y",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 10,
+   "in": 3.2
+  },
+  {
+   "k": 27,
+   "t": 63.5,
+   "dur": 2.8,
+   "frase": "cuando estrechamos una mano, reafirmamos nuestra manera de",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 145,
+   "in": 3.0,
+   "v": 0.8,
+   "luz": true
+  },
+  {
+   "k": 28,
+   "t": 66.3,
+   "dur": 3.0,
+   "frase": "trabajar, con responsabilidad, con cercanía",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 142,
+   "in": 0.69
+  },
+  {
+   "k": 29,
+   "t": 69.3,
+   "dur": 2.5,
+   "frase": "y con la palabra como compromiso.",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 143,
+   "in": 0,
+   "v": 0.8
+  },
+  {
+   "k": 30,
+   "t": 71.8,
+   "dur": 3.8,
+   "frase": "Porque construir no es solamente levantar estructuras,",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 4,
+   "in": 3
+  },
+  {
+   "k": 31,
+   "t": 75.6,
+   "dur": 2.9,
+   "frase": "es construir relaciones que perduren.",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 149,
+   "in": 0,
+   "luz": true
+  },
+  {
+   "k": 32,
+   "t": 78.5,
+   "dur": 3.2,
+   "frase": "ZIZI",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 8,
+   "in": 5.58
+  },
+  {
+   "k": 33,
+   "t": 81.7,
+   "dur": 1.6,
+   "frase": "es la gente,",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 44,
+   "in": 0.6
+  },
+  {
+   "k": 34,
+   "t": 83.3,
+   "dur": 1.5,
+   "frase": "construimos cultura de trabajo.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 84,
+   "in": 5
+  },
+  {
+   "k": 35,
+   "t": 84.8,
+   "dur": 2.4,
+   "frase": "",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 2,
+   "in": 0
+  },
+  {
+   "k": 36,
+   "t": 87.2,
+   "dur": 2.6,
+   "frase": "",
+   "tr": "Fade",
+   "tipo": "toma",
+   "n": 1,
+   "in": 7.37
+  },
+  {
+   "k": 37,
+   "t": 89.8,
+   "dur": 5.4,
+   "frase": "",
+   "tr": "Fade",
+   "tipo": "placa"
+  }
+ ],
+ "lib": {
+  "1": {
+   "archivo": "DJI_20250508094220_0721_D.MP4",
+   "dur": 15.65,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "2": {
+   "archivo": "DJI_20250508094252_0722_D.MP4",
+   "dur": 6.24,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "3": {
+   "archivo": "DJI_20250508094302_0723_D.MP4",
+   "dur": 22.92,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "4": {
+   "archivo": "DJI_20250508094327_0724_D.MP4",
+   "dur": 20.39,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "5": {
+   "archivo": "DJI_20250508094414_0725_D.MP4",
+   "dur": 25.66,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "6": {
+   "archivo": "DJI_20250508094508_0726_D.MP4",
+   "dur": 19.59,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "7": {
+   "archivo": "DJI_20250508094534_0727_D.MP4",
+   "dur": 5.87,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "8": {
+   "archivo": "DJI_20250508094550_0728_D.MP4",
+   "dur": 10.44,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "9": {
+   "archivo": "DJI_20250508094631_0729_D.MP4",
+   "dur": 5.77,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "10": {
+   "archivo": "DJI_20250508094650_0730_D.MP4",
+   "dur": 14.31,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "11": {
+   "archivo": "DJI_20250508094718_0731_D.MP4",
+   "dur": 12.78,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "12": {
+   "archivo": "DJI_20250508094739_0732_D.MP4",
+   "dur": 27.79,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "13": {
+   "archivo": "DJI_20250508094841_0733_D.MP4",
+   "dur": 15.12,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "14": {
+   "archivo": "DJI_20250508094900_0734_D.MP4",
+   "dur": 10.81,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "15": {
+   "archivo": "DJI_20250508094915_0735_D.MP4",
+   "dur": 9.01,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "16": {
+   "archivo": "DJI_20250508094934_0736_D.MP4",
+   "dur": 13.15,
+   "grupo": "14-11 · Galpón terminado",
+   "res": "3840x2160"
+  },
+  "17": {
+   "archivo": "DJI_20261027094118_0616_D.MP4",
+   "dur": 22.62,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "18": {
+   "archivo": "DJI_20261027094147_0617_D.MP4",
+   "dur": 25.59,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "19": {
+   "archivo": "DJI_20261027094231_0618_D.MP4",
+   "dur": 6.24,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "20": {
+   "archivo": "DJI_20261027094253_0619_D.MP4",
+   "dur": 6.41,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "21": {
+   "archivo": "DJI_20261027094435_0622_D.MP4",
+   "dur": 18.25,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "22": {
+   "archivo": "DJI_20261027094519_0623_D.MP4",
+   "dur": 6.74,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "23": {
+   "archivo": "DJI_20261027094556_0624_D.MP4",
+   "dur": 17.95,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "24": {
+   "archivo": "DJI_20261027094706_0625_D.MP4",
+   "dur": 9.41,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "25": {
+   "archivo": "DJI_20261027094758_0626_D.MP4",
+   "dur": 5.94,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "26": {
+   "archivo": "DJI_20261027094835_0627_D.MP4",
+   "dur": 14.15,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "27": {
+   "archivo": "DJI_20261027094918_0628_D.MP4",
+   "dur": 8.44,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "28": {
+   "archivo": "DJI_20261027094944_0629_D.MP4",
+   "dur": 9.78,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "29": {
+   "archivo": "DJI_20261027095136_0630_D.MP4",
+   "dur": 18.52,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "30": {
+   "archivo": "DJI_20261027095456_0631_D.MP4",
+   "dur": 7.67,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "31": {
+   "archivo": "DJI_20261027095537_0633_D.MP4",
+   "dur": 10.34,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "32": {
+   "archivo": "DJI_20261027095706_0634_D.MP4",
+   "dur": 9.34,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "33": {
+   "archivo": "DJI_20261027095827_0635_D.MP4",
+   "dur": 15.98,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "34": {
+   "archivo": "DJI_20261027095914_0636_D.MP4",
+   "dur": 20.19,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "35": {
+   "archivo": "DJI_20261027095936_0637_D.MP4",
+   "dur": 39.24,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "36": {
+   "archivo": "DJI_20261027100043_0638_D.MP4",
+   "dur": 9.54,
+   "grupo": "27-10 · Montaje",
+   "res": "3840x2160"
+  },
+  "37": {
+   "archivo": "IMG_3382.MP4",
+   "dur": 1.8,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "38": {
+   "archivo": "IMG_3383.MP4",
+   "dur": 3.47,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "39": {
+   "archivo": "IMG_3384.MP4",
+   "dur": 3.7,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "40": {
+   "archivo": "IMG_3385.MOV",
+   "dur": 2.73,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "3840x2160"
+  },
+  "41": {
+   "archivo": "IMG_3386.MOV",
+   "dur": 2.53,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "3840x2160"
+  },
+  "42": {
+   "archivo": "IMG_3387.MP4",
+   "dur": 3.3,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "43": {
+   "archivo": "IMG_3388.MP4",
+   "dur": 4.7,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "44": {
+   "archivo": "IMG_3389.MP4",
+   "dur": 3.94,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "45": {
+   "archivo": "IMG_3390.MP4",
+   "dur": 2.9,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "46": {
+   "archivo": "IMG_3391.MP4",
+   "dur": 2.73,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "47": {
+   "archivo": "IMG_3392.MP4",
+   "dur": 2.3,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "48": {
+   "archivo": "IMG_3393.MP4",
+   "dur": 5.17,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "49": {
+   "archivo": "IMG_3394.MP4",
+   "dur": 3.74,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "50": {
+   "archivo": "IMG_3395.MP4",
+   "dur": 5.97,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "51": {
+   "archivo": "IMG_3396.MP4",
+   "dur": 5.24,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "52": {
+   "archivo": "IMG_3397.MP4",
+   "dur": 2.67,
+   "grupo": "27-10 · Montaje (celular)",
+   "res": "1280x720"
+  },
+  "53": {
+   "archivo": "DJI_20261030120827_0663_D.MP4",
+   "dur": 5.91,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "54": {
+   "archivo": "DJI_20261030120835_0664_D.MP4",
+   "dur": 14.05,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "55": {
+   "archivo": "DJI_20261030120900_0665_D.MP4",
+   "dur": 12.28,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "56": {
+   "archivo": "DJI_20261030120932_0666_D.MP4",
+   "dur": 7.24,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "57": {
+   "archivo": "DJI_20261030121001_0667_D.MP4",
+   "dur": 4.6,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "58": {
+   "archivo": "DJI_20261030121119_0668_D.MP4",
+   "dur": 12.45,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "59": {
+   "archivo": "DJI_20261030121139_0669_D.MP4",
+   "dur": 12.11,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "60": {
+   "archivo": "DJI_20261030121207_0670_D.MP4",
+   "dur": 12.58,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "61": {
+   "archivo": "DJI_20261030121228_0671_D.MP4",
+   "dur": 24.82,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "62": {
+   "archivo": "DJI_20261030121304_0672_D.MP4",
+   "dur": 18.28,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "63": {
+   "archivo": "DJI_20261030121329_0673_D.MP4",
+   "dur": 8.04,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "64": {
+   "archivo": "DJI_20261030121345_0674_D.MP4",
+   "dur": 14.48,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "65": {
+   "archivo": "DJI_20261030121425_0675_D.MP4",
+   "dur": 7.37,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "66": {
+   "archivo": "DJI_20261030121438_0676_D.MP4",
+   "dur": 10.38,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "67": {
+   "archivo": "DJI_20261030121501_0677_D.MP4",
+   "dur": 24.72,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "68": {
+   "archivo": "DJI_20261030121654_0678_D.MP4",
+   "dur": 8.74,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "69": {
+   "archivo": "DJI_20261030121715_0679_D.MP4",
+   "dur": 12.45,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "70": {
+   "archivo": "DJI_20261030121803_0680_D.MP4",
+   "dur": 3.94,
+   "grupo": "30-10 · Primeros techos",
+   "res": "3840x2160"
+  },
+  "71": {
+   "archivo": "DJI_20250428061302_0699_D.MP4",
+   "dur": 8.68,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "72": {
+   "archivo": "DJI_20250428061325_0700_D.MP4",
+   "dur": 11.58,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "73": {
+   "archivo": "DJI_20250428061341_0701_D.MP4",
+   "dur": 16.85,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "74": {
+   "archivo": "DJI_20250428061406_0702_D.MP4",
+   "dur": 10.08,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "75": {
+   "archivo": "DJI_20250428061422_0703_D.MP4",
+   "dur": 20.79,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "76": {
+   "archivo": "DJI_20250428061451_0704_D.MP4",
+   "dur": 13.71,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "77": {
+   "archivo": "DJI_20250428061513_0705_D.MP4",
+   "dur": 11.51,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "78": {
+   "archivo": "DJI_20250428061639_0706_D.MP4",
+   "dur": 9.94,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "79": {
+   "archivo": "DJI_20250428061712_0707_D.MP4",
+   "dur": 14.71,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "80": {
+   "archivo": "DJI_20250428061747_0708_D.MP4",
+   "dur": 15.52,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "81": {
+   "archivo": "DJI_20250428061822_0709_D.MP4",
+   "dur": 20.62,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "82": {
+   "archivo": "DJI_20250428061854_0710_D.MP4",
+   "dur": 5.81,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "83": {
+   "archivo": "DJI_20250428061916_0711_D.MP4",
+   "dur": 15.48,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "84": {
+   "archivo": "DJI_20250428061949_0712_D.MP4",
+   "dur": 16.18,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "85": {
+   "archivo": "DJI_20250428062035_0713_D.MP4",
+   "dur": 21.52,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "86": {
+   "archivo": "DJI_20250428062110_0714_D.MP4",
+   "dur": 17.48,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "87": {
+   "archivo": "DJI_20250428062137_0715_D.MP4",
+   "dur": 13.68,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "88": {
+   "archivo": "DJI_20250428062211_0716_D.MP4",
+   "dur": 18.82,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "89": {
+   "archivo": "DJI_20250428062233_0717_D.MP4",
+   "dur": 17.78,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "90": {
+   "archivo": "DJI_20250428062322_0718_D.MP4",
+   "dur": 4.74,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "91": {
+   "archivo": "DJI_20250428062329_0719_D.MP4",
+   "dur": 6.64,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "92": {
+   "archivo": "DJI_20250428062338_0720_D.MP4",
+   "dur": 21.05,
+   "grupo": "6-11 · Techo completo",
+   "res": "3840x2160"
+  },
+  "93": {
+   "archivo": "DJI_20261019121534_0539_D.MP4",
+   "dur": 21.42,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "94": {
+   "archivo": "DJI_20261019121633_0540_D.MP4",
+   "dur": 9.71,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "95": {
+   "archivo": "DJI_20261019121707_0541_D.MP4",
+   "dur": 13.95,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "96": {
+   "archivo": "DJI_20261019122218_0542_D.MP4",
+   "dur": 7.37,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "97": {
+   "archivo": "DJI_20261019122229_0543_D.MP4",
+   "dur": 13.05,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "98": {
+   "archivo": "DJI_20261019122245_0544_D.MP4",
+   "dur": 5.64,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "99": {
+   "archivo": "DJI_20261019122259_0545_D.MP4",
+   "dur": 4.97,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "100": {
+   "archivo": "DJI_20261019122307_0546_D.MP4",
+   "dur": 2.7,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "101": {
+   "archivo": "DJI_20261019122312_0547_D.MP4",
+   "dur": 28.33,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "102": {
+   "archivo": "DJI_20261019122410_0548_D.MP4",
+   "dur": 12.95,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "103": {
+   "archivo": "DJI_20261019122437_0549_D.MP4",
+   "dur": 8.91,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "104": {
+   "archivo": "DJI_20261019122449_0550_D.MP4",
+   "dur": 17.12,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "105": {
+   "archivo": "DJI_20261019122550_0551_D.MP4",
+   "dur": 16.42,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "106": {
+   "archivo": "DJI_20261019122609_0552_D.MP4",
+   "dur": 0.73,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "107": {
+   "archivo": "DJI_20261019122626_0553_D.MP4",
+   "dur": 11.34,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "108": {
+   "archivo": "DJI_20261019122645_0554_D.MP4",
+   "dur": 9.51,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "109": {
+   "archivo": "DJI_20261019122918_0555_D.MP4",
+   "dur": 7.07,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "110": {
+   "archivo": "DJI_20261019123009_0556_D.MP4",
+   "dur": 17.25,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "111": {
+   "archivo": "DJI_20261019123046_0557_D.MP4",
+   "dur": 15.48,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "112": {
+   "archivo": "DJI_20261019123146_0558_D.MP4",
+   "dur": 19.92,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "113": {
+   "archivo": "DJI_20261019123210_0559_D.MP4",
+   "dur": 9.74,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "114": {
+   "archivo": "DJI_20261019123230_0560_D.MP4",
+   "dur": 12.58,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "115": {
+   "archivo": "DJI_20261019123303_0561_D.MP4",
+   "dur": 8.48,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "116": {
+   "archivo": "DJI_20261019123333_0562_D.MP4",
+   "dur": 11.91,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "117": {
+   "archivo": "DJI_20261019123414_0563_D.MP4",
+   "dur": 8.01,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "118": {
+   "archivo": "DJI_20261019123435_0564_D.MP4",
+   "dur": 10.84,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "119": {
+   "archivo": "DJI_20261019123525_0565_D.MP4",
+   "dur": 7.84,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "120": {
+   "archivo": "DJI_20261019123536_0566_D.MP4",
+   "dur": 4.3,
+   "grupo": "19-10 · Terreno y columnas",
+   "res": "3840x2160"
+  },
+  "121": {
+   "archivo": "IMG_2229.MP4",
+   "dur": 2.4,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "122": {
+   "archivo": "IMG_2230.MP4",
+   "dur": 4.3,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "123": {
+   "archivo": "IMG_2231.MP4",
+   "dur": 4.07,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "124": {
+   "archivo": "IMG_2232.MP4",
+   "dur": 4.2,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "125": {
+   "archivo": "IMG_2233.MP4",
+   "dur": 2.17,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "126": {
+   "archivo": "IMG_2234.MP4",
+   "dur": 3.23,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "127": {
+   "archivo": "IMG_2235.MP4",
+   "dur": 7.2,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "128": {
+   "archivo": "IMG_2236.MP4",
+   "dur": 3.5,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "129": {
+   "archivo": "IMG_2237.MP4",
+   "dur": 3.56,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "130": {
+   "archivo": "IMG_2238.MP4",
+   "dur": 2.87,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "131": {
+   "archivo": "IMG_2239.MP4",
+   "dur": 4.8,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "132": {
+   "archivo": "IMG_2240.MP4",
+   "dur": 10.11,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "133": {
+   "archivo": "IMG_2241.MP4",
+   "dur": 3.27,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "134": {
+   "archivo": "IMG_2242.MP4",
+   "dur": 4.14,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "135": {
+   "archivo": "IMG_2243.MP4",
+   "dur": 3.13,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "136": {
+   "archivo": "IMG_2244.MOV",
+   "dur": 5.1,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "3840x2160"
+  },
+  "137": {
+   "archivo": "IMG_2245.MP4",
+   "dur": 2.0,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "138": {
+   "archivo": "IMG_2246.MOV",
+   "dur": 8.4,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "3840x2160"
+  },
+  "139": {
+   "archivo": "IMG_2247.MOV",
+   "dur": 13.67,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "3840x2160"
+  },
+  "140": {
+   "archivo": "IMG_2248.MP4",
+   "dur": 5.07,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "141": {
+   "archivo": "IMG_2249.MP4",
+   "dur": 14.13,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "142": {
+   "archivo": "IMG_2250.MP4",
+   "dur": 8.47,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "143": {
+   "archivo": "IMG_2251.MOV",
+   "dur": 2.97,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "3840x2160"
+  },
+  "144": {
+   "archivo": "IMG_2252.MOV",
+   "dur": 7.33,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "3840x2160"
+  },
+  "145": {
+   "archivo": "IMG_2253.MOV",
+   "dur": 7.41,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "3840x2160"
+  },
+  "146": {
+   "archivo": "IMG_2254.MP4",
+   "dur": 1.4,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "147": {
+   "archivo": "IMG_2255.MP4",
+   "dur": 5.57,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "148": {
+   "archivo": "IMG_2256.MP4",
+   "dur": 2.77,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  },
+  "149": {
+   "archivo": "IMG_2257.MP4",
+   "dur": 8.03,
+   "grupo": "19-10 · Dueños y planos (celular)",
+   "res": "1280x720"
+  }
+ },
+ "palabras": [
+  {
+   "w": "Cada",
+   "t": 1.65,
+   "e": 2.17
+  },
+  {
+   "w": "proyecto",
+   "t": 2.17,
+   "e": 2.63
+  },
+  {
+   "w": "tiene",
+   "t": 2.63,
+   "e": 3.17
+  },
+  {
+   "w": "un",
+   "t": 3.17,
+   "e": 3.31
+  },
+  {
+   "w": "comienzo,",
+   "t": 3.31,
+   "e": 3.81
+  },
+  {
+   "w": "a",
+   "t": 4.15,
+   "e": 4.27
+  },
+  {
+   "w": "veces",
+   "t": 4.27,
+   "e": 4.55
+  },
+  {
+   "w": "es",
+   "t": 4.55,
+   "e": 5.11
+  },
+  {
+   "w": "solamente",
+   "t": 5.11,
+   "e": 5.43
+  },
+  {
+   "w": "un",
+   "t": 5.43,
+   "e": 5.65
+  },
+  {
+   "w": "terreno",
+   "t": 5.65,
+   "e": 5.93
+  },
+  {
+   "w": "así,",
+   "t": 5.93,
+   "e": 6.23
+  },
+  {
+   "w": "otras",
+   "t": 6.55,
+   "e": 6.95
+  },
+  {
+   "w": "veces",
+   "t": 6.95,
+   "e": 7.33
+  },
+  {
+   "w": "una",
+   "t": 7.33,
+   "e": 7.81
+  },
+  {
+   "w": "idea",
+   "t": 7.81,
+   "e": 8.01
+  },
+  {
+   "w": "que",
+   "t": 8.01,
+   "e": 8.19
+  },
+  {
+   "w": "lleva",
+   "t": 8.19,
+   "e": 8.45
+  },
+  {
+   "w": "mucho",
+   "t": 8.45,
+   "e": 8.87
+  },
+  {
+   "w": "tiempo",
+   "t": 8.87,
+   "e": 9.27
+  },
+  {
+   "w": "esperando",
+   "t": 9.27,
+   "e": 9.99
+  },
+  {
+   "w": "su",
+   "t": 9.99,
+   "e": 10.19
+  },
+  {
+   "w": "oportunidad.",
+   "t": 10.19,
+   "e": 10.61
+  },
+  {
+   "w": "Nosotros",
+   "t": 11.87,
+   "e": 12.55
+  },
+  {
+   "w": "vemos",
+   "t": 12.55,
+   "e": 13.07
+  },
+  {
+   "w": "en",
+   "t": 13.07,
+   "e": 13.61
+  },
+  {
+   "w": "ese",
+   "t": 13.61,
+   "e": 13.81
+  },
+  {
+   "w": "espacio",
+   "t": 13.81,
+   "e": 14.23
+  },
+  {
+   "w": "algo",
+   "t": 14.23,
+   "e": 14.79
+  },
+  {
+   "w": "más",
+   "t": 14.79,
+   "e": 15.29
+  },
+  {
+   "w": "que",
+   "t": 15.29,
+   "e": 15.51
+  },
+  {
+   "w": "una",
+   "t": 15.51,
+   "e": 15.69
+  },
+  {
+   "w": "futura",
+   "t": 15.69,
+   "e": 16.07
+  },
+  {
+   "w": "construcción,",
+   "t": 16.07,
+   "e": 16.65
+  },
+  {
+   "w": "vemos",
+   "t": 17.03,
+   "e": 17.31
+  },
+  {
+   "w": "el",
+   "t": 17.31,
+   "e": 17.47
+  },
+  {
+   "w": "esfuerzo,",
+   "t": 17.47,
+   "e": 17.95
+  },
+  {
+   "w": "las",
+   "t": 18.19,
+   "e": 18.27
+  },
+  {
+   "w": "expectativas",
+   "t": 18.27,
+   "e": 18.97
+  },
+  {
+   "w": "y",
+   "t": 18.97,
+   "e": 19.35
+  },
+  {
+   "w": "las",
+   "t": 19.35,
+   "e": 19.49
+  },
+  {
+   "w": "ganas",
+   "t": 19.49,
+   "e": 19.91
+  },
+  {
+   "w": "de",
+   "t": 19.91,
+   "e": 20.13
+  },
+  {
+   "w": "crecer",
+   "t": 20.13,
+   "e": 20.45
+  },
+  {
+   "w": "de",
+   "t": 20.45,
+   "e": 20.59
+  },
+  {
+   "w": "quienes",
+   "t": 20.59,
+   "e": 20.73
+  },
+  {
+   "w": "nos",
+   "t": 20.73,
+   "e": 20.99
+  },
+  {
+   "w": "eligen.",
+   "t": 20.99,
+   "e": 21.33
+  },
+  {
+   "w": "Por",
+   "t": 22.61,
+   "e": 23.17
+  },
+  {
+   "w": "eso,",
+   "t": 23.17,
+   "e": 23.49
+  },
+  {
+   "w": "en",
+   "t": 23.69,
+   "e": 23.85
+  },
+  {
+   "w": "ZIZI,",
+   "t": 23.85,
+   "e": 24.25
+  },
+  {
+   "w": "antes",
+   "t": 24.53,
+   "e": 24.73
+  },
+  {
+   "w": "de",
+   "t": 24.73,
+   "e": 24.93
+  },
+  {
+   "w": "hablar",
+   "t": 24.93,
+   "e": 25.01
+  },
+  {
+   "w": "de",
+   "t": 25.01,
+   "e": 25.21
+  },
+  {
+   "w": "estructuras",
+   "t": 25.21,
+   "e": 25.71
+  },
+  {
+   "w": "hablamos",
+   "t": 25.71,
+   "e": 26.29
+  },
+  {
+   "w": "de",
+   "t": 26.29,
+   "e": 26.43
+  },
+  {
+   "w": "proyectos.",
+   "t": 26.43,
+   "e": 27.17
+  },
+  {
+   "w": "Escuchamos,",
+   "t": 28.19,
+   "e": 28.95
+  },
+  {
+   "w": "compartimos",
+   "t": 29.25,
+   "e": 29.63
+  },
+  {
+   "w": "ideas",
+   "t": 29.63,
+   "e": 30.01
+  },
+  {
+   "w": "y",
+   "t": 30.01,
+   "e": 30.63
+  },
+  {
+   "w": "buscamos",
+   "t": 30.63,
+   "e": 30.95
+  },
+  {
+   "w": "juntos",
+   "t": 30.95,
+   "e": 31.39
+  },
+  {
+   "w": "la",
+   "t": 31.39,
+   "e": 31.79
+  },
+  {
+   "w": "mejor",
+   "t": 31.79,
+   "e": 32.03
+  },
+  {
+   "w": "solución.",
+   "t": 32.03,
+   "e": 32.61
+  },
+  {
+   "w": "Aportamos",
+   "t": 33.83,
+   "e": 34.57
+  },
+  {
+   "w": "más",
+   "t": 34.57,
+   "e": 34.99
+  },
+  {
+   "w": "de",
+   "t": 34.99,
+   "e": 35.17
+  },
+  {
+   "w": "46",
+   "t": 35.17,
+   "e": 35.91
+  },
+  {
+   "w": "años",
+   "t": 35.91,
+   "e": 36.41
+  },
+  {
+   "w": "de",
+   "t": 36.41,
+   "e": 36.55
+  },
+  {
+   "w": "experiencia,",
+   "t": 36.55,
+   "e": 37.13
+  },
+  {
+   "w": "conocimiento",
+   "t": 37.47,
+   "e": 38.05
+  },
+  {
+   "w": "y",
+   "t": 38.05,
+   "e": 38.35
+  },
+  {
+   "w": "tecnología",
+   "t": 38.35,
+   "e": 38.87
+  },
+  {
+   "w": "para",
+   "t": 38.87,
+   "e": 39.37
+  },
+  {
+   "w": "que",
+   "t": 39.37,
+   "e": 39.55
+  },
+  {
+   "w": "cada",
+   "t": 39.55,
+   "e": 39.87
+  },
+  {
+   "w": "decisión",
+   "t": 39.87,
+   "e": 40.49
+  },
+  {
+   "w": "tenga",
+   "t": 40.49,
+   "e": 40.87
+  },
+  {
+   "w": "el",
+   "t": 40.87,
+   "e": 41.03
+  },
+  {
+   "w": "respaldo",
+   "t": 41.03,
+   "e": 41.51
+  },
+  {
+   "w": "de",
+   "t": 41.51,
+   "e": 41.89
+  },
+  {
+   "w": "una",
+   "t": 41.89,
+   "e": 42.01
+  },
+  {
+   "w": "empresa",
+   "t": 42.01,
+   "e": 42.33
+  },
+  {
+   "w": "que",
+   "t": 42.33,
+   "e": 42.71
+  },
+  {
+   "w": "sabe",
+   "t": 42.71,
+   "e": 43.13
+  },
+  {
+   "w": "construir.",
+   "t": 43.13,
+   "e": 43.55
+  },
+  {
+   "w": "Pero",
+   "t": 44.67,
+   "e": 45.39
+  },
+  {
+   "w": "también",
+   "t": 45.39,
+   "e": 45.75
+  },
+  {
+   "w": "sabemos",
+   "t": 45.75,
+   "e": 46.21
+  },
+  {
+   "w": "que",
+   "t": 46.21,
+   "e": 46.43
+  },
+  {
+   "w": "ninguna",
+   "t": 46.43,
+   "e": 46.71
+  },
+  {
+   "w": "obra",
+   "t": 46.71,
+   "e": 47.03
+  },
+  {
+   "w": "se",
+   "t": 47.03,
+   "e": 47.25
+  },
+  {
+   "w": "hace",
+   "t": 47.25,
+   "e": 47.43
+  },
+  {
+   "w": "en",
+   "t": 47.43,
+   "e": 47.57
+  },
+  {
+   "w": "soledad.",
+   "t": 47.57,
+   "e": 47.89
+  },
+  {
+   "w": "Detrás",
+   "t": 48.29,
+   "e": 48.67
+  },
+  {
+   "w": "de",
+   "t": 48.67,
+   "e": 48.83
+  },
+  {
+   "w": "cada",
+   "t": 48.83,
+   "e": 48.95
+  },
+  {
+   "w": "proyecto",
+   "t": 48.95,
+   "e": 49.39
+  },
+  {
+   "w": "está",
+   "t": 49.39,
+   "e": 49.95
+  },
+  {
+   "w": "el",
+   "t": 49.95,
+   "e": 50.11
+  },
+  {
+   "w": "trabajo",
+   "t": 50.11,
+   "e": 50.51
+  },
+  {
+   "w": "de",
+   "t": 50.51,
+   "e": 50.73
+  },
+  {
+   "w": "nuestra",
+   "t": 50.73,
+   "e": 50.87
+  },
+  {
+   "w": "gente,",
+   "t": 50.87,
+   "e": 51.37
+  },
+  {
+   "w": "el",
+   "t": 51.67,
+   "e": 51.69
+  },
+  {
+   "w": "compromiso",
+   "t": 51.69,
+   "e": 52.33
+  },
+  {
+   "w": "de",
+   "t": 52.33,
+   "e": 52.45
+  },
+  {
+   "w": "nuestros",
+   "t": 52.45,
+   "e": 52.65
+  },
+  {
+   "w": "proveedores",
+   "t": 52.65,
+   "e": 53.27
+  },
+  {
+   "w": "y",
+   "t": 53.27,
+   "e": 53.65
+  },
+  {
+   "w": "la",
+   "t": 53.65,
+   "e": 53.77
+  },
+  {
+   "w": "confianza",
+   "t": 53.77,
+   "e": 54.39
+  },
+  {
+   "w": "de",
+   "t": 54.39,
+   "e": 54.85
+  },
+  {
+   "w": "nuestros",
+   "t": 54.85,
+   "e": 55.07
+  },
+  {
+   "w": "clientes.",
+   "t": 55.07,
+   "e": 55.77
+  },
+  {
+   "w": "Personas",
+   "t": 56.59,
+   "e": 57.35
+  },
+  {
+   "w": "que,",
+   "t": 57.35,
+   "e": 57.51
+  },
+  {
+   "w": "desde",
+   "t": 57.71,
+   "e": 57.87
+  },
+  {
+   "w": "distintos",
+   "t": 57.87,
+   "e": 58.35
+  },
+  {
+   "w": "lugares,",
+   "t": 58.35,
+   "e": 58.75
+  },
+  {
+   "w": "hacen",
+   "t": 59.07,
+   "e": 59.27
+  },
+  {
+   "w": "posible",
+   "t": 59.27,
+   "e": 59.69
+  },
+  {
+   "w": "que",
+   "t": 59.69,
+   "e": 60.01
+  },
+  {
+   "w": "las",
+   "t": 60.01,
+   "e": 60.17
+  },
+  {
+   "w": "ideas",
+   "t": 60.17,
+   "e": 60.47
+  },
+  {
+   "w": "se",
+   "t": 60.47,
+   "e": 60.85
+  },
+  {
+   "w": "conviertan",
+   "t": 60.85,
+   "e": 61.31
+  },
+  {
+   "w": "en",
+   "t": 61.31,
+   "e": 61.43
+  },
+  {
+   "w": "realidades.",
+   "t": 61.43,
+   "e": 61.87
+  },
+  {
+   "w": "Y",
+   "t": 62.83,
+   "e": 63.47
+  },
+  {
+   "w": "cuando",
+   "t": 63.47,
+   "e": 63.63
+  },
+  {
+   "w": "estrechamos",
+   "t": 63.63,
+   "e": 64.19
+  },
+  {
+   "w": "una",
+   "t": 64.19,
+   "e": 64.43
+  },
+  {
+   "w": "mano,",
+   "t": 64.43,
+   "e": 64.75
+  },
+  {
+   "w": "reafirmamos",
+   "t": 65.05,
+   "e": 65.51
+  },
+  {
+   "w": "nuestra",
+   "t": 65.51,
+   "e": 65.75
+  },
+  {
+   "w": "manera",
+   "t": 65.75,
+   "e": 66.09
+  },
+  {
+   "w": "de",
+   "t": 66.09,
+   "e": 66.27
+  },
+  {
+   "w": "trabajar,",
+   "t": 66.27,
+   "e": 66.61
+  },
+  {
+   "w": "con",
+   "t": 67.01,
+   "e": 67.43
+  },
+  {
+   "w": "responsabilidad,",
+   "t": 67.43,
+   "e": 68.31
+  },
+  {
+   "w": "con",
+   "t": 68.69,
+   "e": 68.77
+  },
+  {
+   "w": "cercanía",
+   "t": 68.77,
+   "e": 69.27
+  },
+  {
+   "w": "y",
+   "t": 69.27,
+   "e": 69.61
+  },
+  {
+   "w": "con",
+   "t": 69.61,
+   "e": 69.75
+  },
+  {
+   "w": "la",
+   "t": 69.75,
+   "e": 69.87
+  },
+  {
+   "w": "palabra",
+   "t": 69.87,
+   "e": 70.25
+  },
+  {
+   "w": "como",
+   "t": 70.25,
+   "e": 70.63
+  },
+  {
+   "w": "compromiso.",
+   "t": 70.63,
+   "e": 71.27
+  },
+  {
+   "w": "Porque",
+   "t": 72.63,
+   "e": 73.01
+  },
+  {
+   "w": "construir",
+   "t": 73.01,
+   "e": 73.49
+  },
+  {
+   "w": "no",
+   "t": 73.49,
+   "e": 74.01
+  },
+  {
+   "w": "es",
+   "t": 74.01,
+   "e": 74.55
+  },
+  {
+   "w": "solamente",
+   "t": 74.55,
+   "e": 74.55
+  },
+  {
+   "w": "levantar",
+   "t": 74.55,
+   "e": 74.93
+  },
+  {
+   "w": "estructuras,",
+   "t": 74.93,
+   "e": 75.47
+  },
+  {
+   "w": "es",
+   "t": 75.89,
+   "e": 76.03
+  },
+  {
+   "w": "construir",
+   "t": 76.03,
+   "e": 76.55
+  },
+  {
+   "w": "relaciones",
+   "t": 76.55,
+   "e": 77.31
+  },
+  {
+   "w": "que",
+   "t": 77.31,
+   "e": 77.51
+  },
+  {
+   "w": "perduren.",
+   "t": 77.51,
+   "e": 77.87
+  },
+  {
+   "w": "ZIZI",
+   "t": 81.48,
+   "e": 82.02
+  },
+  {
+   "w": "es",
+   "t": 82.02,
+   "e": 82.36
+  },
+  {
+   "w": "la",
+   "t": 82.36,
+   "e": 82.5
+  },
+  {
+   "w": "gente,",
+   "t": 82.5,
+   "e": 82.78
+  },
+  {
+   "w": "construimos",
+   "t": 83.2,
+   "e": 83.92
+  },
+  {
+   "w": "cultura",
+   "t": 83.92,
+   "e": 84.4
+  },
+  {
+   "w": "de",
+   "t": 84.4,
+   "e": 84.6
+  },
+  {
+   "w": "trabajo.",
+   "t": 84.6,
+   "e": 84.9
+  }
+ ],
+ "textos": [
+  {
+   "t": 0.3,
+   "dur": 3.8,
+   "src": "ove/o00.webm"
+  },
+  {
+   "t": 1.5,
+   "dur": 4.2,
+   "src": "ove/o01.webm"
+  },
+  {
+   "t": 24.3,
+   "dur": 3.6,
+   "src": "ove/o02.webm"
+  },
+  {
+   "t": 34.9,
+   "dur": 2.6,
+   "src": "ove/o03.webm"
+  },
+  {
+   "t": 37.4,
+   "dur": 3.3,
+   "src": "ove/o04.webm"
+  },
+  {
+   "t": 50.5,
+   "dur": 5.6,
+   "src": "ove/o05.webm"
+  },
+  {
+   "t": 59.6,
+   "dur": 3.0,
+   "src": "ove/o06.webm"
+  },
+  {
+   "t": 67.2,
+   "dur": 4.6,
+   "src": "ove/o07.webm"
+  },
+  {
+   "t": 75.9,
+   "dur": 2.7,
+   "src": "ove/o08.webm"
+  },
+  {
+   "t": 81.4,
+   "dur": 4.4,
+   "src": "ove/o09.webm"
+  }
+ ]
+}
