@@ -58,3 +58,21 @@ ZIZI es la gente: construye relaciones que perduren y una cultura de trabajo.
 
 ## Prohibido
 - **PENDIENTE** (el audio original de las tomas no se usa)
+
+## Estado al 24-11 — entregado, a la espera de devolución
+Dos versiones horizontales 1080p (29,97 fps) entregadas al cliente por Drive (carpeta de ZIZI, subcarpeta `Final`):
+- **Emocional** (1:27) — `ZIZI_Institucional_Emocional_1080p_v3.mp4`. Audio = mezcla final de Javier (locución de Lara + música),
+  con la cola de música continuada (`tools_local/extender_mezcla.py`). Edición: `edicion_emocional.json` · EDL `edl_16x9_emocional3.json`.
+- **Dinámica** (1:19) — `ZIZI_Institucional_Dinamica_1080p_v2.mp4`. Voz Carlos (ElevenLabs, argentina) a ritmo natural + «Glaciers» (Artlist, licenciada).
+  Edición: `edicion_dinamica.json` · EDL `edl_16x9_dinamica2.json`.
+
+Reglas del estudio que quedaron firmes:
+- **Ninguna toma dura más de 3 s en pantalla** (cuenta la disolvencia). La placa del logo queda exceptuada (~5 s).
+- **No usar tomas de operarios sobre el techo** (80–84, 86, 87): sin elementos de protección. Tampoco 70, 119, 120 (no gustaron).
+- Sin sonidos en transiciones; no usar el audio de las tomas.
+- Devolución del cliente (24-11): el concepto es **emocional**; faltan planos detalle y de personas en el material filmado.
+
+Regenerar: `ZIZI_VERSION=emocional|dinamica ZIZI_TAG=_x python3 build_edl.py` → `tools/render_edl.py` → `tools/qc.py` (ahora falla si el audio termina antes que la imagen).
+Editor (artefacto): https://claude.ai/artifact/TiYHN4kHMHtuL8QVu6uc21 — selector Emocional / Dinámica, cada una guarda su edición aparte.
+
+Pendiente: devolución del cliente · vertical 9:16 · versión LED (falta resolución) · short < 60 s · master 4K si lo piden (`ZIZI_4K=1`).
