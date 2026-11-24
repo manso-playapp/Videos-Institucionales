@@ -322,7 +322,7 @@ function renderFx() {
     ops.forEach(([v, t]) => { const b = el("button", null, t); b.type = "button"; b.setAttribute("aria-pressed", S.fx[clave] === v ? "true" : "false");
       b.addEventListener("click", () => { S.fx[clave] = v; if (clave === "voz") Live.voz(); if (clave === "musica") Live.musica(); guardarFx(); }); pl.appendChild(b); }); g.appendChild(pl); box.appendChild(g); };
   grupo("Locución", "voz", BASE.voces ? BASE.voces.map(x => [x[0], x[1]]) : [["orig", "Locutora original"], ["masc", "Mauricio (argentina, cálida)"], ["carlos", "Carlos (argentina, documental)"]]);
-  grupo("Música (muestra, baja sola bajo la voz)", "musica", [["", "Sin música"], ...MUSICAS]);
+  if (BASE.sinMusica) { S.fx.musica = ""; Live.musica(); } else grupo("Música (muestra, baja sola bajo la voz)", "musica", [["", "Sin música"], ...MUSICAS]);
   grupo("Look de color", "look", [["limpio", "Limpio"], ["personas", "Cálido en personas"], ["calido", "Cálido en todo"]]);
   const g = el("div"); g.appendChild(el("div", "lbl", "Textura"));
   [["grano", "Grano de película (leve)"], ["vineta", "Viñeta"]].forEach(([k, t]) => { const l = el("label"), c = el("input"); c.type = "checkbox"; c.checked = !!S.fx[k];

@@ -537,8 +537,10 @@ class Builder:
             vi = self.add_input(["-i", self.path(vo["src"])])
             st = float(vo.get("start", 0.0))
             g = float(vo.get("gain_db", 0))
+            # "raw": true → la pista ya viene mezclada y masterizada (voz + música): no se filtra ni se comprime
+            proc = "" if vo.get("raw") else "highpass=f=80,acompressor=threshold=-20dB:ratio=3:attack=5:release=120:makeup=2,"
             chain = (f"[{vi}:a]aresample=48000,aformat=channel_layouts=stereo,"
-                     f"highpass=f=80,acompressor=threshold=-20dB:ratio=3:attack=5:release=120:makeup=2,"
+                     f"{proc}"
                      f"volume={g}dB,adelay={int(st*1000)}|{int(st*1000)},"
                      # la locución se rellena con silencio hasta el final: si termina antes, el ducking (sidechain) cortaba la música ahí
                      f"apad=whole_dur={total:.3f}")

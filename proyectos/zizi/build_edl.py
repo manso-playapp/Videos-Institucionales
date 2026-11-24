@@ -70,12 +70,19 @@ DIN = os.environ.get("ZIZI_VERSION", "") == "dinamica"     # versión corta y di
 VER = os.environ.get("ZIZI_VERSION", "")                     # "" = edición larga del estudio · "dinamica" · "emocional"
 EDIC = AQUI / {"dinamica": "edicion_dinamica.json", "emocional": "edicion_emocional.json"}.get(VER, "edicion_horizontal.json")
 if DIN: END = 79.4; VO = "media/audio/vo_carlos_c.wav"
+# Emocional (25-11): el audio es la mezcla final que armó Javier (locución de Lara + música); no se le suma música ni ducking.
+EMO = VER == "emocional"
+if EMO:
+    import numpy as _np
+    _m = json.load(open(AQUI / "mapa_tiempos_emocional.json")); END = 86.8; VO = "media/audio/mezcla_javier.wav"
+    def REMAP(t): return round(float(_np.interp(t, [0] + _m["viejo"], [0] + _m["nuevo"])), 2)   # tiempos de la locución anterior -> mezcla nueva, palabra por palabra
 # Opciones de look, textura y música elegidas en el editor (campo fx de la edición guardada)
 FX = (json.load(open(EDIC)).get("fx") or {}) if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION") else {}
 LUT = {"calido": "assets/luts/estudio_calido.cube"}.get(FX.get("look"), "assets/luts/estudio_limpio.cube")
 BASE_G = {"saturation": 1.05, "temperature": 0.06, **({"grain": 3} if FX.get("grano") else {}), **({"vignette": True} if FX.get("vineta") else {})}
 if not MUSIC and FX.get("musica") and (AQUI / f"media/music/{FX['musica']}.wav").exists(): MUSIC = f"media/music/{FX['musica']}.wav"
-if not os.environ.get("ZIZI_VO") and not DIN: VO = {"masc": "media/audio/vo_masc.wav", "carlos": "media/audio/vo_carlos.wav"}.get(FX.get("voz"), "media/audio/vo_a2.wav")
+if not os.environ.get("ZIZI_VO") and not DIN and not EMO: VO = {"masc": "media/audio/vo_masc.wav", "carlos": "media/audio/vo_carlos.wav"}.get(FX.get("voz"), "media/audio/vo_a2.wav")
+if EMO: MUSIC = ""
 MUS_GAIN = {"glaciers": -8, "travelling_light": -4}.get(FX.get("musica"), -7)     # 24-11: el estudio pidió la música más presente
 MUS_IN = {"glaciers": 4.0}.get(FX.get("musica"), 0.0)      # desde dónde entra el tema, para que llegue rápido a pleno
 TR_DUR = {"WhipPan": 0.38, "WhipTilt": 0.45, "BloomDissolve": 0.5, "Overexposure": 0.42, "DefocusBlur": 0.5, "LightWipe": 0.5, "CrossZoom": 0.7}
@@ -215,6 +222,11 @@ def build(vertical):
             frase(75.9, 2.7, [L("Construir", 54, 0, **lead), L("relaciones", 220, 0.5, mayus=True), L("que perduren", 104, 1.45, peso=500, mayus=True, punto=True)]),
             frase(81.4, 4.4, [L("ZIZI es la gente", 176, 0, mayus=True, punto=True), L("Construimos cultura de trabajo", 58, 1.75, **lead)]),
         ]
+    if EMO:
+        for o in ov: o["start"] = REMAP(o["start"])
+        for a_, b_ in zip(ov, ov[1:]):                 # la mezcla nueva tiene pausas más cortas: ningún texto pisa al siguiente
+            if a_["template"] == "frase" and b_["template"] == "frase" and a_["start"] + a_["dur"] > b_["start"] - 0.1:
+                a_["dur"] = round(b_["start"] - a_["start"] - 0.1, 2); a_["params"] = dict(a_["params"], dur=a_["dur"])
     for k, s in enumerate(S):                           # luz cálida orgánica sobre las tomas marcadas en el editor
         if s.get("luz"):
             d = (S[k + 1]["t"] if k + 1 < len(S) else END) - s["t"]
@@ -226,7 +238,7 @@ def build(vertical):
         "fade": {"in": 1.0, "out": 1.6, "color": "black"},
         "clips": clips, "texts": [], "overlays": ov,
         "audio": {
-            "vo": {"src": VO, "start": 0.0, "gain_db": 0},
+            "vo": {"src": VO, "start": 0.0, "gain_db": 0, **({"raw": True} if EMO else {})},
             **MUS,
             "sfx": sfx,
         },
