@@ -74,7 +74,7 @@ if DIN: END = 79.4; VO = "media/audio/vo_carlos_c.wav"
 EMO = VER == "emocional"
 if EMO:
     import numpy as _np
-    _m = json.load(open(AQUI / "mapa_tiempos_emocional.json")); END = 86.8; VO = "media/audio/mezcla_javier.wav"
+    _m = json.load(open(AQUI / "mapa_tiempos_emocional.json")); END = 86.8; VO = "media/audio/mezcla_javier_ext.wav"      # mezcla de Javier con la cola de música continuada (tools_local/extender_mezcla.py)
     def REMAP(t): return round(float(_np.interp(t, [0] + _m["viejo"], [0] + _m["nuevo"])), 2)   # tiempos de la locución anterior -> mezcla nueva, palabra por palabra
 # Opciones de look, textura y música elegidas en el editor (campo fx de la edición guardada)
 FX = (json.load(open(EDIC)).get("fx") or {}) if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION") else {}
