@@ -269,7 +269,7 @@
     {
       "src": "media/tomas/27-10/DJI_20261027094944_0629_D.MP4",
       "in": 1.5,
-      "dur": 1.75,
+      "dur": 1.6,
       "grade": {
         "levels": {
           "black": 0.0371,
@@ -287,8 +287,8 @@
     },
     {
       "src": "media/tomas/IMG_2247.MOV",
-      "in": 9.22,
-      "dur": 3.15,
+      "in": 9.37,
+      "dur": 3.0,
       "grade": {
         "levels": {
           "black": 0.009,
@@ -305,7 +305,7 @@
       },
       "transition_in": {
         "type": "gl:Fade",
-        "dur": 0.5,
+        "dur": 0.2,
         "ease": "cubic-in-out"
       }
     },
@@ -369,7 +369,7 @@
     {
       "src": "media/tomas/IMG_2245.MP4",
       "in": 0.0,
-      "dur": 1.83,
+      "dur": 1.8,
       "grade": {
         "levels": {
           "black": 0.0,
@@ -387,8 +387,8 @@
     },
     {
       "src": "media/tomas/IMG_2252.MOV",
-      "in": 1.98,
-      "dur": 3.03,
+      "in": 2.01,
+      "dur": 3.0,
       "grade": {
         "levels": {
           "black": 0.0614,
@@ -405,7 +405,7 @@
       },
       "transition_in": {
         "type": "gl:Fade",
-        "dur": 0.26,
+        "dur": 0.2,
         "ease": "cubic-in-out"
       }
     },
@@ -885,7 +885,7 @@
     {
       "src": "media/tomas/IMG_2250.MP4",
       "in": 0.69,
-      "dur": 3.4,
+      "dur": 1.8,
       "grade": {
         "levels": {
           "black": 0.013,
@@ -899,6 +899,25 @@
           "omax": 1.0
         },
         "gamma": 0.84
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2248.MP4",
+      "in": 0.5,
+      "dur": 1.6,
+      "grade": {
+        "levels": {
+          "black": 0.0273,
+          "white": 0.9621,
+          "wb": [
+            1.0174,
+            1.0,
+            0.9844
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.9
       }
     },
     {

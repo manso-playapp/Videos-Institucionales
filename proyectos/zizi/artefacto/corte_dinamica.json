@@ -3,11 +3,11 @@
  "version": "Dinámica 2",
  "dur": 79.4,
  "fx": {
-  "voz": "carlos",
-  "look": "calido",
   "grano": true,
+  "look": "calido",
+  "musica": "glaciers",
   "vineta": true,
-  "musica": "glaciers"
+  "voz": "carlos"
  },
  "render": "",
  "voces": [
@@ -20,7 +20,7 @@
  "slots": [
   {
    "k": 0,
-   "t": 0.0,
+   "t": 0,
    "dur": 2.9,
    "frase": "Cada proyecto tiene un comienzo.",
    "tr": "Corte",
@@ -305,7 +305,7 @@
   },
   {
    "k": 28,
-   "t": 41.0,
+   "t": 41,
    "dur": 0.8,
    "frase": "Detrás de cada",
    "tr": "Corte",
@@ -424,7 +424,7 @@
   },
   {
    "k": 39,
-   "t": 53.0,
+   "t": 53,
    "dur": 0.6,
    "frase": "conviertan en",
    "tr": "Corte",
@@ -451,14 +451,14 @@
    "tr": "Fade",
    "tipo": "toma",
    "n": 145,
-   "in": 3.0,
+   "in": 3,
    "v": 0.8
   },
   {
    "k": 42,
-   "t": 57.0,
-   "dur": 3.4,
-   "frase": "nuestra manera de trabajar, con responsabilidad,",
+   "t": 57,
+   "dur": 1.8,
+   "frase": "nuestra manera de trabajar,",
    "tr": "Corte",
    "tipo": "toma",
    "n": 142,
@@ -466,6 +466,16 @@
   },
   {
    "k": 43,
+   "t": 58.8,
+   "dur": 1.6,
+   "frase": "con responsabilidad,",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 140,
+   "in": 0.5
+  },
+  {
+   "k": 44,
    "t": 60.4,
    "dur": 1.5,
    "frase": "con cercanía y con la palabra",
@@ -475,7 +485,7 @@
    "in": 0
   },
   {
-   "k": 44,
+   "k": 45,
    "t": 61.9,
    "dur": 1.8,
    "frase": "como compromiso.",
@@ -485,7 +495,7 @@
    "in": 0
   },
   {
-   "k": 45,
+   "k": 46,
    "t": 63.7,
    "dur": 0.9,
    "frase": "Porque construir",
@@ -496,7 +506,7 @@
    "v": 2.0
   },
   {
-   "k": 46,
+   "k": 47,
    "t": 64.6,
    "dur": 0.6,
    "frase": "no",
@@ -506,7 +516,7 @@
    "in": 3
   },
   {
-   "k": 47,
+   "k": 48,
    "t": 65.2,
    "dur": 0.6,
    "frase": "es solamente levantar",
@@ -516,7 +526,7 @@
    "in": 2
   },
   {
-   "k": 48,
+   "k": 49,
    "t": 65.8,
    "dur": 0.7,
    "frase": "estructuras,",
@@ -526,7 +536,7 @@
    "in": 1
   },
   {
-   "k": 49,
+   "k": 50,
    "t": 66.5,
    "dur": 1.6,
    "frase": "es construir relaciones",
@@ -536,7 +546,7 @@
    "in": 5.58
   },
   {
-   "k": 50,
+   "k": 51,
    "t": 68.1,
    "dur": 1.8,
    "frase": "que perduren.",
@@ -547,7 +557,7 @@
    "v": 0.8
   },
   {
-   "k": 51,
+   "k": 52,
    "t": 69.9,
    "dur": 0.9,
    "frase": "ZIZI",
@@ -557,7 +567,7 @@
    "in": 1
   },
   {
-   "k": 52,
+   "k": 53,
    "t": 70.8,
    "dur": 0.8,
    "frase": "es la gente,",
@@ -567,7 +577,7 @@
    "in": 0.5
   },
   {
-   "k": 53,
+   "k": 54,
    "t": 71.6,
    "dur": 0.9,
    "frase": "construimos",
@@ -577,7 +587,7 @@
    "in": 0.5
   },
   {
-   "k": 54,
+   "k": 55,
    "t": 72.5,
    "dur": 1.9,
    "frase": "cultura de trabajo.",
@@ -588,7 +598,7 @@
    "v": 1.5
   },
   {
-   "k": 55,
+   "k": 56,
    "t": 74.4,
    "dur": 5.0,
    "frase": "",

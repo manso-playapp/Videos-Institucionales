@@ -88,7 +88,7 @@ if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):
         elif e["tipo"] == "negro": s["negro"] = True      # espacio reservado sin toma: sale negro
         elif e["tipo"] == "split": s["split"], s["si"] = e["tomas"], e["ins"]
         else: s.update(n=e["n"], i=e["in"], v=float(e.get("v", 1)), luz=bool(e.get("luz")), **_meta.get(e["n"], {}))
-        if e.get("tr") and e["tr"] != "Corte": s["tr"] = T(e["tr"], 0.9 if (VER == "emocional" and e["tr"] == "Fade") else TR_DUR.get(e["tr"], 0.5))   # disolvencias largas en la emocional
+        if e.get("tr") and e["tr"] != "Corte": s["tr"] = T(e["tr"], 0.7 if (VER == "emocional" and e["tr"] == "Fade") else TR_DUR.get(e["tr"], 0.5))   # disolvencias largas en la emocional
         S2.append(s)
     S = S2
     # una transición necesita material extra de las dos tomas (se solapan): si a una toma no le sobra, la transición se acorta
@@ -99,6 +99,22 @@ if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):
             if 0 < j < len(S) and S[j].get("tr"):
                 S[j]["tr"] = dict(S[j]["tr"], dur=round(max(0.0, min(S[j]["tr"]["dur"], libre)), 2))
                 if S[j]["tr"]["dur"] < 0.12: S[j].pop("tr")
+# Regla del estudio (24-11): ninguna toma dura más de 3 s en pantalla, contando lo que se ve durante las disolvencias
+MAXP = 3.0
+if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):
+    for _ in range(3):
+        for k, s in enumerate(S):
+            if s.get("plate"): continue
+            d = (S[k + 1]["t"] if k + 1 < len(S) else END) - s["t"]
+            hd = s["tr"]["dur"] / 2 if k and s.get("tr") else 0.0
+            tl = S[k + 1]["tr"]["dur"] / 2 if k + 1 < len(S) and S[k + 1].get("tr") else 0.0
+            sobra = d + hd + tl - MAXP
+            if sobra > 0.005 and hd + tl > 0:
+                f = max(0.0, 1 - sobra / (hd + tl))
+                for j in (k, k + 1):
+                    if 0 < j < len(S) and S[j].get("tr"): S[j]["tr"] = dict(S[j]["tr"], dur=round(S[j]["tr"]["dur"] * f, 2))
+    for s in S:
+        if s.get("tr") and s["tr"]["dur"] < 0.12: s.pop("tr")
 NIV = json.load(open(AQUI / "niveles.json"))
 def niveles(n):
     g = dict(NIV.get(str(n), {}).get("grade", {}))

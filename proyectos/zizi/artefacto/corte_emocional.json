@@ -31,8 +31,8 @@
   {
    "k": 0,
    "t": 0,
-   "dur": 4.6,
-   "frase": "Cada proyecto tiene un comienzo, a veces",
+   "dur": 2.6,
+   "frase": "Cada proyecto",
    "tr": "Corte",
    "tipo": "toma",
    "n": 95,
@@ -41,19 +41,39 @@
   },
   {
    "k": 1,
+   "t": 2.6,
+   "dur": 2.0,
+   "frase": "tiene un comienzo, a veces",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 118,
+   "in": 1.78
+  },
+  {
+   "k": 2,
    "t": 4.6,
-   "dur": 3.3,
-   "frase": "es solamente un terreno así, otras veces una",
+   "dur": 1.7,
+   "frase": "es solamente un terreno así,",
    "tr": "Fade",
    "tipo": "toma",
    "n": 98,
    "in": 0.3
   },
   {
-   "k": 2,
+   "k": 3,
+   "t": 6.3,
+   "dur": 1.6,
+   "frase": "otras veces una",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 99,
+   "in": 2.33
+  },
+  {
+   "k": 4,
    "t": 7.9,
-   "dur": 4.1,
-   "frase": "idea que lleva mucho tiempo esperando su oportunidad.",
+   "dur": 2.1,
+   "frase": "idea que lleva mucho tiempo esperando",
    "tr": "Fade",
    "tipo": "toma",
    "n": 147,
@@ -61,17 +81,37 @@
    "v": 0.8
   },
   {
-   "k": 3,
+   "k": 5,
+   "t": 10.0,
+   "dur": 2.0,
+   "frase": "su oportunidad.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 140,
+   "in": 0.5
+  },
+  {
+   "k": 6,
    "t": 12,
-   "dur": 4,
-   "frase": "Nosotros vemos en ese espacio algo más que una futura",
+   "dur": 2.4,
+   "frase": "Nosotros vemos en ese espacio algo",
    "tr": "Fade",
    "tipo": "toma",
    "n": 139,
    "in": 8
   },
   {
-   "k": 4,
+   "k": 7,
+   "t": 14.4,
+   "dur": 1.6,
+   "frase": "más que una futura",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 18,
+   "in": 10.77
+  },
+  {
+   "k": 8,
    "t": 16,
    "dur": 2.4,
    "frase": "construcción, vemos el esfuerzo, las",
@@ -82,7 +122,7 @@
    "v": 0.8
   },
   {
-   "k": 5,
+   "k": 9,
    "t": 18.4,
    "dur": 1.8,
    "frase": "expectativas y las ganas de",
@@ -92,27 +132,37 @@
    "in": 0.2
   },
   {
-   "k": 6,
+   "k": 10,
    "t": 20.2,
    "dur": 1.6,
    "frase": "crecer de quienes nos eligen.",
    "tr": "Fade",
    "tipo": "toma",
    "n": 27,
-   "in": 1.0
+   "in": 1
   },
   {
-   "k": 7,
+   "k": 11,
    "t": 21.8,
-   "dur": 4.2,
-   "frase": "Por eso, en ZIZI, antes de hablar de estructuras hablamos",
+   "dur": 1.8,
+   "frase": "Por eso,",
    "tr": "Fade",
+   "tipo": "toma",
+   "n": 125,
+   "in": 0.2
+  },
+  {
+   "k": 12,
+   "t": 23.6,
+   "dur": 2.4,
+   "frase": "en ZIZI, antes de hablar de estructuras hablamos",
+   "tr": "Corte",
    "tipo": "toma",
    "n": 136,
    "in": 0
   },
   {
-   "k": 8,
+   "k": 13,
    "t": 26,
    "dur": 1.9,
    "frase": "de proyectos.",
@@ -122,7 +172,7 @@
    "in": 0
   },
   {
-   "k": 9,
+   "k": 14,
    "t": 27.9,
    "dur": 2.2,
    "frase": "Escuchamos, compartimos ideas",
@@ -132,10 +182,10 @@
    "in": 3.9
   },
   {
-   "k": 10,
+   "k": 15,
    "t": 30.1,
-   "dur": 3.4,
-   "frase": "y buscamos juntos la mejor solución.",
+   "dur": 2.0,
+   "frase": "y buscamos juntos la mejor",
    "tr": "Fade",
    "tipo": "toma",
    "n": 141,
@@ -143,20 +193,41 @@
    "v": 0.8
   },
   {
-   "k": 11,
+   "k": 16,
+   "t": 32.1,
+   "dur": 1.4,
+   "frase": "solución.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 146,
+   "in": 0,
+   "v": 0.8
+  },
+  {
+   "k": 17,
    "t": 33.5,
-   "dur": 3.8,
-   "frase": "Aportamos más de 46 años de experiencia,",
+   "dur": 2.5,
+   "frase": "Aportamos más de 46",
    "tr": "Fade",
    "tipo": "toma",
    "n": 144,
    "in": 2.11
   },
   {
-   "k": 12,
+   "k": 18,
+   "t": 36.0,
+   "dur": 1.3,
+   "frase": "años de experiencia,",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 17,
+   "in": 8
+  },
+  {
+   "k": 19,
    "t": 37.3,
-   "dur": 3.5,
-   "frase": "conocimiento y tecnología para que cada decisión tenga",
+   "dur": 1.7,
+   "frase": "conocimiento y tecnología",
    "tr": "Fade",
    "tipo": "toma",
    "n": 109,
@@ -164,30 +235,60 @@
    "v": 0.8
   },
   {
-   "k": 13,
+   "k": 20,
+   "t": 39.0,
+   "dur": 1.8,
+   "frase": "para que cada decisión tenga",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 112,
+   "in": 6
+  },
+  {
+   "k": 21,
    "t": 40.8,
-   "dur": 3.6,
-   "frase": "el respaldo de una empresa que sabe construir.",
+   "dur": 1.8,
+   "frase": "el respaldo de una empresa que",
    "tr": "Fade",
    "tipo": "toma",
    "n": 64,
    "in": 7.83
   },
   {
-   "k": 14,
+   "k": 22,
+   "t": 42.6,
+   "dur": 1.8,
+   "frase": "sabe construir.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 66,
+   "in": 1.5
+  },
+  {
+   "k": 23,
    "t": 44.4,
-   "dur": 3.6,
-   "frase": "Pero también sabemos que ninguna obra se hace en soledad.",
+   "dur": 1.8,
+   "frase": "Pero también sabemos",
    "tr": "Fade",
    "tipo": "toma",
    "n": 93,
    "in": 6
   },
   {
-   "k": 15,
+   "k": 24,
+   "t": 46.2,
+   "dur": 1.8,
+   "frase": "que ninguna obra se hace en soledad.",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 50,
+   "in": 1
+  },
+  {
+   "k": 25,
    "t": 48,
-   "dur": 3.4,
-   "frase": "Detrás de cada proyecto está el trabajo de nuestra gente,",
+   "dur": 2.0,
+   "frase": "Detrás de cada proyecto está",
    "tr": "Fade",
    "tipo": "toma",
    "n": 44,
@@ -195,7 +296,17 @@
    "v": 0.8
   },
   {
-   "k": 16,
+   "k": 26,
+   "t": 50.0,
+   "dur": 1.4,
+   "frase": "el trabajo de nuestra gente,",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 134,
+   "in": 0.5
+  },
+  {
+   "k": 27,
    "t": 51.4,
    "dur": 2.1,
    "frase": "el compromiso de nuestros proveedores y",
@@ -205,7 +316,7 @@
    "in": 0.3
   },
   {
-   "k": 17,
+   "k": 28,
    "t": 53.5,
    "dur": 2.8,
    "frase": "la confianza de nuestros clientes.",
@@ -215,7 +326,7 @@
    "in": 0
   },
   {
-   "k": 18,
+   "k": 29,
    "t": 56.3,
    "dur": 2.7,
    "frase": "Personas que, desde distintos lugares,",
@@ -225,7 +336,7 @@
    "in": 1
   },
   {
-   "k": 19,
+   "k": 30,
    "t": 59,
    "dur": 2.1,
    "frase": "hacen posible que las ideas se conviertan",
@@ -235,7 +346,7 @@
    "in": 0.5
   },
   {
-   "k": 20,
+   "k": 31,
    "t": 61.1,
    "dur": 2.4,
    "frase": "en realidades. Y",
@@ -245,7 +356,7 @@
    "in": 3.2
   },
   {
-   "k": 21,
+   "k": 32,
    "t": 63.5,
    "dur": 2.8,
    "frase": "cuando estrechamos una mano, reafirmamos nuestra manera de",
@@ -257,17 +368,28 @@
    "luz": true
   },
   {
-   "k": 22,
+   "k": 33,
    "t": 66.3,
-   "dur": 3.2,
-   "frase": "trabajar, con responsabilidad, con cercanía y",
+   "dur": 1.7,
+   "frase": "trabajar, con responsabilidad,",
    "tr": "Fade",
    "tipo": "toma",
    "n": 142,
    "in": 0.69
   },
   {
-   "k": 23,
+   "k": 34,
+   "t": 68.0,
+   "dur": 1.5,
+   "frase": "con cercanía y",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 143,
+   "in": 0,
+   "v": 0.8
+  },
+  {
+   "k": 35,
    "t": 69.5,
    "dur": 2.3,
    "frase": "con la palabra como compromiso.",
@@ -278,17 +400,27 @@
    "v": 0.8
   },
   {
-   "k": 24,
+   "k": 36,
    "t": 71.8,
-   "dur": 3.8,
-   "frase": "Porque construir no es solamente levantar estructuras,",
+   "dur": 1.9,
+   "frase": "Porque construir no",
    "tr": "Fade",
    "tipo": "toma",
    "n": 4,
-   "in": 3.0
+   "in": 3
   },
   {
-   "k": 25,
+   "k": 37,
+   "t": 73.7,
+   "dur": 1.9,
+   "frase": "es solamente levantar estructuras,",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 7,
+   "in": 1
+  },
+  {
+   "k": 38,
    "t": 75.6,
    "dur": 2.9,
    "frase": "es construir relaciones que perduren.",
@@ -299,17 +431,27 @@
    "luz": true
   },
   {
-   "k": 26,
+   "k": 39,
    "t": 78.5,
-   "dur": 3.2,
-   "frase": "ZIZI",
+   "dur": 1.7,
+   "frase": "",
    "tr": "Fade",
    "tipo": "toma",
    "n": 8,
    "in": 5.58
   },
   {
-   "k": 27,
+   "k": 40,
+   "t": 80.2,
+   "dur": 1.5,
+   "frase": "ZIZI",
+   "tr": "Corte",
+   "tipo": "toma",
+   "n": 6,
+   "in": 5
+  },
+  {
+   "k": 41,
    "t": 81.7,
    "dur": 1.6,
    "frase": "es la gente,",
@@ -320,7 +462,7 @@
    "v": 0.8
   },
   {
-   "k": 28,
+   "k": 42,
    "t": 83.3,
    "dur": 1.5,
    "frase": "construimos cultura de trabajo.",
@@ -330,17 +472,27 @@
    "in": 1.5
   },
   {
-   "k": 29,
+   "k": 43,
    "t": 84.8,
-   "dur": 5.0,
+   "dur": 2.5,
    "frase": "",
    "tr": "Fade",
+   "tipo": "toma",
+   "n": 12,
+   "in": 8
+  },
+  {
+   "k": 44,
+   "t": 87.3,
+   "dur": 2.5,
+   "frase": "",
+   "tr": "Corte",
    "tipo": "toma",
    "n": 1,
    "in": 6
   },
   {
-   "k": 30,
+   "k": 45,
    "t": 89.8,
    "dur": 5.4,
    "frase": "",
