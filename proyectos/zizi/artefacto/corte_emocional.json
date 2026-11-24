@@ -9,7 +9,7 @@
   "vineta": false,
   "voz": "orig"
  },
- "render": "",
+ "render": "corte_emocional.mp4",
  "voces": [
   [
    "orig",
@@ -424,7 +424,7 @@
    "t": 75.6,
    "dur": 2.9,
    "frase": "es construir relaciones que perduren.",
-   "tr": "Fade",
+   "tr": "Corte",
    "tipo": "toma",
    "n": 149,
    "in": 0,
@@ -435,7 +435,7 @@
    "t": 78.5,
    "dur": 1.7,
    "frase": "",
-   "tr": "Fade",
+   "tr": "Corte",
    "tipo": "toma",
    "n": 8,
    "in": 5.58

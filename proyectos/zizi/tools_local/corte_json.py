@@ -34,7 +34,7 @@ pal = [{"w": re.sub(r"\bZizi\b", "ZIZI", w["w"]).replace("hora", "obra") if w["w
         "t": round(w["start"], 2), "e": round(w["end"], 2)} for w in words]
 # textos animados: los .webm con transparencia de artefacto/ov/ (uno por overlay de la EDL, en orden) para la vista rápida
 textos = [{"t": o["start"], "dur": o["dur"], "src": ("ov" if B.DIN else "ove") + "/o%02d.webm" % i} for i, o in enumerate(x for x in B.build(False)["overlays"] if x["template"] != "luz")]
-json.dump({"pieza": "Horizontal 16:9", "version": "Dinámica 2" if B.DIN else "Emocional 2" if B.VER == "emocional" else "Borrador 6", "dur": B.END, "fx": B.FX, "render": "",
+json.dump({"pieza": "Horizontal 16:9", "version": "Dinámica 2" if B.DIN else "Emocional 2" if B.VER == "emocional" else "Borrador 6", "dur": B.END, "fx": B.FX, "render": "corte_%s.mp4" % B.VER,
            "voces": [["carlos", "Carlos (argentina) · ritmo natural", "vo_cc.mp3"]] if B.DIN else [["orig", "Lara (locución original)", "vo.mp3"], ["carlos", "Carlos (argentina)", "vo_c.mp3"], ["masc", "Mauricio (argentina)", "vo_m.mp3"]], "slots": slots, "lib": lib, "palabras": pal, "textos": textos},
           open(A / ("artefacto/corte_%s.json" % (B.VER or "larga")), "w"), ensure_ascii=False, indent=1)
 print(len(slots), "slots", len(lib), "tomas")
