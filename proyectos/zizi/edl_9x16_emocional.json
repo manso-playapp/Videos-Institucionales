@@ -1571,12 +1571,5 @@
     "crf": 16,
     "preset": "slow",
     "maxrate": "30M"
-  },
-  "subtitles": {
-    "src": "media/audio/mezcla_javier_v2.srt",
-    "offset": 0.0,
-    "style": "subtitulo",
-    "size": 25,
-    "y": 800
   }
 }

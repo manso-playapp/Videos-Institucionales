@@ -251,7 +251,7 @@ def build(vertical):
         "loudness": {"I": -14, "TP": -1.5 if UHD else -1, "LRA": 11},
         "encode": {"crf": 17, "preset": "medium", "maxrate": "60M"} if UHD else {"crf": 16, "preset": "slow", "maxrate": "30M"},
     }
-    if vertical:   # en redes se ve sin sonido: subtítulos de la locución real
+    if vertical and os.environ.get("ZIZI_SUBS"):   # subtítulos de la locución: solo si se piden (27-11: al estudio no le gustaron)
         edl["subtitles"] = {"src": "media/audio/vo_carlos_c.srt" if DIN else "media/audio/mezcla_javier_v2.srt" if EMO else "locucion_a2.srt", "offset": 0.0, "style": "subtitulo", "size": 25, "y": 800}
     return edl
 
