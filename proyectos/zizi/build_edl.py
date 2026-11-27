@@ -252,7 +252,7 @@ def build(vertical):
         "encode": {"crf": 17, "preset": "medium", "maxrate": "60M"} if UHD else {"crf": 16, "preset": "slow", "maxrate": "30M"},
     }
     if vertical:   # en redes se ve sin sonido: subtítulos de la locución real
-        edl["subtitles"] = {"src": "media/audio/vo_carlos_c.srt" if DIN else "media/audio/mezcla_javier_v2.srt" if EMO else "locucion_a2.srt", "offset": 0.0, "style": "subtitulo", "size": 25, "y": 1620}
+        edl["subtitles"] = {"src": "media/audio/vo_carlos_c.srt" if DIN else "media/audio/mezcla_javier_v2.srt" if EMO else "locucion_a2.srt", "offset": 0.0, "style": "subtitulo", "size": 25, "y": 800}
     return edl
 
 if __name__ == "__main__":

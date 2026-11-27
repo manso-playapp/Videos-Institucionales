@@ -411,7 +411,7 @@
         "gamma": 0.84
       },
       "focus": {
-        "x": 0.6,
+        "x": 0.72,
         "y": 0.5
       }
     },
@@ -1082,7 +1082,7 @@
         "gamma": 0.9
       },
       "focus": {
-        "x": 0.5,
+        "x": 0.62,
         "y": 0.5
       }
     },
@@ -1708,7 +1708,7 @@
     "src": "media/audio/vo_carlos_c.srt",
     "offset": 0.0,
     "style": "subtitulo",
-    "size": 22,
-    "y": 1620
+    "size": 25,
+    "y": 800
   }
 }
