@@ -122,6 +122,12 @@ if EDIC.exists() and not os.environ.get("ZIZI_SIN_EDICION"):
                     if 0 < j < len(S) and S[j].get("tr"): S[j]["tr"] = dict(S[j]["tr"], dur=round(S[j]["tr"]["dur"] * f, 2))
     for s in S:
         if s.get("tr") and s["tr"]["dur"] < 0.12: s.pop("tr")
+# Vertical 9:16 (27-11): foco horizontal del recorte por toma (0 = izquierda, 1 = derecha), leído sobre hojas de contacto con grilla.
+FOCO = {1:.42,4:.52,5:.50,7:.50,8:.62,10:.58,17:.48,18:.42,21:.45,24:.60,27:.30,28:.58,43:.45,44:.58,49:.58,50:.55,56:.42,59:.50,64:.50,65:.50,66:.60,
+        68:.42,73:.50,77:.65,93:.52,94:.25,95:.58,96:.15,97:.33,98:.38,99:.55,101:.62,103:.50,104:.62,109:.45,110:.50,112:.40,115:.50,118:.35,122:.50,
+        123:.68,125:.42,126:.45,127:.52,128:.70,134:.55,135:.52,136:.72,137:.40,138:.58,139:.50,140:.62,141:.50,142:.48,143:.48,144:.75,145:.55,146:.60,
+        147:.55,148:.50,149:.50}
+BLUR = {142, 143, 145}      # apretones de manos: dos personas a lo ancho, no entran en el recorte -> plano entero sobre fondo desenfocado
 NIV = json.load(open(AQUI / "niveles.json"))
 def niveles(n):
     g = dict(NIV.get(str(n), {}).get("grade", {}))
@@ -141,12 +147,12 @@ def build(vertical):
         d = (t1 - t0) + head + tail
         if s.get("plate"):
             # placa de cierre animada (logo vectorial que se arma): se renderiza una vez con tools/motion.py y entra como plano
-            cierre = AQUI / ("render/cierre_zizi_4k.mov" if UHD else "render/cierre_zizi.mov"); pc = {"logo": "proyectos/zizi/motion/logo_zizi.json", "web": "WWW.TINGLADOSZIZI.COM.AR", "dur": round(d + 0.4, 2)}
+            cierre = AQUI / ("render/cierre_zizi_9x16.mov" if vertical else "render/cierre_zizi_4k.mov" if UHD else "render/cierre_zizi.mov"); pc = {"logo": "proyectos/zizi/motion/logo_zizi.json", "web": "WWW.TINGLADOSZIZI.COM.AR", "dur": round(d + 0.4, 2), **({"ancho": 460} if vertical else {})}
             firma = cierre.with_suffix(".json")
             if not cierre.exists() or not firma.exists() or json.load(open(firma)) != pc:
                 import subprocess; cierre.parent.mkdir(exist_ok=True)
                 subprocess.run(["python3", str(AQUI.parent.parent / "tools/motion.py"), "plantilla", "cierre_vector", "-p", json.dumps(pc), "-o", str(cierre),
-                                "--size", "3840x2160" if UHD else "1920x1080", "--fps", str(FPS)], check=True, capture_output=True); json.dump(pc, open(firma, "w"))
+                                "--size", "1080x1920" if vertical else "3840x2160" if UHD else "1920x1080", "--fps", str(FPS)], check=True, capture_output=True); json.dump(pc, open(firma, "w"))
             c = {"src": "render/" + cierre.name, "in": 0, "dur": round(d, 3), "global_grade": False}
         elif s.get("negro"):
             neg = AQUI / "media/negro.png"
@@ -171,8 +177,8 @@ def build(vertical):
             if FX.get("look") == "personas" and "IMG_" in inv["file"]:      # look cálido solo en los planos de personas (celulares)
                 c["grade"] = {**c.get("grade", {}), **BASE_G, "lut": "assets/luts/estudio_calido.cube"}; c["global_grade"] = False
             if vertical:
-                if s.get("blur"): c["fit"], c["bg"] = "contain", "blur"
-                else: c["focus"] = {"x": s.get("f", 0.5), "y": 0.5}
+                if s.get("blur") or s["n"] in BLUR: c["fit"], c["bg"] = "contain", "blur"
+                else: c["focus"] = {"x": FOCO.get(s["n"], s.get("f", 0.5)), "y": 0.5}
         if s.get("tr"):
             c["transition_in"] = s["tr"]
             pass   # sin efectos de sonido en las transiciones: hay locución encima (pedido del estudio)
@@ -246,7 +252,7 @@ def build(vertical):
         "encode": {"crf": 17, "preset": "medium", "maxrate": "60M"} if UHD else {"crf": 16, "preset": "slow", "maxrate": "30M"},
     }
     if vertical:   # en redes se ve sin sonido: subtítulos de la locución real
-        edl["subtitles"] = {"src": "locucion_a2.srt", "offset": 0.0, "style": "subtitulo", "size": 22, "y": 1620}
+        edl["subtitles"] = {"src": "media/audio/vo_carlos_c.srt" if DIN else "media/audio/mezcla_javier_v2.srt" if EMO else "locucion_a2.srt", "offset": 0.0, "style": "subtitulo", "size": 25, "y": 1620}
     return edl
 
 if __name__ == "__main__":

@@ -1,0 +1,1421 @@
+{
+  "output": "entregas/ZIZI_Institucional_16x9_emocional.mp4",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 29.97
+  },
+  "grade": {
+    "lut": "assets/luts/estudio_limpio.cube",
+    "saturation": 1.05,
+    "temperature": 0.06,
+    "grain": 3
+  },
+  "fade": {
+    "in": 1.0,
+    "out": 1.6,
+    "color": "black"
+  },
+  "clips": [
+    {
+      "src": "media/tomas/DJI_20261019121707_0541_D.MP4",
+      "in": 0.0,
+      "dur": 3.0,
+      "speed": 0.8,
+      "grade": {
+        "levels": {
+          "black": 0.0,
+          "white": 0.8626,
+          "wb": [
+            0.9848,
+            1.0,
+            0.9917
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        }
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019123435_0564_D.MP4",
+      "in": 1.78,
+      "dur": 3.0,
+      "grade": {
+        "levels": {
+          "black": 0.0269,
+          "white": 0.8914,
+          "wb": [
+            0.9731,
+            1.0,
+            1.0108
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        }
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019122245_0544_D.MP4",
+      "in": 0.0,
+      "dur": 2.1,
+      "grade": {
+        "levels": {
+          "black": 0.0311,
+          "white": 0.902,
+          "wb": [
+            0.9867,
+            1.0,
+            0.9897
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        }
+      },
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.6,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019122259_0545_D.MP4",
+      "in": 2.33,
+      "dur": 1.95,
+      "grade": {
+        "levels": {
+          "black": 0.0345,
+          "white": 0.9126,
+          "wb": [
+            0.9903,
+            1.0,
+            0.9839
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 1.24
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2255.MP4",
+      "in": 0.72,
+      "dur": 2.55,
+      "speed": 0.8,
+      "grade": {
+        "levels": {
+          "black": 0.0171,
+          "white": 0.969,
+          "wb": [
+            1.0142,
+            1.0,
+            0.9604
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2248.MP4",
+      "in": 0.5,
+      "dur": 2.05,
+      "grade": {
+        "levels": {
+          "black": 0.0273,
+          "white": 0.9621,
+          "wb": [
+            1.0174,
+            1.0,
+            0.9844
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.9,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false
+    },
+    {
+      "src": "media/tomas/IMG_2247.MOV",
+      "in": 7.65,
+      "dur": 2.25,
+      "grade": {
+        "levels": {
+          "black": 0.009,
+          "white": 0.9614,
+          "wb": [
+            1.0261,
+            1.0,
+            0.9635
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/27-10/DJI_20261027094147_0617_D.MP4",
+      "in": 10.77,
+      "dur": 1.8,
+      "grade": {
+        "levels": {
+          "black": 0.0,
+          "white": 0.867,
+          "wb": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 1.08
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2230.MP4",
+      "in": 0.06,
+      "dur": 3.0,
+      "speed": 0.8,
+      "grade": {
+        "levels": {
+          "black": 0.1,
+          "white": 0.9746,
+          "wb": [
+            0.994,
+            1.0,
+            1.0142
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.6,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/27-10/IMG_3394.MP4",
+      "in": 0.2,
+      "dur": 2.55,
+      "grade": {
+        "levels": {
+          "black": 0.0505,
+          "white": 0.9771,
+          "wb": [
+            1.0149,
+            1.0,
+            1.0058
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false
+    },
+    {
+      "src": "media/tomas/27-10/DJI_20261027094918_0628_D.MP4",
+      "in": 0.65,
+      "dur": 2.2,
+      "grade": {
+        "levels": {
+          "black": 0.0025,
+          "white": 0.8876,
+          "wb": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 1.14
+      },
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2233.MP4",
+      "in": 0.0,
+      "dur": 1.65,
+      "grade": {
+        "levels": {
+          "black": 0.009,
+          "white": 0.959,
+          "wb": [
+            1.0291,
+            1.0,
+            0.9847
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2244.MOV",
+      "in": 0.0,
+      "dur": 2.6,
+      "grade": {
+        "levels": {
+          "black": 0.0189,
+          "white": 0.9632,
+          "wb": [
+            1.0199,
+            1.0,
+            0.9648
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false
+    },
+    {
+      "src": "media/tomas/IMG_2245.MP4",
+      "in": 0.0,
+      "dur": 0.8,
+      "grade": {
+        "levels": {
+          "black": 0.0,
+          "white": 0.9653,
+          "wb": [
+            1.0136,
+            1.0,
+            0.9507
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false
+    },
+    {
+      "src": "media/tomas/IMG_2246.MOV",
+      "in": 3.9,
+      "dur": 2.95,
+      "grade": {
+        "levels": {
+          "black": 0.0,
+          "white": 0.973,
+          "wb": [
+            1.0114,
+            1.0,
+            0.9882
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false
+    },
+    {
+      "src": "media/tomas/IMG_2249.MP4",
+      "in": 10.16,
+      "dur": 2.15,
+      "speed": 0.8,
+      "grade": {
+        "levels": {
+          "black": 0.0,
+          "white": 0.9768,
+          "wb": [
+            1.012,
+            1.0,
+            0.962
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.86,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2254.MP4",
+      "in": 0.0,
+      "dur": 1.35,
+      "speed": 0.8,
+      "grade": {
+        "levels": {
+          "black": 0.0328,
+          "white": 0.9539,
+          "wb": [
+            1.0197,
+            1.0,
+            0.9508
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false
+    },
+    {
+      "src": "media/tomas/IMG_2252.MOV",
+      "in": 1.76,
+      "dur": 2.35,
+      "grade": {
+        "levels": {
+          "black": 0.0614,
+          "white": 0.9511,
+          "wb": [
+            1.0415,
+            1.0,
+            0.9682
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.88,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/27-10/DJI_20261027094118_0616_D.MP4",
+      "in": 8.0,
+      "dur": 1.65,
+      "grade": {
+        "levels": {
+          "black": 0.0133,
+          "white": 0.8363,
+          "wb": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        }
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019122918_0555_D.MP4",
+      "in": 0.22,
+      "dur": 2.05,
+      "speed": 0.8,
+      "grade": {
+        "levels": {
+          "black": 0.0,
+          "white": 0.916,
+          "wb": [
+            0.9994,
+            1.0,
+            0.9805
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 1.08
+      },
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019123146_0558_D.MP4",
+      "in": 6.0,
+      "dur": 2.35,
+      "grade": {
+        "levels": {
+          "black": 0.005,
+          "white": 0.9412,
+          "wb": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        }
+      }
+    },
+    {
+      "src": "media/tomas/30-10/DJI_20261030121345_0674_D.MP4",
+      "in": 7.48,
+      "dur": 1.95,
+      "grade": {
+        "levels": {
+          "black": 0.0412,
+          "white": 0.8997,
+          "wb": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        }
+      },
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/30-10/DJI_20261030121438_0676_D.MP4",
+      "in": 1.5,
+      "dur": 1.65,
+      "grade": {
+        "levels": {
+          "black": 0.0607,
+          "white": 0.9226,
+          "wb": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        }
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019121534_0539_D.MP4",
+      "in": 5.65,
+      "dur": 1.55,
+      "grade": {
+        "levels": {
+          "black": 0.0158,
+          "white": 0.9045,
+          "wb": [
+            0.9988,
+            1.0,
+            0.9891
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        }
+      },
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/27-10/IMG_3395.MP4",
+      "in": 1.0,
+      "dur": 2.55,
+      "grade": {
+        "levels": {
+          "black": 0.0,
+          "white": 0.9405,
+          "wb": [
+            1.0231,
+            1.0,
+            0.9835
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false
+    },
+    {
+      "src": "media/tomas/27-10/IMG_3389.MP4",
+      "in": 0.12,
+      "dur": 2.75,
+      "speed": 0.8,
+      "grade": {
+        "levels": {
+          "black": 0.011,
+          "white": 0.9842,
+          "wb": [
+            1.022,
+            1.0,
+            0.9799
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2242.MP4",
+      "in": 0.5,
+      "dur": 1.55,
+      "grade": {
+        "levels": {
+          "black": 0.0561,
+          "white": 0.976,
+          "wb": [
+            1.0023,
+            1.0,
+            1.0048
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false
+    },
+    {
+      "src": "media/tomas/IMG_2234.MP4",
+      "in": 0.0,
+      "dur": 2.9,
+      "grade": {
+        "levels": {
+          "black": 0.0,
+          "white": 0.9713,
+          "wb": [
+            1.0286,
+            1.0,
+            0.9858
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.86,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2243.MP4",
+      "in": 0.0,
+      "dur": 2.8,
+      "grade": {
+        "levels": {
+          "black": 0.0,
+          "white": 0.9791,
+          "wb": [
+            1.022,
+            1.0,
+            0.9876
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2235.MP4",
+      "in": 0.65,
+      "dur": 2.75,
+      "grade": {
+        "levels": {
+          "black": 0.0,
+          "white": 0.9691,
+          "wb": [
+            1.0057,
+            1.0,
+            1.0143
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/27-10/IMG_3388.MP4",
+      "in": 0.5,
+      "dur": 2.65,
+      "grade": {
+        "levels": {
+          "black": 0.0269,
+          "white": 0.9903,
+          "wb": [
+            1.0026,
+            1.0,
+            1.0084
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false
+    },
+    {
+      "src": "media/tomas/14-11/DJI_20250508094650_0730_D.MP4",
+      "in": 2.95,
+      "dur": 2.75,
+      "grade": {
+        "levels": {
+          "black": 0.0394,
+          "white": 0.9462,
+          "wb": [
+            1.0202,
+            1.0,
+            0.9751
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 1.24
+      },
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.5,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2253.MOV",
+      "in": 3.0,
+      "dur": 2.96,
+      "speed": 0.8,
+      "grade": {
+        "levels": {
+          "black": 0.0006,
+          "white": 0.9618,
+          "wb": [
+            1.0175,
+            1.0,
+            0.9888
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false
+    },
+    {
+      "src": "media/tomas/IMG_2250.MP4",
+      "in": 0.63,
+      "dur": 1.66,
+      "grade": {
+        "levels": {
+          "black": 0.013,
+          "white": 0.9544,
+          "wb": [
+            1.0094,
+            1.0,
+            0.9781
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.12,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2251.MOV",
+      "in": 0.0,
+      "dur": 2.2,
+      "speed": 0.8,
+      "grade": {
+        "levels": {
+          "black": 0.0,
+          "white": 0.9785,
+          "wb": [
+            1.0075,
+            1.0,
+            0.9853
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.88,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false
+    },
+    {
+      "src": "media/tomas/IMG_2256.MP4",
+      "in": 0.2,
+      "dur": 3.0,
+      "speed": 0.8,
+      "grade": {
+        "levels": {
+          "black": 0.0,
+          "white": 0.9717,
+          "wb": [
+            1.0137,
+            1.0,
+            0.9594
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.91,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false
+    },
+    {
+      "src": "media/tomas/14-11/DJI_20250508094327_0724_D.MP4",
+      "in": 2.7,
+      "dur": 2.0,
+      "grade": {
+        "levels": {
+          "black": 0.016,
+          "white": 0.9225,
+          "wb": [
+            1.0377,
+            1.0,
+            0.9711
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 1.11
+      },
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.6,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/14-11/DJI_20250508094534_0727_D.MP4",
+      "in": 1.0,
+      "dur": 2.15,
+      "grade": {
+        "levels": {
+          "black": 0.0288,
+          "white": 0.9165,
+          "wb": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 1.18
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2257.MP4",
+      "in": 0.0,
+      "dur": 2.6,
+      "grade": {
+        "levels": {
+          "black": 0.0147,
+          "white": 0.9651,
+          "wb": [
+            1.0241,
+            1.0,
+            0.9625
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/14-11/DJI_20250508094550_0728_D.MP4",
+      "in": 5.23,
+      "dur": 1.6,
+      "grade": {
+        "levels": {
+          "black": 0.0154,
+          "white": 0.9138,
+          "wb": [
+            1.0529,
+            1.0,
+            0.9831
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 1.09
+      },
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2231.MP4",
+      "in": 0.22,
+      "dur": 1.85,
+      "speed": 0.8,
+      "grade": {
+        "levels": {
+          "black": 0.0155,
+          "white": 0.9538,
+          "wb": [
+            1.0046,
+            1.0,
+            1.006
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 0.84,
+        "saturation": 1.05,
+        "temperature": 0.06,
+        "grain": 3,
+        "lut": "assets/luts/estudio_calido.cube"
+      },
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/27-10/DJI_20261027094944_0629_D.MP4",
+      "in": 1.5,
+      "dur": 2.05,
+      "grade": {
+        "levels": {
+          "black": 0.0371,
+          "white": 0.9167,
+          "wb": [
+            1.0107,
+            1.0,
+            0.97
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 1.15
+      }
+    },
+    {
+      "src": "media/tomas/14-11/DJI_20250508094220_0721_D.MP4",
+      "in": 5.65,
+      "dur": 2.7,
+      "grade": {
+        "levels": {
+          "black": 0.011,
+          "white": 0.9595,
+          "wb": [
+            1.0395,
+            1.0,
+            0.9747
+          ],
+          "omin": 0.0,
+          "omax": 1.0
+        },
+        "gamma": 1.24
+      },
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "render/cierre_zizi.mov",
+      "in": 0,
+      "dur": 4.85,
+      "global_grade": false,
+      "transition_in": {
+        "type": "gl:Fade",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    }
+  ],
+  "texts": [],
+  "overlays": [
+    {
+      "template": "lugar",
+      "params": {
+        "lugar": "Santa Fe",
+        "pais": "Argentina",
+        "acento": "#FDB913",
+        "dur": 3.8,
+        "size": 78,
+        "x": 150,
+        "y": 130
+      },
+      "start": 0.47,
+      "dur": 3.8
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "Cada proyecto tiene un",
+            "size": 54,
+            "fuente": "texto",
+            "t": 0,
+            "peso": 300
+          },
+          {
+            "texto": "comienzo",
+            "size": 240,
+            "fuente": "display",
+            "t": 1.55,
+            "mayus": true,
+            "punto": true
+          }
+        ],
+        "dur": 4.2,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 2.35,
+      "dur": 4.2
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "Antes de hablar de estructuras,",
+            "size": 50,
+            "fuente": "texto",
+            "t": 0,
+            "peso": 300
+          },
+          {
+            "texto": "hablamos de",
+            "size": 104,
+            "fuente": "display",
+            "t": 1.25,
+            "peso": 500,
+            "mayus": true
+          },
+          {
+            "texto": "proyectos",
+            "size": 220,
+            "fuente": "display",
+            "t": 1.9,
+            "mayus": true,
+            "punto": true
+          }
+        ],
+        "dur": 3.6,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 24.73,
+      "dur": 3.6
+    },
+    {
+      "template": "dato",
+      "params": {
+        "valor": "46",
+        "prefijo": "+",
+        "etiqueta": "años de experiencia",
+        "acento": "#FDB913",
+        "y": 330,
+        "x": 150
+      },
+      "start": 33.95,
+      "dur": 2.6
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "conocimiento",
+            "size": 150,
+            "fuente": "display",
+            "t": 0,
+            "mayus": true
+          },
+          {
+            "texto": "y tecnología",
+            "size": 150,
+            "fuente": "display",
+            "t": 0.95,
+            "mayus": true,
+            "punto": true,
+            "color": "acento"
+          }
+        ],
+        "dur": 3.3,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 36.27,
+      "dur": 3.3
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "Nuestra gente",
+            "size": 118,
+            "fuente": "display",
+            "t": 0,
+            "mayus": true,
+            "punto": true
+          },
+          {
+            "texto": "Nuestros proveedores",
+            "size": 118,
+            "fuente": "display",
+            "t": 1.9,
+            "mayus": true,
+            "punto": true
+          },
+          {
+            "texto": "Nuestros clientes",
+            "size": 118,
+            "fuente": "display",
+            "t": 4.25,
+            "mayus": true,
+            "punto": true
+          }
+        ],
+        "dur": 5.6,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 48.93,
+      "dur": 5.6
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "Las ideas se convierten en",
+            "size": 52,
+            "fuente": "texto",
+            "t": 0,
+            "peso": 300
+          },
+          {
+            "texto": "realidades",
+            "size": 220,
+            "fuente": "display",
+            "t": 1.6,
+            "mayus": true,
+            "punto": true
+          }
+        ],
+        "dur": 3.0,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 57.41,
+      "dur": 3.0
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "Responsabilidad",
+            "size": 128,
+            "fuente": "display",
+            "t": 0,
+            "mayus": true,
+            "punto": true
+          },
+          {
+            "texto": "Cercanía",
+            "size": 128,
+            "fuente": "display",
+            "t": 1.5,
+            "mayus": true,
+            "punto": true
+          },
+          {
+            "texto": "Compromiso",
+            "size": 128,
+            "fuente": "display",
+            "t": 3.3,
+            "mayus": true,
+            "punto": true,
+            "color": "acento"
+          }
+        ],
+        "dur": 4.6,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 65.2,
+      "dur": 4.6
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "Construir",
+            "size": 54,
+            "fuente": "texto",
+            "t": 0,
+            "peso": 300
+          },
+          {
+            "texto": "relaciones",
+            "size": 220,
+            "fuente": "display",
+            "t": 0.5,
+            "mayus": true
+          },
+          {
+            "texto": "que perduren",
+            "size": 104,
+            "fuente": "display",
+            "t": 1.45,
+            "peso": 500,
+            "mayus": true,
+            "punto": true
+          }
+        ],
+        "dur": 2.27,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 74.53,
+      "dur": 2.27
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "ZIZI es la gente",
+            "size": 176,
+            "fuente": "display",
+            "t": 0,
+            "mayus": true,
+            "punto": true
+          },
+          {
+            "texto": "Construimos cultura de trabajo",
+            "size": 58,
+            "fuente": "texto",
+            "t": 1.75,
+            "peso": 300
+          }
+        ],
+        "dur": 4.4,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 76.9,
+      "dur": 4.4
+    },
+    {
+      "template": "luz",
+      "params": {
+        "semilla": 35
+      },
+      "start": 61.4,
+      "dur": 2.9,
+      "opacity": 0.6
+    },
+    {
+      "template": "luz",
+      "params": {
+        "semilla": 41
+      },
+      "start": 74.3,
+      "dur": 1.9,
+      "opacity": 0.6
+    }
+  ],
+  "audio": {
+    "vo": {
+      "src": "media/audio/mezcla_javier_ext.wav",
+      "start": 0.0,
+      "gain_db": 0,
+      "raw": true
+    },
+    "sfx": []
+  },
+  "loudness": {
+    "I": -14,
+    "TP": -1,
+    "LRA": 11
+  },
+  "encode": {
+    "crf": 16,
+    "preset": "slow",
+    "maxrate": "30M"
+  }
+}
