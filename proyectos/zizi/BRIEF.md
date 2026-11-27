@@ -76,3 +76,9 @@ Regenerar: `ZIZI_VERSION=emocional|dinamica ZIZI_TAG=_x python3 build_edl.py` �
 Editor (artefacto): https://claude.ai/artifact/TiYHN4kHMHtuL8QVu6uc21 — selector Emocional / Dinámica, cada una guarda su edición aparte.
 
 Pendiente: devolución del cliente · vertical 9:16 · versión LED (falta resolución) · short < 60 s · master 4K si lo piden (`ZIZI_4K=1`).
+
+## 27-11 — devolución: subir la música de fondo del emocional
+Javier mandó una mezcla nueva (`media/audio/mezcla_javier_v2.wav`, música ~2 dB más alta, mismos tiempos de voz). Se reemplazó solo el audio
+(misma imagen) y se continuó la cola de música igual que antes. Vigentes en Drive, carpeta `Final`:
+`ZIZI_Institucional_Emocional_1080p_v4.mp4` y `ZIZI_Institucional_Dinamica_1080p_v2.mp4`. Lo anterior va a `Versiones descartadas`.
+`tools/drive.sh` ahora tiene `tree`, `pushto` (subir a subcarpeta) y `mv` (mover dentro de la carpeta).

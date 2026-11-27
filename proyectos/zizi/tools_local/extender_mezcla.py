@@ -6,7 +6,7 @@ Salida: media/audio/mezcla_javier_ext.wav"""
 import subprocess, numpy as np, os
 from pathlib import Path
 A = Path(__file__).parent.parent; SR = 44100; END = 86.8; T0 = 80.35          # T0: después de la última palabra
-x = np.frombuffer(subprocess.run(['ffmpeg', '-v', 'error', '-i', str(A / 'media/audio/mezcla_javier.wav'), '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'], capture_output=True).stdout, dtype='<f4').reshape(-1, 2).copy()
+x = np.frombuffer(subprocess.run(['ffmpeg', '-v', 'error', '-i', str(A / 'media/audio/mezcla_javier_v2.wav'), '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'], capture_output=True).stdout, dtype='<f4').reshape(-1, 2).copy()
 n = int(END * SR); x = x[:n] if len(x) >= n else np.vstack([x, np.zeros((n - len(x), 2), np.float32)])
 mono = x.mean(1).astype(np.float64)
 def media_movil(v, w):
