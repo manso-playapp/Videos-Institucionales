@@ -223,10 +223,20 @@ class Builder:
              f"fps={self.fps}"]
         fit = clip.get("fit", "cover")
         move = clip.get("move")
+        # "focus": {"x": 0..1, "y": 0..1} punto del cuadro fuente que se conserva al recortar (0.5 = centro)
+        foc = clip.get("focus") or {}
+        fx = min(max(float(foc.get("x", 0.5)), 0.0), 1.0)
+        fy = min(max(float(foc.get("y", 0.5)), 0.0), 1.0)
         if fit == "contain":
             bg = clip.get("bg", "black")
-            f.append(f"scale={W}:{H}:force_original_aspect_ratio=decrease:flags=lanczos")
-            f.append(f"pad={W}:{H}:(ow-iw)/2:(oh-ih)/2:color={bg}")
+            if bg == "blur":
+                f.append(f"split[bgs][fgs];[bgs]scale={W}:{H}:force_original_aspect_ratio=increase,"
+                         f"crop={W}:{H},boxblur=32:3,eq=brightness=-0.12[bgb];"
+                         f"[fgs]scale={W}:{H}:force_original_aspect_ratio=decrease:flags=lanczos[fgb];"
+                         f"[bgb][fgb]overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2")
+            else:
+                f.append(f"scale={W}:{H}:force_original_aspect_ratio=decrease:flags=lanczos")
+                f.append(f"pad={W}:{H}:(ow-iw)/2:(oh-ih)/2:color={bg}")
         elif move:
             # Movimiento de cámara sintético (push-in / pull-out / paneo), con
             # sobremuestreo x2 para evitar el "temblor" típico de zoompan.
@@ -234,7 +244,7 @@ class Builder:
             kind = move.get("type", "push_in")
             n = max(int(round(dur * float(self.fps))), 1)
             f.append(f"scale={W*2}:{H*2}:force_original_aspect_ratio=increase:flags=lanczos")
-            f.append(f"crop={W*2}:{H*2}")
+            f.append(f"crop={W*2}:{H*2}:(iw-ow)*{fx}:(ih-oh)*{fy}")
             ease = f"(0.5-0.5*cos(PI*on/{n}))" if move.get("ease", True) else f"(on/{n})"
             if kind == "push_in":
                 z = f"1+{amt}*{ease}"
@@ -251,7 +261,7 @@ class Builder:
             f.append(f"zoompan=z='{z}':x='{x}':y='{y}':d=1:s={W}x{H}:fps={self.fps}")
         else:
             f.append(f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos")
-            f.append(f"crop={W}:{H}")
+            f.append(f"crop={W}:{H}:(iw-ow)*{fx}:(ih-oh)*{fy}")
         if clip.get("grade"):
             f.extend(self.grade_filters(clip["grade"]))
         # Grade global por plano; las placas/imágenes lo omiten salvo que se pida.
@@ -299,6 +309,8 @@ class Builder:
         W, H = self.W, self.H
         if layout == "grid":
             cols, rows = 2, (n + 1) // 2
+        elif layout == "v":
+            cols, rows = 1, n
         else:
             cols, rows = n, 1
         pw = (W - gap * (cols - 1)) // cols // 2 * 2
@@ -353,6 +365,11 @@ class Builder:
 
     def grade_filters(self, g: dict) -> list[str]:
         out = []
+        if g.get("levels"):
+            # nivelación por toma: punto negro/blanco medidos y balance de blancos (ganancia por canal). Va antes del look.
+            lv = g["levels"]; b, w = float(lv.get("black", 0.0)), float(lv.get("white", 1.0)); wb = lv.get("wb", [1, 1, 1])
+            out.append("colorlevels=" + ":".join(f"{c}imin={b:.4f}:{c}imax={min(1.0, w / float(k)):.4f}:{c}omin={float(lv.get('omin', 0.0)):.3f}:{c}omax={float(lv.get('omax', 1.0)):.3f}"
+                                                 for c, k in zip("rgb", wb)))
         if g.get("lut"):
             lut = self.path(g["lut"]).replace(":", "\\:")
             out.append(f"lut3d=file='{lut}':interp=tetrahedral")
@@ -441,6 +458,10 @@ class Builder:
                 it["start"] += offset
                 it["end"] += offset
                 it["style"] = style
+                if not isinstance(sub, str):
+                    for kk in ("size", "y", "x", "color"):
+                        if kk in sub:
+                            it[kk] = sub[kk]
                 items.append(it)
         out = []
         for n, t in enumerate(items):
@@ -516,9 +537,13 @@ class Builder:
             vi = self.add_input(["-i", self.path(vo["src"])])
             st = float(vo.get("start", 0.0))
             g = float(vo.get("gain_db", 0))
+            # "raw": true → la pista ya viene mezclada y masterizada (voz + música): no se filtra ni se comprime
+            proc = "" if vo.get("raw") else "highpass=f=80,acompressor=threshold=-20dB:ratio=3:attack=5:release=120:makeup=2,"
             chain = (f"[{vi}:a]aresample=48000,aformat=channel_layouts=stereo,"
-                     f"highpass=f=80,acompressor=threshold=-20dB:ratio=3:attack=5:release=120:makeup=2,"
-                     f"volume={g}dB,adelay={int(st*1000)}|{int(st*1000)}")
+                     f"{proc}"
+                     f"volume={g}dB,adelay={int(st*1000)}|{int(st*1000)},"
+                     # la locución se rellena con silencio hasta el final: si termina antes, el ducking (sidechain) cortaba la música ahí
+                     f"apad=whole_dur={total:.3f}")
             if a.get("duck_music_under_vo", True) and a.get("music"):
                 self.filters.append(chain + ",asplit=2[vo][vosc]")
                 vo_lbl = "[vosc]"

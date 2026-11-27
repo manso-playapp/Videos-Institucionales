@@ -24,6 +24,7 @@ cierre con logo, con color consistente, ritmo musical y audio masterizado. **Le�
 | Motion graphics (dato, zócalo, título, cierre, Lottie de After Effects, luz) | `python3 tools/motion.py plantilla …` o `overlays` en la EDL |
 | 214 transiciones de GPU con curva de aceleración | `"transition_in": {"type": "gl:<Nombre>", "ease": …}` · `python3 tools/motion.py lista` |
 | Looks de color (LUTs del estudio) | `assets/luts/*.cube` · `python3 tools/luts.py muestra <clip>` para comparar |
+| Editor de corte en artefacto (el estudio edita la línea de tiempo en el navegador) y nivelación de color por toma | `python3 tools/editor/editor.py preparar|niveles|overlays|transiciones …` (ver `docs/editor.md`) |
 
 **Catálogo de efectos y cuándo usar cada uno: `docs/efectos.md`** (muestrarios visuales en
 `docs/transiciones.jpg` y `docs/looks.jpg`). Si falta algo (rclone, faster-whisper): `bash setup.sh`.
@@ -61,6 +62,9 @@ Escribí `proyectos/<cliente>/edl.json` (partí de `examples/edl-ejemplo.json`) 
 - Cortar sobre el pulso musical; corte directo por defecto, disolvencia solo entre bloques.
 - Todo plano con movimiento; si es fijo, `move` push-in de 3–8 %.
 - Cámara lenta solo con material de alta velocidad de cuadro.
+
+Si el estudio quiere editar por su cuenta (mover, recortar o cambiar tomas, probar voces y música), armá el
+**editor de corte** con `tools/editor/` siguiendo `docs/editor.md`: se publica como artefacto y la edición vuelve a la EDL.
 
 ### 5. Autorrevisión (obligatoria antes de mostrar)
 1. `python3 tools/analizar.py ref <draft>` y **mirá la hoja de contacto** como lo haría el

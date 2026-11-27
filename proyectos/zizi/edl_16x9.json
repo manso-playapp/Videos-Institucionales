@@ -1,0 +1,658 @@
+{
+  "output": "entregas/ZIZI_Institucional_16x9.mp4",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 29.97
+  },
+  "grade": {
+    "lut": "assets/luts/estudio_limpio.cube",
+    "saturation": 1.05,
+    "temperature": 0.06
+  },
+  "fade": {
+    "in": 1.0,
+    "out": 1.6,
+    "color": "black"
+  },
+  "clips": [
+    {
+      "src": "media/tomas/DJI_20261019123435_0564_D.MP4",
+      "in": 6.6,
+      "dur": 4.25,
+      "grade": {
+        "gamma": 1.13,
+        "contrast": 1.07
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019122259_0545_D.MP4",
+      "in": 0.5,
+      "dur": 2.85,
+      "grade": {
+        "gamma": 1.3
+      },
+      "transition_in": {
+        "type": "gl:DefocusBlur",
+        "dur": 0.5,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019122312_0547_D.MP4",
+      "in": 1.0,
+      "dur": 5.09,
+      "grade": {
+        "gamma": 1.3
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019122245_0544_D.MP4",
+      "in": 0.3,
+      "dur": 4.09,
+      "grade": {
+        "contrast": 1.07
+      },
+      "transition_in": {
+        "type": "gl:WhipPan",
+        "dur": 0.38,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019121534_0539_D.MP4",
+      "in": 2.0,
+      "dur": 1.5,
+      "grade": {
+        "gamma": 1.1,
+        "contrast": 1.07
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019121707_0541_D.MP4",
+      "in": 2.0,
+      "dur": 2.5,
+      "grade": {
+        "gamma": 1.23,
+        "contrast": 1.07
+      }
+    },
+    {
+      "src": "media/tomas/27-10/DJI_20261027094147_0617_D.MP4",
+      "in": 8.0,
+      "dur": 3.05,
+      "grade": {
+        "gamma": 1.25,
+        "contrast": 1.07
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2244.MOV",
+      "in": 0.0,
+      "dur": 4.25,
+      "transition_in": {
+        "type": "gl:BloomDissolve",
+        "dur": 0.5,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2245.MP4",
+      "in": 0.2,
+      "dur": 1.6
+    },
+    {
+      "src": "media/tomas/IMG_2255.MP4",
+      "in": 0.1,
+      "dur": 1.49,
+      "grade": {
+        "gamma": 0.93
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2246.MOV",
+      "in": 4.0,
+      "dur": 2.39,
+      "transition_in": {
+        "type": "gl:WhipPan",
+        "dur": 0.38,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2247.MOV",
+      "in": 9.6,
+      "dur": 2.41
+    },
+    {
+      "src": "media/tomas/IMG_2252.MOV",
+      "in": 2.7,
+      "dur": 4.01,
+      "grade": {
+        "brightness": -0.02
+      },
+      "transition_in": {
+        "type": "gl:Overexposure",
+        "dur": 0.42,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019122918_0555_D.MP4",
+      "in": 0.0,
+      "dur": 1.225,
+      "grade": {
+        "gamma": 1.2
+      }
+    },
+    {
+      "src": "media/tomas/DJI_20261019123146_0558_D.MP4",
+      "in": 6.0,
+      "dur": 2.975,
+      "transition_in": {
+        "type": "gl:WhipTilt",
+        "dur": 0.45,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/30-10/DJI_20261030121438_0676_D.MP4",
+      "in": 1.5,
+      "dur": 4.1,
+      "transition_in": {
+        "type": "gl:LightWipe",
+        "dur": 0.5,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/27-10/DJI_20261027094918_0628_D.MP4",
+      "in": 1.0,
+      "dur": 3.85,
+      "grade": {
+        "gamma": 1.29,
+        "contrast": 1.07
+      },
+      "transition_in": {
+        "type": "gl:DefocusBlur",
+        "dur": 0.5,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/27-10/DJI_20261027094944_0629_D.MP4",
+      "in": 1.5,
+      "dur": 3.59,
+      "grade": {
+        "gamma": 1.21
+      }
+    },
+    {
+      "src": "media/tomas/30-10/DJI_20261030121654_0678_D.MP4",
+      "in": 0.0,
+      "dur": 2.29,
+      "grade": {
+        "gamma": 1.2
+      },
+      "transition_in": {
+        "type": "gl:WhipPan",
+        "dur": 0.38,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2243.MP4",
+      "in": 0.0,
+      "dur": 3.05
+    },
+    {
+      "src": "media/tomas/6-11/DJI_20250428061822_0709_D.MP4",
+      "in": 3.0,
+      "dur": 2.95,
+      "grade": {
+        "gamma": 1.14,
+        "contrast": 1.07
+      },
+      "transition_in": {
+        "type": "gl:BloomDissolve",
+        "dur": 0.5,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "split": [
+        {
+          "src": "media/tomas/DJI_20261019122449_0550_D.MP4",
+          "in": 6.0,
+          "grade": {
+            "gamma": 1.1
+          }
+        },
+        {
+          "src": "media/tomas/6-11/DJI_20250428061513_0705_D.MP4",
+          "in": 2.0,
+          "grade": {
+            "gamma": 1.29
+          }
+        },
+        {
+          "src": "media/tomas/6-11/DJI_20250428061747_0708_D.MP4",
+          "in": 2.0,
+          "grade": {
+            "contrast": 1.07
+          }
+        }
+      ],
+      "dur": 1.9,
+      "gap": 10,
+      "layout": "h",
+      "stagger": 0.12
+    },
+    {
+      "src": "media/tomas/14-11/DJI_20250508094650_0730_D.MP4",
+      "in": 3.0,
+      "dur": 1.91,
+      "grade": {
+        "gamma": 1.28
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2253.MOV",
+      "in": 2.6,
+      "dur": 4.51,
+      "transition_in": {
+        "type": "gl:Overexposure",
+        "dur": 0.42,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2250.MP4",
+      "in": 3.3,
+      "dur": 5.09
+    },
+    {
+      "src": "media/tomas/14-11/DJI_20250508094327_0724_D.MP4",
+      "in": 3.0,
+      "dur": 4.24,
+      "grade": {
+        "gamma": 1.16
+      },
+      "transition_in": {
+        "type": "gl:WhipPan",
+        "dur": 0.38,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/IMG_2257.MP4",
+      "in": 0.2,
+      "dur": 3.25,
+      "transition_in": {
+        "type": "gl:BloomDissolve",
+        "dur": 0.5,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/14-11/DJI_20250508094550_0728_D.MP4",
+      "in": 5.0,
+      "dur": 2.91,
+      "grade": {
+        "gamma": 1.17
+      }
+    },
+    {
+      "src": "media/tomas/27-10/IMG_3389.MP4",
+      "in": 0.2,
+      "dur": 1.81,
+      "grade": {
+        "gamma": 0.93
+      },
+      "transition_in": {
+        "type": "gl:Overexposure",
+        "dur": 0.42,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/tomas/27-10/IMG_3388.MP4",
+      "in": 0.6,
+      "dur": 1.4
+    },
+    {
+      "src": "media/tomas/6-11/DJI_20250428061854_0710_D.MP4",
+      "in": 1.0,
+      "dur": 3.15,
+      "grade": {
+        "contrast": 1.07
+      }
+    },
+    {
+      "src": "media/tomas/14-11/DJI_20250508094220_0721_D.MP4",
+      "in": 0.0,
+      "dur": 3.2,
+      "grade": {
+        "gamma": 1.3
+      },
+      "transition_in": {
+        "type": "gl:BloomDissolve",
+        "dur": 0.5,
+        "ease": "cubic-in-out"
+      }
+    },
+    {
+      "src": "media/logo/placa_web.png",
+      "dur": 5.75,
+      "fit": "contain",
+      "bg": "black",
+      "transition_in": {
+        "type": "gl:CrossZoom",
+        "dur": 0.7,
+        "ease": "cubic-in-out"
+      }
+    }
+  ],
+  "texts": [],
+  "overlays": [
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "Cada proyecto tiene un",
+            "size": 54,
+            "fuente": "texto",
+            "t": 0,
+            "peso": 300
+          },
+          {
+            "texto": "comienzo",
+            "size": 240,
+            "fuente": "display",
+            "t": 1.55,
+            "mayus": true,
+            "punto": true
+          }
+        ],
+        "dur": 4.2,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 1.5,
+      "dur": 4.2
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "Antes de hablar de estructuras,",
+            "size": 50,
+            "fuente": "texto",
+            "t": 0,
+            "peso": 300
+          },
+          {
+            "texto": "hablamos de",
+            "size": 104,
+            "fuente": "display",
+            "t": 1.25,
+            "peso": 500,
+            "mayus": true
+          },
+          {
+            "texto": "proyectos",
+            "size": 220,
+            "fuente": "display",
+            "t": 1.9,
+            "mayus": true,
+            "punto": true
+          }
+        ],
+        "dur": 3.6,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 24.3,
+      "dur": 3.6
+    },
+    {
+      "template": "dato",
+      "params": {
+        "valor": "46",
+        "prefijo": "+",
+        "etiqueta": "años de experiencia",
+        "acento": "#FDB913",
+        "y": 330,
+        "x": 150
+      },
+      "start": 34.9,
+      "dur": 2.6
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "conocimiento",
+            "size": 150,
+            "fuente": "display",
+            "t": 0,
+            "mayus": true
+          },
+          {
+            "texto": "y tecnología",
+            "size": 150,
+            "fuente": "display",
+            "t": 0.95,
+            "mayus": true,
+            "punto": true,
+            "color": "acento"
+          }
+        ],
+        "dur": 3.3,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 37.4,
+      "dur": 3.3
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "Nuestra gente",
+            "size": 118,
+            "fuente": "display",
+            "t": 0,
+            "mayus": true,
+            "punto": true
+          },
+          {
+            "texto": "Nuestros proveedores",
+            "size": 118,
+            "fuente": "display",
+            "t": 1.9,
+            "mayus": true,
+            "punto": true
+          },
+          {
+            "texto": "Nuestros clientes",
+            "size": 118,
+            "fuente": "display",
+            "t": 4.25,
+            "mayus": true,
+            "punto": true
+          }
+        ],
+        "dur": 5.6,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 50.5,
+      "dur": 5.6
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "Las ideas se convierten en",
+            "size": 52,
+            "fuente": "texto",
+            "t": 0,
+            "peso": 300
+          },
+          {
+            "texto": "realidades",
+            "size": 220,
+            "fuente": "display",
+            "t": 1.6,
+            "mayus": true,
+            "punto": true
+          }
+        ],
+        "dur": 3.0,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 59.6,
+      "dur": 3.0
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "Responsabilidad",
+            "size": 128,
+            "fuente": "display",
+            "t": 0,
+            "mayus": true,
+            "punto": true
+          },
+          {
+            "texto": "Cercanía",
+            "size": 128,
+            "fuente": "display",
+            "t": 1.5,
+            "mayus": true,
+            "punto": true
+          },
+          {
+            "texto": "Compromiso",
+            "size": 128,
+            "fuente": "display",
+            "t": 3.3,
+            "mayus": true,
+            "punto": true,
+            "color": "acento"
+          }
+        ],
+        "dur": 4.6,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 67.2,
+      "dur": 4.6
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "Construir",
+            "size": 54,
+            "fuente": "texto",
+            "t": 0,
+            "peso": 300
+          },
+          {
+            "texto": "relaciones",
+            "size": 220,
+            "fuente": "display",
+            "t": 0.5,
+            "mayus": true
+          },
+          {
+            "texto": "que perduren",
+            "size": 104,
+            "fuente": "display",
+            "t": 1.45,
+            "peso": 500,
+            "mayus": true,
+            "punto": true
+          }
+        ],
+        "dur": 2.7,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 75.9,
+      "dur": 2.7
+    },
+    {
+      "template": "frase",
+      "params": {
+        "lineas": [
+          {
+            "texto": "ZIZI es la gente",
+            "size": 176,
+            "fuente": "display",
+            "t": 0,
+            "mayus": true,
+            "punto": true
+          },
+          {
+            "texto": "Construimos cultura de trabajo",
+            "size": 58,
+            "fuente": "texto",
+            "t": 1.75,
+            "peso": 300
+          }
+        ],
+        "dur": 4.4,
+        "acento": "#FDB913",
+        "align": "left",
+        "x": 150,
+        "y": 520
+      },
+      "start": 81.4,
+      "dur": 4.4
+    }
+  ],
+  "audio": {
+    "vo": {
+      "src": "media/audio/vo_a2.wav",
+      "start": 0.0,
+      "gain_db": 0
+    },
+    "sfx": []
+  },
+  "loudness": {
+    "I": -14,
+    "TP": -1,
+    "LRA": 11
+  },
+  "encode": {
+    "crf": 16,
+    "preset": "slow",
+    "maxrate": "30M"
+  }
+}

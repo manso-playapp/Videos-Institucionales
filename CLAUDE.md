@@ -15,7 +15,8 @@ Pablo Benzaquen. Idioma de trabajo: español rioplatense.
 .claude/skills/        skills: video-institucional (propia) + firsttake, business-motion-film, hyperframes (terceros)
 tools/                 render_edl.py · analizar.py · transcribir.py · qc.py · drive.sh · exportar.sh
                        motion.py + motion/ (plantillas HTML/GSAP/Lottie, transiciones GPU) · luts.py
-docs/                  estandar.md (vara de calidad) · edl-schema.md (línea de tiempo) · efectos.md (catálogo)
+                       editor/ (editor de corte en artefacto: el estudio edita en el navegador) → docs/editor.md
+docs/                  estandar.md (vara de calidad) · edl-schema.md (línea de tiempo) · efectos.md (catálogo) · editor.md
 assets/                fonts/ (Inter, Barlow Condensed + las del cliente) · luts/ · transitions/gl/ (214) · js/ (GSAP, Lottie)
 examples/              EDL de ejemplo
 proyectos/<cliente>/   BRIEF.md · planos.md · edl.json · media/ (no versionado) · entregas/ (no versionado)

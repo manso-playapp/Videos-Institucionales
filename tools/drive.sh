@@ -9,6 +9,9 @@
 #   tools/drive.sh pull <ID_o_URL_carpeta> <destino>     descarga la carpeta completa
 #   tools/drive.sh push <archivo_o_carpeta> <ID_o_URL>   sube entregables a una carpeta
 #   tools/drive.sh link <ID_o_URL_carpeta> <archivo>     link compartible de un archivo subido
+#   tools/drive.sh tree <ID_o_URL_carpeta>               lista incluyendo subcarpetas
+#   tools/drive.sh pushto <archivo> <ID_o_URL> <subcarpeta>   sube a una subcarpeta (ej. Final)
+#   tools/drive.sh mv <ID_o_URL> <origen> <destino>      mueve o renombra dentro de la carpeta (ej. a "Versiones descartadas/")
 set -euo pipefail
 
 command -v rclone >/dev/null || { echo "Falta rclone. Ejecutá: bash setup.sh" >&2; exit 1; }
@@ -34,6 +37,10 @@ case "$cmd" in
   push) dest="$(folder_id "$2")"
         if [[ -d "$1" ]]; then rclone copy "$1" drive: --drive-root-folder-id "$dest" --progress --stats-one-line
         else rclone copyto "$1" "drive:$(basename "$1")" --drive-root-folder-id "$dest" --progress --stats-one-line; fi ;;
+  tree) rclone lsl drive: --drive-root-folder-id "$(folder_id "$1")" ;;                      # lista con subcarpetas
+  pushto) rclone copyto "$1" "drive:$3/$(basename "$1")" --drive-root-folder-id "$(folder_id "$2")" \
+            --progress --stats-one-line ;;                                                       # sube a una subcarpeta
+  mv)   rclone moveto "drive:$2" "drive:$3" --drive-root-folder-id "$(folder_id "$1")" ;;       # mueve/renombra dentro de la carpeta
   link) rclone link "drive:$2" --drive-root-folder-id "$(folder_id "$1")" ;;
   *) sed -n '2,12p' "$0"; exit 1 ;;
 esac

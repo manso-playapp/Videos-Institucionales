@@ -1,0 +1,69 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!--
+  CIERRE VECTOR — placa final con el logo armándose pieza por pieza (logo vectorial separado en partes).
+  Una viga de acento cruza el cuadro, las letras suben desde atrás de la viga, los puntos caen al final,
+  la bajada se revela, pasa un brillo y entra la web. Fondo oscuro cálido con una luz que respira. Cuadro completo.
+  params: {
+    "logo": "proyectos/zizi/motion/logo_zizi.json"   {viewBox, base, cuerpo:[d…], puntos:[{d,cx,cy}], bajada:d}
+    "web": "WWW.EJEMPLO.COM.AR", "frase": "línea opcional sobre la web",
+    "acento": "#FDB913", "color": "#ffffff", "fondo": "#0b0a08", "ancho": 880 (px del logo a 1080p), "dur": 5.6
+  }
+-->
+<style>
+  html,body{margin:0;overflow:hidden}
+  #bg{position:absolute;inset:0;background:var(--f)}
+  #glow{position:absolute;inset:-20%;background:radial-gradient(ellipse 42% 38% at 50% 48%,rgba(253,185,19,.16),rgba(253,185,19,.05) 45%,rgba(0,0,0,0) 72%);opacity:0}
+  #vig{position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 50%,rgba(0,0,0,0) 55%,rgba(0,0,0,.55))}
+  #c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  svg{display:block;overflow:visible}
+  #viga{height:calc(4px*var(--k));background:var(--a);transform-origin:left center;margin-top:calc(30px*var(--k));border-radius:2px;flex:none}
+  #f{font-family:Inter;font-weight:300;font-size:calc(34px*var(--k));color:var(--c);letter-spacing:.02em;margin-top:calc(30px*var(--k));overflow:hidden}
+  #w{font-family:Inter;font-weight:500;font-size:calc(25px*var(--k));color:var(--c);letter-spacing:.3em;margin-top:calc(26px*var(--k));white-space:nowrap}
+  #f span,#w span{display:inline-block;white-space:pre}
+</style></head>
+<body><div id="bg"></div><div id="glow"></div><div id="vig"></div>
+<div id="c"><div id="lg"></div><div id="viga"></div><div id="f"><span></span></div><div id="w"></div></div>
+<script src="_base.js"></script>
+<script>
+defineMotion(async (tl, p, env, k) => {
+  const A = p.acento || '#FDB913', C = p.color || '#fff', dur = +(p.dur || 5.6);
+  const R = document.documentElement.style; R.setProperty('--a', A); R.setProperty('--c', C); R.setProperty('--f', p.fondo || '#0b0a08');
+  const L = JSON.parse(await readText(p.logo.startsWith('/') ? p.logo : REPO + p.logo));
+  const [vx, vy, vw, vh] = L.viewBox, W = (p.ancho || 880) * k, NS = 'http://www.w3.org/2000/svg';
+  const mk = (t, a, parent) => { const e = document.createElementNS(NS, t); for (const q in a) e.setAttribute(q, a[q]); if (parent) parent.appendChild(e); return e; };
+  const svg = mk('svg', { viewBox: L.viewBox.join(' '), width: W, height: W * vh / vw }); document.getElementById('lg').appendChild(svg);
+  const defs = mk('defs', {}, svg);
+  mk('rect', { x: vx - 20, y: vy - 40, width: vw + 40, height: L.base - vy + 40 }, mk('clipPath', { id: 'sobre' }, defs));   // lo que está por encima de la base
+  const clipLogo = mk('clipPath', { id: 'forma' }, defs);
+  const gr = mk('linearGradient', { id: 'brillo', x1: 0, x2: 1, y1: 0, y2: 0.35 }, defs);
+  [[0, 0], [0.5, 0.75], [1, 0]].forEach(([o, a]) => mk('stop', { offset: o, 'stop-color': '#fff', 'stop-opacity': a }, gr));
+  const gC = mk('g', { 'clip-path': 'url(#sobre)' }, svg);
+  const cuerpo = L.cuerpo.map(d => { mk('path', { d }, clipLogo); return mk('path', { d, fill: A, 'fill-rule': 'evenodd' }, gC); });
+  const puntos = L.puntos.map(o => { mk('path', { d: o.d }, clipLogo); return mk('path', { d: o.d, fill: A, 'fill-rule': 'evenodd' }, mk('g', {}, svg)); });
+  const baj = mk('path', { d: L.bajada, fill: C }, svg);
+  const cb = mk('rect', { x: vx, y: L.bajada_y[0] - 3, width: 0, height: L.bajada_y[1] - L.bajada_y[0] + 6 }, mk('clipPath', { id: 'cb' }, defs)); baj.setAttribute('clip-path', 'url(#cb)');
+  const sheen = mk('rect', { x: vx - 90, y: vy, width: 70, height: vh, fill: 'url(#brillo)' }, mk('g', { 'clip-path': 'url(#forma)' }, svg));
+  const viga = document.getElementById('viga'); viga.style.width = env.width + 'px';
+  const f = document.querySelector('#f span'), w = document.getElementById('w');
+  f.textContent = p.frase || ''; if (!p.frase) document.getElementById('f').style.display = 'none';
+  w.innerHTML = [...String(p.web || '')].map(ch => `<span>${ch}</span>`).join(''); if (!p.web) w.style.display = 'none';
+  const alto = L.base - vy + 6;
+
+  tl.to('#glow', { opacity: 1, duration: 2.2, ease: 'power2.out' }, 0)
+    .fromTo('#glow', { scale: 0.86 }, { scale: 1.08, duration: dur, ease: 'none' }, 0)
+    .fromTo('#c', { scale: 0.965 }, { scale: 1.02, duration: dur, ease: 'none' }, 0)
+    .from(viga, { scaleX: 0, duration: 0.9, ease: 'casaInOut' }, 0.05)                                   // la viga cruza el cuadro
+    .from(cuerpo, { y: alto, duration: 0.95, ease: 'casa', stagger: 0.1 }, 0.45);                        // las letras suben desde atrás de la viga
+  puntos.forEach((el, i) => {                                                                            // los puntos caen al final, con un rebote corto
+    tl.fromTo(el.parentNode, { attr: { transform: 'translate(0,-46)' }, opacity: 0 }, { attr: { transform: 'translate(0,0)' }, opacity: 1, duration: 0.5, ease: 'power2.in' }, 1.25 + i * 0.16)
+      .fromTo(el, { scaleY: 0.72, scaleX: 1.18, svgOrigin: `${L.puntos[i].cx} ${L.puntos[i].cy + 9}` }, { scaleY: 1, scaleX: 1, duration: 0.5, ease: 'elastic.out(1,0.55)', immediateRender: false }, 1.75 + i * 0.16);
+  });
+  tl.to(viga, { width: W * 0.2, duration: 0.9, ease: 'casaInOut' }, 1.55)  // la viga se recoge en una línea corta
+    .to(cb, { attr: { width: vw }, duration: 0.9, ease: 'casaInOut' }, 1.75)                              // se escribe la bajada
+    .to(sheen, { attr: { x: vx + vw + 30 }, duration: 1.1, ease: 'power2.inOut' }, 2.55);                 // brillo sobre el logo
+  if (p.frase) tl.from(f, { yPercent: 115, duration: 0.7, ease: 'casa' }, 2.3);
+  if (p.web) tl.from(w.children, { opacity: 0, y: 10 * k, duration: 0.5, ease: 'power2.out', stagger: 0.018 }, 2.6);
+  return dur;
+});
+</script></body></html>

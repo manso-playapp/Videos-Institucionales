@@ -1,0 +1,66 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!--
+  FRASE — una frase de la pieza compuesta tipográficamente (no es zócalo ni volanta+título): cada línea
+  tiene su propio tamaño, peso y familia, y la palabra clave manda. Las líneas se revelan cuando se dicen.
+  params: {
+    "lineas": [
+      {"texto": "Cada proyecto tiene un", "size": 52, "fuente": "texto", "peso": 300, "t": 0},
+      {"texto": "comienzo", "size": 230, "fuente": "display", "peso": 700, "mayus": true, "punto": true, "t": 1.6}
+    ],                      size en px a 1080p · fuente: "display" (Barlow Condensed) | "texto" (Inter)
+                            color: "acento" o un hex · punto: agrega un punto final en el color de acento
+    "align": "left"|"center", "x": 150, "y": 540 (centro vertical del bloque, px a 1080p),
+    "acento": "#FDB913", "color": "#ffffff", "velo": true (degradé suave detrás, para fondos claros), "dur": 4
+  }
+-->
+<style>
+  html,body{margin:0;overflow:hidden;background:transparent}
+  #velo{position:absolute;inset:0;opacity:0}
+  #g{position:absolute;color:var(--c);display:flex;flex-direction:column}
+  .ln{overflow:hidden;white-space:nowrap;padding:.04em .12em .1em 0;margin-bottom:-.06em}
+  .ln.display{font-family:'Barlow Condensed';line-height:.86;letter-spacing:-.005em;
+     text-shadow:0 calc(4px*var(--k)) calc(26px*var(--k)) rgba(0,0,0,.42)}
+  .ln.texto{font-family:Inter;line-height:1.18;letter-spacing:.005em;
+     text-shadow:0 calc(2px*var(--k)) calc(14px*var(--k)) rgba(0,0,0,.55)}
+  .w{display:inline-block;white-space:pre}
+  .pt{color:var(--a)}
+</style></head>
+<body><div id="velo"></div><div id="g"></div>
+<script src="_base.js"></script>
+<script>
+defineMotion(async (tl, p, env, k) => {
+  const g = document.getElementById('g'), velo = document.getElementById('velo');
+  const dur = +(p.dur || 4), center = (p.align || 'left') === 'center';
+  document.documentElement.style.setProperty('--c', p.color || '#fff');
+  document.documentElement.style.setProperty('--a', p.acento || '#FDB913');
+  const lines = (p.lineas || []).map((l, i) => {
+    const d = document.createElement('div'); d.className = 'ln ' + (l.fuente === 'texto' ? 'texto' : 'display');
+    d.style.fontSize = (l.size || 120) * k + 'px'; d.style.fontWeight = l.peso || (l.fuente === 'texto' ? 300 : 700);
+    if (l.mayus) d.style.textTransform = 'uppercase';
+    if (l.color) d.style.color = l.color === 'acento' ? 'var(--a)' : l.color;
+    if (l.espaciado != null) d.style.letterSpacing = l.espaciado + 'em';
+    const words = String(l.texto).split(' ');
+    d.innerHTML = words.map((w, j) => `<span class="w">${w.replace(/&/g, '&amp;').replace(/</g, '&lt;')}${j < words.length - 1 ? ' ' : ''}</span>`).join('') +
+                  (l.punto ? '<span class="w pt">.</span>' : '');
+    g.appendChild(d); return { el: d, t: l.t != null ? +l.t : i * 0.22 };
+  });
+  g.style.alignItems = center ? 'center' : 'flex-start';
+  if (center) { g.style.left = '0'; g.style.width = env.width + 'px'; lines.forEach(l => l.el.style.paddingRight = '0'); }
+  else g.style.left = (p.x ?? 150) * k + 'px';
+  g.style.top = ((p.y ?? 540) * k - g.offsetHeight / 2) + 'px';
+  velo.style.background = center
+    ? 'radial-gradient(ellipse 75% 42% at 50% ' + ((p.y ?? 540) / 10.8 * (1080 * k / env.height)) + '%, rgba(0,0,0,.42), rgba(0,0,0,0) 70%)'
+    : 'linear-gradient(to right, rgba(0,0,0,.50) 0%, rgba(0,0,0,.24) 36%, rgba(0,0,0,0) 64%)';
+  if (p.velo === false) velo.style.display = 'none';
+
+  tl.to(velo, { opacity: 1, duration: 0.7, ease: 'power2.out' }, 0);
+  lines.forEach(l => {
+    const ws = l.el.querySelectorAll('.w');
+    tl.from(ws, { yPercent: 112, duration: 0.75, ease: 'casa', stagger: 0.06 }, Math.max(l.t, 0));
+  });
+  const out = 0.5;
+  tl.to(lines.map(l => l.el), { opacity: 0, y: -14 * k, duration: out, ease: 'power2.in', stagger: 0.04 }, dur - out - 0.12)
+    .to(velo, { opacity: 0, duration: 0.5, ease: 'power2.in' }, dur - 0.55);
+  return dur;
+});
+</script></body></html>
