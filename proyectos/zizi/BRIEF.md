@@ -82,3 +82,8 @@ Javier mandó una mezcla nueva (`media/audio/mezcla_javier_v2.wav`, música ~2 d
 (misma imagen) y se continuó la cola de música igual que antes. Vigentes en Drive, carpeta `Final`:
 `ZIZI_Institucional_Emocional_1080p_v4.mp4` y `ZIZI_Institucional_Dinamica_1080p_v2.mp4`. Lo anterior va a `Versiones descartadas`.
 `tools/drive.sh` ahora tiene `tree`, `pushto` (subir a subcarpeta) y `mv` (mover dentro de la carpeta).
+
+## Estado al 27-11 (tarde): entregado
+En Drive `Final`: Emocional 1080p v4 y Dinámica 1080p v2 (16:9) + Emocional y Dinámica Vertical 1080x1920 v1 (9:16, sin subtítulos: al estudio no le gustaron; se reactivan con `ZIZI_SUBS=1`).
+Vertical: foco de recorte por toma en `FOCO` y planos de dos personas sobre fondo desenfocado (`BLUR`) en `build_edl.py`.
+Pendiente si lo piden: pantalla LED (falta la resolución), short < 60 s, master 4K.
