@@ -1703,12 +1703,5 @@
     "crf": 16,
     "preset": "slow",
     "maxrate": "30M"
-  },
-  "subtitles": {
-    "src": "media/audio/vo_carlos_c.srt",
-    "offset": 0.0,
-    "style": "subtitulo",
-    "size": 25,
-    "y": 800
   }
 }
